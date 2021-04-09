@@ -1,26 +1,90 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import './App.scss'
+import HierarchicalSideIndexMenu, {
+    MenuNode,
+} from './components/HierarchicalSideIndexMenu'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const root: MenuNode[] = [
+        {
+            title: 'my sprint',
+            sub: [
+                {
+                    title: '- overview',
+                    linkTo: '/sprint/overview',
+                },
+                {
+                    title: '- dashboard',
+                    linkTo: '/sprint/dashboard',
+                },
+                {
+                    title: '- daliy check',
+                    linkTo: '/sprint/daliy',
+                },
+            ],
+        },
+        {
+            title: 'my component',
+            sub: [
+                {
+                    title: '- kanban',
+                    linkTo: '/component/kanban',
+                },
+                {
+                    title: '- datagrid',
+                    linkTo: '/component/datagrid',
+                },
+            ],
+        },
+        {
+            title: 'my career',
+            sub: [
+                {
+                    title: '- resume',
+                    linkTo: '/career/resume',
+                },
+            ],
+        },
+    ]
+    const ttttt = () => {
+        return (
+            <div>
+                asd;lfkjasdl;kfja;sldkfja;lskdfj;asldkfja;lsdkfja;sldkfja;sldkfj;alkdjs
+            </div>
+        )
+    }
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <HierarchicalSideIndexMenu indexTreeRoot={root} />
+                <Switch>
+                    <Route exact path="/">
+                        <Redirect to="/sprint" />
+                    </Route>
+                    <Route exact path="/sprint">
+                        <Redirect to="/sprint/overview" />
+                    </Route>
+                    <Route path="/sprint/overview" component={ttttt} />
+                    <Route path="/sprint/dashboard" component={ttttt} />
+                    <Route path="/sprint/daliy" component={ttttt} />
+                    <Route exact path="/component">
+                        <Redirect to="/component/kanban" />
+                    </Route>
+                    <Route path="/component/kanban" component={ttttt} />
+                    <Route path="/component/dashboard" component={ttttt} />
+                    <Route exact path="/career">
+                        <Redirect to="/career/resume" />
+                    </Route>
+                    <Route path="/career/resume" component={ttttt} />
+                    {/* Not Found */}
+                    <Route>
+                        <Redirect to="/" />
+                    </Route>
+                </Switch>
+            </BrowserRouter>
+        </div>
+    )
 }
 
-export default App;
+export default App
