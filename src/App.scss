@@ -3,8 +3,12 @@ body,
 #root,
 .App {
     height: 100%;
+    overflow: hidden;
 }
 .App {
     display: flex;
     text-align: center;
+    #content {
+        overflow: scroll;
+    }
 }

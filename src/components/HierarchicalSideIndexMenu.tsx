@@ -3,6 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import './HierarchicalSideIndexMenu.scss'
 
 export interface HierarchicalSideIndexMenuProps {
+    header?: () => JSX.Element
     indexTreeRoot: MenuNode[]
 }
 
@@ -40,6 +41,7 @@ function HierarchicalSideIndexMenu(props: HierarchicalSideIndexMenuProps) {
 
     return (
         <div id="HierarchicalSideIndexMenu">
+            {props.header && <div className="header">{props.header()}</div>}
             {createMenu(props.indexTreeRoot)}
         </div>
     )

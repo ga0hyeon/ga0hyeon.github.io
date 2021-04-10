@@ -1,4 +1,17 @@
 #HierarchicalSideIndexMenu {
     height: 100%;
-    background-color: aqua;
+    background-color: blanchedalmond;
+    width: 240px;
+    padding-top: 320px;
+    .header {
+        margin-bottom: 30px;
+        img {
+            width: 50%;
+            border-radius: 50%;
+            border: white 5px solid;
+        }
+        div {
+            margin-top: 10px;
+        }
+    }
 }
