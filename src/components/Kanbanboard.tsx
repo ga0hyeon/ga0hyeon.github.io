@@ -1,23 +1,26 @@
 import moment from 'moment'
 import React from 'react'
-import { currentSprint } from '../data'
+import { useRecoilValue } from 'recoil'
+import { sprintState } from '../data'
 import './Kanbanboard.scss'
 import KanbanboardStep from './KanbanboardStep'
 
 const Kanbanboard: React.FC = () => {
+    const sprint = useRecoilValue(sprintState)
+
     return (
         <div id="Kanbanboard">
-            <div className="title">{currentSprint.sprintName}</div>
+            <div className="title">{sprint.sprintName}</div>
             <div className="date-range-wrapper">
                 <div className="date-range-text">
-                    {`${moment(currentSprint.startDate).format(
+                    {`${moment(sprint.startDate).format(
                         'YYYY.MM.DD'
-                    )} ~ ${moment(currentSprint.endDate).format('YYYY.MM.DD')}`}
+                    )} ~ ${moment(sprint.endDate).format('YYYY.MM.DD')}`}
                 </div>
             </div>
             <div className="step-wrapper">
-                {currentSprint.stepList.map((step) => {
-                    return <KanbanboardStep {...step} />
+                {sprint.stepList.map((step) => {
+                    return <KanbanboardStep key={step.stepTitle} {...step} />
                 })}
             </div>
         </div>

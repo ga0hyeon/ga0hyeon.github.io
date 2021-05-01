@@ -1,23 +1,66 @@
 import React from 'react'
-import { Step } from '../data'
+import { useRecoilState } from 'recoil'
+import { Sprint, sprintState, Step, Task } from '../data'
 import './KanbanboardStep.scss'
-
-import doubleArrowDown from '../resource/icons/double_arrow_down.svg'
-import doubleArroweUp from '../resource/icons/double_arrow_down.svg'
-import arrowDown from '../resource/icons/arrow_down.svg'
-import arrowUp from '../resource/icons/arrow_up.svg'
-import dash from '../resource/icons/single_dash.svg'
+import KanbanboardTaskCard from './KanbanboardTaskCard'
 
 const KanbanboardStep: React.FC<Step> = (props: Step) => {
-    const priorityIconList = [
-        doubleArroweUp,
-        arrowUp,
-        dash,
-        arrowDown,
-        doubleArrowDown,
-    ]
+    const [sprint, setSprint] = useRecoilState(sprintState)
+
+    const moveTaskToStep = (
+        taskId: number,
+        prevStepId: number,
+        nextStepId: number
+    ) => {
+        setSprint((oldSprint: Sprint) => {
+            let stepList: Step[] = JSON.parse(
+                JSON.stringify(oldSprint.stepList)
+            )
+            const taskIndexInPrevStep = stepList[prevStepId].taskList.findIndex(
+                (task) => {
+                    return task.taskId === +taskId
+                }
+            )
+
+            if (taskIndexInPrevStep > -1) {
+                const task = stepList[prevStepId].taskList[taskIndexInPrevStep]
+
+                //remove task from prev step
+                stepList[prevStepId].taskList.splice(taskIndexInPrevStep, 1)
+
+                //add task to next step
+                stepList[nextStepId].taskList.push({
+                    ...task,
+                    stepId: nextStepId,
+                })
+
+                stepList[nextStepId].taskList = stepList[
+                    nextStepId
+                ].taskList.sort((a: Task, b: Task) => {
+                    return b.priority - a.priority
+                })
+            }
+
+            return { ...oldSprint, stepList: stepList }
+        })
+    }
+
+    const handleDrop = (e: any) => {
+        e.preventDefault()
+        const taskId = e.dataTransfer.getData('taskId')
+        const prevStepId = e.dataTransfer.getData('prevStepId')
+        moveTaskToStep(taskId, prevStepId, props.stepId)
+    }
+    const handleDragover = (e: any) => {
+        e.preventDefault()
+    }
+
     return (
-        <div id="KanbanboardStep">
+        <div
+            id="KanbanboardStep"
+            onDrop={handleDrop}
+            onDragOver={handleDragover}
+        >
             <div
                 className="step-title"
                 style={{ backgroundColor: props.stepColor }}
@@ -26,21 +69,7 @@ const KanbanboardStep: React.FC<Step> = (props: Step) => {
             </div>
             <div className="task-wrapper">
                 {props.taskList.map((task) => {
-                    return (
-                        <div id="KanbanboardTaskCard">
-                            <div className="task-title">{task.taskTitle}</div>
-                            <div className="task-desc">{task.taskDesc}</div>
-                            <div className="task-priority">
-                                <img
-                                    src={priorityIconList[task.priority]}
-                                    alt={`task_priority_${task.priority}`}
-                                />
-                            </div>
-                            <div className="task-difficulty">
-                                {task.diffuculty}
-                            </div>
-                        </div>
-                    )
+                    return <KanbanboardTaskCard key={task.taskId} {...task} />
                 })}
             </div>
         </div>

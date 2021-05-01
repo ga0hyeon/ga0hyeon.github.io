@@ -33,6 +33,7 @@ const SideDrawer: React.FC<SideDrawerI> = (props: SideDrawerI) => {
                 {props.drawerList.map((drawer, index) => {
                     return (
                         <div
+                            key={drawer.drawerTitle}
                             className={
                                 activeDrawerIndex === index
                                     ? 'active handle'

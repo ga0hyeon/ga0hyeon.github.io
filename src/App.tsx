@@ -1,12 +1,16 @@
 import React from 'react'
+import { RecoilRoot } from 'recoil'
 import './App.scss'
+
 import MainPage from './pages/MainPage'
 
 const App: React.FC = () => {
     return (
-        <div className="App">
-            <MainPage />
-        </div>
+        <RecoilRoot>
+            <div className="App">
+                <MainPage />
+            </div>
+        </RecoilRoot>
     )
 }
 

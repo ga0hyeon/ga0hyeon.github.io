@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { atom } from 'recoil'
 
 export interface Sprint {
     sprintId: number
@@ -10,6 +11,7 @@ export interface Sprint {
 }
 
 export interface Step {
+    stepId: number
     stepTitle: string
     stepColor: string
     taskList: Task[]
@@ -17,6 +19,7 @@ export interface Step {
 
 export interface Task {
     sprintId: number
+    stepId: number
     taskId: number
     priority: number //1, 2, 3, 4, 5 / default 3
     taskTitle: string
@@ -36,11 +39,13 @@ export const currentSprint: Sprint = {
 
     stepList: [
         {
+            stepId: 0,
             stepTitle: 'Todo',
             stepColor: 'rgb(64, 64, 64)',
             taskList: [
                 {
                     sprintId: 4,
+                    stepId: 0,
                     taskId: 0,
                     priority: 3,
                     taskTitle: 'TDC 인강보기',
@@ -54,11 +59,13 @@ export const currentSprint: Sprint = {
             ],
         },
         {
+            stepId: 1,
             stepTitle: 'Doing',
             stepColor: 'rgb(52, 152, 219)',
             taskList: [
                 {
                     sprintId: 4,
+                    stepId: 1,
                     taskId: 1,
                     priority: 0,
                     taskTitle: 'TDC 인강보기',
@@ -72,7 +79,8 @@ export const currentSprint: Sprint = {
                 },
                 {
                     sprintId: 4,
-                    taskId: 1,
+                    stepId: 1,
+                    taskId: 2,
                     priority: 4,
                     taskTitle: 'TDC 인강보기',
                     taskDesc:
@@ -85,7 +93,8 @@ export const currentSprint: Sprint = {
                 },
                 {
                     sprintId: 4,
-                    taskId: 1,
+                    stepId: 1,
+                    taskId: 3,
                     priority: 3,
                     taskTitle: 'TDC 인강보기',
                     taskDesc:
@@ -98,7 +107,8 @@ export const currentSprint: Sprint = {
                 },
                 {
                     sprintId: 4,
-                    taskId: 1,
+                    stepId: 1,
+                    taskId: 4,
                     priority: 2,
                     taskTitle: 'TDC 인강보기',
                     taskDesc:
@@ -111,7 +121,8 @@ export const currentSprint: Sprint = {
                 },
                 {
                     sprintId: 4,
-                    taskId: 1,
+                    stepId: 1,
+                    taskId: 5,
                     priority: 1,
                     taskTitle: 'TDC 인강보기',
                     taskDesc:
@@ -125,14 +136,21 @@ export const currentSprint: Sprint = {
             ],
         },
         {
+            stepId: 2,
             stepTitle: 'Done',
             stepColor: 'rgb(39, 174, 96)',
             taskList: [],
         },
         {
+            stepId: 3,
             stepTitle: 'blocked',
             stepColor: 'rgb(231, 76, 60)',
             taskList: [],
         },
     ],
 }
+
+export const sprintState = atom({
+    key: 'sprintState',
+    default: currentSprint,
+})
