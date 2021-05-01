@@ -1,0 +1,44 @@
+#SideDrawer {
+    height: 100%;
+    display: flex;
+    .content-wrapper {
+        height: 100%;
+        width: 240px;
+    }
+    .handle-wrapper {
+        margin-right: -98px;
+        .handle {
+            cursor: pointer;
+
+            -ms-transform: rotate(90deg); /* IE 9 */
+            -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+            transform: rotate(90deg);
+
+            width: 135px;
+            text-align: center;
+            font-weight: 600;
+
+            position: relative;
+            top: 150px;
+
+            padding: 8px 12px;
+            margin-left: -61px;
+            border-radius: 5px 5px 0px 0px;
+            color: white;
+
+            & + .handle {
+                margin-top: 128px;
+            }
+
+            &:not(.active) {
+                background-color: rgb(190, 190, 190) !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    #SideDrawer {
+        display: none;
+    }
+}
