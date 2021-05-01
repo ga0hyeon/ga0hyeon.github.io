@@ -2,19 +2,19 @@ import React from 'react'
 import { Step } from '../data'
 import './KanbanboardStep.scss'
 
-import arrowDoubleDown from '../resource/icons/angle-double-down.svg'
-import arrowDoubleUp from '../resource/icons/angle-double-up.svg'
-import arrowDown from '../resource/icons/angle-down.svg'
-import arrowUp from '../resource/icons/angle-up.svg'
-import dash from '../resource/icons/window-minimize.svg'
+import doubleArrowDown from '../resource/icons/double_arrow_down.svg'
+import doubleArroweUp from '../resource/icons/double_arrow_down.svg'
+import arrowDown from '../resource/icons/arrow_down.svg'
+import arrowUp from '../resource/icons/arrow_up.svg'
+import dash from '../resource/icons/single_dash.svg'
 
 const KanbanboardStep: React.FC<Step> = (props: Step) => {
     const priorityIconList = [
-        arrowDoubleUp,
+        doubleArroweUp,
         arrowUp,
         dash,
         arrowDown,
-        arrowDoubleDown,
+        doubleArrowDown,
     ]
     return (
         <div id="KanbanboardStep">

@@ -8,7 +8,7 @@ const Kanbanboard: React.FC = () => {
     return (
         <div id="Kanbanboard">
             <div className="title">{currentSprint.sprintName}</div>
-            <div className="date-range-background">
+            <div className="date-range-wrapper">
                 <div className="date-range-text">
                     {`${moment(currentSprint.startDate).format(
                         'YYYY.MM.DD'

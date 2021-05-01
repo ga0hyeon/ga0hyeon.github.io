@@ -1,13 +1,18 @@
 #Kanbanboard {
     width: 100%;
-    padding: 40px 100px;
+    padding: 30px 100px 40px 120px;
     .title {
         margin-top: 100px;
         font-size: 36px;
         font-weight: 600;
+        &::after {
+            content: '🏃🏻‍♀️';
+            margin-left: 8px;
+        }
     }
-    .date-range-background {
+    .date-range-wrapper {
         margin-top: 8px;
+        display: flex;
         .date-range-text {
             font-size: 18px;
         }
