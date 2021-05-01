@@ -1,7 +1,7 @@
 import React from 'react'
 import './KanbanboardTaskCard.scss'
 import doubleArrowDown from '../resource/icons/double_arrow_down.svg'
-import doubleArroweUp from '../resource/icons/double_arrow_down.svg'
+import doubleArrowUp from '../resource/icons/double_arrow_up.svg'
 import arrowDown from '../resource/icons/arrow_down.svg'
 import arrowUp from '../resource/icons/arrow_up.svg'
 import dash from '../resource/icons/single_dash.svg'
@@ -12,7 +12,7 @@ const KanbanboardTaskCard: React.FC<Task> = (props: Task) => {
         arrowDown,
         dash,
         arrowUp,
-        doubleArroweUp,
+        doubleArrowUp,
     ]
     const handleDragStart = (e: any) => {
         e.dataTransfer.setData('prevStepId', props.stepId)
