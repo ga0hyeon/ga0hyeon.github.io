@@ -1,12 +1,12 @@
 import moment from 'moment'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
-import { sprintState } from '../data'
+import { currentSprintState } from '../data'
 import './Kanbanboard.scss'
 import KanbanboardStep from './KanbanboardStep'
 
 const Kanbanboard: React.FC = () => {
-    const sprint = useRecoilValue(sprintState)
+    const sprint = useRecoilValue(currentSprintState)
 
     return (
         <div id="Kanbanboard">

@@ -5,11 +5,11 @@ import doubleArrowUp from '../resource/icons/double_arrow_up.svg'
 import arrowDown from '../resource/icons/arrow_down.svg'
 import arrowUp from '../resource/icons/arrow_up.svg'
 import dash from '../resource/icons/single_dash.svg'
-import { Sprint, sprintState, Step, Task } from '../data'
+import { Sprint, currentSprintState, Step, Task } from '../data'
 import KanbanboardTaskModifyModal from './KanbanboardTaskModifyModal'
 import { useRecoilState } from 'recoil'
 const KanbanboardTaskCard: React.FC<Task> = (props: Task) => {
-    const [sprint, setSprint] = useRecoilState(sprintState)
+    const [sprint, setSprint] = useRecoilState(currentSprintState)
     const [showModifyModal, setShowModifyModal] = useState<boolean>(false)
     const priorityIconList = [
         doubleArrowDown,
@@ -19,7 +19,7 @@ const KanbanboardTaskCard: React.FC<Task> = (props: Task) => {
         doubleArrowUp,
     ]
     const handleDragStart = (e: any) => {
-        e.dataTransfer.setData('prevStepId', props.stepId)
+        e.dataTransfer.setData('prevStepIndex', props.stepIndex)
         e.dataTransfer.setData('taskId', props.taskId)
     }
     const handleDoubleClick = (e: any) => {
@@ -35,7 +35,7 @@ const KanbanboardTaskCard: React.FC<Task> = (props: Task) => {
                 JSON.stringify(oldSprint.stepList)
             )
 
-            const taskIndex = stepList[newTask.stepId].taskList.findIndex(
+            const taskIndex = stepList[newTask.stepIndex].taskList.findIndex(
                 (task) => {
                     return task.taskId === newTask.taskId
                 }
@@ -43,11 +43,11 @@ const KanbanboardTaskCard: React.FC<Task> = (props: Task) => {
 
             if (taskIndex > -1) {
                 //exchange old task to new task
-                stepList[newTask.stepId].taskList[taskIndex] = newTask
+                stepList[newTask.stepIndex].taskList[taskIndex] = newTask
 
                 //reorder task list
-                stepList[newTask.stepId].taskList = stepList[
-                    newTask.stepId
+                stepList[newTask.stepIndex].taskList = stepList[
+                    newTask.stepIndex
                 ].taskList.sort((a: Task, b: Task) => {
                     return b.priority - a.priority
                 })

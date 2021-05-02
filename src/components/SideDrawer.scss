@@ -1,9 +1,21 @@
 #SideDrawer {
     height: 100%;
     display: flex;
+
     .content-wrapper {
         height: 100%;
         width: 240px;
+        padding: 20px;
+        .drawer-content-title {
+            margin-top: 20px;
+            color: white;
+            font-weight: 600;
+            font-size: 24px;
+        }
+        .drawer-content-detail {
+            height: calc(100vh - 100px);
+            overflow-y: scroll;
+        }
     }
     .handle-wrapper {
         margin-right: -98px;
@@ -28,6 +40,10 @@
 
             & + .handle {
                 margin-top: 128px;
+            }
+
+            &.active {
+                color: transparent;
             }
 
             &:not(.active) {

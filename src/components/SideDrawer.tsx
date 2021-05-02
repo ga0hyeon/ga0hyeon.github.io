@@ -26,7 +26,12 @@ const SideDrawer: React.FC<SideDrawerI> = (props: SideDrawerI) => {
                         props.drawerList[activeDrawerIndex].drawerColor,
                 }}
             >
-                {props.drawerList[activeDrawerIndex].drawerContent}
+                <div className="drawer-content-title">
+                    {props.drawerList[activeDrawerIndex].drawerTitle}
+                </div>
+                <div className="drawer-content-detail">
+                    {props.drawerList[activeDrawerIndex].drawerContent}
+                </div>
             </div>
 
             <div className="handle-wrapper">

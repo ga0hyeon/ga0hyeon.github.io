@@ -1,41 +1,42 @@
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { Sprint, sprintState, Step, Task } from '../data'
+import { Sprint, currentSprintState, Step, Task } from '../data'
 import './KanbanboardStep.scss'
 import KanbanboardTaskCard from './KanbanboardTaskCard'
 
 const KanbanboardStep: React.FC<Step> = (props: Step) => {
-    const [sprint, setSprint] = useRecoilState(sprintState)
+    const [sprint, setSprint] = useRecoilState(currentSprintState)
 
     const moveTaskToStep = (
         taskId: number,
-        prevStepId: number,
-        nextStepId: number
+        prevStepIndex: number,
+        nextStepIndex: number
     ) => {
         setSprint((oldSprint: Sprint) => {
             let stepList: Step[] = JSON.parse(
                 JSON.stringify(oldSprint.stepList)
             )
-            const taskIndexInPrevStep = stepList[prevStepId].taskList.findIndex(
-                (task) => {
-                    return task.taskId === +taskId
-                }
-            )
+            const taskIndexInPrevStep = stepList[
+                prevStepIndex
+            ].taskList.findIndex((task) => {
+                return task.taskId === +taskId
+            })
 
             if (taskIndexInPrevStep > -1) {
-                const task = stepList[prevStepId].taskList[taskIndexInPrevStep]
+                const task =
+                    stepList[prevStepIndex].taskList[taskIndexInPrevStep]
 
                 //remove task from prev step
-                stepList[prevStepId].taskList.splice(taskIndexInPrevStep, 1)
+                stepList[prevStepIndex].taskList.splice(taskIndexInPrevStep, 1)
 
                 //add task to next step
-                stepList[nextStepId].taskList.push({
+                stepList[nextStepIndex].taskList.push({
                     ...task,
-                    stepId: nextStepId,
+                    stepIndex: nextStepIndex,
                 })
 
-                stepList[nextStepId].taskList = stepList[
-                    nextStepId
+                stepList[nextStepIndex].taskList = stepList[
+                    nextStepIndex
                 ].taskList.sort((a: Task, b: Task) => {
                     return b.priority - a.priority
                 })
@@ -48,8 +49,8 @@ const KanbanboardStep: React.FC<Step> = (props: Step) => {
     const handleDrop = (e: any) => {
         e.preventDefault()
         const taskId = e.dataTransfer.getData('taskId')
-        const prevStepId = e.dataTransfer.getData('prevStepId')
-        moveTaskToStep(taskId, prevStepId, props.stepId)
+        const prevStepIndex = e.dataTransfer.getData('prevStepIndex')
+        moveTaskToStep(taskId, prevStepIndex, props.stepIndex)
     }
     const handleDragover = (e: any) => {
         e.preventDefault()
