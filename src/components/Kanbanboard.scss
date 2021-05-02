@@ -23,3 +23,17 @@
         height: calc(100vh - 300px);
     }
 }
+
+@media screen and (max-width: 500px) {
+    #Kanbanboard {
+        padding: 0px 24px;
+        .title {
+            margin-top: 80px;
+        }
+        .step-wrapper {
+            display: block;
+            overflow-y: scroll;
+            height: calc(100vh - 220px);
+        }
+    }
+}

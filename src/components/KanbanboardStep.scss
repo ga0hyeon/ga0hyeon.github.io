@@ -20,45 +20,17 @@
         overflow-x: hidden;
     }
     & + #KanbanboardStep {
-        margin-left: 14px;
+        margin: 0px 0px 0px 14px;
     }
 }
 
-#KanbanboardTaskCard {
-    position: relative;
-    background-color: white;
-    box-shadow: 2px 2px 3px rgba($color: black, $alpha: 0.12);
-    margin: 14px;
-    padding: 14px;
-    border-radius: 5px;
-    min-height: 80px;
-    .task-title {
-        font-size: 14px;
-        font-weight: 500;
-    }
-    .task-desc {
-        margin-top: 6px;
-        font-size: 12px;
-        color: rgb(94, 94, 94);
-    }
-    .task-priority {
-        position: absolute;
+@media screen and (max-width: 500px) {
+    #KanbanboardStep {
+        width: 100%;
+        height: auto;
 
-        right: 12px;
-        top: 12px;
-        img {
-            width: 10px;
-            height: 10px;
-            padding: 3px;
-            background-color: rgb(241, 241, 241);
-            border-radius: 5px;
+        & + #KanbanboardStep {
+            margin: 14px 0px 0px 0px;
         }
-    }
-
-    .task-difficulty {
-        position: absolute;
-        font-size: 12px;
-        right: 12px;
-        bottom: 8px;
     }
 }
