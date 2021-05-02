@@ -36,12 +36,3 @@
         bottom: 8px;
     }
 }
-
-@media screen and (max-width: 500px) {
-    #Kanbanboard {
-        padding: 0px 20px;
-        .step-wrapper {
-            display: block;
-        }
-    }
-}
