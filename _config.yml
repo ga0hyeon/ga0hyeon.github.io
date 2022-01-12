@@ -104,3 +104,4 @@ theme: next
 deploy:
   type: git
   repo: https://github.com/ga0hyeon/ga0hyeon.github.io.git
+  branch: gh-pages
