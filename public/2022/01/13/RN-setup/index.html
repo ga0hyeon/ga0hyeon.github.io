@@ -19,25 +19,30 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="재미있어 보이는 것들을 공부합니다. 일기처럼 개발일지를 씁니다.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hyeon&#39;s Dev Blog">
-<meta property="og:url" content="https://ga0hyeon.github.io/index.html">
+<meta name="description" content="React Native설치 Node 12 이상 설치brew install node  Watchman 설치brew install watchman  [iOS&#x2F;필수] Xcode 설치 appStore에서 설치하면 됩니다. (용량이 12기가라 매우 느립니다!)  [iOS&#x2F;선택]Xcode를 실행하여 Command Line Tools도 가장 최신으로 다운로드 하세요.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native 개발환경 세팅하기">
+<meta property="og:url" content="https://ga0hyeon.github.io/2022/01/13/RN-setup/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
-<meta property="og:description" content="재미있어 보이는 것들을 공부합니다. 일기처럼 개발일지를 씁니다.">
+<meta property="og:description" content="React Native설치 Node 12 이상 설치brew install node  Watchman 설치brew install watchman  [iOS&#x2F;필수] Xcode 설치 appStore에서 설치하면 됩니다. (용량이 12기가라 매우 느립니다!)  [iOS&#x2F;선택]Xcode를 실행하여 Command Line Tools도 가장 최신으로 다운로드 하세요.">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://reactnative.dev/assets/images/GettingStartedXcodeCommandLineTools-8259be8d3ab8575bec2b71988163c850.png">
+<meta property="article:published_time" content="2022-01-13T04:28:41.000Z">
+<meta property="article:modified_time" content="2022-01-13T04:31:26.387Z">
 <meta property="article:author" content="Gayoung Hyeon">
+<meta property="article:tag" content="React Native">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://reactnative.dev/assets/images/GettingStartedXcodeCommandLineTools-8259be8d3ab8575bec2b71988163c850.png">
 
 
-<link rel="canonical" href="https://ga0hyeon.github.io/">
+<link rel="canonical" href="https://ga0hyeon.github.io/2022/01/13/RN-setup/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"ko","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/01/13/RN-setup/","path":"2022/01/13/RN-setup/","title":"React Native 개발환경 세팅하기"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Hyeon's Dev Blog</title>
+<title>React Native 개발환경 세팅하기 | Hyeon's Dev Blog</title>
   
 
 
@@ -78,7 +83,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Hyeon's Dev Blog</h1>
+      <p class="site-title">Hyeon's Dev Blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -142,7 +147,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           목차
@@ -155,6 +160,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-Native"><span class="nav-number">1.</span> <span class="nav-text">React Native</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%84%A4%EC%B9%98"><span class="nav-number">1.1.</span> <span class="nav-text">설치</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Initialize-amp-Launch-Project"><span class="nav-number">1.2.</span> <span class="nav-text">Initialize &amp; Launch Project</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Initialize"><span class="nav-number">1.2.1.</span> <span class="nav-text">Initialize</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Launch"><span class="nav-number">1.2.2.</span> <span class="nav-text">Launch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Trouble-Shooting"><span class="nav-number">1.3.</span> <span class="nav-text">Trouble Shooting</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -217,16 +223,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
     <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/01/13/RN-setup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -240,9 +247,9 @@
       <meta itemprop="name" content="Hyeon's Dev Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/13/RN-setup/" class="post-title-link" itemprop="url">React Native 개발환경 세팅하기</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          React Native 개발환경 세팅하기
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -275,7 +282,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h1><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><ol>
+        <h1 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h1><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><ol>
 <li><p>Node 12 이상 설치<br><code>brew install node</code></p>
 </li>
 <li><p>Watchman 설치<br><code>brew install watchman</code></p>
@@ -332,151 +339,30 @@
 <p><code>sudo xcodebuild -license</code> 또는 Xcode 실행하여 약관 동의</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo xcodebuild -license  <span class="comment">## 또는 Xcode 실행하여 약관 동의</span></span><br></pre></td></tr></table></figure>
 
-      
     </div>
 
     
     
     
+      
+
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+          <div class="post-tags">
+              <a href="/tags/React-Native/" rel="tag"><i class="fa fa-tag"></i> React Native</a>
+          </div>
 
+        
 
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/01/12/hexo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/12/hexo/" class="post-title-link" itemprop="url">Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2022-01-12 14:24:10" itemprop="dateCreated datePublished" datetime="2022-01-12T14:24:10+09:00">2022-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-01-13 00:02:58" itemprop="dateModified" datetime="2022-01-13T00:02:58+09:00">2022-01-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="개요"><a href="#개요" class="headerlink" title="개요"></a>개요</h1><p>개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 <strong>놀이터</strong> 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.<br>그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 <em>내 웹페이지를 만들어보자</em>는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다.</p>
-<h1 id="요구사항"><a href="#요구사항" class="headerlink" title="요구사항"></a>요구사항</h1><p>고객(나)과 개발자(이것도 나)의 입장에서 여러가지 옵션을 재보았던 내용은 아래와 같다.</p>
-<p><strong>서버 비용은 들이고 싶지 않아요</strong></p>
-<ul>
-<li>처음에는 집에 굴러다니는 라즈베리파이에 올릴까 생각도 했는데 의외로 나도 모르는 사이에 전원을 꺼버리는 일이 잦고, update 하려면 서버에 붙어야한다는 점이 너무 번거로워서 몇 번 해보고 포기했다.</li>
-<li>정적 웹 사이트를 무료로 deploy할 수 있는 github page 를 선택하게 되었다. 나만 안쓰고 있었어…</li>
-</ul>
-<p><strong>웹사이트 구성을 직접 하는 건 어려울 것 같은데?</strong></p>
-<ul>
-<li>이것도 처음에는 내 취지 (<strong>놀이터</strong> 같은 블로그)에 맞게 처음부터 다 구성하려고 했었다. 하지만 막상 손을 대고 보니 고려할 부분이 정말정말 많더라… 검색이나 태그, 카테고리 기능을 추가하려고 하니까 구조를 잡는 것이 너무 부담스럽게 느껴졌다.</li>
-<li>검색 성능이 보장되는 태그나 카테고리를 구성하기 위해서 알고리즘과 자료구조부터 찾아봤고, 서버 비용을 들이더라도 elastic search 를 한 번 써볼까 spike도 해봤는데 ㅠㅠ 공부할 내용이 꽤 되는 것은 둘째치고 재미가 없었다. 그래서 얼마안가 포기.</li>
-</ul>
-<p><strong>정적 웹 사이트 생성기의 도움을 받자</strong></p>
-<ul>
-<li>github page를 사용하기로 정했을 때 Jekyll로 대표되는 정적 웹 사이트 생성기에 대해서 함께 찾아본 적은 있는데, theme가 모두 마음에 들지 않았던 것 같다.</li>
-<li>몇 개월 뒤에 검색 기능 구현에 지쳐서 찬찬히 다시 찾아봤는데, <a target="_blank" rel="noopener" href="https://hexo.io/ko/index.html">Hexo</a> 라는 정적 웹 사이트 생성기에 <a target="_blank" rel="noopener" href="https://theme-next.js.org/">NexT</a> theme이 눈에 들었다.</li>
-</ul>
-<p>Hexo 및 NexT 모두 가이드가 잘 되어있는 편이라, 이틀 정도로 github deploy 까지 완료 가능했다.</p>
-<h1 id="진행내용"><a href="#진행내용" class="headerlink" title="진행내용"></a>진행내용</h1><h2 id="Hexo-프로젝트-생성-및-구동"><a href="#Hexo-프로젝트-생성-및-구동" class="headerlink" title="Hexo 프로젝트 생성 및 구동"></a>Hexo 프로젝트 생성 및 구동</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h2 id="NexT-테마-적용"><a href="#NexT-테마-적용" class="headerlink" title="NexT 테마 적용"></a>NexT 테마 적용</h2><p>프로젝트 root 경로에서</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
-
-<p>그리고 hexo/_config.yml 에서</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="NexT-테마-커스터마이징-기본"><a href="#NexT-테마-커스터마이징-기본" class="headerlink" title="NexT 테마 커스터마이징 (기본)"></a>NexT 테마 커스터마이징 (기본)</h2><p><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">NexT docs</a>를 참고하여 커스터마이징.<br>대부분의 기본 옵션은 _config.next.yml에 명시되어있어서, flag나 값을 바꿔주는 방식으로 쉽게 변경이 가능하다.</p>
-<h2 id="NexT-테마-커스터마이징-고오급"><a href="#NexT-테마-커스터마이징-고오급" class="headerlink" title="NexT 테마 커스터마이징 (고오급)"></a>NexT 테마 커스터마이징 (고오급)</h2><p>style이나 html을 추가하고 싶은 경우, _config.next.yml에서 아래의 항목을 주석 해제하고 해당 경로에 파일을 만들어서 추가하고 싶은 style이나 html을 넣어주면 된다.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">head:</span> <span class="string">source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="attr">variable:</span> <span class="string">source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-
-<p>예를 들어 나는 google AdSense를 추가하고 싶었는데, html head 태그 안에 script를 넣을 방법이 필요했다.<br>그럴때 위 의 custom_file_path 에서 head 항목을 주석 해제하고 해당 경로에 head.njk 파일을 만들어준 다음 아래와 같이 입력해주면</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;google-site-verification&quot;</span> <span class="attr">content</span>=<span class="string">&quot;some_value&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">async</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=some_value&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>hexo generate</code>명령어 수행 시 위의 html 코드가 head 하단에 삽입된다.</p>
-<p>또, style 커스터마이징도 동일한 방법으로 가능하다.<br>custom_file_path 에서 style 항목을 주석 해제하고 해당 경로에 variables.styl 파일을 만들어준 다음 아래와 같이 입력해주면</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.search-popup</span></span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>hexo generate</code>명령어 수행 시 원하는대로 style이 잘 변경된 것을 확인할 수 있다.</p>
-<p>+) 위의 방법으로 style 커스터마이징을 하면 전반적인 통일성이 깨지므로 theme 사용의 이점이 퇴색될 수 있을 것 같아서 좀 더 찾아봤는데 (.node_modules/hexo-theme-next 에서 직접 열어볼 수 있다. )<br>기본적으로 font family나 size, 대표 color 는 variable로 관리되고 있음을 확인할 수 있었다. 따라서 테마 색상, 폰트 정도만 변경하고자 한다면 variables.styl에 아래와 같이 써주는게 좋겠다.</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$theme</span>-<span class="attribute">color</span> = <span class="number">#FFD460</span>;</span><br><span class="line"><span class="variable">$brand</span>-<span class="attribute">color</span> = <span class="number">#2D4059</span>;</span><br><span class="line"><span class="variable">$text</span>-<span class="attribute">color</span> = <span class="number">#2D4059</span>;</span><br><span class="line"><span class="variable">$font</span>-family-chinese = <span class="string">&#x27;IBM Plex Sans KR&#x27;</span>, sans-serif;</span><br><span class="line"><span class="variable">$font</span>-family-base         = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-logo         = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-headings     = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-posts        = <span class="variable">$font</span>-family-chinese;</span><br></pre></td></tr></table></figure>
-
-<h2 id="github-page-배포"><a href="#github-page-배포" class="headerlink" title="github page 배포"></a>github page 배포</h2><p>_config.yml에 deploy target을 명시한다.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/ga0hyeon/ga0hyeon.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">gh-pages</span></span><br></pre></td></tr></table></figure>
-
-<p>deployer를 설치하고</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
-<p>배포 명령어를 수행하면 끝이다.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>+) github credential 설정이 되어있지 않은 경우 에러 메시지가 발생할 수 있다. 흔한 에러이므로 구글링하면 금방 해결 가능하다.</p>
-<h1 id="그리고-더-해야할일"><a href="#그리고-더-해야할일" class="headerlink" title="그리고 더 해야할일"></a>그리고 더 해야할일</h1><ul>
-<li><input disabled="" type="checkbox"> github actions로 배포 자동화하기</li>
-<li><input disabled="" type="checkbox"> 사이드바에 category tree가 보이게 하고싶다!</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/12/hexo/" rel="prev" title="Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기">
+                  <i class="fa fa-chevron-left"></i> Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -485,6 +371,8 @@
 
 
 
+
+    <div class="comments utterances-container"></div>
 </div>
   </main>
 

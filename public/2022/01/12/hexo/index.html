@@ -19,25 +19,29 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="재미있어 보이는 것들을 공부합니다. 일기처럼 개발일지를 씁니다.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hyeon&#39;s Dev Blog">
-<meta property="og:url" content="https://ga0hyeon.github.io/index.html">
+<meta name="description" content="개요개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 놀이터 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 내 웹페이지를 만들어보자는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다. 요구사항고객(나)과 개발자(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기">
+<meta property="og:url" content="https://ga0hyeon.github.io/2022/01/12/hexo/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
-<meta property="og:description" content="재미있어 보이는 것들을 공부합니다. 일기처럼 개발일지를 씁니다.">
+<meta property="og:description" content="개요개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 놀이터 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 내 웹페이지를 만들어보자는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다. 요구사항고객(나)과 개발자(">
 <meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2022-01-12T05:24:10.000Z">
+<meta property="article:modified_time" content="2022-01-12T15:02:58.934Z">
 <meta property="article:author" content="Gayoung Hyeon">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="NexT">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://ga0hyeon.github.io/">
+<link rel="canonical" href="https://ga0hyeon.github.io/2022/01/12/hexo/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"ko","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/01/12/hexo/","path":"2022/01/12/hexo/","title":"Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Hyeon's Dev Blog</title>
+<title>Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기 | Hyeon's Dev Blog</title>
   
 
 
@@ -78,7 +82,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Hyeon's Dev Blog</h1>
+      <p class="site-title">Hyeon's Dev Blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -142,7 +146,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           목차
@@ -155,6 +159,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%EA%B0%9C%EC%9A%94"><span class="nav-number">1.</span> <span class="nav-text">개요</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD"><span class="nav-number">2.</span> <span class="nav-text">요구사항</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%A7%84%ED%96%89%EB%82%B4%EC%9A%A9"><span class="nav-number">3.</span> <span class="nav-text">진행내용</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EA%B5%AC%EB%8F%99"><span class="nav-number">3.1.</span> <span class="nav-text">Hexo 프로젝트 생성 및 구동</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NexT-%ED%85%8C%EB%A7%88-%EC%A0%81%EC%9A%A9"><span class="nav-number">3.2.</span> <span class="nav-text">NexT 테마 적용</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NexT-%ED%85%8C%EB%A7%88-%EC%BB%A4%EC%8A%A4%ED%84%B0%EB%A7%88%EC%9D%B4%EC%A7%95-%EA%B8%B0%EB%B3%B8"><span class="nav-number">3.3.</span> <span class="nav-text">NexT 테마 커스터마이징 (기본)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NexT-%ED%85%8C%EB%A7%88-%EC%BB%A4%EC%8A%A4%ED%84%B0%EB%A7%88%EC%9D%B4%EC%A7%95-%EA%B3%A0%EC%98%A4%EA%B8%89"><span class="nav-number">3.4.</span> <span class="nav-text">NexT 테마 커스터마이징 (고오급)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github-page-%EB%B0%B0%ED%8F%AC"><span class="nav-number">3.5.</span> <span class="nav-text">github page 배포</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EB%8D%94-%ED%95%B4%EC%95%BC%ED%95%A0%EC%9D%BC"><span class="nav-number">4.</span> <span class="nav-text">그리고 더 해야할일</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -217,146 +222,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/01/13/RN-setup/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/13/RN-setup/" class="post-title-link" itemprop="url">React Native 개발환경 세팅하기</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-      
-
-      <time title="Post created: 2022-01-13 13:28:41 / Updated at: 13:31:26" itemprop="dateCreated datePublished" datetime="2022-01-13T13:28:41+09:00">2022-01-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h1><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><ol>
-<li><p>Node 12 이상 설치<br><code>brew install node</code></p>
-</li>
-<li><p>Watchman 설치<br><code>brew install watchman</code></p>
-</li>
-<li><p>[iOS/필수] Xcode 설치</p>
-<p>appStore에서 설치하면 됩니다. (용량이 12기가라 매우 느립니다!)</p>
-</li>
-<li><p>[iOS/선택]<br>Xcode를 실행하여 Command Line Tools도 가장 최신으로 다운로드 하세요.</p>
-<p><img src="https://reactnative.dev/assets/images/GettingStartedXcodeCommandLineTools-8259be8d3ab8575bec2b71988163c850.png"></p>
-</li>
-<li><p>[iOS/선택] 시뮬레이터 추가 설치<br><strong>Xcode &gt; Preferences…</strong> 에서 <strong>Components</strong> 탭 선택 후<br>원하는 iOS 시뮬레이터를 선택하여 추가할 수 있습니다.<br>현 : 지금 최신 Xcode를 받으면 iPhone13 (iOS15.2) 가 default로 설치되는 것 같아요</p>
-</li>
-<li><p>[iOS/필수] CocoaPods 설치</p>
-<p><code>sudo gem install cocoapods</code></p>
-</li>
-<li><p>[AOS/필수] JDK 설치</p>
-<p>Jdk8 이상이 필요합니다.<br><code>brew install --cask adoptopenjdk/openjdk/adoptopenjdk8</code></p>
-</li>
-<li><p>[AOS/필수] 안드로이드 스튜디오 설치</p>
-<p><a target="_blank" rel="noopener" href="https://developer.android.com/studio/index.html">https://developer.android.com/studio/index.html</a></p>
-</li>
-<li><p>[AOS/필수] 환경변수 설정</p>
-<p>~/.bash_profile 에 아래의 내용을 입력해주세요.<br>현 : 사용하시는 terminal에 따라 유동적으로 진행해주세요 :)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ANDROID_HOME=<span class="variable">$HOME</span>/Library/Android/sdk</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/emulator</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/tools</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/tools/bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/platform-tools</span><br></pre></td></tr></table></figure></li>
-<li><p>[AOS/필수] SDK 설치</p>
-</li>
-</ol>
-<p>Android Studio &gt; SDK Manager 에서 원하는 SDK 를 선택하여 설치합니다.</p>
-<h2 id="Initialize-amp-Launch-Project"><a href="#Initialize-amp-Launch-Project" class="headerlink" title="Initialize &amp; Launch Project"></a>Initialize &amp; Launch Project</h2><h3 id="Initialize"><a href="#Initialize" class="headerlink" title="Initialize"></a>Initialize</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npx react-native init moga --template react-native-template-typescript</span><br><span class="line">yarn add mobx</span><br><span class="line">yarn add mobx-react</span><br><span class="line">yarn add @babel/plugin-proposal-decorators -D</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>babel.config.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    [<span class="string">&#x27;@babel/plugin-proposal-decorators&#x27;</span>, &#123;<span class="attr">legacy</span>: <span class="literal">true</span>&#125;],</span><br><span class="line">    [<span class="string">&#x27;@babel/plugin-proposal-class-properties&#x27;</span>, &#123;<span class="attr">loose</span>: <span class="literal">true</span>&#125;],</span><br><span class="line">  ],</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>tsconfig.json</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">	<span class="string">&quot;experimentalDecorators&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<h3 id="Launch"><a href="#Launch" class="headerlink" title="Launch"></a>Launch</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yarn install</span><br><span class="line">npx pod-install ios</span><br><span class="line">npm run start</span><br><span class="line">npm run android</span><br><span class="line">npm run ios</span><br></pre></td></tr></table></figure>
-
-<h2 id="Trouble-Shooting"><a href="#Trouble-Shooting" class="headerlink" title="Trouble Shooting"></a>Trouble Shooting</h2><blockquote>
-<p>react-native init 실행 후</p>
-<p>Installing CocoaPods dependencies 에서 실패하는 케이스</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx pod-install ios</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>pod install 실행 시</p>
-<p>Installing Flipper-Glog (0.3.6).. 에서 실패하는 케이스</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo xcode-select --switch /Applications/Xcode.app</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>pod install 실행 시<br><code>git_version&#39;: Failed to extract git version from </code>git –version` (“\nYou have not agreed to the Xcode license agreements, please run ‘sudo xcodebuild -license’ from within a Terminal window to review and agree to the Xcode license agreements.\n”).. 에러 뜨는 케이스</p>
-</blockquote>
-<p><code>sudo xcodebuild -license</code> 또는 Xcode 실행하여 약관 동의</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo xcodebuild -license  <span class="comment">## 또는 Xcode 실행하여 약관 동의</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
     <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/01/12/hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -370,9 +246,9 @@
       <meta itemprop="name" content="Hyeon's Dev Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/12/hexo/" class="post-title-link" itemprop="url">Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -411,7 +287,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="개요"><a href="#개요" class="headerlink" title="개요"></a>개요</h1><p>개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 <strong>놀이터</strong> 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.<br>그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 <em>내 웹페이지를 만들어보자</em>는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다.</p>
+        <h1 id="개요"><a href="#개요" class="headerlink" title="개요"></a>개요</h1><p>개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 <strong>놀이터</strong> 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.<br>그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 <em>내 웹페이지를 만들어보자</em>는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다.</p>
 <h1 id="요구사항"><a href="#요구사항" class="headerlink" title="요구사항"></a>요구사항</h1><p>고객(나)과 개발자(이것도 나)의 입장에서 여러가지 옵션을 재보았던 내용은 아래와 같다.</p>
 <p><strong>서버 비용은 들이고 싶지 않아요</strong></p>
 <ul>
@@ -467,16 +343,31 @@
 <li><input disabled="" type="checkbox"> 사이드바에 category tree가 보이게 하고싶다!</li>
 </ul>
 
-      
     </div>
 
     
     
     
+      
+
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/NexT/" rel="tag"><i class="fa fa-tag"></i> NexT</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/13/RN-setup/" rel="next" title="React Native 개발환경 세팅하기">
+                  React Native 개발환경 세팅하기 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -485,6 +376,8 @@
 
 
 
+
+    <div class="comments utterances-container"></div>
 </div>
   </main>
 
