@@ -21,9 +21,9 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="재미있어 보이는 것들을 공부합니다. 일기처럼 개발일지를 씁니다.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hyeon&#39;s Dev Blog">
+<meta property="og:title" content="Hyeon&#39;s Diary">
 <meta property="og:url" content="https://ga0hyeon.github.io/archives/index.html">
-<meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
+<meta property="og:site_name" content="Hyeon&#39;s Diary">
 <meta property="og:description" content="재미있어 보이는 것들을 공부합니다. 일기처럼 개발일지를 씁니다.">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:author" content="Gayoung Hyeon">
@@ -37,7 +37,7 @@
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"ko","comments":"","permalink":"","path":"archives/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>아카이브 | Hyeon's Dev Blog</title>
+<title>아카이브 | Hyeon's Diary</title>
   
 
 
@@ -50,7 +50,16 @@
     async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4287897577887270"
     crossorigin="anonymous"
+></script>    
+<script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.production.min.js"
 ></script>
+<script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -78,7 +87,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Hyeon's Dev Blog</h1>
+      <h1 class="site-title">Hyeon's Diary</h1>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -170,7 +179,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -226,13 +235,33 @@
   <div class="post-block">
     <div class="post-content">
       <div class="collection-title">
-        <span class="collection-header">음..! 총 2개의 포스트 포스트를 마저 작성하세요</span>
+        <span class="collection-header">음..! 총 3개의 포스트 포스트를 마저 작성하세요</span>
       </div>
 
       
     <div class="collection-year">
       <span class="collection-header">2022</span>
     </div>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2022-01-22T04:08:15+09:00"
+              content="2022-01-22">
+          01-22
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2022/01/22/Resume/" itemprop="url">
+            <span itemprop="name">나를 표현하는 이력 페이지 만들기</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
 
   <article itemscope itemtype="http://schema.org/Article">
     <header class="post-header">

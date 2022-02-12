@@ -1,45 +1,210 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <div id="app">
-      <h1>{{ count }}</h1>
-      <button @click="increment">Increment</button>
-      <div id="like_button_container"></div>
-    </div>
-    <script
-      crossorigin
-      src="https://unpkg.com/react@17/umd/react.production.min.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
-    ></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script>
-      "use strict";
-      const e = React.createElement;
-
-      class LikeButton extends React.Component {
-        constructor(props) {
-          super(props);
-          this.state = { liked: false };
-        }
-
-        render() {
-          if (this.state.liked) {
-            return "You liked this.";
-          }
-
-          return e(
-            "button",
-            { onClick: () => this.setState({ liked: true }) },
-            "Like"
-          );
-        }
+    <style>
+      .tech-icon-wrapper {
+        display: inline-flex;
+      }
+      .tech-icon {
+        padding: 4px;
+        margin-bottom: 0px !important;
       }
 
-      const domContainer = document.querySelector("#like_button_container");
-      ReactDOM.render(e(LikeButton), domContainer);
+      .header-wrapper > .title {
+        font-size: 32px;
+        font-weight: bold;
+      }
+      .header-wrapper > .desc {
+      }
+      .first-column {
+        width: 100px;
+        background-color: #ffd460;
+      }
+
+      tr,
+      td {
+        border-color: white;
+      }
+    </style>
+    <div id="resume_container"></div>
+    <script type="text/babel">
+      "use strict";
+      const { useState } = React;
+      const TECH_SET = {
+        typescript: {
+          title: "TypeScript",
+          color: "3178C6",
+          logo: "typescript",
+        },
+        react: {
+          title: "ReactJs",
+          color: "61DAFB",
+          logo: "react",
+        },
+        springboot: {
+          title: "Spring Boot",
+          color: "6DB33F",
+          logo: "springboot",
+        },
+        html5: {
+          title: "HTML5",
+          color: "E34F26",
+          logo: "html5",
+        },
+        sass: {
+          title: "sass",
+          color: "CC6699",
+          logo: "sass",
+        },
+        stylus: {
+          title: "Stylus",
+          color: "333333",
+          logo: "stylus",
+        },
+        git: {
+          title: "Git",
+          color: "F05032",
+          logo: "git",
+        },
+        figma: {
+          title: "Figma",
+          color: "F24E1E",
+          logo: "figma",
+        },
+      };
+
+      const Header = () => {
+        return (
+          <div className="header-wrapper">
+            <div className="title">About Me 👋</div>
+            <div className="desc">
+              Frontend Developer / Backend Developer / Designer
+            </div>
+          </div>
+        );
+      };
+      const Timeline = () => {
+        const items = [
+          {
+            date: "2018.01",
+            title: "입사",
+            desc: "C#.net",
+          },
+        ];
+        return (
+          <div>
+            {items.map((item) => {
+              return (
+                <>
+                  <div>{item.date}</div>
+                  <div>{item.date}</div>
+                  <div>{item.date}</div>
+                </>
+              );
+            })}
+          </div>
+        );
+      };
+
+      const InlineTechIcons = (techSet) => {
+        return (
+          <div className="tech-icon-wrapper">
+            {techSet.map(({ title, color, logo }) => {
+              return (
+                <img
+                  className="tech-icon"
+                  src={`https://img.shields.io/badge/-${title}-${color}?logo=${logo}&logoColor=white&style=flat`}
+                />
+              );
+            })}
+          </div>
+        );
+      };
+      const Tech = () => {
+        const techSet = Object.keys(TECH_SET).map((key) => TECH_SET[key]);
+        return (
+          <>
+            <h2>보유 기술</h2>
+            {InlineTechIcons(techSet)}
+          </>
+        );
+      };
+      const SideProjects = () => {
+        const [open, setOpen] = useState(0);
+        const projects = [
+          {
+            desc: "교육 목적의 현장학습 정보 제공 웹사이트",
+            tech: [
+              TECH_SET.react,
+              TECH_SET.typescript,
+              TECH_SET.sass,
+              TECH_SET.figma,
+            ],
+            role: "기획 / 디자인 / FE 개발",
+            date: "21.06~21.10",
+          },
+          {
+            desc: "점포별 알바생 관리 웹사이트",
+            tech: [TECH_SET.react, TECH_SET.typescript, TECH_SET.sass],
+            role: "FE 개발",
+            date: "21.01~21.10",
+          },
+          {
+            desc: "연구용 엑셀 데이터 처리 프로그램",
+            tech: [TECH_SET.react],
+            role: "개발",
+            date: "17.06~17.08",
+          },
+        ];
+        return (
+          <div className="project-wrapper">
+            <h2>사이드 프로젝트</h2>
+            {projects.map(({ tech, role, desc, date }, index) => {
+              return (
+                <div className="project">
+                  <table>
+                    <tbody>
+                      <tr
+                        onClick={() => {
+                          setOpen(index);
+                        }}
+                      >
+                        <td className="first-column">프로젝트 내용</td>
+                        <td className="desc">{desc}</td>
+                      </tr>
+                      {open == index && (
+                        <>
+                          <tr>
+                            <td className="first-column">진행기간</td>
+                            <td className="date">{date}</td>
+                          </tr>
+                          <tr>
+                            <td className="first-column">사용 기술</td>
+                            <td className="tech"> {InlineTechIcons(tech)}</td>
+                          </tr>
+                          <tr>
+                            <td className="first-column">역할</td>
+                            <td className="role">{role}</td>
+                          </tr>
+                        </>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              );
+            })}
+          </div>
+        );
+      };
+      const domContainer = document.querySelector("#resume_container");
+      ReactDOM.render(
+        <>
+          <Header />
+          <Tech />
+          <SideProjects />
+        </>,
+        domContainer
+      );
     </script>
   </body>
 </html>
