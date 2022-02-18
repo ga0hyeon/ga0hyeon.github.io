@@ -1,7 +1,8 @@
 ---
 title: 나를 표현하는 이력 페이지 만들기
 date: 2022-01-22 04:08:15
-tags:
+tags: [Hexo, React, UI/UX]
+categories: [Hexo]
 ---
 
 # 개요
