@@ -19,25 +19,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="재미있어 보이는 것들을 공부합니다. 일기처럼 개발일지를 씁니다.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hyeon&#39;s Dev Blog">
-<meta property="og:url" content="https://ga0hyeon.github.io/tags/UI-UX/index.html">
+<meta name="description" content="이 글을 쓰게 된 이유React Native는 조금 써봤으니… 이제 React Native와 항상 함께 거론되는 Flutter도 써보고 싶어졌습니다.전에 만들었었던 모바일 웹앱을 Flutter로 다시 만들어보려고 합니다 &#x3D;) 이번 주말 안에요! 환경설정 하기https:&#x2F;&#x2F;docs.flutter.dev&#x2F;get-started&#x2F;install&#x2F;macos#syste">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter 시작하기">
+<meta property="og:url" content="https://ga0hyeon.github.io/2022/02/19/flutter-intro/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
-<meta property="og:description" content="재미있어 보이는 것들을 공부합니다. 일기처럼 개발일지를 씁니다.">
+<meta property="og:description" content="이 글을 쓰게 된 이유React Native는 조금 써봤으니… 이제 React Native와 항상 함께 거론되는 Flutter도 써보고 싶어졌습니다.전에 만들었었던 모바일 웹앱을 Flutter로 다시 만들어보려고 합니다 &#x3D;) 이번 주말 안에요! 환경설정 하기https:&#x2F;&#x2F;docs.flutter.dev&#x2F;get-started&#x2F;install&#x2F;macos#syste">
 <meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2022-02-19T09:23:53.000Z">
+<meta property="article:modified_time" content="2022-02-19T09:57:07.845Z">
 <meta property="article:author" content="Gayoung Hyeon">
+<meta property="article:tag" content="Flutter">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://ga0hyeon.github.io/tags/UI-UX/">
+<link rel="canonical" href="https://ga0hyeon.github.io/2022/02/19/flutter-intro/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"ko","comments":"","permalink":"","path":"tags/UI-UX/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/02/19/flutter-intro/","path":"2022/02/19/flutter-intro/","title":"Flutter 시작하기"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>태그: UI/UX | Hyeon's Dev Blog</title>
+<title>Flutter 시작하기 | Hyeon's Dev Blog</title>
   
 
 
@@ -151,7 +154,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           목차
@@ -164,6 +167,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%9D%B4-%EA%B8%80%EC%9D%84-%EC%93%B0%EA%B2%8C-%EB%90%9C-%EC%9D%B4%EC%9C%A0"><span class="nav-number">1.</span> <span class="nav-text">이 글을 쓰게 된 이유</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95-%ED%95%98%EA%B8%B0"><span class="nav-number">2.</span> <span class="nav-text">환경설정 하기</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text"></span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -226,51 +230,106 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">UI/UX
-          <small>태그</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/02/19/flutter-intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flutter 시작하기
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+
+      <time title="Post created: 2022-02-19 18:23:53 / Updated at: 18:57:07" itemprop="dateCreated datePublished" datetime="2022-02-19T18:23:53+09:00">2022-02-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Flutter/" itemprop="url" rel="index"><span itemprop="name">Flutter</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="이-글을-쓰게-된-이유"><a href="#이-글을-쓰게-된-이유" class="headerlink" title="이 글을 쓰게 된 이유"></a>이 글을 쓰게 된 이유</h1><p>React Native는 조금 써봤으니… 이제 React Native와 항상 함께 거론되는 Flutter도 써보고 싶어졌습니다.<br>전에 만들었었던 모바일 웹앱을 Flutter로 다시 만들어보려고 합니다 =) 이번 주말 안에요!</p>
+<h1 id="환경설정-하기"><a href="#환경설정-하기" class="headerlink" title="환경설정 하기"></a>환경설정 하기</h1><p><a target="_blank" rel="noopener" href="https://docs.flutter.dev/get-started/install/macos#system-requirements">https://docs.flutter.dev/get-started/install/macos#system-requirements</a><br><a target="_blank" rel="noopener" href="https://docs.flutter.dev/get-started/editor?tab=vscode">https://docs.flutter.dev/get-started/editor?tab=vscode</a></p>
+<p>docs가 아주 잘되어있네요 ㅎㅎ 순조롭습니다.</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-01-22T04:08:15+09:00"
-              content="2022-01-22">
-          01-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/01/22/Resume/" itemprop="url">
-            <span itemprop="name">나를 표현하는 이력 페이지 만들기</span>
-          </a>
-      </div>
-
+    
+    
+    
       
-    </header>
+
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Flutter/" rel="tag"><i class="fa fa-tag"></i> Flutter</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/18/spring-validation/" rel="prev" title="@Valid @Validated">
+                  <i class="fa fa-chevron-left"></i> @Valid @Validated
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/03/06/ai-csp/" rel="next" title="ai-csp">
+                  ai-csp <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
-  </div>
-  
-  
-  
 
+
+
+
+
+    <div class="comments utterances-container"></div>
 </div>
   </main>
 
