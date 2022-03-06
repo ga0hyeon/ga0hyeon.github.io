@@ -5,7 +5,7 @@ tags: [Hexo, React, UI/UX]
 categories: [Hexo]
 ---
 
-# 개요
+# 이 글을 쓰게 된 이유
 
 처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.
 
