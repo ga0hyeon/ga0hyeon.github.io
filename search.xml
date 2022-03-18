@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>나를 표현하는 이력 페이지 만들기</title>
+    <title>[React] React CDN 버전으로 나를 표현하는 이력 페이지를 만들자</title>
     <url>/2022/01/22/Resume/</url>
     <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.</p>
 <p>한 페이지에 내가 잘하는 것, 하고싶은 것, 했던 것에 대한 정보를 짜임새 있게 보여주기가 어렵더라구요… 감히 html 쪼가리가 나를 표현한다니! 라는 생각도 들고요 ㅋㅋㅋ<br>다른 한 편으로는 나에 대해서 정리하고 돌아보는 시간을 계속 미루고 싶었던 것 같기도 합니다.</p>
@@ -57,7 +57,7 @@
       </tags>
   </entry>
   <entry>
-    <title>React Native 개발환경 세팅하기</title>
+    <title>[React Native] 맥북 개발환경을 세팅하자</title>
     <url>/2022/01/13/RN-setup/</url>
     <content><![CDATA[<h1 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h1><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><ol>
 <li><p>Node 12 이상 설치<br><code>brew install node</code></p>
@@ -124,7 +124,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기</title>
+    <title>[Hexo] Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그를 만들자</title>
     <url>/2022/01/12/hexo/</url>
     <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 <strong>놀이터</strong> 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.<br>그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 <em>내 웹페이지를 만들어보자</em>는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다.</p>
 <h1 id="요구사항"><a href="#요구사항" class="headerlink" title="요구사항"></a>요구사항</h1><p>고객(나)과 개발자(이것도 나)의 입장에서 여러가지 옵션을 재보았던 내용은 아래와 같다.</p>
