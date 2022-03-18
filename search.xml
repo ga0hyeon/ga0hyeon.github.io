@@ -240,9 +240,10 @@
   <entry>
     <title>멍청한 내 사이드 프로젝트를 Intelligent 하게 만들어보자</title>
     <url>/2022/03/06/ai-csp/</url>
-    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>취미로 만들고 있는 사이드 프로젝트를 더 멋드러지게 만들기 위해, csp들이 제공하는 몇 가지 AI feature를 붙여보는건 어떨까 이 포스트에서는 각 csp 별 AI, ML 서비스와 spike 내용을 정리해보려고 합니다 👀</p>
-<h2 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a>AWS</h2><p><a href="https://aws.amazon.com/ko/products/?aws-products-all.sort-by=item.additionalFields.productNameLowercase&aws-products-all.sort-order=asc&awsf.re:Invent=*all&awsf.Free%20Tier=*all&awsf.tech-category=tech-category%23ai-ml&awsm.page-aws-products-all=2">AI 카테고리 AWS 제품 목록</a>에서 제 프로젝트에 쓸만한 서비스가 무엇일까 살펴봤어요.</p>
-]]></content>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>작년 상반기에 구상하여 하반기에 기획 &amp; 개발하고, 연말에 공모전에 냈던 나의 애증의 사이드 프로젝트…<br>퇴근하고 저녁, 주말에만 개발하느라 시간도 부족했는데 또 발등에 불 떨어질 때까지 미루는 바람에 실제로는 한 달안에 우다다 만들어서<br>코드도 못생기고 기능도 허접해서 다시 꺼내보고 싶지 않았는데…</p>
+<p>정이 들었는 지 요즘 문득 다시만들어볼까 생각이 들어서 꺼내봤다.</p>
+<p>구리기는한데, 그래도 나름 애쓴 흔적들이 눈에 들어와서 작년 하반기 대비 내 실력이 얼마나 늘었는지도 볼 겸 모바일앱으로 전환을 해보려고 한다.<br>그리고 이 꼬질꼬질한 친구를 더 멋드러지게 만들기 위해, 작년에 기획만 하고 우선순위에 밀려 구현되지 못했던 장소 추천 기능을 넣어볼 것이다.</p>
+<h1 id="어떻게-추천할건가"><a href="#어떻게-추천할건가" class="headerlink" title="어떻게 추천할건가?"></a>어떻게 추천할건가?</h1>]]></content>
       <tags>
         <tag>AI</tag>
         <tag>Cloud</tag>
