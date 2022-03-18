@@ -21,13 +21,13 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="MOTIVATION사용자로부터 받아온 Input 값을 우리 시스템에 넣어 처리하기 전에 검증하는 것은 매우 흔한 작업임. 볼 필요도 없는 값을 시스템 자원을 써가면서 처리할 필요가 없음.이러한 검증은 몇 개의 if문과 validation utility로 물론 쉽게 구현이 가능하지만, server framework로 spring을 사용하고 있다면 아래와 같이">
 <meta property="og:type" content="article">
-<meta property="og:title" content="@Valid @Validated">
+<meta property="og:title" content="[Spring] @Valid @Validated에 대해 알아보자">
 <meta property="og:url" content="https://ga0hyeon.github.io/2022/02/18/spring-validation/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
 <meta property="og:description" content="MOTIVATION사용자로부터 받아온 Input 값을 우리 시스템에 넣어 처리하기 전에 검증하는 것은 매우 흔한 작업임. 볼 필요도 없는 값을 시스템 자원을 써가면서 처리할 필요가 없음.이러한 검증은 몇 개의 if문과 validation utility로 물론 쉽게 구현이 가능하지만, server framework로 spring을 사용하고 있다면 아래와 같이">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2022-02-18T14:00:19.000Z">
-<meta property="article:modified_time" content="2022-03-18T13:29:40.365Z">
+<meta property="article:modified_time" content="2022-03-18T13:38:37.609Z">
 <meta property="article:author" content="Gayoung Hyeon">
 <meta property="article:tag" content="@Valid">
 <meta property="article:tag" content="Spring">
@@ -39,10 +39,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/02/18/spring-validation/","path":"2022/02/18/spring-validation/","title":"@Valid @Validated"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/02/18/spring-validation/","path":"2022/02/18/spring-validation/","title":"[Spring] @Valid @Validated에 대해 알아보자"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>@Valid @Validated | Hyeon's Dev Blog</title>
+<title>[Spring] @Valid @Validated에 대해 알아보자 | Hyeon's Dev Blog</title>
   
 
 
@@ -196,7 +196,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -257,7 +257,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          @Valid @Validated
+          [Spring] @Valid @Validated에 대해 알아보자
         </h1>
 
         <div class="post-meta-container">
@@ -275,7 +275,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-03-18 22:29:40" itemprop="dateModified" datetime="2022-03-18T22:29:40+09:00">2022-03-18</time>
+      <time title="Updated at: 2022-03-18 22:38:37" itemprop="dateModified" datetime="2022-03-18T22:38:37+09:00">2022-03-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -356,8 +356,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/03/06/ai-csp/" rel="next" title="멍청한 내 사이드 프로젝트를 Intelligent 하게 만들어보자">
-                  멍청한 내 사이드 프로젝트를 Intelligent 하게 만들어보자 <i class="fa fa-chevron-right"></i>
+                <a href="/2022/03/06/ai-csp/" rel="next" title="[MLOps] 멍청한 내 사이드 프로젝트를 Intelligent 하게 만들어보자">
+                  [MLOps] 멍청한 내 사이드 프로젝트를 Intelligent 하게 만들어보자 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
