@@ -3,7 +3,7 @@
   <entry>
     <title>나를 표현하는 이력 페이지 만들기</title>
     <url>/2022/01/22/Resume/</url>
-    <content><![CDATA[<h1 id="개요"><a href="#개요" class="headerlink" title="개요"></a>개요</h1><p>처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.</p>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.</p>
 <p>한 페이지에 내가 잘하는 것, 하고싶은 것, 했던 것에 대한 정보를 짜임새 있게 보여주기가 어렵더라구요… 감히 html 쪼가리가 나를 표현한다니! 라는 생각도 들고요 ㅋㅋㅋ<br>다른 한 편으로는 나에 대해서 정리하고 돌아보는 시간을 계속 미루고 싶었던 것 같기도 합니다.</p>
 <p>어떻게 하면 짜임새 있게 나를 표현할 수 있을까 고민했던 내용을 기록해볼게요.</p>
 <h1 id="계획"><a href="#계획" class="headerlink" title="계획"></a>계획</h1><p>우선 보여주고 싶은 정보의 특성에 따라 보여주는 방식도 달랐으면 했습니다.</p>
@@ -126,7 +126,7 @@
   <entry>
     <title>Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기</title>
     <url>/2022/01/12/hexo/</url>
-    <content><![CDATA[<h1 id="개요"><a href="#개요" class="headerlink" title="개요"></a>개요</h1><p>개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 <strong>놀이터</strong> 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.<br>그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 <em>내 웹페이지를 만들어보자</em>는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다.</p>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 <strong>놀이터</strong> 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.<br>그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 <em>내 웹페이지를 만들어보자</em>는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다.</p>
 <h1 id="요구사항"><a href="#요구사항" class="headerlink" title="요구사항"></a>요구사항</h1><p>고객(나)과 개발자(이것도 나)의 입장에서 여러가지 옵션을 재보았던 내용은 아래와 같다.</p>
 <p><strong>서버 비용은 들이고 싶지 않아요</strong></p>
 <ul>
@@ -191,16 +191,17 @@
       </tags>
   </entry>
   <entry>
-    <title>@Valid</title>
+    <title>@Valid @Validated</title>
     <url>/2022/02/18/spring-validation/</url>
-    <content><![CDATA[<h1 id="이-글을-쓰게-된-이유"><a href="#이-글을-쓰게-된-이유" class="headerlink" title="이 글을 쓰게 된 이유"></a>이 글을 쓰게 된 이유</h1><p>사용자로부터 받아온 Input 값을 우리 시스템에 넣어 처리하기 전에 검증하는 것은 매우 흔한 작업입니다. 볼 필요도 없는 값을 시스템 자원을 써가면서 처리할 필요가 없겠죠. 이러한 검증은 몇 개의 if문과 validation utility로 쉽게 구현이 가능하지만, server framework로 spring을 사용하고 있다면 아래와 같이 더 간결한 코드로 검증을 마칠 수 있습니다.</p>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>사용자로부터 받아온 Input 값을 우리 시스템에 넣어 처리하기 전에 검증하는 것은 매우 흔한 작업입니다. 볼 필요도 없는 값을 시스템 자원을 써가면서 처리할 필요가 없겠죠. 이러한 검증은 몇 개의 if문과 validation utility로 쉽게 구현이 가능하지만, server framework로 spring을 사용하고 있다면 아래와 같이 더 간결한 코드로 검증을 마칠 수 있습니다.</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAcccount</span></span>&#123;</span><br><span class="line">    <span class="meta">@NotBlank</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="meta">@Size(min = 4, max = 15)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="meta">@Valid</span> UserAccount userAccount,</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>&#123;</span><br><span class="line">    service.login(userAccount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>여기까지는 이해가 쉬운데, 실제로 application에 붙이려고 보니 좀 더 자세히 알아야할 내용들이 많더군요 ㅎㅎ<br>이 글에서는 그 내용을 모아서 정리해보려고 합니다.</p>
-<h1 id="Valid-그리고-Validated-어노테이션에-관하여"><a href="#Valid-그리고-Validated-어노테이션에-관하여" class="headerlink" title="@Valid 그리고 @Validated 어노테이션에 관하여"></a>@Valid 그리고 @Validated 어노테이션에 관하여</h1><p>ide에서 @Valid를 입력할 때 자동완성 추천 결과에서 @Validated를 보신 적이 있나요?<br>@Valid와 달리 @Validated에는 Group을 지정할 수 있습니다.</p>
-<p>한 개의 class 안에 여러 개의 제약조건 그룹을 지정하고자 하는 경우에 유용하게 사용할 수 있어보입니다.</p>
+<p>여기까지는 이해가 쉬운데, 실제로 application에 붙이려고 보니 좀 더 자세히 알아야할 내용들이 많았어요. ㅎㅎ<br>이 글에서는 그 내용을 모아서 정리해보려고 합니다.</p>
+<h1 id="Valid-그리고-Validated-어노테이션에-관하여"><a href="#Valid-그리고-Validated-어노테이션에-관하여" class="headerlink" title="@Valid 그리고 @Validated 어노테이션에 관하여"></a>@Valid 그리고 @Validated 어노테이션에 관하여</h1><p>ide에서 @Valid를 입력할 때 자동완성 추천 결과에서 @Validated를 보신 적이 있나요?</p>
+<p>두 어노테이션에는 다음과 같은 차이점이 있습니다.<br>👉 @Valid는 Java에서 제공됩니다.<br>👉 @Validated는 Spring 프레임워크에서 제공됩니다. @Valid의 기능을 포함하고요.<br>👉 @Valid는 method의 parameter 또는 class field에 사용된 complex object에 적용할 수 있습니다.<br>👉 @Validated는 @Valid가 사용되는 상황 뿐만 아니라, primitive type parameter에 Validation을 추가하고 싶을 때도 사용할 수 있습니다. (하단에서 후술합니다.)<br>👉 @Valid와 달리 @Validated에는 Group을 지정할 수 있습니다.</p>
+<p>Validation Group에 대한 내용은 좀 더 찾아봤어요.<br>한 개의 class 안에 여러 개의 제약조건 그룹을 지정하고자 하는 경우에 유용하게 사용할 수 있어보입니다.</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ValidationGroups</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">EmailChange</span> </span>&#123;&#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PasswordChange</span> </span>&#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChangeUserAccountRequest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Email(groups = &#123;ValidationGroups.EmailChange.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;ValidationGroups.PasswordChange.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -210,9 +211,16 @@
 <h1 id="Custom-Validator에-관하여"><a href="#Custom-Validator에-관하여" class="headerlink" title="Custom Validator에 관하여"></a>Custom Validator에 관하여</h1><p>제공되는 기본 validator도 충분히 다양하지만, 우리 서비스만의 validator를 만들고 싶을 때도 있습니다.</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Constraint(validatedBy = NicknameValidator.class)</span></span><br><span class="line"><span class="meta">@Target( &#123; ElementType.METHOD, ElementType.FIELD &#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NickNameConstraint &#123;</span><br><span class="line">    <span class="function">String <span class="title">message</span><span class="params">()</span> <span class="keyword">default</span> &quot;유효하지 않은 닉네임 형식입니다.&quot;</span>;</span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">    Class&lt;? extends Payload&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NicknameValidator</span> <span class="keyword">implements</span></span></span><br><span class="line"><span class="class">  <span class="title">ConstraintValidator</span>&lt;<span class="title">NickNameConstraint</span>, <span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(NickNameConstraint contactNickname)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String contactField,</span></span></span><br><span class="line"><span class="params"><span class="function">      ConstraintValidatorContext cxt)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> contactField != <span class="keyword">null</span> &amp;&amp; contactField.matches(<span class="string">&quot;system&#x27;s nickname format&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NicknameValidator</span> <span class="keyword">implements</span></span></span><br><span class="line"><span class="class">  <span class="title">ConstraintValidator</span>&lt;<span class="title">NickNameConstraint</span>, <span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> NickNameConstraint constraint;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(NickNameConstraint constraint)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.constraint = constraint;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String value,</span></span></span><br><span class="line"><span class="params"><span class="function">      ConstraintValidatorContext cxt)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value != <span class="keyword">null</span> &amp;&amp; value.matches(<span class="string">&quot;system&#x27;s nickname format&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="Class말고-변수에도-바로-적용되는건가"><a href="#Class말고-변수에도-바로-적용되는건가" class="headerlink" title="Class말고 변수에도 바로 적용되는건가?"></a>Class말고 변수에도 바로 적용되는건가?</h1>]]></content>
+<h1 id="⚠-Valid가-primitive-type의-변수-대표적으로-Controller에서-PathVariable로-받아온-값들-에서-동작하지-않아요"><a href="#⚠-Valid가-primitive-type의-변수-대표적으로-Controller에서-PathVariable로-받아온-값들-에서-동작하지-않아요" class="headerlink" title="⚠ @Valid가 primitive type의 변수(대표적으로 Controller에서 PathVariable로 받아온 값들..)에서 동작하지 않아요"></a>⚠ @Valid가 primitive type의 변수(대표적으로 Controller에서 PathVariable로 받아온 값들..)에서 동작하지 않아요</h1><p>이 부분 때문에 많이 헤맸어요. Controller에서 특정 api의 PathVariable에 Validator를 달아주고 싶었는데 이때는 parameter 앞에 @Valid를 붙여주는 것 만으로는 원하는 대로 동작하지 않았습니다.😥 객체로 받아오는 BodyParam에 붙여준 @Valid는 잘 동작했는데 말이죠…</p>
+<p>위에서 @Valid와 @Validated의 차이에 정리해둔 것 처럼, PathVariable에 Validator를 적용하기 위해서는 상위 Class에 @Validated 어노테이션을 달아줘야합니다.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Validated</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YourController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> YourService yourService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;somethings/&#123;type_code&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;List&lt;SomeVO&gt;&gt; findSomethingByTypeCode(<span class="meta">@Size(min = 4, max = 6)</span></span><br><span class="line">                                                        <span class="meta">@PathVariable</span> String typeCode) &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(yourService.findSomethingByTypeCode(typeCode));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="⚠-Exception-처리-시-주의하세요"><a href="#⚠-Exception-처리-시-주의하세요" class="headerlink" title="⚠ Exception 처리 시 주의하세요"></a>⚠ Exception 처리 시 주의하세요</h1><p>@Valid와 @Validated 어노테이션은 서로 다른 타입의 Error를 던지므로, 공통 처리 모듈에서 약간의 분기 처리가 필요합니다.</p>
+<p>@Valid 어노테이션에서는 javax.validation.ConstraintViolationException 을,<br>@Validated 어노테이션에서는 org.springframework.web.bind.MethodArgumentNotValidException 을 발생시킵니다.</p>
+<p>어떤 field에서 Error가 발생했는지, 어떤 Error가 발생했는지 두 개의 Exception이 제공하는 field가 다릅니다. 처리 시 주의하세요.</p>
+]]></content>
       <categories>
         <category>Spring</category>
       </categories>
@@ -220,6 +228,17 @@
         <tag>@Valid</tag>
         <tag>Spring</tag>
         <tag>Annotation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>멍청한 내 사이드 프로젝트를 Intelligent 하게 만들어보자</title>
+    <url>/2022/03/06/ai-csp/</url>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>취미로 만들고 있는 사이드 프로젝트를 더 멋드러지게 만들기 위해, csp들이 제공하는 몇 가지 AI feature를 붙여보는건 어떨까 이 포스트에서는 각 csp 별 AI, ML 서비스와 spike 내용을 정리해보려고 합니다 👀</p>
+<h2 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a>AWS</h2><p><a href="https://aws.amazon.com/ko/products/?aws-products-all.sort-by=item.additionalFields.productNameLowercase&aws-products-all.sort-order=asc&awsf.re:Invent=*all&awsf.Free%20Tier=*all&awsf.tech-category=tech-category%23ai-ml&awsm.page-aws-products-all=2">AI 카테고리 AWS 제품 목록</a>에서 제 프로젝트에 쓸만한 서비스가 무엇일까 살펴봤어요.</p>
+]]></content>
+      <tags>
+        <tag>AI</tag>
+        <tag>Cloud</tag>
       </tags>
   </entry>
 </search>

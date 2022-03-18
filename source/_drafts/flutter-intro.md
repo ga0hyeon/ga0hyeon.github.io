@@ -5,7 +5,7 @@ tags: Flutter
 categories: Flutter
 ---
 
-# 이 글을 쓰게 된 이유
+# MOTIVATION
 
 React Native는 조금 써봤으니... 이제 React Native와 항상 함께 거론되는 Flutter도 써보고 싶어졌습니다.
 전에 만들었었던 모바일 웹앱을 Flutter로 다시 만들어보려고 합니다 =) 이번 주말 안에요!
