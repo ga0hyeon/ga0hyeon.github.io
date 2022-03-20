@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "gogo": "git add --all && git commit -m 내용수정 && git push && clean build deploy",
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
