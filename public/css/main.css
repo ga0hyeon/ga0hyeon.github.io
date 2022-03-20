@@ -2933,3 +2933,7 @@ mark.search-keyword {
 .site-description {
   white-space: break-spaces;
 }
+p + h1,
+figure + h1 {
+  margin-top: 80px;
+}
