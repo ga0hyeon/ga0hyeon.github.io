@@ -1,5 +1,5 @@
 ---
-title: Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그 만들기
+title: "[Hexo] Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그를 만들자"
 date: 2022-01-12 14:24:10
 categories: [Hexo]
 tags: [Hexo, NexT]

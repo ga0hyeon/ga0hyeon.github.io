@@ -1,5 +1,5 @@
 ---
-title: React Native 개발환경 세팅하기
+title: "[React Native] 맥북 개발환경을 세팅하자"
 date: 2022-01-13 13:28:41
 categories: [React Native]
 tags: [React Native]

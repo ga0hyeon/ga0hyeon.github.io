@@ -1,5 +1,5 @@
 ---
-title: 나를 표현하는 이력 페이지 만들기
+title: "[React] React CDN 버전으로 나를 표현하는 이력 페이지를 만들자"
 date: 2022-01-22 04:08:15
 tags: [Hexo, React, UI/UX]
 categories: [Hexo]
