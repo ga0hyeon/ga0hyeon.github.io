@@ -6,7 +6,7 @@ tags: [JavaScript]
 
 # 이 글을 쓰게된 이유
 
-나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 더 나은 코드 패턴인건 직감으로 아는데, 왜 더 나은지 짜임새있게 설명하기 위해 정리해본다.
+나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다.
 
 # 비동기처리 패턴의 역사
 
@@ -55,7 +55,6 @@ ES8에 등장한 이 패턴은, 확실히 위의 두 패턴보다 가독성이 �
 
 # 동기함수에서 비동기 함수를 호출하고 싶은데...
 
-사실 이 섹션 때문에 포스트를 작성하게되었다 ㅋㅋㅋ
 예를 들어 화면 쪽 로직에 이런 기능이 있다.
 
 '제출하기 버튼을 누르면 제출 api를 호출하게 해주세요'
@@ -91,11 +90,7 @@ const groupedAsyncFunc = async () => {
   const res2 = await asyncFunc2();
   return res1 + res2;
 };
-<button
-  onClick={() => {
-    void groupedAsyncFunc();
-  }}
-/>;
+<button onClick={() => void groupedAsyncFunc()} />;
 ```
 
 2. IIFE (즉시실행함수) 패턴 사용하기
@@ -113,7 +108,7 @@ const groupedAsyncFunc = async () => {
 />;
 ```
 
-개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 [2안을 사용한 사례](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function)도 꽤 많았다. IIFE는 비단 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이라고 한다.
+개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 [2안을 사용하도록 가이드](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function)하는 경우도 꽤 있었다. 나는 몰랐지만, IIFE는 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이며, 변수의 호이스팅 때문에 원하는 대로 동작하지 않는 케이스를 방지해준다는 큰 장점이 있다고 한다. 이 내용을 접했을 때, 내가 _동기함수에서 비동기 함수를 호출_ 하고 싶다는 내 작은 요건에 너무 오버되는 패턴을 찾은 것 같다는 생각을 했다. ㅋㅋㅋ 굳이 이걸 쓸 필요가 없어보였다. Scope 처리가 너무나 당연한 환경에서 웹 개발을 하고있는 나에게는 별로 매력적이지 않아보였기 때문이다. 그래서 2안은 IIFE 개념에 대해 접할 수 있었던 것에만 의의를 두고, 사용하지는 않기로 했다.
 
 # 결론
 
