@@ -22,22 +22,22 @@
 <meta name="description" content="이 글을 쓰게된 이유나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[JavaScript] 비동기 프로그래밍">
-<meta property="og:url" content="https://ga0hyeon.github.io/2022/04/05/asynchronous-programming/index.html">
+<meta property="og:url" content="https://ga0hyeon.github.io/2022/04/05/Basic/asynchronous-programming/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
 <meta property="og:description" content="이 글을 쓰게된 이유나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2022-04-04T15:01:04.000Z">
-<meta property="article:modified_time" content="2022-04-08T14:30:01.752Z">
+<meta property="article:modified_time" content="2022-04-15T20:26:10.669Z">
 <meta property="article:author" content="Gayoung Hyeon">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://ga0hyeon.github.io/2022/04/05/asynchronous-programming/">
+<link rel="canonical" href="https://ga0hyeon.github.io/2022/04/05/Basic/asynchronous-programming/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/04/05/asynchronous-programming/","path":"2022/04/05/asynchronous-programming/","title":"[JavaScript] 비동기 프로그래밍"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/04/05/Basic/asynchronous-programming/","path":"2022/04/05/Basic/asynchronous-programming/","title":"[JavaScript] 비동기 프로그래밍"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>[JavaScript] 비동기 프로그래밍 | Hyeon's Dev Blog</title>
@@ -183,7 +183,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -241,7 +241,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/05/asynchronous-programming/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/05/Basic/asynchronous-programming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -273,7 +273,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-04-08 23:30:01" itemprop="dateModified" datetime="2022-04-08T23:30:01+09:00">2022-04-08</time>
+      <time title="Updated at: 2022-04-16 05:26:10" itemprop="dateModified" datetime="2022-04-16T05:26:10+09:00">2022-04-16</time>
     </span>
 
   
@@ -335,13 +335,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/03/27/rest-api/" rel="prev" title="내 서버를 RESTful하게 설계하기">
+                <a href="/2022/03/27/Basic/rest-api/" rel="prev" title="내 서버를 RESTful하게 설계하기">
                   <i class="fa fa-chevron-left"></i> 내 서버를 RESTful하게 설계하기
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/04/08/RN-publishing-trouble-shoot/" rel="next" title="[React Native] 퍼블리싱 트러블슈팅 기록">
-                  [React Native] 퍼블리싱 트러블슈팅 기록 <i class="fa fa-chevron-right"></i>
+                <a href="/2022/04/08/ReactNative/RN-publishing-branch-os/" rel="next" title="[React Native] 플랫폼별로 디자인을 달리 하고 싶을 때">
+                  [React Native] 플랫폼별로 디자인을 달리 하고 싶을 때 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
