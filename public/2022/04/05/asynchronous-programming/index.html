@@ -19,15 +19,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="이 글을 쓰게된 이유나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 더 나은 코드 패턴인건 직감으로 아는데, 왜 더 나은지 짜임새있게 설명하기 위해 정리해본다. 비동기처리 패턴의 역사웹을 경험한 기간이 짧아서 아쉬운 점은 실제로 내가 예전의 구린 웹을 써본 적이 없다는 것">
+<meta name="description" content="이 글을 쓰게된 이유나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[JavaScript] 비동기 프로그래밍">
 <meta property="og:url" content="https://ga0hyeon.github.io/2022/04/05/asynchronous-programming/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
-<meta property="og:description" content="이 글을 쓰게된 이유나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 더 나은 코드 패턴인건 직감으로 아는데, 왜 더 나은지 짜임새있게 설명하기 위해 정리해본다. 비동기처리 패턴의 역사웹을 경험한 기간이 짧아서 아쉬운 점은 실제로 내가 예전의 구린 웹을 써본 적이 없다는 것">
+<meta property="og:description" content="이 글을 쓰게된 이유나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2022-04-04T15:01:04.000Z">
-<meta property="article:modified_time" content="2022-04-08T14:04:17.933Z">
+<meta property="article:modified_time" content="2022-04-08T14:30:01.752Z">
 <meta property="article:author" content="Gayoung Hyeon">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -183,7 +183,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -273,7 +273,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-04-08 23:04:17" itemprop="dateModified" datetime="2022-04-08T23:04:17+09:00">2022-04-08</time>
+      <time title="Updated at: 2022-04-08 23:30:01" itemprop="dateModified" datetime="2022-04-08T23:30:01+09:00">2022-04-08</time>
     </span>
 
   
@@ -286,7 +286,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="이-글을-쓰게된-이유"><a href="#이-글을-쓰게된-이유" class="headerlink" title="이 글을 쓰게된 이유"></a>이 글을 쓰게된 이유</h1><p>나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 더 나은 코드 패턴인건 직감으로 아는데, 왜 더 나은지 짜임새있게 설명하기 위해 정리해본다.</p>
+        <h1 id="이-글을-쓰게된-이유"><a href="#이-글을-쓰게된-이유" class="headerlink" title="이 글을 쓰게된 이유"></a>이 글을 쓰게된 이유</h1><p>나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다.</p>
 <h1 id="비동기처리-패턴의-역사"><a href="#비동기처리-패턴의-역사" class="headerlink" title="비동기처리 패턴의 역사"></a>비동기처리 패턴의 역사</h1><p>웹을 경험한 기간이 짧아서 아쉬운 점은 실제로 내가 예전의 구린 웹을 써본 적이 없다는 것이다 ㅠㅠ 이건 비단 웹 뿐만 아니라 프로그래밍의 거의 모든 분야에서 그렇긴 하지만. 실제로 불편했던 기억이 있으면 예를 들어 설명하기 더 좋지 않았을까 생각한다.<br>아무튼 나는 경험한 바가 없기 때문에, 비동기처리 패턴이 예전엔 어떻게 구렸는 지 좀 찾아봤다.</p>
 <h2 id="Callback-패턴"><a href="#Callback-패턴" class="headerlink" title="Callback 패턴"></a>Callback 패턴</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="function"><span class="title">doSomethingAsynchronously</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    asyncFuncWithCallback(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        doSomethng();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -297,7 +297,7 @@
 <h2 id="async-await-패턴"><a href="#async-await-패턴" class="headerlink" title="async await 패턴"></a>async await 패턴</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line"><span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line"><span class="built_in">console</span>.log(res1, res2);</span><br></pre></td></tr></table></figure>
 
 <p>ES8에 등장한 이 패턴은, 확실히 위의 두 패턴보다 가독성이 좋아 보인다.</p>
-<h1 id="동기함수에서-비동기-함수를-호출하고-싶은데…"><a href="#동기함수에서-비동기-함수를-호출하고-싶은데…" class="headerlink" title="동기함수에서 비동기 함수를 호출하고 싶은데…"></a>동기함수에서 비동기 함수를 호출하고 싶은데…</h1><p>사실 이 섹션 때문에 포스트를 작성하게되었다 ㅋㅋㅋ<br>예를 들어 화면 쪽 로직에 이런 기능이 있다.</p>
+<h1 id="동기함수에서-비동기-함수를-호출하고-싶은데…"><a href="#동기함수에서-비동기-함수를-호출하고-싶은데…" class="headerlink" title="동기함수에서 비동기 함수를 호출하고 싶은데…"></a>동기함수에서 비동기 함수를 호출하고 싶은데…</h1><p>예를 들어 화면 쪽 로직에 이런 기능이 있다.</p>
 <p>‘제출하기 버튼을 누르면 제출 api를 호출하게 해주세요’</p>
 <p>물론 제출하기 버튼에 제출 api 호출 함수를 넣으면 된다. 바로 동작하는 것을 볼 수 있다. 그런데 여기에 type checking 이 들어가면 버튼의 onClick 핸들러는 동기 함수를 받기를 원하므로, 비동기인 api 호출 함수를 넣으면 정적 소스 분석툴에서 type이 맞지 않다고 징징거린다.</p>
 <p>그래서 처음에는 이런식의 코드를 짰다.</p>
@@ -308,14 +308,14 @@
 <ol>
 <li>비동기 함수 호출 시 void 붙여주기</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    void groupedAsyncFunc();</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> void groupedAsyncFunc()&#125; /&gt;</span>;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>IIFE (즉시실행함수) 패턴 사용하기</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    (async () =&gt; await groupedAsyncFunc())();</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
 
-<p>개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function">2안을 사용한 사례</a>도 꽤 많았다. IIFE는 비단 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이라고 한다.</p>
+<p>개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function">2안을 사용하도록 가이드</a>하는 경우도 꽤 있었다. 나는 몰랐지만, IIFE는 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이며, 변수의 호이스팅 때문에 원하는 대로 동작하지 않는 케이스를 방지해준다는 큰 장점이 있다고 한다. 이 내용을 접했을 때, 내가 <em>동기함수에서 비동기 함수를 호출</em> 하고 싶다는 내 작은 요건에 너무 오버되는 패턴을 찾은 것 같다는 생각을 했다. ㅋㅋㅋ 굳이 이걸 쓸 필요가 없어보였다. Scope 처리가 너무나 당연한 환경에서 웹 개발을 하고있는 나에게는 별로 매력적이지 않아보였기 때문이다. 그래서 2안은 IIFE 개념에 대해 접할 수 있었던 것에만 의의를 두고, 사용하지는 않기로 했다.</p>
 <h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>비동기 action의 결과를 명시적으로 기다리지 않는 경우 void 키워드를 붙여주자.</p>
 
     </div>
@@ -340,6 +340,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/04/08/RN-publishing-trouble-shoot/" rel="next" title="[React Native] 퍼블리싱 트러블슈팅 기록">
+                  [React Native] 퍼블리싱 트러블슈팅 기록 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
