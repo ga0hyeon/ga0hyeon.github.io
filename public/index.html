@@ -179,18 +179,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">카테고리</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -236,7 +236,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/RN-trouble-shoot/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/05/22/AI_MLOps/ocr/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -250,7 +250,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/08/RN-trouble-shoot/" class="post-title-link" itemprop="url">[React Native] 트러블슈팅 기록</a>
+          <a href="/2022/05/22/AI_MLOps/ocr/" class="post-title-link" itemprop="url">javscript OCR 라이브러리로 제품정보 인식하기</a>
         </h2>
 
         <div class="post-meta-container">
@@ -260,9 +260,282 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">작성일</span>
-      
 
-      <time title="Post created: 2022-04-08 22:28:41 / Updated at: 23:40:24" itemprop="dateCreated datePublished" datetime="2022-04-08T22:28:41+09:00">2022-04-08</time>
+      <time title="Post created: 2022-05-22 20:28:59" itemprop="dateCreated datePublished" datetime="2022-05-22T20:28:59+09:00">2022-05-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-05-23 01:08:00" itemprop="dateModified" datetime="2022-05-23T01:08:00+09:00">2022-05-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EC%82%AC%EC%9D%B4%EB%93%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" itemprop="url" rel="index"><span itemprop="name">사이드 프로젝트</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="AWS-Textract"><a href="#AWS-Textract" class="headerlink" title="AWS Textract"></a>AWS Textract</h1><p>처음에는 AWS Textract를 사용하려고 하였으나… 지원 언어에 한국어가 아직 없는 관계로 패스</p>
+<h1 id="Javascript-OCR-라이브러리들"><a href="#Javascript-OCR-라이브러리들" class="headerlink" title="Javascript OCR 라이브러리들"></a>Javascript OCR 라이브러리들</h1><p>직접 구현하기로 마음을 먹고 javascript OCR 라이브러리를 찾아보니 생각보다 굉장히 많았다.<br><a target="_blank" rel="noopener" href="https://openbase.com/categories/js/best-nodejs-ocr-libraries">https://openbase.com/categories/js/best-nodejs-ocr-libraries</a><br>1위인 Tesseract를 선택했다.</p>
+<h1 id="input으로-어떤-이미지가-들어올까"><a href="#input으로-어떤-이미지가-들어올까" class="headerlink" title="input으로 어떤 이미지가 들어올까?"></a>input으로 어떤 이미지가 들어올까?</h1><p>일반 사용자에게 “제품 모델명을 촬영해달라”고 한다면 어느 부분을 찍을지 생각해봤다.<br>얼마 고민해보지 않아도 제품 어딘가에 모델명이 쓰여있는 경우를 모두 고려해야한다는 결론이 났다.</p>
+<ul>
+<li>단순 텍스트</li>
+<li>행과 열이 선으로 구분된 테이블 형태의 상세정보</li>
+<li>행과 열이 선으로 구분되지 않은 테이블 형태의 상세정보</li>
+</ul>
+<p>가이드 문서에서 제공되는 아래의 기본 코드로 위의 세가지 케이스를 각각 인식해본 결과…</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> worker = createWorker(&#123;</span><br><span class="line">  <span class="attr">logger</span>: <span class="function">(<span class="params">m</span>) =&gt;</span> <span class="built_in">console</span>.log(m),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> recognize = <span class="function">(<span class="params">file: File</span>) =&gt;</span> &#123;</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> worker.load();</span><br><span class="line">    <span class="keyword">await</span> worker.loadLanguage(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> worker.initialize(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      <span class="attr">data</span>: &#123; text &#125;,</span><br><span class="line">    &#125; = <span class="keyword">await</span> worker.recognize(file);</span><br><span class="line">    setResult(text);</span><br><span class="line">    <span class="keyword">await</span> worker.terminate();</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/ocr_result_1.png" alt="인식결과_1"><br>나~~~~름 인식이 잘 되는 것을 볼 수 있었다. 나름… 하지만 제품정보를 “인식”했다고 하기에는 정확도가 민망할 정도로 낮아서, 보완할 포인트를 정리해봤다.</p>
+<ul>
+<li>먼지가 글자로 인식되어, 먼지가 많은 사진을 인식하는 데에 수 분이 소요된다<ul>
+<li>의도한 것은 아니나, 단순 텍스트 인식을 위해 촬영한 이미지 (공유기)에 먼지가 많아서 이걸 다 글자로 인식하는 바람에 정확도 0% 처리 시간 N분이라는 결과가… 나왔다</li>
+</ul>
+</li>
+<li>input 사진의 size가 불필요하게 크다</li>
+<li>글자가 있는 영역 외의 Object는 인식에서 제외할 필요가 있어보인다</li>
+<li>테이블 형식의 input 데이터는 사실 행-열 만으로 매우 큰 정보를 제공하는데, 인식 결과에서는 그 내용을 활용하지 못한다</li>
+</ul>
+<p>도출된 보완점 중 <strong>먼지</strong> 문제와 <strong>input size</strong> 문제는 쉽게 해결 가능해보이고,<br><strong>Object</strong> 문제와 <strong>Table</strong> 문제는 detection 관련해서 좀 더 찾아볼 필요가 있어보였다.</p>
+<p>쓸만하게 만들기 위해서는 전처리를 추가해야겠다는 생각이 들었다.</p>
+<h1 id="전처리를-추가하자"><a href="#전처리를-추가하자" class="headerlink" title="전처리를 추가하자"></a>전처리를 추가하자</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/12/ReactNative/RN-publishing-hide-scrollbar/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/12/ReactNative/RN-publishing-hide-scrollbar/" class="post-title-link" itemprop="url">[React Native] 스크롤 영역의 스크롤 바를 가리고 싶을 때</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-04-12 22:28:41" itemprop="dateCreated datePublished" datetime="2022-04-12T22:28:41+09:00">2022-04-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-04-16 05:32:07" itemprop="dateModified" datetime="2022-04-16T05:32:07+09:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="스크롤-영역의-스크롤-바를-가리고-싶을-때"><a href="#스크롤-영역의-스크롤-바를-가리고-싶을-때" class="headerlink" title="스크롤 영역의 스크롤 바를 가리고 싶을 때"></a>스크롤 영역의 스크롤 바를 가리고 싶을 때</h1><p>ScrollView, FlatList에게 아래의 props를 내려주자.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">showsVerticalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">showsHorizontalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/10/ReactNative/RN-publishing-scrollview-sticky/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/10/ReactNative/RN-publishing-scrollview-sticky/" class="post-title-link" itemprop="url">[React Native] ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-04-10 22:28:41" itemprop="dateCreated datePublished" datetime="2022-04-10T22:28:41+09:00">2022-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-04-16 05:32:03" itemprop="dateModified" datetime="2022-04-16T05:32:03+09:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때"><a href="#ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때" class="headerlink" title="ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때"></a>ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</h1><p>스크롤 하다가 Stick 되었으면 하는 자식 요소의 index를 stickyHeaderIndices prop를 통해 명시해주자.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;ScrollView stickyHeaderIndices=&#123;[<span class="number">0</span>]&#125;&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Header</span> /&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">FirstView</span> /&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">SecondView</span> /&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">ThirdView</span> /&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">FourthView</span> /&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Footer</span> /&gt;</span></span></span><br><span class="line">&lt;/ScrollView&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/ReactNative/RN-ios-image-not-showing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/08/ReactNative/RN-ios-image-not-showing/" class="post-title-link" itemprop="url">[React Native] iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-04-08 22:28:41" itemprop="dateCreated datePublished" datetime="2022-04-08T22:28:41+09:00">2022-04-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-04-16 05:33:01" itemprop="dateModified" datetime="2022-04-16T05:33:01+09:00">2022-04-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -318,7 +591,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/RN-publishing-trouble-shoot/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/ReactNative/RN-publishing-align-center/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -332,7 +605,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/08/RN-publishing-trouble-shoot/" class="post-title-link" itemprop="url">[React Native] 퍼블리싱 트러블슈팅 기록</a>
+          <a href="/2022/04/08/ReactNative/RN-publishing-align-center/" class="post-title-link" itemprop="url">[React Native] 여러 개의 자식 요소를 가운데 정렬하고 싶을 때</a>
         </h2>
 
         <div class="post-meta-container">
@@ -350,7 +623,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-04-11 10:16:20" itemprop="dateModified" datetime="2022-04-11T10:16:20+09:00">2022-04-11</time>
+      <time title="Updated at: 2022-04-16 05:30:40" itemprop="dateModified" datetime="2022-04-16T05:30:40+09:00">2022-04-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -372,18 +645,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="플랫폼별로-디자인을-달리-하고-싶을-때"><a href="#플랫폼별로-디자인을-달리-하고-싶을-때" class="headerlink" title="플랫폼별로 디자인을 달리 하고 싶을 때"></a>플랫폼별로 디자인을 달리 하고 싶을 때</h1><p><code>react-native</code> 패키지의 <code>Platform</code> 모듈을 사용하자</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  <span class="attr">pagination_wrapper</span>: &#123;</span><br><span class="line">    <span class="attr">position</span>: <span class="string">&quot;absolute&quot;</span>,</span><br><span class="line">    <span class="attr">left</span>: width / <span class="number">2</span> - <span class="number">100</span>,</span><br><span class="line">    ...Platform.select(&#123;</span><br><span class="line">      <span class="attr">ios</span>: &#123;</span><br><span class="line">        <span class="attr">top</span>: height + <span class="number">70</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">android</span>: &#123;</span><br><span class="line">        <span class="attr">top</span>: height + <span class="number">75</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h1 id="여러-개의-자식-요소를-가운데-정렬하고-싶을-때"><a href="#여러-개의-자식-요소를-가운데-정렬하고-싶을-때" class="headerlink" title="여러 개의 자식 요소를 가운데 정렬하고 싶을 때"></a>여러 개의 자식 요소를 가운데 정렬하고 싶을 때</h1><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  <span class="attr">vertical</span>: &#123;</span><br><span class="line">    <span class="attr">justifyContent</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 horizontally 가운데 정렬된다.</span></span><br><span class="line">    <span class="attr">alignItems</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 vertically 가운데 정렬된다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h1 id="스크롤-영역의-스크롤-바를-가리고-싶을-때"><a href="#스크롤-영역의-스크롤-바를-가리고-싶을-때" class="headerlink" title="스크롤 영역의 스크롤 바를 가리고 싶을 때"></a>스크롤 영역의 스크롤 바를 가리고 싶을 때</h1><p>ScrollView, FlatList에게 아래의 props를 내려주자.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">showsVerticalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">showsHorizontalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때"><a href="#ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때" class="headerlink" title="ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때"></a>ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</h1><p>스크롤 하다가 Stick 되었으면 하는 자식 요소의 index를 stickyHeaderIndices prop를 통해 명시해주자.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;ScrollView stickyHeaderIndices=&#123;[<span class="number">0</span>]&#125;&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Header</span> /&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">FirstView</span> /&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">SecondView</span> /&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">ThirdView</span> /&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">FourthView</span> /&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Footer</span> /&gt;</span></span></span><br><span class="line">&lt;/ScrollView&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Collapsible-아코디언-메뉴를-만들고-싶을-때"><a href="#Collapsible-아코디언-메뉴를-만들고-싶을-때" class="headerlink" title="Collapsible 아코디언 메뉴를 만들고 싶을 때"></a>Collapsible 아코디언 메뉴를 만들고 싶을 때</h1><p><code>react-native-collapsible</code> 라이브러리를 써보자<br>+) 직접 구현도 가능할 것 같은데.. 사이드-사이드 프로젝트로 하는게 어떨까?</p>
+          <h1 id="여러-개의-자식-요소를-가운데-정렬하고-싶을-때"><a href="#여러-개의-자식-요소를-가운데-정렬하고-싶을-때" class="headerlink" title="여러 개의 자식 요소를 가운데 정렬하고 싶을 때"></a>여러 개의 자식 요소를 가운데 정렬하고 싶을 때</h1><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  <span class="attr">vertical</span>: &#123;</span><br><span class="line">    <span class="attr">justifyContent</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 horizontally 가운데 정렬된다.</span></span><br><span class="line">    <span class="attr">alignItems</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 vertically 가운데 정렬된다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -410,7 +672,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/05/asynchronous-programming/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/ReactNative/RN-publishing-branch-os/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -424,7 +686,89 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/05/asynchronous-programming/" class="post-title-link" itemprop="url">[JavaScript] 비동기 프로그래밍</a>
+          <a href="/2022/04/08/ReactNative/RN-publishing-branch-os/" class="post-title-link" itemprop="url">[React Native] 플랫폼별로 디자인을 달리 하고 싶을 때</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-04-08 22:28:41" itemprop="dateCreated datePublished" datetime="2022-04-08T22:28:41+09:00">2022-04-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-04-16 05:30:14" itemprop="dateModified" datetime="2022-04-16T05:30:14+09:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="플랫폼별로-디자인을-달리-하고-싶을-때"><a href="#플랫폼별로-디자인을-달리-하고-싶을-때" class="headerlink" title="플랫폼별로 디자인을 달리 하고 싶을 때"></a>플랫폼별로 디자인을 달리 하고 싶을 때</h1><p><code>react-native</code> 패키지의 <code>Platform</code> 모듈을 사용하자</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  <span class="attr">pagination_wrapper</span>: &#123;</span><br><span class="line">    <span class="attr">position</span>: <span class="string">&quot;absolute&quot;</span>,</span><br><span class="line">    <span class="attr">left</span>: width / <span class="number">2</span> - <span class="number">100</span>,</span><br><span class="line">    ...Platform.select(&#123;</span><br><span class="line">      <span class="attr">ios</span>: &#123;</span><br><span class="line">        <span class="attr">top</span>: height + <span class="number">70</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">android</span>: &#123;</span><br><span class="line">        <span class="attr">top</span>: height + <span class="number">75</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/05/Basic/asynchronous-programming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/05/Basic/asynchronous-programming/" class="post-title-link" itemprop="url">[JavaScript] 비동기 프로그래밍</a>
         </h2>
 
         <div class="post-meta-container">
@@ -442,7 +786,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-04-08 23:30:01" itemprop="dateModified" datetime="2022-04-08T23:30:01+09:00">2022-04-08</time>
+      <time title="Updated at: 2022-04-16 05:26:10" itemprop="dateModified" datetime="2022-04-16T05:26:10+09:00">2022-04-16</time>
     </span>
 
   
@@ -512,7 +856,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/03/27/rest-api/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/03/27/Basic/rest-api/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -526,7 +870,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/27/rest-api/" class="post-title-link" itemprop="url">내 서버를 RESTful하게 설계하기</a>
+          <a href="/2022/03/27/Basic/rest-api/" class="post-title-link" itemprop="url">내 서버를 RESTful하게 설계하기</a>
         </h2>
 
         <div class="post-meta-container">
@@ -536,9 +880,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">작성일</span>
-      
 
-      <time title="Post created: 2022-03-27 02:20:13 / Updated at: 02:23:03" itemprop="dateCreated datePublished" datetime="2022-03-27T02:20:13+09:00">2022-03-27</time>
+      <time title="Post created: 2022-03-27 02:20:13" itemprop="dateCreated datePublished" datetime="2022-03-27T02:20:13+09:00">2022-03-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-04-16 05:26:10" itemprop="dateModified" datetime="2022-04-16T05:26:10+09:00">2022-04-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -586,7 +936,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/03/06/ai-csp/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/03/06/AI_MLOps/ai-csp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -600,7 +950,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/06/ai-csp/" class="post-title-link" itemprop="url">WIP: [MLOps] 멍청한 내 사이드 프로젝트를 Intelligent 하게 만들어보자</a>
+          <a href="/2022/03/06/AI_MLOps/ai-csp/" class="post-title-link" itemprop="url">[주말엔 엄빠랑 놀자] 멍청한 내 사이드 프로젝트에 MLOps 적용하기</a>
         </h2>
 
         <div class="post-meta-container">
@@ -618,7 +968,20 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-03-31 09:19:44" itemprop="dateModified" datetime="2022-03-31T09:19:44+09:00">2022-03-31</time>
+      <time title="Updated at: 2022-04-19 08:54:03" itemprop="dateModified" datetime="2022-04-19T08:54:03+09:00">2022-04-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EC%82%AC%EC%9D%B4%EB%93%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" itemprop="url" rel="index"><span itemprop="name">사이드 프로젝트</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EC%82%AC%EC%9D%B4%EB%93%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EC%A3%BC%EB%A7%90%EC%97%94-%EC%97%84%EB%B9%A0%EB%9E%91-%EB%86%80%EC%9E%90/" itemprop="url" rel="index"><span itemprop="name">주말엔 엄빠랑 놀자</span></a>
+        </span>
     </span>
 
   
@@ -631,7 +994,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>작년 상반기에 구상하여 하반기에 기획 &amp; 개발하고, 연말에 공모전에 냈던 나의 애증의 사이드 프로젝트…<br>퇴근하고 저녁, 주말에만 개발하느라 시간도 부족했는데 또 발등에 불 떨어질 때까지 미루는 바람에 실제로는 한 달안에 우다다 만들어서<br>코드도 못생기고 기능도 허접해서 다시 꺼내보고 싶지 않았는데… 요즘 문득 다시 만들어볼까 생각이 들어서 꺼내봤다.</p>
+          <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>작년 상반기에 구상하여 하반기에 기획 &amp; 개발하고, 연말에 공모전에 냈던 나의 애증의 사이드 프로젝트 ‘주말엔 엄빠랑 놀자’…<br>퇴근하고 저녁, 주말에만 개발하느라 시간도 부족했는데 또 발등에 불 떨어질 때까지 미루는 바람에 실제로는 한 달안에 우다다 만들어서<br>코드도 못생기고 기능도 허접해서 다시 꺼내보고 싶지 않았는데… 요즘 문득 다시 만들어볼까 생각이 들어서 꺼내봤다.</p>
 <p>기억과 그대로 소스코드는 지저분했지만, 리소스가 아깝기도 하고 작년 하반기 대비 내 실력이 얼마나 늘었는지도 볼 겸 모바일앱으로 전환을 해보기로 마음먹었다.</p>
 <p>그리고 이 꼬질꼬질한 친구를 더 멋드러지게 만들기 위해, 작년에 기획만 하고 우선순위에 밀려 구현되지 못했던 장소 추천 기능을 넣어보려고한다.</p>
 <p>이 포스트에서는 어떻게 추천 서비스를 1.구상하고 2.조사하고 3.이해하고 4.구현했는지 정리할 것이다.</p>
@@ -688,7 +1051,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/02/18/spring-validation/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/02/18/SpringBoot/spring-validation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -702,7 +1065,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/02/18/spring-validation/" class="post-title-link" itemprop="url">[Spring] @Valid @Validated에 대해 알아보자</a>
+          <a href="/2022/02/18/SpringBoot/spring-validation/" class="post-title-link" itemprop="url">[Spring] @Valid @Validated에 대해 알아보자</a>
         </h2>
 
         <div class="post-meta-container">
@@ -720,7 +1083,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-03-18 22:38:37" itemprop="dateModified" datetime="2022-03-18T22:38:37+09:00">2022-03-18</time>
+      <time title="Updated at: 2022-04-16 05:26:15" itemprop="dateModified" datetime="2022-04-16T05:26:15+09:00">2022-04-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -794,400 +1157,9 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/01/22/Resume/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/22/Resume/" class="post-title-link" itemprop="url">[React] React CDN 버전으로 나를 표현하는 이력 페이지를 만들자</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2022-01-22 04:08:15" itemprop="dateCreated datePublished" datetime="2022-01-22T04:08:15+09:00">2022-01-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-03-18 22:41:08" itemprop="dateModified" datetime="2022-03-18T22:41:08+09:00">2022-03-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.</p>
-<p>한 페이지에 내가 잘하는 것, 하고싶은 것, 했던 것에 대한 정보를 짜임새 있게 보여주기가 어렵더라구요… 감히 html 쪼가리가 나를 표현한다니! 라는 생각도 들고요 ㅋㅋㅋ<br>다른 한 편으로는 나에 대해서 정리하고 돌아보는 시간을 계속 미루고 싶었던 것 같기도 합니다.</p>
-<p>어떻게 하면 짜임새 있게 나를 표현할 수 있을까 고민했던 내용을 기록해볼게요.</p>
-<h1 id="계획"><a href="#계획" class="headerlink" title="계획"></a>계획</h1><p>우선 보여주고 싶은 정보의 특성에 따라 보여주는 방식도 달랐으면 했습니다.</p>
-<ul>
-<li>이력은 타임라인</li>
-<li>기술스택은 관련 직군이라면 알아볼 수 있을 만큼만 간결하게 뱃지로</li>
-<li>사이드 플젝 진행이력은 신뢰가 가도록 다양한 정보를 담아서</li>
-<li>성격이 드러나는 짧은 소개글</li>
-</ul>
-<p>또, 화면과 인터랙션해서 보여줘야하는 추가정보인지 / 처음부터 보여져야하는 필수정보인지에 따라서도 구현 방식이 달라져야 했구요.</p>
-<ul>
-<li>추가정보라면 툴팁과 아코디언을 적절히 사용해서 화면이 복잡해 보이지 얺도록</li>
-<li>필수정보라면 font style과 margin, padding 을 조절하여 화면이 복잡해 보이지 않도록</li>
-</ul>
-<p>🤔 뜬금없지만, 역시 내 product를 만든다고 생각하고 UX를 고민하는 작업은 항상 재미있는 것 같아요. 잘하고 싶어져서 더 알아보고, 더 알아보면 더 잘하게 되고…</p>
-<h1 id="구현"><a href="#구현" class="headerlink" title="구현"></a>구현</h1><p>이전 글에서 언급했듯 이 블로그는 Hexo와 Next theme 그리고 약간의 customizing으로 구현되어있는데요. 기존의 틀을 그대로 활용하여 마크다운 추가만으로도 이력 페이지를 꾸밀 수는 있겠지만 그걸로는 원하는 기능을 모두 구현할 수 없었고, 고민하지 않고 React의 도움을 받기로 했습니다.</p>
-<p>전체가 React로 구성되는 프로젝트는 아주 많이 만들어봤지만, html로 이미 구현된 페이지에 React Element를 삽입하는 형태로는 작업해본 적이 없었네요. 물론 공식 가이드 첫 부분에 나올 정도로 흔한 상식이긴하지만요… =)</p>
-<h2 id="React-ReactDOM-CDN-추가"><a href="#React-ReactDOM-CDN-추가" class="headerlink" title="React, ReactDOM CDN 추가"></a>React, ReactDOM CDN 추가</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;like_button_container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- global 변수로 React를 가져다 사용하기 위해 아래와 같이 CDN을 통해 js를 불러오도록 합니다. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">//아래의 예제는 React 공식 docs에서 제공하는 예제입니다.</span></span></span><br><span class="line"><span class="javascript"><span class="meta">      &quot;use strict&quot;</span>; <span class="comment">//올바르지 않은 문법을 사전에 검출할 수 있도록 strict 모드를 쓴다는 의미라네요.</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> e = React.createElement;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="class"><span class="keyword">class</span> <span class="title">LikeButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="built_in">super</span>(props);</span></span><br><span class="line"><span class="javascript">          <span class="built_in">this</span>.state = &#123; <span class="attr">liked</span>: <span class="literal">false</span> &#125;;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span> (<span class="built_in">this</span>.state.liked) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="string">&quot;You liked this.&quot;</span>;</span></span><br><span class="line"><span class="javascript">          &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">          <span class="keyword">return</span> e(</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;button&quot;</span>,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="attr">onClick</span>: <span class="function">() =&gt;</span> <span class="built_in">this</span>.setState(&#123; <span class="attr">liked</span>: <span class="literal">true</span> &#125;) &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;Like&quot;</span></span></span><br><span class="line"><span class="javascript">          );</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> domContainer = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#like_button_container&quot;</span>);</span></span><br><span class="line"><span class="javascript">      ReactDOM.render(e(LikeButton), domContainer);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>이제 root/about/ 경로에 index.md 대신 index.html을 생성하고, 위의 코드를 넣어주면 끝입니다.</p>
-<h2 id="babel-CDN-추가"><a href="#babel-CDN-추가" class="headerlink" title="babel CDN 추가"></a>babel CDN 추가</h2><p>이제 React를 CDN으로 바로 가져다 쓸 수 있다는 것이 확인되었으니, 제가 쓰기 편한 코드로 바꾸고 싶어졌습니다.<br>위의 예제에서 저는 크게 두 가지가 불편해보였어요.</p>
-<ul>
-<li>createElement</li>
-<li>Class Component</li>
-</ul>
-<p>혹시 위의 예제에서 createElement 함수의 사용법을 보셨나요? 아래의 두 코드는 같은 동작을 위한 코드입니다.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onClick=&#123;doSomething&#125; /&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createElement(<span class="string">&quot;button&quot;</span>, &#123; <span class="attr">onClick</span>: doSomething &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>차이점은, jsx가 훨씬 더 html스럽게 생겨서 개발자 친화적인 것 같네요. 저도 jsx를 사용하는게 더 편하기 때문에 CDN으로부터 불러온 babel 스크립트가 jsx 형식을 알아먹을 수 있도록 수정해볼게요.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;like_button_container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/@babel/standalone/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- type을 주는 것을 잊지 마세요. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span>&gt;</span><span class="javascript"><span class="meta"></span></span></span><br><span class="line"><span class="meta"><span class="javascript">      &quot;use strict&quot;</span>;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> &#123; useState &#125; = React;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> LikeButton = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> [liked, setLiked] = useState(<span class="literal">false</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> liked ? (</span></span><br><span class="line"><span class="javascript">          <span class="string">&quot;You liked this.&quot;</span></span></span><br><span class="line"><span class="javascript">        ) : (</span></span><br><span class="line"><span class="javascript">          <span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span></span><br><span class="line"><span class="tag"><span class="xml"><span class="javascript">            <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="xml"><span class="javascript">              setLiked(true);</span></span></span><br><span class="line"><span class="xml"><span class="javascript">            &#125;&#125;</span></span></span><br><span class="line"><span class="xml"><span class="javascript">          &gt;</span></span></span><br><span class="line"><span class="xml"><span class="javascript">            Like</span></span></span><br><span class="line"><span class="xml"><span class="javascript">          <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span></span><br><span class="line"><span class="javascript">        );</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">LikeButton</span> /&gt;</span></span>, domContainer);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>짠! 이제 제가 쓰기 편한 형태로 어느정도 정리가 된 것 같습니다.</p>
-<h2 id="개발"><a href="#개발" class="headerlink" title="개발!"></a>개발!</h2><p>개발환경이 갖추어졌으니 아래의 주요 기능을 중심으로 개발하면 되겠습니다.</p>
-<ul>
-<li>이력 타임라인</li>
-<li>기술스택 뱃지목록</li>
-<li>사이드 플젝 진행이력</li>
-<li>성격이 드러나는 짧은 소개글</li>
-</ul>
-<p>(WIP) 생각날 때마다 추가 중입니다 =)</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/01/13/RN-setup/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/13/RN-setup/" class="post-title-link" itemprop="url">[React Native] 맥북 개발환경을 세팅하자</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2022-01-13 13:28:41" itemprop="dateCreated datePublished" datetime="2022-01-13T13:28:41+09:00">2022-01-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-03-18 22:41:14" itemprop="dateModified" datetime="2022-03-18T22:41:14+09:00">2022-03-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h1><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><ol>
-<li><p>Node 12 이상 설치<br><code>brew install node</code></p>
-</li>
-<li><p>Watchman 설치<br><code>brew install watchman</code></p>
-</li>
-<li><p>[iOS/필수] Xcode 설치</p>
-<p>appStore에서 설치하면 됩니다. (용량이 12기가라 매우 느립니다!)</p>
-</li>
-<li><p>[iOS/선택]<br>Xcode를 실행하여 Command Line Tools도 가장 최신으로 다운로드 하세요.</p>
-<p><img src="https://reactnative.dev/assets/images/GettingStartedXcodeCommandLineTools-8259be8d3ab8575bec2b71988163c850.png"></p>
-</li>
-<li><p>[iOS/선택] 시뮬레이터 추가 설치<br><strong>Xcode &gt; Preferences…</strong> 에서 <strong>Components</strong> 탭 선택 후<br>원하는 iOS 시뮬레이터를 선택하여 추가할 수 있습니다.<br>현 : 지금 최신 Xcode를 받으면 iPhone13 (iOS15.2) 가 default로 설치되는 것 같아요</p>
-</li>
-<li><p>[iOS/필수] CocoaPods 설치</p>
-<p><code>sudo gem install cocoapods</code></p>
-</li>
-<li><p>[AOS/필수] JDK 설치</p>
-<p>Jdk8 이상이 필요합니다.<br><code>brew install --cask adoptopenjdk/openjdk/adoptopenjdk8</code></p>
-</li>
-<li><p>[AOS/필수] 안드로이드 스튜디오 설치</p>
-<p><a target="_blank" rel="noopener" href="https://developer.android.com/studio/index.html">https://developer.android.com/studio/index.html</a></p>
-</li>
-<li><p>[AOS/필수] 환경변수 설정</p>
-<p>~/.bash_profile 에 아래의 내용을 입력해주세요.<br>현 : 사용하시는 terminal에 따라 유동적으로 진행해주세요 :)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ANDROID_HOME=<span class="variable">$HOME</span>/Library/Android/sdk</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/emulator</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/tools</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/tools/bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/platform-tools</span><br></pre></td></tr></table></figure></li>
-<li><p>[AOS/필수] SDK 설치</p>
-</li>
-</ol>
-<p>Android Studio &gt; SDK Manager 에서 원하는 SDK 를 선택하여 설치합니다.</p>
-<h2 id="Initialize-amp-Launch-Project"><a href="#Initialize-amp-Launch-Project" class="headerlink" title="Initialize &amp; Launch Project"></a>Initialize &amp; Launch Project</h2><h3 id="Initialize"><a href="#Initialize" class="headerlink" title="Initialize"></a>Initialize</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npx react-native init moga --template react-native-template-typescript</span><br><span class="line">yarn add mobx</span><br><span class="line">yarn add mobx-react</span><br><span class="line">yarn add @babel/plugin-proposal-decorators -D</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>babel.config.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    [<span class="string">&#x27;@babel/plugin-proposal-decorators&#x27;</span>, &#123;<span class="attr">legacy</span>: <span class="literal">true</span>&#125;],</span><br><span class="line">    [<span class="string">&#x27;@babel/plugin-proposal-class-properties&#x27;</span>, &#123;<span class="attr">loose</span>: <span class="literal">true</span>&#125;],</span><br><span class="line">  ],</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>tsconfig.json</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">	<span class="string">&quot;experimentalDecorators&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<h3 id="Launch"><a href="#Launch" class="headerlink" title="Launch"></a>Launch</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yarn install</span><br><span class="line">npx pod-install ios</span><br><span class="line">npm run start</span><br><span class="line">npm run android</span><br><span class="line">npm run ios</span><br></pre></td></tr></table></figure>
-
-<h2 id="Trouble-Shooting"><a href="#Trouble-Shooting" class="headerlink" title="Trouble Shooting"></a>Trouble Shooting</h2><blockquote>
-<p>react-native init 실행 후</p>
-<p>Installing CocoaPods dependencies 에서 실패하는 케이스</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx pod-install ios</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>pod install 실행 시</p>
-<p>Installing Flipper-Glog (0.3.6).. 에서 실패하는 케이스</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo xcode-select --switch /Applications/Xcode.app</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>pod install 실행 시<br><code>git_version&#39;: Failed to extract git version from </code>git –version` (“\nYou have not agreed to the Xcode license agreements, please run ‘sudo xcodebuild -license’ from within a Terminal window to review and agree to the Xcode license agreements.\n”).. 에러 뜨는 케이스</p>
-</blockquote>
-<p><code>sudo xcodebuild -license</code> 또는 Xcode 실행하여 약관 동의</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo xcodebuild -license  <span class="comment">## 또는 Xcode 실행하여 약관 동의</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/01/12/hexo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/12/hexo/" class="post-title-link" itemprop="url">[Hexo] Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그를 만들자</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2022-01-12 14:24:10" itemprop="dateCreated datePublished" datetime="2022-01-12T14:24:10+09:00">2022-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-03-18 22:41:03" itemprop="dateModified" datetime="2022-03-18T22:41:03+09:00">2022-03-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 <strong>놀이터</strong> 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.<br>그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 <em>내 웹페이지를 만들어보자</em>는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다.</p>
-<h1 id="요구사항"><a href="#요구사항" class="headerlink" title="요구사항"></a>요구사항</h1><p>고객(나)과 개발자(이것도 나)의 입장에서 여러가지 옵션을 재보았던 내용은 아래와 같다.</p>
-<p><strong>서버 비용은 들이고 싶지 않아요</strong></p>
-<ul>
-<li>처음에는 집에 굴러다니는 라즈베리파이에 올릴까 생각도 했는데 의외로 나도 모르는 사이에 전원을 꺼버리는 일이 잦고, update 하려면 서버에 붙어야한다는 점이 너무 번거로워서 몇 번 해보고 포기했다.</li>
-<li>정적 웹 사이트를 무료로 deploy할 수 있는 github page 를 선택하게 되었다. 나만 안쓰고 있었어…</li>
-</ul>
-<p><strong>웹사이트 구성을 직접 하는 건 어려울 것 같은데?</strong></p>
-<ul>
-<li>이것도 처음에는 내 취지 (<strong>놀이터</strong> 같은 블로그)에 맞게 처음부터 다 구성하려고 했었다. 하지만 막상 손을 대고 보니 고려할 부분이 정말정말 많더라… 검색이나 태그, 카테고리 기능을 추가하려고 하니까 구조를 잡는 것이 너무 부담스럽게 느껴졌다.</li>
-<li>검색 성능이 보장되는 태그나 카테고리를 구성하기 위해서 알고리즘과 자료구조부터 찾아봤고, 서버 비용을 들이더라도 elastic search 를 한 번 써볼까 spike도 해봤는데 ㅠㅠ 공부할 내용이 꽤 되는 것은 둘째치고 재미가 없었다. 그래서 얼마안가 포기.</li>
-</ul>
-<p><strong>정적 웹 사이트 생성기의 도움을 받자</strong></p>
-<ul>
-<li>github page를 사용하기로 정했을 때 Jekyll로 대표되는 정적 웹 사이트 생성기에 대해서 함께 찾아본 적은 있는데, theme가 모두 마음에 들지 않았던 것 같다.</li>
-<li>몇 개월 뒤에 검색 기능 구현에 지쳐서 찬찬히 다시 찾아봤는데, <a target="_blank" rel="noopener" href="https://hexo.io/ko/index.html">Hexo</a> 라는 정적 웹 사이트 생성기에 <a target="_blank" rel="noopener" href="https://theme-next.js.org/">NexT</a> theme이 눈에 들었다.</li>
-</ul>
-<p>Hexo 및 NexT 모두 가이드가 잘 되어있는 편이라, 이틀 정도로 github deploy 까지 완료 가능했다.</p>
-<h1 id="진행내용"><a href="#진행내용" class="headerlink" title="진행내용"></a>진행내용</h1><h2 id="Hexo-프로젝트-생성-및-구동"><a href="#Hexo-프로젝트-생성-및-구동" class="headerlink" title="Hexo 프로젝트 생성 및 구동"></a>Hexo 프로젝트 생성 및 구동</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h2 id="NexT-테마-적용"><a href="#NexT-테마-적용" class="headerlink" title="NexT 테마 적용"></a>NexT 테마 적용</h2><p>프로젝트 root 경로에서</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
-
-<p>그리고 hexo/_config.yml 에서</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="NexT-테마-커스터마이징-기본"><a href="#NexT-테마-커스터마이징-기본" class="headerlink" title="NexT 테마 커스터마이징 (기본)"></a>NexT 테마 커스터마이징 (기본)</h2><p><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">NexT docs</a>를 참고하여 커스터마이징.<br>대부분의 기본 옵션은 _config.next.yml에 명시되어있어서, flag나 값을 바꿔주는 방식으로 쉽게 변경이 가능하다.</p>
-<h2 id="NexT-테마-커스터마이징-고오급"><a href="#NexT-테마-커스터마이징-고오급" class="headerlink" title="NexT 테마 커스터마이징 (고오급)"></a>NexT 테마 커스터마이징 (고오급)</h2><p>style이나 html을 추가하고 싶은 경우, _config.next.yml에서 아래의 항목을 주석 해제하고 해당 경로에 파일을 만들어서 추가하고 싶은 style이나 html을 넣어주면 된다.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">head:</span> <span class="string">source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="attr">variable:</span> <span class="string">source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-
-<p>예를 들어 나는 google AdSense를 추가하고 싶었는데, html head 태그 안에 script를 넣을 방법이 필요했다.<br>그럴때 위 의 custom_file_path 에서 head 항목을 주석 해제하고 해당 경로에 head.njk 파일을 만들어준 다음 아래와 같이 입력해주면</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;google-site-verification&quot;</span> <span class="attr">content</span>=<span class="string">&quot;some_value&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">async</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=some_value&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>hexo generate</code>명령어 수행 시 위의 html 코드가 head 하단에 삽입된다.</p>
-<p>또, style 커스터마이징도 동일한 방법으로 가능하다.<br>custom_file_path 에서 style 항목을 주석 해제하고 해당 경로에 variables.styl 파일을 만들어준 다음 아래와 같이 입력해주면</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.search-popup</span></span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>hexo generate</code>명령어 수행 시 원하는대로 style이 잘 변경된 것을 확인할 수 있다.</p>
-<p>+) 위의 방법으로 style 커스터마이징을 하면 전반적인 통일성이 깨지므로 theme 사용의 이점이 퇴색될 수 있을 것 같아서 좀 더 찾아봤는데 (.node_modules/hexo-theme-next 에서 직접 열어볼 수 있다. )<br>기본적으로 font family나 size, 대표 color 는 variable로 관리되고 있음을 확인할 수 있었다. 따라서 테마 색상, 폰트 정도만 변경하고자 한다면 variables.styl에 아래와 같이 써주는게 좋겠다.</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$theme</span>-<span class="attribute">color</span> = <span class="number">#FFD460</span>;</span><br><span class="line"><span class="variable">$brand</span>-<span class="attribute">color</span> = <span class="number">#2D4059</span>;</span><br><span class="line"><span class="variable">$text</span>-<span class="attribute">color</span> = <span class="number">#2D4059</span>;</span><br><span class="line"><span class="variable">$font</span>-family-chinese = <span class="string">&#x27;IBM Plex Sans KR&#x27;</span>, sans-serif;</span><br><span class="line"><span class="variable">$font</span>-family-base         = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-logo         = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-headings     = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-posts        = <span class="variable">$font</span>-family-chinese;</span><br></pre></td></tr></table></figure>
-
-<h2 id="github-page-배포"><a href="#github-page-배포" class="headerlink" title="github page 배포"></a>github page 배포</h2><p>_config.yml에 deploy target을 명시한다.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/ga0hyeon/ga0hyeon.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">gh-pages</span></span><br></pre></td></tr></table></figure>
-
-<p>deployer를 설치하고</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
-<p>배포 명령어를 수행하면 끝이다.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>+) github credential 설정이 되어있지 않은 경우 에러 메시지가 발생할 수 있다. 흔한 에러이므로 구글링하면 금방 해결 가능하다.</p>
-<h1 id="그리고-더-해야할일"><a href="#그리고-더-해야할일" class="headerlink" title="그리고 더 해야할일"></a>그리고 더 해야할일</h1><ul>
-<li><input disabled="" type="checkbox"> github actions로 배포 자동화하기</li>
-<li><input disabled="" type="checkbox"> 사이드바에 category tree가 보이게 하고싶다!</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="다음 페이지"></i></a>
+  </nav>
 
 </div>
   </main>
