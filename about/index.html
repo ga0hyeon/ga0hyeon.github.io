@@ -26,8 +26,8 @@
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
 <meta property="og:description" content=".tech-icon-wrapper {         display: inline-flex;         flex-wrap: wrap;       }       .tech-icon {         padding: 4px;         margin-bottom: 0px !important;       }        .head">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2022-06-23T08:17:06.162Z">
-<meta property="article:modified_time" content="2022-06-23T08:17:06.162Z">
+<meta property="article:published_time" content="2022-06-23T08:22:01.436Z">
+<meta property="article:modified_time" content="2022-06-23T08:22:01.436Z">
 <meta property="article:author" content="Gayoung Hyeon">
 <meta name="twitter:card" content="summary">
 
@@ -326,49 +326,9 @@
         },
       };
 
-      const redireactApp = () => {
-        exeDeepLink();
-        checkInstallApp();
-      };
-
-      function checkInstallApp() {
-        function clearTimers() {
-          clearInterval(check);
-          clearTimeout(timer);
-        }
-
-        function isHideWeb() {
-          if (document.webkitHidden || document.hidden) {
-            clearTimers();
-          }
-        }
-        const check = setInterval(isHideWeb, 200);
-
-        const timer = setTimeout(function () {
-          redirectStore();
-        }, 500);
-      }
-
-      const redirectStore = () => {
-        const ua = navigator.userAgent.toLowerCase();
-
-        if (window.confirm("스토어로 이동하시겠습니까?")) {
-          location.href =
-            ua.indexOf("android") > -1
-              ? "https://play.google.com/store/apps/details?id=xxx"
-              : "https://apps.apple.com/kr/app/xxx";
-        }
-      };
-
-      function exeDeepLink() {
-        url = "yourapp://path/";
-        location.href = url;
-      }
-
       const Header = () => {
         return (
           <div className="header-wrapper">
-            <button onClick={redireactApp}>앱 열기</button>
             <div className="title">About Me 👋</div>
             <div className="desc">
               주로 Frontend Developer, Backend Developer 이지만
