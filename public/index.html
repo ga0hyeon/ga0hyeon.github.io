@@ -179,18 +179,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">카테고리</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -236,6 +236,204 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/07/20/Lab/gather-clonecoding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/20/Lab/gather-clonecoding/" class="post-title-link" itemprop="url">[WebRTC] 화상채팅 구현하기</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-07-20 02:14:38" itemprop="dateCreated datePublished" datetime="2022-07-20T02:14:38+09:00">2022-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-08-11 03:45:42" itemprop="dateModified" datetime="2022-08-11T03:45:42+09:00">2022-08-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/WebRTC/" itemprop="url" rel="index"><span itemprop="name">WebRTC</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>나는 코딩이던 미싱이던 그림이던 단시간에 머리를 풀가동해서 후다닥 결과물을 끌어내는게 재밌다.<br>사실 이런 챌린지를 기획할 때 제일 어려운 점은 목표를 정하는 것이다. 끝내는 데에 시간이 N시간 정도면 되겠다 싶으면서도 그 시간 동안 끊임없이 흥미와 도전정신을 끌어올릴 수 있는 목표를 정해야하기 때문이다. 말 그대로 시작이 반인 셈… 가끔 문제집으로 공부하던 어릴 때가 그립다 ㅎㅎ</p>
+<p>멘탈 상태가 좋을 때는 이런 아이디어가 샘솟는데 최근에는 이래저래 의욕이 하나도 없어서 침체되어있다가… 간만에 주말에 시간이 생겨서 일을 벌려 보았다 ㅎㅎ</p>
+<p>뭐냐하면..! 요즘 업무하면서 정말 유용하게 사용하고 있는 개더타운을 참고하여 화상채팅 웹사이트를 구현해보려고 한다. 이런 주제를 선정하게 된 이유는 다음과 같다.</p>
+<ul>
+<li>정제된 전체 가이드나 소스가 흔히 돌아다니지 않는 듯 하다. 개발하면서 제일 꿀맛은 개척하는 맛이니까</li>
+<li>평소에 궁금했던 웹 기술 분야를 세 개나 체험할 수 있다.<ul>
+<li>WebSocket 통신 (을 사용하는 줄 알았지만 뒤에 가서 WebRTC 라는 것을 깨닫게 될 예정) 체험하기</li>
+<li>HTML5 게임 개발 라이브러리 또는 프레임워크 서칭 및 체험하기</li>
+<li>인기 있는 디자인 시스템 서칭 및 체험하기</li>
+</ul>
+</li>
+</ul>
+<h1 id="PREPARATION"><a href="#PREPARATION" class="headerlink" title="PREPARATION"></a>PREPARATION</h1><h2 id="개더타운은-무엇으로-만들어져있나"><a href="#개더타운은-무엇으로-만들어져있나" class="headerlink" title="개더타운은 무엇으로 만들어져있나?"></a>개더타운은 무엇으로 만들어져있나?</h2><p>REST api를 주로 설계/개발해왔기 때문에 실시간 통신에 대해 아는 것이 없어서, 막연하게 ‘개더타운은 WebSocket으로 뭔가 되어있지 않을까?’ 라고 생각했다.<br>물론 그러면서도 어떻게 그 많은 사람이 음성 / 비디오를 서로 전송하고 있을까… 서버가 중간에서 이 많은 미디어를 다 나누어주고 있다면 개더타운은 어떻게 공짜인걸까… 생각은 했으나 그 뒤까지는 몰랐다.<br>찾아보니 개더타운은 P2P로 미디어 또는 임의의 데이터를 주고받을 수 있는 WebRTC를 사용하고 있고, WebRTC은 이미 오래전부터 많은 곳에서 (게임, 화상회의, 휘발성 채팅) 쓰이고 있다고 한다. 떠올려보니 회의 참여자 중 로컬 자원을 많이 쓰고 있는 사람이 포함되어 있을 때 내 게더타운이 약간 느려지는 현상이 종종 있었는데 P2P라서 그랬던 걸 수 있다는 생각이 든다.</p>
+<p>메인 기술 셋을 알아냈으니 WebRTC에 대해 구글링해봤다. 생각보다 공식 가이드 및 샘플이 탄탄해서 처음 접하는 기술임에도 왠지 순탄히 진행될 것 같다. 찾은 리소스는 아래와 같이 리스트업 해둔다.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://webrtc.org/getting-started/firebase-rtc-codelab">잘 정리된 공식 가이드</a></li>
+<li><a target="_blank" rel="noopener" href="https://webrtc.github.io/samples">잘 정리된 공식 샘플코드</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/ko/docs/Web/API/WebRTC_API/Signaling_and_video_calling">Mozilla의 WebRTC 설명</a></li>
+</ul>
+<h2 id="어떻게-만들까"><a href="#어떻게-만들까" class="headerlink" title="어떻게 만들까?"></a>어떻게 만들까?</h2><p>개더타운에 접속해서 F12도 켜보고, 구글링으로 찾은 가이드도 읽어어 보니 어느정도 아키텍처는 그려진 것 같다. (그리고 아래에 실제로 그렸습니다)<br><image src="/images/webrtc_layout.png" /><br>각 항목에 대한 설명은 다음과 같다.</p>
+<ul>
+<li>Signalling Server 구성 : <strong>Django with djangoRestFramework</strong><br>WebRTC 자체는 P2P 방식이라 미디어 교환 자체를 위해서는 중간다리 역할을 하는 서버가 필요없지만, 맨 처음 통신을 시작할 때 Client 간의 메시지 포맷 등을 협의 (Signaling) 하기 위한 서버가 필요하다고 한다. 요건 오랜만에 Django로 만들어보기로 한다.</li>
+<li>화면구성<ul>
+<li>뼈대 : <strong>React.js with Chakra UI</strong><br>화면 디자인 및 스타일링 작업도 재미있고 신나는 일이지만 요즘 표준 없는 UX/UI (정확히는 FE 개발자 - UX/UI 협업 표준의 부재(?) 또는 어려움(?)..)에 현타를 느끼고 있어서, 유명한 디자인 시스템을 써보기로 했다. 검색하면 여러 개의 빵빵한 디자인 시스템이 나오는데, 그 중 나는 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@chakra-ui/react">Chakra UI</a>를 써보기로 했다.</li>
+<li>맵 및 캐릭터 렌더 : <strong>Phaser</strong><br>HTML5 게임 개발 라이브러리 / 프레임워크에 대해서도 서칭을 했고, 최종으로는 Phaser와 PixiJS 두 개가 후보에 올랐다. 처음 관심 가져본 분야여서 판단을 내리기 어려웠는데 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/38509629/decide-pixi-js-or-phaser">요 글</a>이 큰 도움이 됐다. 내가 이해한 바를 키워드로 요약하자면 편리함(Phaser) vs 자유도(PixiJS) 같다. PixiJS를 쓰면 좀 더 deep하게 이해할 수 있을 것 같아서 10초 정도 고민됐는데, 욕심 같아서 포기했다. 이번에는 Phaser를 사용해보고, 다음에 HTML5 게임 개발이 정말 하고 싶어지면 그때 PixiJS를 써보자.<br>+) 뜬금없지만 <a target="_blank" rel="noopener" href="https://phaser.io/">Phaser 웹사이트</a>가 너무나 2000년대 감성이다.</li>
+</ul>
+</li>
+<li>미디어 전송 : <strong>WebRTC</strong></li>
+</ul>
+<h2 id="무엇부터-어떤-순서로-만들까"><a href="#무엇부터-어떤-순서로-만들까" class="headerlink" title="무엇부터 어떤 순서로 만들까?"></a>무엇부터 어떤 순서로 만들까?</h2><p>이번 사이드 프로젝트에서 제일 큰 수확이 요 스텝이라고 생각한다. 일정에 쫒기며 떠밀리듯이 개발하는 것이 요즘 내 개발 기피(?)의 원인이라고 생각하기 때문에 토이 프로젝트 만큼은 그렇게 진행하지 않으려고 노력했다. 사실 과거를 돌아보면 나는 토이 프로젝트도 그렇게 일정에 쫒기며 했던 사람이었긴하다 ㅋㅋㅋ 물론 오버웤이 내 의지였냐는 또 다른 문제긴 하지만…</p>
+<hr>
+<p>아모튼!! 이제는 그렇게 일하지 않으리라.. 다짐하면서 개발에 착수하기 전 내가 한 고민들을 적어보면 다음과 같다.</p>
+<ul>
+<li>다음 중 내가 우선 시 하는 것은 무엇인가?<ul>
+<li>내가 할애하려고 계획한 에포트 이상은 들이지 않고 진행하기</li>
+<li>내가 마무리하려고 계획한 날짜까지는 끝내기</li>
+<li>내가 계획했던 수준까지는 결과물의 퀄리티 내기<ul>
+<li>외적인 퀄리티 (기능성, 사용성, 심미성 등등)</li>
+<li>내적인 퀄리티 (코드 품질)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?</li>
+<li>작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?</li>
+</ul>
+<hr>
+<p>그리고 위 고민에 대한 결론은 요렇게 냈다. 물론 앞으로 계속해서 개정해나갈 예정이다 ㅎㅎ 실험🧪적인 것도 있고 ㅋㅋㅋ</p>
+<ul>
+<li>이 토이 프로젝트에서 나는 <code>내적인 퀄리티 &gt; 마감일 지키기 &gt; 에포트 지키기 &gt; 외적인 퀄리티</code> 순서대로 중요하게 생각할 것이다.<ol>
+<li>내적인 퀄리티 기준 : <code>Github public repo에 공개할 수 있는 수준</code> 으로</li>
+<li>마감일 지키기 기준 : 8/28</li>
+<li>에포트 지키기 기준 : <code>평일은 MAX 하루 3시간 이내, 주말은 하루 골라서 MAX 반나절만</code> 투자</li>
+<li>외적인 퀄리티 기준 : 뭐 그냥 데모 가능한 정도로만?<br>나는 요게 제일 신선했다. 실제로 내가 토이 플젝을 하면서 들였던 시간의 꽤 많은 부분이 외적인 퀄리티에 있었는데…<br>정작 진지하게 내가 이것을 얼마나 중요하게 생각하는가?를 따져보면 그건 또 아님. 작은 부분이 눈에 거슬리면 ‘에이 뭐 별로 안걸리는데’ 하고 바로 바로 손대려고 하다보니 그랬던 것 같다. 최고의 수확 👍</li>
+</ol>
+</li>
+<li>이 토이 프로젝트에서 나는 성취감을 느낄수 있는 최소한의 단위로 일을 쪼개고, 요렇게 쪼갠 일들을 다시 연관된 것들 끼리 뭉쳐서 진행할 것이다.<ul>
+<li>프로젝트 및 git 레포 셋업하기<ul>
+<li>React, Django 셋업</li>
+</ul>
+</li>
+<li>화면 뼈대 구성하기<ul>
+<li>Chakra 사용에 익숙해지기</li>
+</ul>
+</li>
+<li>맵 구성하기<ul>
+<li>Phaser 사용에 익숙해지기</li>
+<li>Phaser와 React.js를 우아하게 함께 사용하기</li>
+</ul>
+</li>
+<li>캐릭터 이동 구현하기</li>
+<li>회의실 입장 구현하기</li>
+<li>2인 음성 영상 챗 구현하기<ul>
+<li>WebRTC 예제 이해하고 적용하기</li>
+</ul>
+</li>
+<li>다자 음성 영상 챗 구현하기</li>
+<li>미디어 설정 기능 구현하기</li>
+</ul>
+</li>
+<li>🧪이 토이 프로젝트에서 나는 현재 작업 마무리 직후 다음 작업 내용에 대한 서칭을 하고, 실제 다음 작업 까지 약간의 텀을 두고 스스로에게 고민할 시간을 의도적으로 줄 것이다.<ul>
+<li>생각보다 멍때릴때 나오는 코드가 각잡고 짠 코드보다 선방하는 것 같아서 ㅋㅋㅋ 이번에 실험해본다.</li>
+</ul>
+</li>
+</ul>
+<h1 id="DELEVERY"><a href="#DELEVERY" class="headerlink" title="DELEVERY"></a>DELEVERY</h1><h2 id="Signaling-Server-구성-Django-with-djangoRestFramework"><a href="#Signaling-Server-구성-Django-with-djangoRestFramework" class="headerlink" title="Signaling Server 구성 : Django with djangoRestFramework"></a>Signaling Server 구성 : Django with djangoRestFramework</h2><p><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/ko/4.0/intro/">django docs</a>를 참고하여 초기 세팅을 진행한다.<br>+) mac에 python 2.7이 기본으로 깔려있어서 3.x 버전의 python을 받아주었다. python3을 기본으로 바라보도록 bashrc에도 alias를 추가해준다.</p>
+<p>django를 설치해주고</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m pip install Django</span><br></pre></td></tr></table></figure>
+
+<p>설치 후 잘 설치되었는지 버전을 확인한다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m django --version</span><br></pre></td></tr></table></figure>
+
+<p>그리고 아래 명령어로 현재 경로에 django 프로젝트를 생성한다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m django startproject gather_clone_siganlling_server</span><br></pre></td></tr></table></figure>
+
+<p>지정해준 폴더 (나의 경우 gather_clone_siganlling_server)로 이동하여 아래의 명령어를 수행하면, 짜잔! 기본포트(8000)에 샘플페이지가 뜬다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py runserver</span><br></pre></td></tr></table></figure>
+
+<p>나는 웹서버가 아니라 REST Api 서버로 사용할 것이므로, <a target="_blank" rel="noopener" href="https://www.django-rest-framework.org/#installation">django-rest-framework docs</a>를 참고하여 djangoRestFramework를 깔아주자.<br>example까지 따라서 만들면, 이제 localhost:8000에 이전의 django 샘플페이지가 아니라 swagger와 유사한 형태의 REST framework 페이지가 뜬다.</p>
+<h2 id="화면구성-React-js-with-Chakra-UI"><a href="#화면구성-React-js-with-Chakra-UI" class="headerlink" title="화면구성 : React.js with Chakra UI"></a>화면구성 : <strong>React.js with Chakra UI</strong></h2><ol>
+<li>CRA로 React 앱 초기 세팅</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npx create-react-app gather-clone-client --template @chakra-ui/typescript</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Adapter.js 라이브러리 설치<br>Adapter.js는 Polyfill(브라우저에서 지원하지 않는 최신 기능을 사용할 수 있도록 도와주는 코드의 모음)과 Shim(이미 존재하는 코드의 동작을 바로잡는데에 사용하는 코드의 모음)을 사용하여 WebRTC의 브라우저 간 호환성 문제를 해결해둔 라이브러리이다.<br>WebRTC가 계속해서 변화하고 있는 기술이고, 각 브라우저별로 지원 수준이 다르기 때문에 일괄 적용이 쉽지 않은 모양이다.</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webrtc-adapter</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>기본적인 화면 구성하기</li>
+</ol>
+<p>아래와 같이 기본적인 화면을 구성한다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">App.tsx</span><br><span class="line">pages</span><br><span class="line"> ⌞IntroPage.tsx</span><br><span class="line"> ⌞MeetingPage.tsx</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>이제 IntroPage에 Signaling API 호출을 추가한다.</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/05/22/AI_MLOps/ocr/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -268,7 +466,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-05-23 01:08:00" itemprop="dateModified" datetime="2022-05-23T01:08:00+09:00">2022-05-23</time>
+      <time title="Updated at: 2022-05-25 09:24:53" itemprop="dateModified" datetime="2022-05-25T09:24:53+09:00">2022-05-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -301,19 +499,32 @@
 <p>가이드 문서에서 제공되는 아래의 기본 코드로 위의 세가지 케이스를 각각 인식해본 결과…</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> worker = createWorker(&#123;</span><br><span class="line">  <span class="attr">logger</span>: <span class="function">(<span class="params">m</span>) =&gt;</span> <span class="built_in">console</span>.log(m),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> recognize = <span class="function">(<span class="params">file: File</span>) =&gt;</span> &#123;</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> worker.load();</span><br><span class="line">    <span class="keyword">await</span> worker.loadLanguage(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> worker.initialize(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      <span class="attr">data</span>: &#123; text &#125;,</span><br><span class="line">    &#125; = <span class="keyword">await</span> worker.recognize(file);</span><br><span class="line">    setResult(text);</span><br><span class="line">    <span class="keyword">await</span> worker.terminate();</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/ocr_result_1.png" alt="인식결과_1"><br>나~~~~름 인식이 잘 되는 것을 볼 수 있었다. 나름… 하지만 제품정보를 “인식”했다고 하기에는 정확도가 민망할 정도로 낮아서, 보완할 포인트를 정리해봤다.</p>
+<p><img src="/images/ocr_result_1.png" alt="인식결과_1"><br>나~~~~름 뭔가가 인식되는 것을 볼 수 있었다. 나름… 하지만 제품정보를 “인식”했다고 하기에는 정확도가 민망할 정도로 낮아서, 보완할 포인트를 정리해봤다.</p>
 <ul>
 <li>먼지가 글자로 인식되어, 먼지가 많은 사진을 인식하는 데에 수 분이 소요된다<ul>
 <li>의도한 것은 아니나, 단순 텍스트 인식을 위해 촬영한 이미지 (공유기)에 먼지가 많아서 이걸 다 글자로 인식하는 바람에 정확도 0% 처리 시간 N분이라는 결과가… 나왔다</li>
 </ul>
 </li>
 <li>input 사진의 size가 불필요하게 크다</li>
+<li>글자와 배경만 구분하면 될텐데… 이미지가 컬러일 필요가 없어보인다</li>
 <li>글자가 있는 영역 외의 Object는 인식에서 제외할 필요가 있어보인다</li>
-<li>테이블 형식의 input 데이터는 사실 행-열 만으로 매우 큰 정보를 제공하는데, 인식 결과에서는 그 내용을 활용하지 못한다</li>
+<li>테이블 형식의 input 데이터는 사실 행-열 조합 만으로 매우 큰 정보를 제공하는데, 인식 결과에서는 그 내용을 활용하지 못한다</li>
 </ul>
-<p>도출된 보완점 중 <strong>먼지</strong> 문제와 <strong>input size</strong> 문제는 쉽게 해결 가능해보이고,<br><strong>Object</strong> 문제와 <strong>Table</strong> 문제는 detection 관련해서 좀 더 찾아볼 필요가 있어보였다.</p>
-<p>쓸만하게 만들기 위해서는 전처리를 추가해야겠다는 생각이 들었다.</p>
-<h1 id="전처리를-추가하자"><a href="#전처리를-추가하자" class="headerlink" title="전처리를 추가하자"></a>전처리를 추가하자</h1>
+<p>도출된 보완점 중 <strong>먼지</strong> 문제와 <strong>input size</strong> 문제, <strong>grayscale</strong> 문제는 쉽게 해결 가능해보이고,<br><strong>Object</strong> 문제와 <strong>Table</strong> 문제는 detection 관련해서 좀 더 찾아볼 필요가 있어보였다.</p>
+<p>아무튼. 쓸만하게 만들기 위해서는 전처리가 필요하다.</p>
+<p>구글링해보니 인식률을 높이는 방법으로 몇 가지 전처리가 추천되고 있다. 다들 비슷하게 생각하고 있다 ㅋㅋㅋ 재밌음<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy">https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy</a></p>
+<h1 id="전처리를-추가하자"><a href="#전처리를-추가하자" class="headerlink" title="전처리를 추가하자"></a>전처리를 추가하자</h1><h2 id="openCV-js를-붙여보자"><a href="#openCV-js를-붙여보자" class="headerlink" title="openCV.js를 붙여보자"></a>openCV.js를 붙여보자</h2><p>javascript에서 영상처리를 하는 방법에 대해 열심히 구글링했지만… 쉽지 않았다. cdn을 통해서나 js를 받아 직접 script를 붙여서 사용하도록 가이드하는 오픈소스는 종종 보였으나 npm 라이브러리는 쓸만한게 없었다. 아쉬운대로 openCV.js를 받아서 써보기로 했다.</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html">https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html</a> 를 참고해서 4.5.5버전의 openCV.zip를 다운로드한다.</p>
+</li>
+<li><p>zip 폴더를 풀어 public 폴더에 넣고, 폴더명은 openCV_4.5.5로 변경했다. 그리고 index.html에 아래와 같이 js를 붙여준다. js가 로드된 이후 부터는 글로벌하게 선언된 <code>cv</code> 변수를 이용해서 openCV를 사용할 수 있다.</p>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;openCV_4.5.5/opencv.js&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onload</span>=<span class="string">&quot;onOpenCvReady();&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="이미지를-흑백으로-변환하자"><a href="#이미지를-흑백으로-변환하자" class="headerlink" title="이미지를 흑백으로 변환하자"></a>이미지를 흑백으로 변환하자</h2><p><a target="_blank" rel="noopener" href="https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html">https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> src = cv.imread(<span class="string">&quot;canvasInput&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> dst = <span class="keyword">new</span> cv.Mat();</span><br><span class="line">cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -1026,120 +1237,6 @@
 <li><a target="_blank" rel="noopener" href="https://www.adjust.com/ko/blog/opt-in-design-for-apple-app-tracking-transparency-att-ios14/">위에 언급된 ATT로인해 UX적으로 고려해야하는 것</a>: 관련은 없는데 재밌어서 기록한다. 역시 UX는 재밌다.</li>
 </ul>
 <h2 id="사용자의-action-이력과-가중치를-넘기면-이-사용자의-feature-별-관심도를-뽑아주는-서비스나-모델이-뭐가-있을까"><a href="#사용자의-action-이력과-가중치를-넘기면-이-사용자의-feature-별-관심도를-뽑아주는-서비스나-모델이-뭐가-있을까" class="headerlink" title="사용자의 action 이력과 가중치를 넘기면 이 사용자의 feature 별 관심도를 뽑아주는 서비스나 모델이 뭐가 있을까?"></a>사용자의 action 이력과 가중치를 넘기면 이 사용자의 feature 별 관심도를 뽑아주는 서비스나 모델이 뭐가 있을까?</h2><h2 id="특정-사용자의-feature-별-관심도를-넘기면-그-사용자에게-추천할만한-데이터를-뽑아주는-서비스나-모델이-뭐가-있을까"><a href="#특정-사용자의-feature-별-관심도를-넘기면-그-사용자에게-추천할만한-데이터를-뽑아주는-서비스나-모델이-뭐가-있을까" class="headerlink" title="특정 사용자의 feature 별 관심도를 넘기면 그 사용자에게 추천할만한 데이터를 뽑아주는 서비스나 모델이 뭐가 있을까?"></a>특정 사용자의 feature 별 관심도를 넘기면 그 사용자에게 추천할만한 데이터를 뽑아주는 서비스나 모델이 뭐가 있을까?</h2>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/02/18/SpringBoot/spring-validation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/02/18/SpringBoot/spring-validation/" class="post-title-link" itemprop="url">[Spring] @Valid @Validated에 대해 알아보자</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2022-02-18 23:00:19" itemprop="dateCreated datePublished" datetime="2022-02-18T23:00:19+09:00">2022-02-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-04-16 05:26:15" itemprop="dateModified" datetime="2022-04-16T05:26:15+09:00">2022-04-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>사용자로부터 받아온 Input 값을 우리 시스템에 넣어 처리하기 전에 검증하는 것은 매우 흔한 작업임. 볼 필요도 없는 값을 시스템 자원을 써가면서 처리할 필요가 없음.<br>이러한 검증은 몇 개의 if문과 validation utility로 물론 쉽게 구현이 가능하지만, server framework로 spring을 사용하고 있다면 아래와 같이 더 간결한 코드로 검증을 마칠 수 있음.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAcccount</span></span>&#123;</span><br><span class="line">    <span class="meta">@NotBlank</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="meta">@Size(min = 4, max = 15)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="meta">@Valid</span> UserAccount userAccount,</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>&#123;</span><br><span class="line">    service.login(userAccount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>여기까지는 이해가 쉬운데, 실제로 application에 붙이려고 보니 좀 더 자세히 알아야할 내용들이 많았음. –<br>이 글에서는 그 내용을 모아서 정리해봄.</p>
-<h1 id="Valid-그리고-Validated-어노테이션에-관하여"><a href="#Valid-그리고-Validated-어노테이션에-관하여" class="headerlink" title="@Valid 그리고 @Validated 어노테이션에 관하여"></a>@Valid 그리고 @Validated 어노테이션에 관하여</h1><p>ide에서 @Valid를 입력할 때 자동완성 추천 결과에서 @Validated이 뜨던데, 처음에는 지나쳤었다.</p>
-<p>@Valid를 잘 써보고자 구글링을 하니 두 어노테이션에는 다음과 같은 차이점이 있다는 내용이 아주 많이 나왔다.</p>
-<p>👉 @Valid는 Java에서 제공됨<br>👉 @Validated는 Spring 프레임워크에서 제공되며, @Valid의 기능을 포함함<br>👉 @Valid는 method의 parameter 또는 class field에 사용된 complex object에 적용할 수 있음<br>👉 @Validated는 @Valid가 사용되는 상황 뿐만 아니라, primitive type parameter에 Validation을 추가하고 싶을 때도 사용할 수 있음 (하단에서 후술)<br>👉 @Valid와 달리 @Validated에는 Group을 지정할 수 있음. Validation Group에 대한 내용은 아래에 좀 더 자세히 정리함</p>
-<h1 id="Validation-Group에-대하여-그리고-이거-정말-꿀기능-맞을까"><a href="#Validation-Group에-대하여-그리고-이거-정말-꿀기능-맞을까" class="headerlink" title="Validation Group에 대하여. 그리고 이거 정말 꿀기능 맞을까?"></a>Validation Group에 대하여. 그리고 이거 정말 꿀기능 맞을까?</h1><p>한 개의 class 안에 여러 개의 제약조건 그룹을 지정하고자 하는 경우에 유용하게 사용할 수 있음.<br>제약조건마다, 즉 Request마다 VO를 모두 따로따로 만들어야 하는건가 절망에 빠져있을 때 찾은 내용이라 매우 꿀기능처럼 느껴졌음. (꿀인지 아닌지 아직 엄청 많이 써보지는 않아서 모름 ^_^)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ValidationGroups</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">EmailChange</span> </span>&#123;&#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PasswordChange</span> </span>&#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChangeUserAccountRequest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Email(groups = &#123;ValidationGroups.EmailChange.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;ValidationGroups.PasswordChange.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeUserEmail</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="meta">@Validated(ValidationGroups.EmailChange)</span> ChangeUserAccountRequest request,</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>&#123;</span><br><span class="line">    service.changeUserEmail(request);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeUserPassword</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="meta">@Validated(ValidationGroups.PasswordChange)</span> ChangeUserAccountRequest request,</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>&#123;</span><br><span class="line">    service.changeUserPassword(request);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>+) 개인적인 의견<br>VO, DTO 객체 한 개만으로도 여러개의 constraint를 제어할 수 있어서 엄청난 꿀 기능처럼 보이기도 하지만, 지나치게 많아지면 가독성에는 문제가 조금 있는 것 같다… 🤣</p>
-<h1 id="Custom-Validator에-관하여"><a href="#Custom-Validator에-관하여" class="headerlink" title="Custom Validator에 관하여"></a>Custom Validator에 관하여</h1><p>제공되는 기본 validator도 충분히 다양하지만, 우리 서비스만의 validator를 만들고 싶을 때도 있음</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Constraint(validatedBy = NicknameValidator.class)</span></span><br><span class="line"><span class="meta">@Target( &#123; ElementType.METHOD, ElementType.FIELD &#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NickNameConstraint &#123;</span><br><span class="line">    <span class="function">String <span class="title">message</span><span class="params">()</span> <span class="keyword">default</span> &quot;유효하지 않은 닉네임 형식입니다.&quot;</span>;</span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">    Class&lt;? extends Payload&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NicknameValidator</span> <span class="keyword">implements</span></span></span><br><span class="line"><span class="class">  <span class="title">ConstraintValidator</span>&lt;<span class="title">NickNameConstraint</span>, <span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> NickNameConstraint constraint;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(NickNameConstraint constraint)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.constraint = constraint;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String value,</span></span></span><br><span class="line"><span class="params"><span class="function">      ConstraintValidatorContext cxt)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value != <span class="keyword">null</span> &amp;&amp; value.matches(<span class="string">&quot;system&#x27;s nickname format&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>+) 개인적인 의견<br>신기하게도 custom validator는 아직 단점을 잘 모르겠다…! 지나치게 많이 선언하는거야 당연히 안좋은거고, 프로젝트 내에서 통용되는 몇 가지 validation 로직을 공통화 해놓으면 코드가 부드럽게 읽히는 magic이…<br>( 단점을 발견하게되면 충격받아서 흑역사 지우러 바로 위의 문장 수정하러 올 듯 …. ㅎㅎ )</p>
-<h1 id="Trouble-Shooting🔥"><a href="#Trouble-Shooting🔥" class="headerlink" title="Trouble Shooting🔥"></a>Trouble Shooting🔥</h1><h2 id="⚠-Valid가-primitive-type의-변수-대표적으로-Controller에서-PathVariable로-받아온-값들-에서-동작하지-않음"><a href="#⚠-Valid가-primitive-type의-변수-대표적으로-Controller에서-PathVariable로-받아온-값들-에서-동작하지-않음" class="headerlink" title="⚠ @Valid가 primitive type의 변수(대표적으로 Controller에서 PathVariable로 받아온 값들..)에서 동작하지 않음"></a>⚠ @Valid가 primitive type의 변수(대표적으로 Controller에서 PathVariable로 받아온 값들..)에서 동작하지 않음</h2><p>이 부분 때문에 많이 헤맸음 ㅠㅠㅠㅜㅜ<br>Controller에서 특정 api의 PathVariable에 Validator를 달아주고 싶었는데, 이때는 parameter 앞에 @Valid를 붙여주는 것 만으로는 원하는 대로 동작하지 않았음 😥 WHY?!?!!<br>객체로 받아오는 BodyParam에 붙여준 @Valid는 잘 동작했는디…</p>
-<p>.<br>.<br>.</p>
-<p>두구두구</p>
-<p>위에서 @Valid와 @Validated의 차이에 스포해둔 것 처럼, PathVariable에 Validator를 적용하기 위해서는 상위 Class에 @Validated 어노테이션을 달아줘야함</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Validated</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YourController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> YourService yourService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;somethings/&#123;type_code&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;List&lt;SomeVO&gt;&gt; findSomethingByTypeCode(<span class="meta">@Size(min = 4, max = 6)</span></span><br><span class="line">                                                        <span class="meta">@PathVariable</span> String typeCode) &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(yourService.findSomethingByTypeCode(typeCode));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="⚠-Exception-처리-시-주의"><a href="#⚠-Exception-처리-시-주의" class="headerlink" title="⚠ Exception 처리 시 주의"></a>⚠ Exception 처리 시 주의</h2><p>@Valid와 @Validated 어노테이션은 서로 다른 타입의 Error를 던지므로, 공통 처리 모듈에서 약간의 분기 처리가 필요함</p>
-<p>@Valid 어노테이션에서는 javax.validation.ConstraintViolationException 을,<br>@Validated 어노테이션에서는 org.springframework.web.bind.MethodArgumentNotValidException 을 발생시킴</p>
-<p>어떤 field에서 Error가 발생했는지, 어떤 Error가 발생했는지 두 개의 Exception이 제공하는 field가 달라서 공통화에 시간이 조금 들었음, 참고하면 좋을 듯 :)</p>
-<h2 id="⚠-달기-쉬운-만큼-중복하여-validate-하지-않도록-주의"><a href="#⚠-달기-쉬운-만큼-중복하여-validate-하지-않도록-주의" class="headerlink" title="⚠ 달기 쉬운 만큼, 중복하여 validate 하지 않도록 주의"></a>⚠ 달기 쉬운 만큼, 중복하여 validate 하지 않도록 주의</h2><p>이 부분은 지금도 계속 어떻게 하면 중복을 최소화할까 고민하며 코딩하고 있는 내용임.</p>
-<p>코드로 적혀있는 로직은 중복되어있으면 쉽게 눈에 밟히는데, annotation은 무심코 넘어가게 되는 경우가 많아서 valid도 무심코 여러번 태우게되는 경우가 있었음.<br>정석적인 답은 “가장 안쪽의 로직에만 적용하라” 겠지만 이 메소드 저 메소드 서로 공유하는 상황에서 그러기가 쉽지가 않다. 🤣<br>“이 값은 보장되어서 들어온 값이니까 믿어도 돼” 라는 flag를 함께 넘겨줄 수 있을까? 이것저것 고민해봐야지!</p>
-
       
     </div>
 

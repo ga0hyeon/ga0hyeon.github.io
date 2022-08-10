@@ -28,7 +28,7 @@
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://ga0hyeon.github.io/images/ocr_result_1.png">
 <meta property="article:published_time" content="2022-05-22T11:28:59.000Z">
-<meta property="article:modified_time" content="2022-05-22T16:08:00.042Z">
+<meta property="article:modified_time" content="2022-05-25T00:24:53.815Z">
 <meta property="article:author" content="Gayoung Hyeon">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="javascript">
@@ -170,7 +170,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AWS-Textract"><span class="nav-number">1.</span> <span class="nav-text">AWS Textract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Javascript-OCR-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%EB%93%A4"><span class="nav-number">2.</span> <span class="nav-text">Javascript OCR 라이브러리들</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#input%EC%9C%BC%EB%A1%9C-%EC%96%B4%EB%96%A4-%EC%9D%B4%EB%AF%B8%EC%A7%80%EA%B0%80-%EB%93%A4%EC%96%B4%EC%98%AC%EA%B9%8C"><span class="nav-number">3.</span> <span class="nav-text">input으로 어떤 이미지가 들어올까?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%A0%84%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%98%EC%9E%90"><span class="nav-number">4.</span> <span class="nav-text">전처리를 추가하자</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AWS-Textract"><span class="nav-number">1.</span> <span class="nav-text">AWS Textract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Javascript-OCR-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%EB%93%A4"><span class="nav-number">2.</span> <span class="nav-text">Javascript OCR 라이브러리들</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#input%EC%9C%BC%EB%A1%9C-%EC%96%B4%EB%96%A4-%EC%9D%B4%EB%AF%B8%EC%A7%80%EA%B0%80-%EB%93%A4%EC%96%B4%EC%98%AC%EA%B9%8C"><span class="nav-number">3.</span> <span class="nav-text">input으로 어떤 이미지가 들어올까?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%A0%84%EC%B2%98%EB%A6%AC%EB%A5%BC-%EC%B6%94%EA%B0%80%ED%95%98%EC%9E%90"><span class="nav-number">4.</span> <span class="nav-text">전처리를 추가하자</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#openCV-js%EB%A5%BC-%EB%B6%99%EC%97%AC%EB%B3%B4%EC%9E%90"><span class="nav-number">4.1.</span> <span class="nav-text">openCV.js를 붙여보자</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A5%BC-%ED%9D%91%EB%B0%B1%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EC%9E%90"><span class="nav-number">4.2.</span> <span class="nav-text">이미지를 흑백으로 변환하자</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -186,18 +186,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">카테고리</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -276,7 +276,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-05-23 01:08:00" itemprop="dateModified" datetime="2022-05-23T01:08:00+09:00">2022-05-23</time>
+      <time title="Updated at: 2022-05-25 09:24:53" itemprop="dateModified" datetime="2022-05-25T09:24:53+09:00">2022-05-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -309,19 +309,32 @@
 <p>가이드 문서에서 제공되는 아래의 기본 코드로 위의 세가지 케이스를 각각 인식해본 결과…</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> worker = createWorker(&#123;</span><br><span class="line">  <span class="attr">logger</span>: <span class="function">(<span class="params">m</span>) =&gt;</span> <span class="built_in">console</span>.log(m),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> recognize = <span class="function">(<span class="params">file: File</span>) =&gt;</span> &#123;</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> worker.load();</span><br><span class="line">    <span class="keyword">await</span> worker.loadLanguage(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> worker.initialize(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      <span class="attr">data</span>: &#123; text &#125;,</span><br><span class="line">    &#125; = <span class="keyword">await</span> worker.recognize(file);</span><br><span class="line">    setResult(text);</span><br><span class="line">    <span class="keyword">await</span> worker.terminate();</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/ocr_result_1.png" alt="인식결과_1"><br>나~~~~름 인식이 잘 되는 것을 볼 수 있었다. 나름… 하지만 제품정보를 “인식”했다고 하기에는 정확도가 민망할 정도로 낮아서, 보완할 포인트를 정리해봤다.</p>
+<p><img src="/images/ocr_result_1.png" alt="인식결과_1"><br>나~~~~름 뭔가가 인식되는 것을 볼 수 있었다. 나름… 하지만 제품정보를 “인식”했다고 하기에는 정확도가 민망할 정도로 낮아서, 보완할 포인트를 정리해봤다.</p>
 <ul>
 <li>먼지가 글자로 인식되어, 먼지가 많은 사진을 인식하는 데에 수 분이 소요된다<ul>
 <li>의도한 것은 아니나, 단순 텍스트 인식을 위해 촬영한 이미지 (공유기)에 먼지가 많아서 이걸 다 글자로 인식하는 바람에 정확도 0% 처리 시간 N분이라는 결과가… 나왔다</li>
 </ul>
 </li>
 <li>input 사진의 size가 불필요하게 크다</li>
+<li>글자와 배경만 구분하면 될텐데… 이미지가 컬러일 필요가 없어보인다</li>
 <li>글자가 있는 영역 외의 Object는 인식에서 제외할 필요가 있어보인다</li>
-<li>테이블 형식의 input 데이터는 사실 행-열 만으로 매우 큰 정보를 제공하는데, 인식 결과에서는 그 내용을 활용하지 못한다</li>
+<li>테이블 형식의 input 데이터는 사실 행-열 조합 만으로 매우 큰 정보를 제공하는데, 인식 결과에서는 그 내용을 활용하지 못한다</li>
 </ul>
-<p>도출된 보완점 중 <strong>먼지</strong> 문제와 <strong>input size</strong> 문제는 쉽게 해결 가능해보이고,<br><strong>Object</strong> 문제와 <strong>Table</strong> 문제는 detection 관련해서 좀 더 찾아볼 필요가 있어보였다.</p>
-<p>쓸만하게 만들기 위해서는 전처리를 추가해야겠다는 생각이 들었다.</p>
-<h1 id="전처리를-추가하자"><a href="#전처리를-추가하자" class="headerlink" title="전처리를 추가하자"></a>전처리를 추가하자</h1>
+<p>도출된 보완점 중 <strong>먼지</strong> 문제와 <strong>input size</strong> 문제, <strong>grayscale</strong> 문제는 쉽게 해결 가능해보이고,<br><strong>Object</strong> 문제와 <strong>Table</strong> 문제는 detection 관련해서 좀 더 찾아볼 필요가 있어보였다.</p>
+<p>아무튼. 쓸만하게 만들기 위해서는 전처리가 필요하다.</p>
+<p>구글링해보니 인식률을 높이는 방법으로 몇 가지 전처리가 추천되고 있다. 다들 비슷하게 생각하고 있다 ㅋㅋㅋ 재밌음<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy">https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy</a></p>
+<h1 id="전처리를-추가하자"><a href="#전처리를-추가하자" class="headerlink" title="전처리를 추가하자"></a>전처리를 추가하자</h1><h2 id="openCV-js를-붙여보자"><a href="#openCV-js를-붙여보자" class="headerlink" title="openCV.js를 붙여보자"></a>openCV.js를 붙여보자</h2><p>javascript에서 영상처리를 하는 방법에 대해 열심히 구글링했지만… 쉽지 않았다. cdn을 통해서나 js를 받아 직접 script를 붙여서 사용하도록 가이드하는 오픈소스는 종종 보였으나 npm 라이브러리는 쓸만한게 없었다. 아쉬운대로 openCV.js를 받아서 써보기로 했다.</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html">https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html</a> 를 참고해서 4.5.5버전의 openCV.zip를 다운로드한다.</p>
+</li>
+<li><p>zip 폴더를 풀어 public 폴더에 넣고, 폴더명은 openCV_4.5.5로 변경했다. 그리고 index.html에 아래와 같이 js를 붙여준다. js가 로드된 이후 부터는 글로벌하게 선언된 <code>cv</code> 변수를 이용해서 openCV를 사용할 수 있다.</p>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;openCV_4.5.5/opencv.js&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onload</span>=<span class="string">&quot;onOpenCvReady();&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="이미지를-흑백으로-변환하자"><a href="#이미지를-흑백으로-변환하자" class="headerlink" title="이미지를 흑백으로 변환하자"></a>이미지를 흑백으로 변환하자</h2><p><a target="_blank" rel="noopener" href="https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html">https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> src = cv.imread(<span class="string">&quot;canvasInput&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> dst = <span class="keyword">new</span> cv.Mat();</span><br><span class="line">cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -351,6 +364,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/07/20/Lab/gather-clonecoding/" rel="next" title="[WebRTC] 화상채팅 구현하기">
+                  [WebRTC] 화상채팅 구현하기 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
