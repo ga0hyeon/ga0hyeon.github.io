@@ -185,7 +185,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">카테고리</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -268,7 +268,16 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-08-30 14:48:59" itemprop="dateModified" datetime="2022-08-30T14:48:59+09:00">2022-08-30</time>
+      <time title="Updated at: 2022-08-30 14:49:59" itemprop="dateModified" datetime="2022-08-30T14:49:59+09:00">2022-08-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%ED%9A%8C%EA%B3%A0/" itemprop="url" rel="index"><span itemprop="name">회고</span></a>
+        </span>
     </span>
 
   
@@ -779,6 +788,87 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/ReactNative/RN-publishing-align-center/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/08/ReactNative/RN-publishing-align-center/" class="post-title-link" itemprop="url">[React Native] 여러 개의 자식 요소를 가운데 정렬하고 싶을 때</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-04-08 22:28:41" itemprop="dateCreated datePublished" datetime="2022-04-08T22:28:41+09:00">2022-04-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-04-16 05:30:40" itemprop="dateModified" datetime="2022-04-16T05:30:40+09:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="여러-개의-자식-요소를-가운데-정렬하고-싶을-때"><a href="#여러-개의-자식-요소를-가운데-정렬하고-싶을-때" class="headerlink" title="여러 개의 자식 요소를 가운데 정렬하고 싶을 때"></a>여러 개의 자식 요소를 가운데 정렬하고 싶을 때</h1><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  <span class="attr">vertical</span>: &#123;</span><br><span class="line">    <span class="attr">justifyContent</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 horizontally 가운데 정렬된다.</span></span><br><span class="line">    <span class="attr">alignItems</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 vertically 가운데 정렬된다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/ReactNative/RN-ios-image-not-showing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -841,87 +931,6 @@
 <li>iOS에서 다른 도메인 이미지로 Image 컴포넌트를 그려보면 잘 보인다.</li>
 </ul>
 <p>네트워크 적으로 뭔가 막힌거같은데… 아직 못찾았다 ㅠㅠ</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/ReactNative/RN-publishing-align-center/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/08/ReactNative/RN-publishing-align-center/" class="post-title-link" itemprop="url">[React Native] 여러 개의 자식 요소를 가운데 정렬하고 싶을 때</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2022-04-08 22:28:41" itemprop="dateCreated datePublished" datetime="2022-04-08T22:28:41+09:00">2022-04-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-04-16 05:30:40" itemprop="dateModified" datetime="2022-04-16T05:30:40+09:00">2022-04-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="여러-개의-자식-요소를-가운데-정렬하고-싶을-때"><a href="#여러-개의-자식-요소를-가운데-정렬하고-싶을-때" class="headerlink" title="여러 개의 자식 요소를 가운데 정렬하고 싶을 때"></a>여러 개의 자식 요소를 가운데 정렬하고 싶을 때</h1><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  <span class="attr">vertical</span>: &#123;</span><br><span class="line">    <span class="attr">justifyContent</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 horizontally 가운데 정렬된다.</span></span><br><span class="line">    <span class="attr">alignItems</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 vertically 가운데 정렬된다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
       
     </div>
