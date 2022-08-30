@@ -171,18 +171,20 @@ npm install webrtc-adapter
     ⌞MeetingPage.tsx
 ```
 
-IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현한다.
+IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현한다. 우선은 구분을 위해 이름 정도만 입력받도록 하자.
 
-3. 맵 구성하기
-   - Phaser 사용에 익숙해지기
-   - Phaser와 React.js를 우아하게 함께 사용하기
-4. 캐릭터 이동 구현하기
-5. 회의실 입장 구현하기
-6. 2인 음성 영상 챗 구현하기
-   - WebRTC 예제 이해하고 적용하기
-7. 다자 음성 영상 챗 구현하기
-8. 미디어 설정 기능 구현하기
+## 3. 맵 구성하기
 
-## 프로젝트 및 git 레포 셋업하기
+맵 구성에는 Phaser를 사용한다. [매우 다양한 예시](https://phaser.io/examples)가 준비되어있어서 어렵지 않았다. 그 중 [기본적인 타일맵 구성과 충돌, 캐릭터 이동이 구현되어있는 예제](https://phaser.io/examples/v3/view/tilemap/collision/tile-callbacks)를 찾아서 간하게 맵을 구성해봤다.
 
-## Signaling Server 구성 :
+## 4. 캐릭터 이동 구현하기
+
+## 5. 회의실 입장 구현하기
+
+## 6. 2인 음성 영상 챗 구현하기
+
+🎁 WebRTC 예제 이해 및 응용
+
+## 7. 다자 음성 영상 챗 구현하기
+
+## 8. 미디어 설정 기능 구현하기
