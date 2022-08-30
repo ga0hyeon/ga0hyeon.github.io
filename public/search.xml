@@ -264,22 +264,115 @@
       </tags>
   </entry>
   <entry>
-    <title>2022 상반기 회고</title>
-    <url>/2022/08/26/Retro/2022_1/</url>
-    <content><![CDATA[<h1 id="회고"><a href="#회고" class="headerlink" title="회고"></a>회고</h1><p>올 초부터 투입되어있던 프로젝트가 얼추 마무리 되었다. 야호~ 철수는 역시 넘나 짜릿하다.<br>정말 많은 것을 배웠다. ㅎㅎ 물론 배운 것의 양보다 놓친 것이 더 많은 것 같아 아쉬운 마음이 들지만, 잘 정리해서 다음 프로젝트에 거름으로 싸들고 가면 되니까 괜찮다. 이번에 아쉬웠던 점을 크게 몇 가지 추려봤고, 남은 하반기에 틈틈히 공부할 키워드도 뽑아봤다.</p>
-<h3 id="상태관리-라이브러리의-장단점을-미리-알아둘-걸-그리고-다양한-디자인-패턴을-적용해볼-걸"><a href="#상태관리-라이브러리의-장단점을-미리-알아둘-걸-그리고-다양한-디자인-패턴을-적용해볼-걸" class="headerlink" title="상태관리 라이브러리의 장단점을 미리 알아둘 걸, 그리고 다양한 디자인 패턴을 적용해볼 걸"></a>상태관리 라이브러리의 장단점을 미리 알아둘 걸, 그리고 다양한 디자인 패턴을 적용해볼 걸</h3><p>작년까지 Redux, Recoil을 써봤고 이번에 MobX를 접했다. MobX의 장점을 알고 있기 때문에 MobX를 골랐다기 보다는 Redux, Recoil의 단점 때문에 + MobX도 써보고 싶어서 MobX를 골랐는데 좀 더 전략적으로 선택했어도 좋았을 것 같다. 장점을 뽑아서 N개의 상태관리 라이브러리를 용도에 맞게 섞어서 써본다거나, 아니면 한 개의 상태관리 라이브러리를 사용하더라도 용도에 맞게 여러 디자인 패턴을 적용해볼 걸 하는 아쉬움이 있다.</p>
-<h3 id="네이티브-코드를-미리-만져볼-걸-적어도-도구-사용법만이라도-알았으면-좋았을-걸"><a href="#네이티브-코드를-미리-만져볼-걸-적어도-도구-사용법만이라도-알았으면-좋았을-걸" class="headerlink" title="네이티브 코드를 미리 만져볼 걸, 적어도 도구 사용법만이라도 알았으면 좋았을 걸"></a>네이티브 코드를 미리 만져볼 걸, 적어도 도구 사용법만이라도 알았으면 좋았을 걸</h3><p>내가 스스로 만들어본 마지막 앱은 cocos2d와 C#으로 만든 모바일 게임이었는데, 부끄럽지만 그때는 명령어 하나로 뚝딱 apk가 나오기에 ‘역시 프레임워크 최고! 네이티브의 시대는 지고 있구나’ 라고 생각했다. 하지만 이번에 크로스플랫폼 앱 프레임워크를 사용해서 앱을 개발하면서 정말 많이 들었던 생각이 ‘미리 네이티브 개발 좀 해볼걸’ 이었다. 성능을 끌어올리기 위해서 / 커스텀 기능을 구현하기 위해서 / 외부 sdk 또는 라이브러리를 적용하기 위해서는 필수로 네이티브를 건드려야했는데, 프로젝트 일정 중간에 딥하게 파기에는 시간도 없을 뿐더러 이미 네이티브 담당자가 있는 상황이라 애매한 너낌쓰.. 미리 네이티브 코드를 경험해본 적이 있었다면 좀 더 능동적으로 문제를 해결할 수 있었을 것 같아서 아쉬웠다.</p>
-<h3 id="공통화-공통화-공통화-그리고-말잘하는-연습을-할-걸"><a href="#공통화-공통화-공통화-그리고-말잘하는-연습을-할-걸" class="headerlink" title="공통화 공통화 공통화.. 그리고 말잘하는 연습을 할 걸"></a>공통화 공통화 공통화.. 그리고 말잘하는 연습을 할 걸</h3><p>개인적으로 이전의 프로젝트들에서 컴포넌트/유틸 공통화에 대한 부족함을 느꼈고, 이번 프로젝트에서 열심히 만회했다고 생각한다. 하지만 공통화 해야하는 것이 단순 컴포넌트/유틸 (= 코드조각) 뿐만이 아니라는 것을 이번에 배웠다… 이전에는 컨벤션을 공유 받고 따르는게 내 메인 롤이었다면 이번 프로젝트에서는 컨벤션을 정리하고 가이드하는게 메인 롤이 되면서 공통화 해야할 항목에 대한 시야가 강제로(?) 넓어진게 이유인 것 같다. 들여쓰기나 변수명명법처럼 정적인 것 부터 api 주소 설계, 클래스 설계 처럼 상황에 따라 가변적인 것들까지 일종의 룰이 필요하다는 것을 이번에서야 절실히 깨달았다 ㅋㅋ 쓰고보니 너무나 당연한 이야기이지만… 그리고 이 룰을 서로에게 설득하기 위해, 정리된 룰을 신규 투입 인원에게 효과적으로 인계하기 위해 ‘이유’와 ‘예시’를 명확하게 말로 풀어낼 수 있는 능력이 내게 부족하다는 점도 깨달았다.</p>
-<h3 id="좀-더-똑똑하게-판단하고-소리낼-걸"><a href="#좀-더-똑똑하게-판단하고-소리낼-걸" class="headerlink" title="좀 더 똑똑하게 판단하고 소리낼 걸"></a>좀 더 똑똑하게 판단하고 소리낼 걸</h3><p>요거는 개발 외적인 반성이다. 나는 내가 개발하고 싶은 요건을 집어가는 것을 선호하는데, 이번 프로젝트에서는 그 외에 내가 해야만 하는 일이 생기면서 두 가지를 병행하게 되었다. 물론 내 선택이라 후회하거나 징징거리고 싶은건 아니다 ^_^ 일의 양이 늘어나기는 했지만 원래 일하던 방식도 최선은 아니었으니, 좀 더 효율적으로 일하면 overwork 하지 않을 수 있었을 것 같은데… 아쉽게도 이번에는 ‘내가 일을 하는’게 아니라 ‘일이 나를 끌고가는’ 상황이 벌어지게 되었다. 내가 어느 시간대에 어떤 방식으로 (재택 / 출근) 어떤 업무를 처리할 때 효율이 가장 높은 지, 각각의 할 일이 어느정도의 우선 순위를 가지는 지를 똑똑하게 판단하고 소리내었으면 좋았으련만, 소심하게 판단을 일임하거나 보류하거나 쉬쉬한게 결과적으로는 내 정신 &amp; 육체 건강의 피폐함을 초래한 것 같아 정말 아쉬웠다.</p>
-<h1 id="하반기-키워드"><a href="#하반기-키워드" class="headerlink" title="하반기 키워드"></a>하반기 키워드</h1><ul>
-<li>디자인 패턴</li>
-<li>Redux Recoil MobX</li>
-<li>Android / iOS 개발 및 마켓 배포</li>
-<li>Gitlab 활용 BP</li>
-<li>내가 참여할 수 있는 의사결정에는 능동적으로</li>
-<li>말을 잘하는 연습 (책 읽기?)</li>
+    <title>[WebRTC] 화상채팅 구현하기</title>
+    <url>/2022/07/20/Lab/gather-clonecoding/</url>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>나는 코딩이던 미싱이던 그림이던 단시간에 머리를 풀가동해서 결과물을 끌어내는것을 좋아한다.<br>사실 이런 챌린지를 기획할 때 제일 어려운 점은 목표를 정하는 것이다. 끝내는 데에 시간이 N시간 정도면 되겠다 싶으면서도 그 시간 동안 끊임없이 흥미와 도전정신을 끌어올릴 수 있는 목표를 정해야하기 때문이다. 말 그대로 시작이 반인 셈 ㅎㅎ</p>
+<p>멘탈 상태가 좋을 때는 이런 아이디어가 샘솟는데 최근에는 이래저래 의욕이 하나도 없어서 침체되어있다가… 간만에 주말에 시간이 생겨서 일을 벌려 보았다.</p>
+<p>요즘 업무하면서 정말 유용하게 사용하고 있는 개더타운을 참고하여 화상채팅 웹사이트를 구현해보려고 한다. 이런 주제를 선정하게 된 이유는 다음과 같다.</p>
+<ul>
+<li>정제된 전체 가이드나 소스가 흔히 돌아다니지 않는 듯 하다. 개발하면서 제일 꿀맛은 개척하는 맛이니까</li>
+<li>평소에 궁금했던 웹 기술 분야를 세 개나 체험할 수 있다.<ul>
+<li>WebSocket 통신 (을 사용하는 줄 알았지만 뒤에 가서 WebRTC 라는 것을 깨닫게 될 예정) 체험하기</li>
+<li>HTML5 게임 개발 라이브러리 또는 프레임워크 서칭 및 체험하기</li>
+<li>인기 있는 디자인 시스템 서칭 및 체험하기</li>
 </ul>
-]]></content>
+</li>
+</ul>
+<h1 id="PREPARATION"><a href="#PREPARATION" class="headerlink" title="PREPARATION"></a>PREPARATION</h1><h2 id="개더타운은-무엇으로-만들어져있나"><a href="#개더타운은-무엇으로-만들어져있나" class="headerlink" title="개더타운은 무엇으로 만들어져있나?"></a>개더타운은 무엇으로 만들어져있나?</h2><p>REST api를 주로 설계/개발해왔기 때문에 실시간 통신에 대해 아는 것이 없어서, 막연하게 ‘개더타운은 WebSocket으로 뭔가 되어있지 않을까?’ 라고 생각했다.<br>물론 그러면서도 어떻게 그 많은 사람이 음성 / 비디오를 서로 전송하고 있을까… 서버가 중간에서 이 많은 미디어를 다 나누어주고 있다면 개더타운은 어떻게 공짜인걸까… 생각은 했으나 그 뒤까지는 몰랐다.<br>찾아보니 개더타운은 P2P로 미디어 또는 임의의 데이터를 주고받을 수 있는 WebRTC를 사용하고 있고, WebRTC은 이미 오래전부터 많은 곳에서 (게임, 화상회의, 휘발성 채팅) 쓰이고 있다고 한다. 떠올려보니 회의 참여자 중 로컬 자원을 많이 쓰고 있는 사람이 포함되어 있을 때 내 게더타운이 약간 느려지는 현상이 종종 있었는데 P2P라서 그랬던 걸 수 있다는 생각이 든다.</p>
+<p>메인 기술 셋을 알아냈으니 WebRTC에 대해 구글링해봤다. 생각보다 공식 가이드 및 샘플이 탄탄해서 처음 접하는 기술임에도 왠지 순탄히 진행될 것 같다. 찾은 리소스는 아래와 같이 리스트업 해둔다.</p>
+<ul>
+<li><a href="https://webrtc.org/getting-started/firebase-rtc-codelab">잘 정리된 공식 가이드</a></li>
+<li><a href="https://webrtc.github.io/samples">잘 정리된 공식 샘플코드</a></li>
+<li><a href="https://developer.mozilla.org/ko/docs/Web/API/WebRTC_API/Signaling_and_video_calling">Mozilla의 WebRTC 설명</a></li>
+</ul>
+<h2 id="어떻게-만들까"><a href="#어떻게-만들까" class="headerlink" title="어떻게 만들까?"></a>어떻게 만들까?</h2><p>개더타운에 접속해서 F12도 켜보고, 구글링으로 찾은 가이드도 읽어어 보니 어느정도 아키텍처는 그려진 것 같다.<br><image src="/images/webrtc_layout.png" /><br>각 항목에 대한 설명은 다음과 같다.</p>
+<ul>
+<li>Signaling Server 구성 : <strong>Django with djangoRestFramework</strong><br>WebRTC 자체는 P2P 방식이라 미디어 교환 자체를 위해서는 중간다리 역할을 하는 서버가 필요없지만, 맨 처음 통신을 시작할 때 Client 간의 메시지 포맷 등을 협의 (Signaling) 하기 위한 서버가 필요하다고 한다. 요건 오랜만에 Django로 만들어보기로 한다.</li>
+<li>화면구성<ul>
+<li>뼈대 : <strong>React.js with Chakra UI</strong><br>화면 디자인 및 스타일링 작업도 재미있고 신나는 일이지만 요즘 표준 없는 UX/UI (정확히는 FE 개발자 - UX/UI 협업 표준의 부재(?) 또는 어려움(?)..)에 현타를 느끼고 있어서, 유명한 디자인 시스템을 써보기로 했다. 검색하면 여러 개의 빵빵한 디자인 시스템이 나오는데, 그 중 나는 <a href="https://www.npmjs.com/package/@chakra-ui/react">Chakra UI</a>를 써보기로 했다.</li>
+<li>맵 및 캐릭터 렌더 : <strong>Phaser</strong><br>HTML5 게임 개발 라이브러리 / 프레임워크에 대해서도 서칭을 했고, 최종으로는 Phaser와 PixiJS 두 개가 후보에 올랐다. 처음 관심 가져본 분야여서 판단을 내리기 어려웠는데 <a href="https://stackoverflow.com/questions/38509629/decide-pixi-js-or-phaser">요 글</a>이 큰 도움이 됐다. 내가 이해한 바를 키워드로 요약하자면 편리함(Phaser) vs 자유도(PixiJS) 같다. PixiJS를 쓰면 좀 더 deep하게 이해할 수 있을 것 같아서 10초 정도 고민됐는데, 욕심 같아서 포기했다. 이번에는 Phaser를 사용해보고, 다음에 HTML5 게임 개발이 정말 하고 싶어지면 그때 PixiJS를 써보자.<br>+) 뜬금없지만 <a href="https://phaser.io/">Phaser 웹사이트</a>가 너무나 2000년대 감성이다.</li>
+</ul>
+</li>
+<li>미디어 전송 : <strong>WebRTC</strong></li>
+</ul>
+<h2 id="무엇부터-어떤-순서로-만들까"><a href="#무엇부터-어떤-순서로-만들까" class="headerlink" title="무엇부터 어떤 순서로 만들까?"></a>무엇부터 어떤 순서로 만들까?</h2><p>이번 사이드 프로젝트에서 제일 큰 수확이 요 스텝이라고 생각한다. 일정에 쫒기며 떠밀리듯이 개발하는 것이 요즘 내 개발 기피(?)의 원인이라고 생각하기 때문에 토이 프로젝트 만큼은 그렇게 진행하지 않으려고 노력했다. 사실 과거를 돌아보면 나는 토이 프로젝트도 그렇게 일정에 쫒기며 했던 사람이었긴하다 ㅋㅋㅋ 물론 오버웤이 내 의지였냐는 또 다른 문제긴 하지만…</p>
+<hr>
+<p>아모튼!! 이제는 그렇게 일하지 않으리라.. 다짐하면서 개발에 착수하기 전 내가 한 고민들을 적어보면 다음과 같다.</p>
+<p><strong>고민1️⃣</strong> 다음 중 내가 우선 시 하는 것은 무엇인가?</p>
+<ul>
+<li>내가 할애하려고 계획한 에포트 이상은 들이지 않고 진행하기</li>
+<li>내가 마무리하려고 계획한 날짜까지는 끝내기</li>
+<li>내가 계획했던 수준까지는 결과물의 퀄리티 내기<ul>
+<li>외적인 퀄리티 (기능성, 사용성, 심미성 등등)</li>
+<li>내적인 퀄리티 (코드 품질)</li>
+</ul>
+</li>
+</ul>
+<p><strong>고민2️⃣</strong> 목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?</p>
+<p><strong>고민3️⃣</strong> 작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?</p>
+<hr>
+<p>그리고 위 고민에 대한 결론은 요렇게 냈다. 물론 앞으로 계속해서 개정해나갈 예정이다 ㅎㅎ 실험🧪적인 것도 있고 ㅋㅋㅋ</p>
+<p><strong>고민1️⃣</strong> 다음 중 내가 우선 시 하는 것은 무엇인가?<br><strong>결론💡</strong> 이 토이 프로젝트에서 나는 <code>내적인 퀄리티 &gt; 마감일 지키기 &gt; 에포트 지키기 &gt; 외적인 퀄리티</code> 순서대로 중요하게 생각할 것이다.</p>
+<ol>
+<li>내적인 퀄리티 기준 : <code>Github public repo에 공개할 수 있는 수준</code> 으로</li>
+<li>마감일 지키기 기준 : 8/28</li>
+<li>에포트 지키기 기준 : <code>평일은 MAX 하루 3시간 이내, 주말은 하루 골라서 MAX 반나절만</code> 투자</li>
+<li>외적인 퀄리티 기준 : 뭐 그냥 데모 가능한 정도로만?<br>나는 요게 제일 신선했다. 실제로 내가 토이 플젝을 하면서 들였던 시간의 꽤 많은 부분이 외적인 퀄리티에 있었는데,<br>정작 진지하게 내가 이것을 얼마나 중요하게 생각하는가를 생각해보았더니 사실은 내가 외적인 퀄리티의 중요도를 별로 높게 생각하고 있지 않았다. 작은 부분이 눈에 거슬리면 ‘에이 뭐 별로 안걸리는데 지금 금방 고칠까’ 하는 마음에 바로 바로 코드에 손을 대는 것이 누적되어 결과적으로 시간을 많이 쏟은 셈이 되었던 것 같다. 한 눈을 팔았다고 해야하나… 아무튼 시간을 내어 이런 고민을 했던 것이 이번 토이 프로젝트 최고의 수확인 것 같다. 👍</li>
+</ol>
+<p><strong>고민2️⃣</strong> 목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?<br><strong>결론💡</strong> 이 토이 프로젝트에서 나는 성취감을 느낄수 있는 최소한의 단위로 일을 쪼개고, 요렇게 쪼갠 일들을 다시 연관된 것들 끼리 뭉쳐서 진행할 것이다. 각 항목에서 성취할 수 있는 내용은 🎁 표시로 적어봤다.</p>
+<ol>
+<li>git repository 생성 및 각 모듈 셋업하기<br>🎁 React, Django 셋업과정</li>
+<li>화면 뼈대 구성하기<br>🎁 Chakra 사용법</li>
+<li>맵 구성하기<br>🎁 Phaser 사용법<br>🎁 Phaser와 React.js를 함께 사용하는 과정</li>
+<li>캐릭터 이동 구현하기</li>
+<li>회의실 입장 구현하기</li>
+<li>2인 음성 영상 챗 구현하기<br>🎁 WebRTC 예제 이해 및 응용</li>
+<li>다자 음성 영상 챗 구현하기</li>
+<li>미디어 설정 기능 구현하기</li>
+</ol>
+<p><strong>고민3️⃣</strong> 작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?<br><strong>결론🧪</strong> 이 토이 프로젝트에서 나는 현재 작업 마무리 직후 다음 작업 내용에 대한 서칭을 하고, 실제 다음 작업 까지 약간의 텀을 두고 스스로에게 고민할 시간을 의도적으로 줄 것이다.</p>
+<ul>
+<li>생각보다 멍때릴때 나오는 코드가 각잡고 짠 코드보다 선방하는 것 같아서 ㅋㅋㅋ 이번에 실험해본다.</li>
+</ul>
+<h1 id="DELEVERY"><a href="#DELEVERY" class="headerlink" title="DELEVERY"></a>DELEVERY</h1><h2 id="1-git-repository-생성-및-각-모듈-셋업하기"><a href="#1-git-repository-생성-및-각-모듈-셋업하기" class="headerlink" title="1. git repository 생성 및 각 모듈 셋업하기"></a>1. git repository 생성 및 각 모듈 셋업하기</h2><p><a href="https://github.com/ga0hyeon/cowork-saga">git repository</a>를 만들어주고, signalingServer와 client 폴더에 각각 Django와 React 셋업을 진행했다.</p>
+<h3 id="Django-셋업-with-djangoRestFramework"><a href="#Django-셋업-with-djangoRestFramework" class="headerlink" title="Django 셋업 with djangoRestFramework"></a>Django 셋업 with djangoRestFramework</h3><p><a href="https://docs.djangoproject.com/ko/4.0/intro/">django docs</a>를 참고하여 초기 세팅을 진행한다.<br>+) mac에 python 2.7이 기본으로 깔려있어서 3.x 버전의 python을 받아주었다. python3을 기본으로 바라보도록 bashrc에도 alias를 추가해준다.</p>
+<p>django를 설치해주고</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m pip install Django</span><br></pre></td></tr></table></figure>
+
+<p>설치 후 잘 설치되었는지 버전을 확인한다.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m django --version</span><br></pre></td></tr></table></figure>
+
+<p>그리고 아래 명령어로 현재 경로에 django 프로젝트를 생성한다.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m django startproject gather_clone_siganlling_server</span><br></pre></td></tr></table></figure>
+
+<p>지정해준 폴더 (나의 경우 gather_clone_siganlling_server)로 이동하여 아래의 명령어를 수행하면, 짜잔! 기본포트(8000)에 샘플페이지가 뜬다.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python manage.py runserver</span><br></pre></td></tr></table></figure>
+
+<p>나는 웹서버가 아니라 REST Api 서버로 사용할 것이므로, <a href="https://www.django-rest-framework.org/#installation">django-rest-framework docs</a>를 참고하여 djangoRestFramework를 깔아주자.<br>example까지 따라서 만들면, 이제 localhost:8000에 이전의 django 샘플페이지가 아니라 swagger와 유사한 형태의 REST framework 페이지가 뜬다.</p>
+<h3 id="React-셋업-with-Chakra-UI-amp-Adapter-js"><a href="#React-셋업-with-Chakra-UI-amp-Adapter-js" class="headerlink" title="React 셋업 with Chakra UI &amp; Adapter.js"></a>React 셋업 with Chakra UI &amp; Adapter.js</h3><ol>
+<li>CRA로 React 앱 초기 세팅</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npx create-react-app gather-clone-client --template @chakra-ui/typescript</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Adapter.js 라이브러리 설치<br>Adapter.js는 Polyfill(브라우저에서 지원하지 않는 최신 기능을 사용할 수 있도록 도와주는 코드의 모음)과 Shim(이미 존재하는 코드의 동작을 바로잡는데에 사용하는 코드의 모음)을 사용하여 WebRTC의 브라우저 간 호환성 문제를 해결해둔 라이브러리이다.<br>WebRTC가 계속해서 변화하고 있는 기술이고, 각 브라우저별로 지원 수준이 다르기 때문에 일괄 적용이 쉽지 않은 모양이다.</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install webrtc-adapter</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-화면-뼈대-구성하기"><a href="#2-화면-뼈대-구성하기" class="headerlink" title="2. 화면 뼈대 구성하기"></a>2. 화면 뼈대 구성하기</h2><p>위에서 만들어준 React 프로젝트 폴더에서 화면 뼈대 구성을 이어서 진행한다. 화면 구조는 아래와 매우 간단하다 :)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">App.tsx</span><br><span class="line">pages</span><br><span class="line"> ⌞IntroPage.tsx</span><br><span class="line"> ⌞MeetingPage.tsx</span><br></pre></td></tr></table></figure>
+
+<p>IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현한다. 우선은 구분을 위해 이름 정도만 입력받도록 하자.</p>
+<h2 id="3-맵-구성하기"><a href="#3-맵-구성하기" class="headerlink" title="3. 맵 구성하기"></a>3. 맵 구성하기</h2><p>맵 구성에는 Phaser를 사용한다. <a href="https://phaser.io/examples">매우 다양한 예시</a>가 준비되어있어서 어렵지 않았다. 그 중 <a href="https://phaser.io/examples/v3/view/tilemap/collision/tile-callbacks">기본적인 타일맵 구성과 충돌, 캐릭터 이동이 구현되어있는 예제</a>를 찾아서 간하게 맵을 구성해봤다.</p>
+<h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
+<h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>]]></content>
+      <categories>
+        <category>WebRTC</category>
+      </categories>
+      <tags>
+        <tag>WebRTC</tag>
+        <tag>WebSocket</tag>
+      </tags>
   </entry>
   <entry>
     <title>[React Native] iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</title>
@@ -419,6 +512,27 @@
       </tags>
   </entry>
   <entry>
+    <title>2022 상반기 회고</title>
+    <url>/2022/08/26/Retro/2022_1/</url>
+    <content><![CDATA[<h1 id="회고"><a href="#회고" class="headerlink" title="회고"></a>회고</h1><p>올 초부터 투입되어있던 프로젝트가 얼추 마무리 되었다. 야호~ 철수는 역시 넘나 짜릿하다.<br>정말 많은 것을 배웠다. ㅎㅎ 물론 배운 것의 양보다 놓친 것이 더 많은 것 같아 아쉬운 마음이 들지만, 잘 정리해서 다음 프로젝트에 거름으로 싸들고 가면 되니까 괜찮다. 이번에 아쉬웠던 점을 크게 몇 가지 추려봤고, 남은 하반기에 틈틈히 공부할 키워드도 뽑아봤다.</p>
+<h3 id="상태관리-라이브러리의-장단점을-미리-알아둘-걸-그리고-다양한-디자인-패턴을-적용해볼-걸"><a href="#상태관리-라이브러리의-장단점을-미리-알아둘-걸-그리고-다양한-디자인-패턴을-적용해볼-걸" class="headerlink" title="상태관리 라이브러리의 장단점을 미리 알아둘 걸, 그리고 다양한 디자인 패턴을 적용해볼 걸"></a>상태관리 라이브러리의 장단점을 미리 알아둘 걸, 그리고 다양한 디자인 패턴을 적용해볼 걸</h3><p>작년까지 Redux, Recoil을 써봤고 이번에 MobX를 접했다. MobX의 장점을 알고 있기 때문에 MobX를 골랐다기 보다는 Redux, Recoil의 단점 때문에 + MobX도 써보고 싶어서 MobX를 골랐는데 좀 더 전략적으로 선택했어도 좋았을 것 같다. 장점을 뽑아서 N개의 상태관리 라이브러리를 용도에 맞게 섞어서 써본다거나, 아니면 한 개의 상태관리 라이브러리를 사용하더라도 용도에 맞게 여러 디자인 패턴을 적용해볼 걸 하는 아쉬움이 있다.</p>
+<h3 id="네이티브-코드를-미리-만져볼-걸-적어도-도구-사용법만이라도-알았으면-좋았을-걸"><a href="#네이티브-코드를-미리-만져볼-걸-적어도-도구-사용법만이라도-알았으면-좋았을-걸" class="headerlink" title="네이티브 코드를 미리 만져볼 걸, 적어도 도구 사용법만이라도 알았으면 좋았을 걸"></a>네이티브 코드를 미리 만져볼 걸, 적어도 도구 사용법만이라도 알았으면 좋았을 걸</h3><p>내가 스스로 만들어본 마지막 앱은 cocos2d와 C#으로 만든 모바일 게임이었는데, 부끄럽지만 그때는 명령어 하나로 뚝딱 apk가 나오기에 ‘역시 프레임워크 최고! 네이티브의 시대는 지고 있구나’ 라고 생각했다. 하지만 이번에 크로스플랫폼 앱 프레임워크를 사용해서 앱을 개발하면서 정말 많이 들었던 생각이 ‘미리 네이티브 개발 좀 해볼걸’ 이었다. 성능을 끌어올리기 위해서 / 커스텀 기능을 구현하기 위해서 / 외부 sdk 또는 라이브러리를 적용하기 위해서는 필수로 네이티브를 건드려야했는데, 프로젝트 일정 중간에 딥하게 파기에는 시간도 없을 뿐더러 이미 네이티브 담당자가 있는 상황이라 애매한 너낌쓰.. 미리 네이티브 코드를 경험해본 적이 있었다면 좀 더 능동적으로 문제를 해결할 수 있었을 것 같아서 아쉬웠다.</p>
+<h3 id="공통화-공통화-공통화-그리고-말잘하는-연습을-할-걸"><a href="#공통화-공통화-공통화-그리고-말잘하는-연습을-할-걸" class="headerlink" title="공통화 공통화 공통화.. 그리고 말잘하는 연습을 할 걸"></a>공통화 공통화 공통화.. 그리고 말잘하는 연습을 할 걸</h3><p>개인적으로 이전의 프로젝트들에서 컴포넌트/유틸 공통화에 대한 부족함을 느꼈고, 이번 프로젝트에서 열심히 만회했다고 생각한다. 하지만 공통화 해야하는 것이 단순 컴포넌트/유틸 (= 코드조각) 뿐만이 아니라는 것을 이번에 배웠다… 이전에는 컨벤션을 공유 받고 따르는게 내 메인 롤이었다면 이번 프로젝트에서는 컨벤션을 정리하고 가이드하는게 메인 롤이 되면서 공통화 해야할 항목에 대한 시야가 강제로(?) 넓어진게 이유인 것 같다. 들여쓰기나 변수명명법처럼 정적인 것 부터 api 주소 설계, 클래스 설계 처럼 상황에 따라 가변적인 것들까지 일종의 룰이 필요하다는 것을 이번에서야 절실히 깨달았다 ㅋㅋ 쓰고보니 너무나 당연한 이야기이지만… 그리고 이 룰을 서로에게 설득하기 위해, 정리된 룰을 신규 투입 인원에게 효과적으로 인계하기 위해 ‘이유’와 ‘예시’를 명확하게 말로 풀어낼 수 있는 능력이 내게 부족하다는 점도 깨달았다.</p>
+<h3 id="좀-더-똑똑하게-판단하고-소리낼-걸"><a href="#좀-더-똑똑하게-판단하고-소리낼-걸" class="headerlink" title="좀 더 똑똑하게 판단하고 소리낼 걸"></a>좀 더 똑똑하게 판단하고 소리낼 걸</h3><p>요거는 개발 외적인 반성이다. 나는 내가 개발하고 싶은 요건을 집어가는 것을 선호하는데, 이번 프로젝트에서는 그 외에 내가 해야만 하는 일이 생기면서 두 가지를 병행하게 되었다. 물론 내 선택이라 후회하거나 징징거리고 싶은건 아니다 ^_^ 일의 양이 늘어나기는 했지만 원래 일하던 방식도 최선은 아니었으니, 좀 더 효율적으로 일하면 overwork 하지 않을 수 있었을 것 같은데… 아쉽게도 이번에는 ‘내가 일을 하는’게 아니라 ‘일이 나를 끌고가는’ 상황이 벌어지게 되었다. 내가 어느 시간대에 어떤 방식으로 (재택 / 출근) 어떤 업무를 처리할 때 효율이 가장 높은 지, 각각의 할 일이 어느정도의 우선 순위를 가지는 지를 똑똑하게 판단하고 소리내었으면 좋았으련만, 소심하게 판단을 일임하거나 보류하거나 쉬쉬한게 결과적으로는 내 정신 &amp; 육체 건강의 피폐함을 초래한 것 같아 정말 아쉬웠다.</p>
+<h1 id="하반기-키워드"><a href="#하반기-키워드" class="headerlink" title="하반기 키워드"></a>하반기 키워드</h1><ul>
+<li>디자인 패턴</li>
+<li>Redux Recoil MobX</li>
+<li>Android / iOS 개발 및 마켓 배포</li>
+<li>Gitlab 활용 BP</li>
+<li>내가 참여할 수 있는 의사결정에는 능동적으로</li>
+<li>말을 잘하는 연습 (책 읽기?)</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>회고</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[Spring] @Valid @Validated에 대해 알아보자</title>
     <url>/2022/02/18/SpringBoot/spring-validation/</url>
     <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>사용자로부터 받아온 Input 값을 우리 시스템에 넣어 처리하기 전에 검증하는 것은 매우 흔한 작업임. 볼 필요도 없는 값을 시스템 자원을 써가면서 처리할 필요가 없음.<br>이러한 검증은 몇 개의 if문과 validation utility로 물론 쉽게 구현이 가능하지만, server framework로 spring을 사용하고 있다면 아래와 같이 더 간결한 코드로 검증을 마칠 수 있음.</p>
@@ -463,117 +577,6 @@
         <tag>@Valid</tag>
         <tag>Spring</tag>
         <tag>Annotation</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[WebRTC] 화상채팅 구현하기</title>
-    <url>/2022/07/20/Lab/gather-clonecoding/</url>
-    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>나는 코딩이던 미싱이던 그림이던 단시간에 머리를 풀가동해서 결과물을 끌어내는것을 좋아한다.<br>사실 이런 챌린지를 기획할 때 제일 어려운 점은 목표를 정하는 것이다. 끝내는 데에 시간이 N시간 정도면 되겠다 싶으면서도 그 시간 동안 끊임없이 흥미와 도전정신을 끌어올릴 수 있는 목표를 정해야하기 때문이다. 말 그대로 시작이 반인 셈 ㅎㅎ</p>
-<p>멘탈 상태가 좋을 때는 이런 아이디어가 샘솟는데 최근에는 이래저래 의욕이 하나도 없어서 침체되어있다가… 간만에 주말에 시간이 생겨서 일을 벌려 보았다.</p>
-<p>요즘 업무하면서 정말 유용하게 사용하고 있는 개더타운을 참고하여 화상채팅 웹사이트를 구현해보려고 한다. 이런 주제를 선정하게 된 이유는 다음과 같다.</p>
-<ul>
-<li>정제된 전체 가이드나 소스가 흔히 돌아다니지 않는 듯 하다. 개발하면서 제일 꿀맛은 개척하는 맛이니까</li>
-<li>평소에 궁금했던 웹 기술 분야를 세 개나 체험할 수 있다.<ul>
-<li>WebSocket 통신 (을 사용하는 줄 알았지만 뒤에 가서 WebRTC 라는 것을 깨닫게 될 예정) 체험하기</li>
-<li>HTML5 게임 개발 라이브러리 또는 프레임워크 서칭 및 체험하기</li>
-<li>인기 있는 디자인 시스템 서칭 및 체험하기</li>
-</ul>
-</li>
-</ul>
-<h1 id="PREPARATION"><a href="#PREPARATION" class="headerlink" title="PREPARATION"></a>PREPARATION</h1><h2 id="개더타운은-무엇으로-만들어져있나"><a href="#개더타운은-무엇으로-만들어져있나" class="headerlink" title="개더타운은 무엇으로 만들어져있나?"></a>개더타운은 무엇으로 만들어져있나?</h2><p>REST api를 주로 설계/개발해왔기 때문에 실시간 통신에 대해 아는 것이 없어서, 막연하게 ‘개더타운은 WebSocket으로 뭔가 되어있지 않을까?’ 라고 생각했다.<br>물론 그러면서도 어떻게 그 많은 사람이 음성 / 비디오를 서로 전송하고 있을까… 서버가 중간에서 이 많은 미디어를 다 나누어주고 있다면 개더타운은 어떻게 공짜인걸까… 생각은 했으나 그 뒤까지는 몰랐다.<br>찾아보니 개더타운은 P2P로 미디어 또는 임의의 데이터를 주고받을 수 있는 WebRTC를 사용하고 있고, WebRTC은 이미 오래전부터 많은 곳에서 (게임, 화상회의, 휘발성 채팅) 쓰이고 있다고 한다. 떠올려보니 회의 참여자 중 로컬 자원을 많이 쓰고 있는 사람이 포함되어 있을 때 내 게더타운이 약간 느려지는 현상이 종종 있었는데 P2P라서 그랬던 걸 수 있다는 생각이 든다.</p>
-<p>메인 기술 셋을 알아냈으니 WebRTC에 대해 구글링해봤다. 생각보다 공식 가이드 및 샘플이 탄탄해서 처음 접하는 기술임에도 왠지 순탄히 진행될 것 같다. 찾은 리소스는 아래와 같이 리스트업 해둔다.</p>
-<ul>
-<li><a href="https://webrtc.org/getting-started/firebase-rtc-codelab">잘 정리된 공식 가이드</a></li>
-<li><a href="https://webrtc.github.io/samples">잘 정리된 공식 샘플코드</a></li>
-<li><a href="https://developer.mozilla.org/ko/docs/Web/API/WebRTC_API/Signaling_and_video_calling">Mozilla의 WebRTC 설명</a></li>
-</ul>
-<h2 id="어떻게-만들까"><a href="#어떻게-만들까" class="headerlink" title="어떻게 만들까?"></a>어떻게 만들까?</h2><p>개더타운에 접속해서 F12도 켜보고, 구글링으로 찾은 가이드도 읽어어 보니 어느정도 아키텍처는 그려진 것 같다.<br><image src="/images/webrtc_layout.png" /><br>각 항목에 대한 설명은 다음과 같다.</p>
-<ul>
-<li>Signaling Server 구성 : <strong>Django with djangoRestFramework</strong><br>WebRTC 자체는 P2P 방식이라 미디어 교환 자체를 위해서는 중간다리 역할을 하는 서버가 필요없지만, 맨 처음 통신을 시작할 때 Client 간의 메시지 포맷 등을 협의 (Signaling) 하기 위한 서버가 필요하다고 한다. 요건 오랜만에 Django로 만들어보기로 한다.</li>
-<li>화면구성<ul>
-<li>뼈대 : <strong>React.js with Chakra UI</strong><br>화면 디자인 및 스타일링 작업도 재미있고 신나는 일이지만 요즘 표준 없는 UX/UI (정확히는 FE 개발자 - UX/UI 협업 표준의 부재(?) 또는 어려움(?)..)에 현타를 느끼고 있어서, 유명한 디자인 시스템을 써보기로 했다. 검색하면 여러 개의 빵빵한 디자인 시스템이 나오는데, 그 중 나는 <a href="https://www.npmjs.com/package/@chakra-ui/react">Chakra UI</a>를 써보기로 했다.</li>
-<li>맵 및 캐릭터 렌더 : <strong>Phaser</strong><br>HTML5 게임 개발 라이브러리 / 프레임워크에 대해서도 서칭을 했고, 최종으로는 Phaser와 PixiJS 두 개가 후보에 올랐다. 처음 관심 가져본 분야여서 판단을 내리기 어려웠는데 <a href="https://stackoverflow.com/questions/38509629/decide-pixi-js-or-phaser">요 글</a>이 큰 도움이 됐다. 내가 이해한 바를 키워드로 요약하자면 편리함(Phaser) vs 자유도(PixiJS) 같다. PixiJS를 쓰면 좀 더 deep하게 이해할 수 있을 것 같아서 10초 정도 고민됐는데, 욕심 같아서 포기했다. 이번에는 Phaser를 사용해보고, 다음에 HTML5 게임 개발이 정말 하고 싶어지면 그때 PixiJS를 써보자.<br>+) 뜬금없지만 <a href="https://phaser.io/">Phaser 웹사이트</a>가 너무나 2000년대 감성이다.</li>
-</ul>
-</li>
-<li>미디어 전송 : <strong>WebRTC</strong></li>
-</ul>
-<h2 id="무엇부터-어떤-순서로-만들까"><a href="#무엇부터-어떤-순서로-만들까" class="headerlink" title="무엇부터 어떤 순서로 만들까?"></a>무엇부터 어떤 순서로 만들까?</h2><p>이번 사이드 프로젝트에서 제일 큰 수확이 요 스텝이라고 생각한다. 일정에 쫒기며 떠밀리듯이 개발하는 것이 요즘 내 개발 기피(?)의 원인이라고 생각하기 때문에 토이 프로젝트 만큼은 그렇게 진행하지 않으려고 노력했다. 사실 과거를 돌아보면 나는 토이 프로젝트도 그렇게 일정에 쫒기며 했던 사람이었긴하다 ㅋㅋㅋ 물론 오버웤이 내 의지였냐는 또 다른 문제긴 하지만…</p>
-<hr>
-<p>아모튼!! 이제는 그렇게 일하지 않으리라.. 다짐하면서 개발에 착수하기 전 내가 한 고민들을 적어보면 다음과 같다.</p>
-<p><strong>고민1️⃣</strong> 다음 중 내가 우선 시 하는 것은 무엇인가?</p>
-<ul>
-<li>내가 할애하려고 계획한 에포트 이상은 들이지 않고 진행하기</li>
-<li>내가 마무리하려고 계획한 날짜까지는 끝내기</li>
-<li>내가 계획했던 수준까지는 결과물의 퀄리티 내기<ul>
-<li>외적인 퀄리티 (기능성, 사용성, 심미성 등등)</li>
-<li>내적인 퀄리티 (코드 품질)</li>
-</ul>
-</li>
-</ul>
-<p><strong>고민2️⃣</strong> 목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?</p>
-<p><strong>고민3️⃣</strong> 작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?</p>
-<hr>
-<p>그리고 위 고민에 대한 결론은 요렇게 냈다. 물론 앞으로 계속해서 개정해나갈 예정이다 ㅎㅎ 실험🧪적인 것도 있고 ㅋㅋㅋ</p>
-<p><strong>고민1️⃣</strong> 다음 중 내가 우선 시 하는 것은 무엇인가?<br><strong>결론💡</strong> 이 토이 프로젝트에서 나는 <code>내적인 퀄리티 &gt; 마감일 지키기 &gt; 에포트 지키기 &gt; 외적인 퀄리티</code> 순서대로 중요하게 생각할 것이다.</p>
-<ol>
-<li>내적인 퀄리티 기준 : <code>Github public repo에 공개할 수 있는 수준</code> 으로</li>
-<li>마감일 지키기 기준 : 8/28</li>
-<li>에포트 지키기 기준 : <code>평일은 MAX 하루 3시간 이내, 주말은 하루 골라서 MAX 반나절만</code> 투자</li>
-<li>외적인 퀄리티 기준 : 뭐 그냥 데모 가능한 정도로만?<br>나는 요게 제일 신선했다. 실제로 내가 토이 플젝을 하면서 들였던 시간의 꽤 많은 부분이 외적인 퀄리티에 있었는데,<br>정작 진지하게 내가 이것을 얼마나 중요하게 생각하는가를 생각해보았더니 사실은 내가 외적인 퀄리티의 중요도를 별로 높게 생각하고 있지 않았다. 작은 부분이 눈에 거슬리면 ‘에이 뭐 별로 안걸리는데 지금 금방 고칠까’ 하는 마음에 바로 바로 코드에 손을 대는 것이 누적되어 결과적으로 시간을 많이 쏟은 셈이 되었던 것 같다. 한 눈을 팔았다고 해야하나… 아무튼 시간을 내어 이런 고민을 했던 것이 이번 토이 프로젝트 최고의 수확인 것 같다. 👍</li>
-</ol>
-<p><strong>고민2️⃣</strong> 목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?<br><strong>결론💡</strong> 이 토이 프로젝트에서 나는 성취감을 느낄수 있는 최소한의 단위로 일을 쪼개고, 요렇게 쪼갠 일들을 다시 연관된 것들 끼리 뭉쳐서 진행할 것이다. 각 항목에서 성취할 수 있는 내용은 🎁 표시로 적어봤다.</p>
-<ol>
-<li>git repository 생성 및 각 모듈 셋업하기<br>🎁 React, Django 셋업과정</li>
-<li>화면 뼈대 구성하기<br>🎁 Chakra 사용법</li>
-<li>맵 구성하기<br>🎁 Phaser 사용법<br>🎁 Phaser와 React.js를 함께 사용하는 과정</li>
-<li>캐릭터 이동 구현하기</li>
-<li>회의실 입장 구현하기</li>
-<li>2인 음성 영상 챗 구현하기<br>🎁 WebRTC 예제 이해 및 응용</li>
-<li>다자 음성 영상 챗 구현하기</li>
-<li>미디어 설정 기능 구현하기</li>
-</ol>
-<p><strong>고민3️⃣</strong> 작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?<br><strong>결론🧪</strong> 이 토이 프로젝트에서 나는 현재 작업 마무리 직후 다음 작업 내용에 대한 서칭을 하고, 실제 다음 작업 까지 약간의 텀을 두고 스스로에게 고민할 시간을 의도적으로 줄 것이다.</p>
-<ul>
-<li>생각보다 멍때릴때 나오는 코드가 각잡고 짠 코드보다 선방하는 것 같아서 ㅋㅋㅋ 이번에 실험해본다.</li>
-</ul>
-<h1 id="DELEVERY"><a href="#DELEVERY" class="headerlink" title="DELEVERY"></a>DELEVERY</h1><h2 id="1-git-repository-생성-및-각-모듈-셋업하기"><a href="#1-git-repository-생성-및-각-모듈-셋업하기" class="headerlink" title="1. git repository 생성 및 각 모듈 셋업하기"></a>1. git repository 생성 및 각 모듈 셋업하기</h2><p><a href="https://github.com/ga0hyeon/cowork-saga">git repository</a>를 만들어주고, signalingServer와 client 폴더에 각각 Django와 React 셋업을 진행했다.</p>
-<h3 id="Django-셋업-with-djangoRestFramework"><a href="#Django-셋업-with-djangoRestFramework" class="headerlink" title="Django 셋업 with djangoRestFramework"></a>Django 셋업 with djangoRestFramework</h3><p><a href="https://docs.djangoproject.com/ko/4.0/intro/">django docs</a>를 참고하여 초기 세팅을 진행한다.<br>+) mac에 python 2.7이 기본으로 깔려있어서 3.x 버전의 python을 받아주었다. python3을 기본으로 바라보도록 bashrc에도 alias를 추가해준다.</p>
-<p>django를 설치해주고</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m pip install Django</span><br></pre></td></tr></table></figure>
-
-<p>설치 후 잘 설치되었는지 버전을 확인한다.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m django --version</span><br></pre></td></tr></table></figure>
-
-<p>그리고 아래 명령어로 현재 경로에 django 프로젝트를 생성한다.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m django startproject gather_clone_siganlling_server</span><br></pre></td></tr></table></figure>
-
-<p>지정해준 폴더 (나의 경우 gather_clone_siganlling_server)로 이동하여 아래의 명령어를 수행하면, 짜잔! 기본포트(8000)에 샘플페이지가 뜬다.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python manage.py runserver</span><br></pre></td></tr></table></figure>
-
-<p>나는 웹서버가 아니라 REST Api 서버로 사용할 것이므로, <a href="https://www.django-rest-framework.org/#installation">django-rest-framework docs</a>를 참고하여 djangoRestFramework를 깔아주자.<br>example까지 따라서 만들면, 이제 localhost:8000에 이전의 django 샘플페이지가 아니라 swagger와 유사한 형태의 REST framework 페이지가 뜬다.</p>
-<h3 id="React-셋업-with-Chakra-UI-amp-Adapter-js"><a href="#React-셋업-with-Chakra-UI-amp-Adapter-js" class="headerlink" title="React 셋업 with Chakra UI &amp; Adapter.js"></a>React 셋업 with Chakra UI &amp; Adapter.js</h3><ol>
-<li>CRA로 React 앱 초기 세팅</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npx create-react-app gather-clone-client --template @chakra-ui/typescript</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>Adapter.js 라이브러리 설치<br>Adapter.js는 Polyfill(브라우저에서 지원하지 않는 최신 기능을 사용할 수 있도록 도와주는 코드의 모음)과 Shim(이미 존재하는 코드의 동작을 바로잡는데에 사용하는 코드의 모음)을 사용하여 WebRTC의 브라우저 간 호환성 문제를 해결해둔 라이브러리이다.<br>WebRTC가 계속해서 변화하고 있는 기술이고, 각 브라우저별로 지원 수준이 다르기 때문에 일괄 적용이 쉽지 않은 모양이다.</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install webrtc-adapter</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-화면-뼈대-구성하기"><a href="#2-화면-뼈대-구성하기" class="headerlink" title="2. 화면 뼈대 구성하기"></a>2. 화면 뼈대 구성하기</h2><p>위에서 만들어준 React 프로젝트 폴더에서 화면 뼈대 구성을 이어서 진행한다. 화면 구조는 아래와 매우 간단하다 :)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">App.tsx</span><br><span class="line">pages</span><br><span class="line"> ⌞IntroPage.tsx</span><br><span class="line"> ⌞MeetingPage.tsx</span><br></pre></td></tr></table></figure>
-
-<p>IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현한다. 우선은 구분을 위해 이름 정도만 입력받도록 하자.</p>
-<h2 id="3-맵-구성하기"><a href="#3-맵-구성하기" class="headerlink" title="3. 맵 구성하기"></a>3. 맵 구성하기</h2><p>맵 구성에는 Phaser를 사용한다. <a href="https://phaser.io/examples">매우 다양한 예시</a>가 준비되어있어서 어렵지 않았다. 그 중 <a href="https://phaser.io/examples/v3/view/tilemap/collision/tile-callbacks">기본적인 타일맵 구성과 충돌, 캐릭터 이동이 구현되어있는 예제</a>를 찾아서 간하게 맵을 구성해봤다.</p>
-<h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
-<h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>]]></content>
-      <categories>
-        <category>WebRTC</category>
-      </categories>
-      <tags>
-        <tag>WebRTC</tag>
-        <tag>WebSocket</tag>
       </tags>
   </entry>
 </search>
