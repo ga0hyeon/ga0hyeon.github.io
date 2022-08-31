@@ -2943,3 +2943,6 @@ article img {
 article h1 {
   font-size: 2rem;
 }
+body {
+  font-size: 0.9em;
+}

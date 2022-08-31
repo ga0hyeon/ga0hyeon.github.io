@@ -175,7 +175,13 @@ IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현
 
 ## 3. 맵 구성하기
 
-맵 구성에는 Phaser를 사용한다. [매우 다양한 예시](https://phaser.io/examples)가 준비되어있어서 어렵지 않았다. 그 중 [기본적인 타일맵 구성과 충돌, 캐릭터 이동이 구현되어있는 예제](https://phaser.io/examples/v3/view/tilemap/collision/tile-callbacks)를 찾아서 간하게 맵을 구성해봤다.
+맵 구성에는 Phaser를 사용한다. [매우 다양한 예시](https://phaser.io/examples)가 준비되어있어서 어렵지 않았다. 그 중 [기본적인 타일맵 구성과 충돌, 캐릭터 이동이 구현되어있는 예제](https://phaser.io/examples/v3/view/tilemap/collision/tile-callbacks)를 찾아서 간하게 맵을 구성해볼것이다.
+
+위의 예제 소스를 살펴보면 크게 세 가지의 애셋이 필요하다. [무료로 애셋을 받을 수 있는 사이트](https://itch.io/game-assets/free)에서 줍줍해본다.
+
+- 바닥
+- 캐릭터
+- 오브젝트 (벽, 책상, 집기 등등)
 
 ## 4. 캐릭터 이동 구현하기
 
