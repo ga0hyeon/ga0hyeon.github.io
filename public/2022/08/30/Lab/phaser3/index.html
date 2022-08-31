@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="MOTIVATION개더타운 클론코딩을 하면서 맵, 캐릭터 렌더를 위해 Phaser를 사용해보게 되었는데 웬걸 생각보다 너무 방대해서 새 포스트를 파게 되었다. (참고 가이드)[https:&#x2F;&#x2F;phaser.io&#x2F;tutorials&#x2F;making-your-first-phaser-3-game] Phaser란?cross-browser HTML5 게임을 쉽고 빠르게 만들">
+<meta property="og:type" content="article">
+<meta property="og:title" content="phaser3">
+<meta property="og:url" content="https://ga0hyeon.github.io/2022/08/30/Lab/phaser3/index.html">
+<meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
+<meta property="og:description" content="MOTIVATION개더타운 클론코딩을 하면서 맵, 캐릭터 렌더를 위해 Phaser를 사용해보게 되었는데 웬걸 생각보다 너무 방대해서 새 포스트를 파게 되었다. (참고 가이드)[https:&#x2F;&#x2F;phaser.io&#x2F;tutorials&#x2F;making-your-first-phaser-3-game] Phaser란?cross-browser HTML5 게임을 쉽고 빠르게 만들">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2022-08-30T07:24:39.000Z">
+<meta property="article:modified_time" content="2022-08-31T18:01:56.249Z">
+<meta property="article:author" content="Gayoung Hyeon">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://ga0hyeon.github.io/2022/08/30/Lab/phaser3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/08/30/Lab/phaser3/","path":"2022/08/30/Lab/phaser3/","title":"phaser3"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>phaser3 | Hyeon's Dev Blog</title>
+  
+
+
+
+<meta
+    name="google-site-verification"
+    content="LTmJ0YPGF5Gbzsn3tie9k0UHemQLjwsS1NszONuhJII"
+/>
+<script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4287897577887270"
+    crossorigin="anonymous"
+></script>    
+<script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.production.min.js"
+></script>
+<script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hyeon's Dev Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-about-me"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About Me</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li>
+        <li class="menu-item menu-item-놀이터"><a href="/playground/" rel="section"><i class="fa fa-gamepad fa-fw"></i>놀이터</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>검색
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MOTIVATION"><span class="nav-number">1.</span> <span class="nav-text">MOTIVATION</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Phaser%EB%9E%80"><span class="nav-number">2.</span> <span class="nav-text">Phaser란?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-setup"><span class="nav-number">3.</span> <span class="nav-text">개발환경 setup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%83%98%ED%94%8C-%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%9D%84%EC%9B%8C%EB%B3%B4%EA%B8%B0"><span class="nav-number">4.</span> <span class="nav-text">샘플 페이지 띄워보기</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%ED%83%80%EC%9D%BC%EC%85%8B%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EB%A7%B5-%EA%B7%B8%EB%A6%AC%EA%B8%B0"><span class="nav-number">5.</span> <span class="nav-text">타일셋을 사용하여 맵 그리기</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gayoung Hyeon"
+      src="/images/profile.png">
+  <p class="site-author-name" itemprop="name">Gayoung Hyeon</p>
+  <div class="site-description" itemprop="description">재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ga0hyeon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ga0hyeon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/studio._.0224" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;studio._.0224" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/08/30/Lab/phaser3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          phaser3
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-08-30 16:24:39" itemprop="dateCreated datePublished" datetime="2022-08-30T16:24:39+09:00">2022-08-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-09-01 03:01:56" itemprop="dateModified" datetime="2022-09-01T03:01:56+09:00">2022-09-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>개더타운 클론코딩을 하면서 맵, 캐릭터 렌더를 위해 Phaser를 사용해보게 되었는데 웬걸 생각보다 너무 방대해서 새 포스트를 파게 되었다.</p>
+<p>(참고 가이드)[<a target="_blank" rel="noopener" href="https://phaser.io/tutorials/making-your-first-phaser-3-game]">https://phaser.io/tutorials/making-your-first-phaser-3-game]</a></p>
+<h1 id="Phaser란"><a href="#Phaser란" class="headerlink" title="Phaser란?"></a>Phaser란?</h1><p>cross-browser HTML5 게임을 쉽고 빠르게 만들 수 있도록하는 프레임워크.</p>
+<h1 id="개발환경-setup"><a href="#개발환경-setup" class="headerlink" title="개발환경 setup"></a>개발환경 setup</h1><p>Phaser가 html 기반으로 게임을 만들수 있게 해준다고 하더라도, 브라우저에서는 원칙적으로 로컬 리소스에 접근할 수 없기 때문에 html 파일 만으로는 Phaser 게임을 실행할 수 없다. 따라서 html과 리소스를 올릴 서버가 필요하고, 공식 가이드에서는 python, php, node.js 정도를 언급하고 있다. 나는 React로 페이지 뼈대를 구성할 것이고, 운영 단계까지 올릴 생각이 없으므로 React 개발 서버면 충분하다.<br>그리고 가이드에 IDE도 몇 가지 언급되하고있는데, brakets 같은 HTML 편집기로도 개발이 가능하다고 한다. 재밌다. 하지만 나는 평소에 사용하던 VS Code를 그대로 쓸 것이다 ㅋㅋㅋㅋㅋ</p>
+<p>정리하자면 요 정도만 추가로 해주면 되겠다.</p>
+<ul>
+<li>CRA로 React 개발환경 셋업</li>
+<li>npm으로 Phaser 설치</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install phaser</span><br></pre></td></tr></table></figure>
+
+<h1 id="샘플-페이지-띄워보기"><a href="#샘플-페이지-띄워보기" class="headerlink" title="샘플 페이지 띄워보기"></a>샘플 페이지 띄워보기</h1><p>가이드로 제공된 소스는 html script라서 react에 맞게 약간 수정해서 샘플 페이지를 띄워봤다. 잘 뜬다 :)<br>(참고 가이드)[<a target="_blank" rel="noopener" href="https://phaser.io/tutorials/getting-started-phaser3/part5]">https://phaser.io/tutorials/getting-started-phaser3/part5]</a></p>
+<p>파티클과 로고의 속성값을 바꾸어가면서 소스를 만져보면 Phaser를 어떻게 사용해야할지 감이 온다! 좋은 샘플이다 ㅎㅎ</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br></pre></td><td class="code"><pre><span class="line">import Phaser from &quot;phaser&quot;;</span><br><span class="line">import &#123; useEffect, useRef, useState &#125; from &quot;react&quot;;</span><br><span class="line"></span><br><span class="line">const SamplePage = () =&gt; &#123;</span><br><span class="line">  const variables = useRef&lt;&#123;</span><br><span class="line">    platforms: Phaser.Physics.Arcade.StaticGroup;</span><br><span class="line">    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;</span><br><span class="line">    cursors: Phaser.Types.Input.Keyboard.CursorKeys;</span><br><span class="line">    stars: Phaser.Physics.Arcade.Group;</span><br><span class="line">  &#125;&gt;();</span><br><span class="line"></span><br><span class="line">  const config = useRef&lt;Phaser.Types.Core.GameConfig&gt;(&#123;</span><br><span class="line">    type: Phaser.AUTO,</span><br><span class="line">    parent: &quot;sample-page&quot;, //NOTE : 아래 div의 id값을 넣어주면 된다.</span><br><span class="line">    width: 800,</span><br><span class="line">    height: 600,</span><br><span class="line">    physics: &#123;</span><br><span class="line">      default: &quot;arcade&quot;,</span><br><span class="line">      arcade: &#123;</span><br><span class="line">        gravity: &#123; y: 200 &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    scene: &#123;</span><br><span class="line">      preload: function () &#123;</span><br><span class="line">        this.load.image(&quot;sky&quot;, &quot;assets/sky.png&quot;);</span><br><span class="line">        this.load.image(&quot;ground&quot;, &quot;assets/platform.png&quot;);</span><br><span class="line">        this.load.image(&quot;star&quot;, &quot;assets/star.png&quot;);</span><br><span class="line">        this.load.image(&quot;bomb&quot;, &quot;assets/bomb.png&quot;);</span><br><span class="line">        this.load.spritesheet(&quot;dude&quot;, &quot;assets/dude.png&quot;, &#123;</span><br><span class="line">          frameWidth: 32,</span><br><span class="line">          frameHeight: 48,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line">      create: function () &#123;</span><br><span class="line">        this.add.image(400, 300, &quot;sky&quot;);</span><br><span class="line"></span><br><span class="line">        //NOTE : config에 physics를 정의해두어야 정상적으로 동작한다</span><br><span class="line">        const platforms = this.physics.add.staticGroup();</span><br><span class="line"></span><br><span class="line">        //NOTE : static physics body의 크기를 변경했으므로 refreshBody 호출</span><br><span class="line">        platforms.create(400, 568, &quot;ground&quot;).setScale(2).refreshBody();</span><br><span class="line"></span><br><span class="line">        platforms.create(600, 400, &quot;ground&quot;);</span><br><span class="line">        platforms.create(50, 250, &quot;ground&quot;);</span><br><span class="line">        platforms.create(750, 220, &quot;ground&quot;);</span><br><span class="line"></span><br><span class="line">        const player = this.physics.add.sprite(100, 450, &quot;dude&quot;);</span><br><span class="line">        player.setBounce(0.2);</span><br><span class="line">        player.setCollideWorldBounds(true);</span><br><span class="line"></span><br><span class="line">        this.anims.create(&#123;</span><br><span class="line">          key: &quot;left&quot;,</span><br><span class="line">          frames: this.anims.generateFrameNumbers(&quot;dude&quot;, &#123; start: 0, end: 3 &#125;),</span><br><span class="line">          frameRate: 10,</span><br><span class="line">          repeat: -1,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.anims.create(&#123;</span><br><span class="line">          key: &quot;turn&quot;,</span><br><span class="line">          frames: [&#123; key: &quot;dude&quot;, frame: 4 &#125;],</span><br><span class="line">          frameRate: 20,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.anims.create(&#123;</span><br><span class="line">          key: &quot;right&quot;,</span><br><span class="line">          frames: this.anims.generateFrameNumbers(&quot;dude&quot;, &#123; start: 5, end: 8 &#125;),</span><br><span class="line">          frameRate: 10,</span><br><span class="line">          repeat: -1,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(player, platforms);</span><br><span class="line"></span><br><span class="line">        const cursors = this.input.keyboard.createCursorKeys();</span><br><span class="line"></span><br><span class="line">        const scoreText = this.add.text(16, 16, &quot;score: 0&quot;, &#123;</span><br><span class="line">          fontSize: &quot;32px&quot;,</span><br><span class="line">          color: &quot;#fff&quot;,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        const stars = this.physics.add.group(&#123;</span><br><span class="line">          key: &quot;star&quot;,</span><br><span class="line">          repeat: 11,</span><br><span class="line">          setXY: &#123; x: 12, y: 0, stepX: 70 &#125;,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        stars.children.iterate(function (child) &#123;</span><br><span class="line">          (child as any).setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(stars, platforms);</span><br><span class="line">        this.physics.add.overlap(</span><br><span class="line">          player,</span><br><span class="line">          stars,</span><br><span class="line">          (player, star) =&gt; &#123;</span><br><span class="line">            (star as any).disableBody(true, true);</span><br><span class="line">            setScore((prev) =&gt; &#123;</span><br><span class="line">              scoreText.setText(&quot;Score: &quot; + (prev + 1));</span><br><span class="line">              return prev + 1;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            if (stars.countActive(true) === 0) &#123;</span><br><span class="line">              stars.children.iterate(function (child) &#123;</span><br><span class="line">                (child as any).enableBody(</span><br><span class="line">                  true,</span><br><span class="line">                  (child as any).x,</span><br><span class="line">                  0,</span><br><span class="line">                  true,</span><br><span class="line">                  true</span><br><span class="line">                );</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">              const x =</span><br><span class="line">                (player as any).x &lt; 400</span><br><span class="line">                  ? Phaser.Math.Between(400, 800)</span><br><span class="line">                  : Phaser.Math.Between(0, 400);</span><br><span class="line"></span><br><span class="line">              const bomb = bombs.create(x, 16, &quot;bomb&quot;);</span><br><span class="line">              bomb.setBounce(1);</span><br><span class="line">              bomb.setCollideWorldBounds(true);</span><br><span class="line">              bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          undefined,</span><br><span class="line">          this</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        const bombs = this.physics.add.group();</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(bombs, platforms);</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(</span><br><span class="line">          player,</span><br><span class="line">          bombs,</span><br><span class="line">          (player, bomb) =&gt; &#123;</span><br><span class="line">            this.physics.pause();</span><br><span class="line"></span><br><span class="line">            (player as any).setTint(0xff0000);</span><br><span class="line"></span><br><span class="line">            this.anims.play(&quot;turn&quot;, player);</span><br><span class="line">          &#125;,</span><br><span class="line">          undefined,</span><br><span class="line">          this</span><br><span class="line">        );</span><br><span class="line">        variables.current = &#123;</span><br><span class="line">          platforms,</span><br><span class="line">          player,</span><br><span class="line">          cursors,</span><br><span class="line">          stars,</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;,</span><br><span class="line">      update: function () &#123;</span><br><span class="line">        if (variables.current) &#123;</span><br><span class="line">          const &#123; cursors, player &#125; = variables.current;</span><br><span class="line"></span><br><span class="line">          if (cursors.left.isDown) &#123;</span><br><span class="line">            player.setVelocityX(-160);</span><br><span class="line">            player.anims.play(&quot;left&quot;, true);</span><br><span class="line">          &#125; else if (cursors.right.isDown) &#123;</span><br><span class="line">            player.setVelocityX(160);</span><br><span class="line">            player.anims.play(&quot;right&quot;, true);</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            player.setVelocityX(0);</span><br><span class="line">            player.anims.play(&quot;turn&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">          if (cursors.up.isDown &amp;&amp; player.body.touching.down) &#123;</span><br><span class="line">            player.setVelocityY(-330);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  const [score, setScore] = useState&lt;number&gt;(0);</span><br><span class="line">  const [game, setGame] = useState&lt;Phaser.Game&gt;();</span><br><span class="line"></span><br><span class="line">  useEffect(() =&gt; &#123;</span><br><span class="line">    const game = new Phaser.Game(config.current);</span><br><span class="line">    setGame(game);</span><br><span class="line"></span><br><span class="line">    return () =&gt; &#123;</span><br><span class="line">      game.destroy(true);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  return &lt;div id=&quot;sample-page&quot;&gt;&lt;/div&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default SamplePage;</span><br></pre></td></tr></table></figure>
+
+<h1 id="타일셋을-사용하여-맵-그리기"><a href="#타일셋을-사용하여-맵-그리기" class="headerlink" title="타일셋을 사용하여 맵 그리기"></a>타일셋을 사용하여 맵 그리기</h1><p>사실 요 내용을 서칭하다가 포스트를 쓰게 됐다.</p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/08/26/Retro/2022_1/" rel="prev" title="2022 상반기 회고">
+                  <i class="fa fa-chevron-left"></i> 2022 상반기 회고
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-running"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gayoung Hyeon</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"ga0hyeon/ga0hyeon.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

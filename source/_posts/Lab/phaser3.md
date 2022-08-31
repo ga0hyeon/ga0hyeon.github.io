@@ -175,6 +175,11 @@ const SamplePage = () => {
             (player as any).setTint(0xff0000);
 
             this.anims.play("turn", player);
+
+            this.add.text(240, 300, "GAME OVER", {
+              fontSize: "64px",
+              color: "#0xff00",
+            });
           },
           undefined,
           this

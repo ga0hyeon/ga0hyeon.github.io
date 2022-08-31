@@ -27,7 +27,7 @@
 <meta property="og:description" content="MOTIVATION나는 코딩이던 미싱이던 그림이던 단시간에 머리를 풀가동해서 결과물을 끌어내는것을 좋아한다.사실 이런 챌린지를 기획할 때 제일 어려운 점은 목표를 정하는 것이다. 끝내는 데에 시간이 N시간 정도면 되겠다 싶으면서도 그 시간 동안 끊임없이 흥미와 도전정신을 끌어올릴 수 있는 목표를 정해야하기 때문이다. 말 그대로 시작이 반인 셈 ㅎㅎ 멘탈 상">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2022-07-19T17:14:38.000Z">
-<meta property="article:modified_time" content="2022-08-24T05:39:19.242Z">
+<meta property="article:modified_time" content="2022-08-31T16:47:16.907Z">
 <meta property="article:author" content="Gayoung Hyeon">
 <meta property="article:tag" content="WebRTC">
 <meta property="article:tag" content="WebSocket">
@@ -184,7 +184,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -274,7 +274,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-08-24 14:39:19" itemprop="dateModified" datetime="2022-08-24T14:39:19+09:00">2022-08-24</time>
+      <time title="Updated at: 2022-09-01 01:47:16" itemprop="dateModified" datetime="2022-09-01T01:47:16+09:00">2022-09-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -393,7 +393,13 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">App.tsx</span><br><span class="line">pages</span><br><span class="line"> ⌞IntroPage.tsx</span><br><span class="line"> ⌞MeetingPage.tsx</span><br></pre></td></tr></table></figure>
 
 <p>IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현한다. 우선은 구분을 위해 이름 정도만 입력받도록 하자.</p>
-<h2 id="3-맵-구성하기"><a href="#3-맵-구성하기" class="headerlink" title="3. 맵 구성하기"></a>3. 맵 구성하기</h2><p>맵 구성에는 Phaser를 사용한다. <a target="_blank" rel="noopener" href="https://phaser.io/examples">매우 다양한 예시</a>가 준비되어있어서 어렵지 않았다. 그 중 <a target="_blank" rel="noopener" href="https://phaser.io/examples/v3/view/tilemap/collision/tile-callbacks">기본적인 타일맵 구성과 충돌, 캐릭터 이동이 구현되어있는 예제</a>를 찾아서 간하게 맵을 구성해봤다.</p>
+<h2 id="3-맵-구성하기"><a href="#3-맵-구성하기" class="headerlink" title="3. 맵 구성하기"></a>3. 맵 구성하기</h2><p>맵 구성에는 Phaser를 사용한다. <a target="_blank" rel="noopener" href="https://phaser.io/examples">매우 다양한 예시</a>가 준비되어있어서 어렵지 않았다. 그 중 <a target="_blank" rel="noopener" href="https://phaser.io/examples/v3/view/tilemap/collision/tile-callbacks">기본적인 타일맵 구성과 충돌, 캐릭터 이동이 구현되어있는 예제</a>를 찾아서 간하게 맵을 구성해볼것이다.</p>
+<p>위의 예제 소스를 살펴보면 크게 세 가지의 애셋이 필요하다. <a target="_blank" rel="noopener" href="https://itch.io/game-assets/free">무료로 애셋을 받을 수 있는 사이트</a>에서 줍줍해본다.</p>
+<ul>
+<li>바닥</li>
+<li>캐릭터</li>
+<li>오브젝트 (벽, 책상, 집기 등등)</li>
+</ul>
 <h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
 <h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>
     </div>
