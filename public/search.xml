@@ -94,53 +94,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[JavaScript] 비동기 프로그래밍</title>
-    <url>/2022/04/05/Basic/asynchronous-programming/</url>
-    <content><![CDATA[<h1 id="이-글을-쓰게된-이유"><a href="#이-글을-쓰게된-이유" class="headerlink" title="이 글을 쓰게된 이유"></a>이 글을 쓰게된 이유</h1><p>나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다.</p>
-<h1 id="비동기처리-패턴의-역사"><a href="#비동기처리-패턴의-역사" class="headerlink" title="비동기처리 패턴의 역사"></a>비동기처리 패턴의 역사</h1><p>웹을 경험한 기간이 짧아서 아쉬운 점은 실제로 내가 예전의 구린 웹을 써본 적이 없다는 것이다 ㅠㅠ 이건 비단 웹 뿐만 아니라 프로그래밍의 거의 모든 분야에서 그렇긴 하지만. 실제로 불편했던 기억이 있으면 예를 들어 설명하기 더 좋지 않았을까 생각한다.<br>아무튼 나는 경험한 바가 없기 때문에, 비동기처리 패턴이 예전엔 어떻게 구렸는 지 좀 찾아봤다.</p>
-<h2 id="Callback-패턴"><a href="#Callback-패턴" class="headerlink" title="Callback 패턴"></a>Callback 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="function"><span class="title">doSomethingAsynchronously</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    asyncFuncWithCallback(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        doSomethng();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>이건 안써봐도 별로이게 생겼다. 순차적으로 비동기 처리를 원하는 경우, Callback 안에 Callback 안에 Callback.. 을 넣어줘야한다.</p>
-<h2 id="Promise-패턴-then-catch-finally"><a href="#Promise-패턴-then-catch-finally" class="headerlink" title="Promise 패턴 (then, catch, finally)"></a>Promise 패턴 (then, catch, finally)</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">asyncFunc()</span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is rejected</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .finally(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved or rejected</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>ES6에 등장했다는 이 패턴에서는, 순차적으로 비동기 처리를 원하는 경우 then then then.. 으로 Promise를 return하고 다음 then에서 처리하는 방식으로 엮을 수 있다.<br>위에 것 보다는 편해보인다. 하지만 뒤쪽의 then 절에서 res에 뭐가 들어있는 지 따라가는 것이 쉽지 않다.</p>
-<h2 id="async-await-패턴"><a href="#async-await-패턴" class="headerlink" title="async await 패턴"></a>async await 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line"><span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line"><span class="built_in">console</span>.log(res1, res2);</span><br></pre></td></tr></table></figure>
-
-<p>ES8에 등장한 이 패턴은, 확실히 위의 두 패턴보다 가독성이 좋아 보인다.</p>
-<h1 id="동기함수에서-비동기-함수를-호출하고-싶은데…"><a href="#동기함수에서-비동기-함수를-호출하고-싶은데…" class="headerlink" title="동기함수에서 비동기 함수를 호출하고 싶은데…"></a>동기함수에서 비동기 함수를 호출하고 싶은데…</h1><p>예를 들어 화면 쪽 로직에 이런 기능이 있다.</p>
-<p>‘제출하기 버튼을 누르면 제출 api를 호출하게 해주세요’</p>
-<p>물론 제출하기 버튼에 제출 api 호출 함수를 넣으면 된다. 바로 동작하는 것을 볼 수 있다. 그런데 여기에 type checking 이 들어가면 버튼의 onClick 핸들러는 동기 함수를 받기를 원하므로, 비동기인 api 호출 함수를 넣으면 정적 소스 분석툴에서 type이 맞지 않다고 징징거린다.</p>
-<p>그래서 처음에는 이런식의 코드를 짰다.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    groupedAsyncFunc.then((res) =&gt; &#123;</span></span><br><span class="line"><span class="xml">      doSomething(res);</span></span><br><span class="line"><span class="xml">    &#125;);</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>다건의 연속된 비동기 처리는 async await로 보기 좋게 짜더라도, 마지막에 한번은 동기로 마무리하려면 then을 써주어야한다고 생각한 것이다. 여유를 갖고 검색해볼 시간이 없었던 것 같다.</p>
-<p>다행히 시간을 내어 이 내용을 구글링한 끝에, 두 가지의 대안을 찾았다.</p>
-<ol>
-<li>비동기 함수 호출 시 void 붙여주기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> void groupedAsyncFunc()&#125; /&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>IIFE (즉시실행함수) 패턴 사용하기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    (async () =&gt; await groupedAsyncFunc())();</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function">2안을 사용하도록 가이드</a>하는 경우도 꽤 있었다. 나는 몰랐지만, IIFE는 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이며, 변수의 호이스팅 때문에 원하는 대로 동작하지 않는 케이스를 방지해준다는 큰 장점이 있다고 한다. 이 내용을 접했을 때, 내가 <em>동기함수에서 비동기 함수를 호출</em> 하고 싶다는 내 작은 요건에 너무 오버되는 패턴을 찾은 것 같다는 생각을 했다. ㅋㅋㅋ 굳이 이걸 쓸 필요가 없어보였다. Scope 처리가 너무나 당연한 환경에서 웹 개발을 하고있는 나에게는 별로 매력적이지 않아보였기 때문이다. 그래서 2안은 IIFE 개념에 대해 접할 수 있었던 것에만 의의를 두고, 사용하지는 않기로 했다.</p>
-<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>비동기 action의 결과를 명시적으로 기다리지 않는 경우 void 키워드를 붙여주자.</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>내 서버를 RESTful하게 설계하기</title>
-    <url>/2022/03/27/Basic/rest-api/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-  </entry>
-  <entry>
     <title>[React] React CDN 버전으로 나를 표현하는 이력 페이지를 만들자</title>
     <url>/2022/01/22/Etc/Resume/</url>
     <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.</p>
@@ -264,6 +217,53 @@
       </tags>
   </entry>
   <entry>
+    <title>[JavaScript] 비동기 프로그래밍</title>
+    <url>/2022/04/05/Basic/asynchronous-programming/</url>
+    <content><![CDATA[<h1 id="이-글을-쓰게된-이유"><a href="#이-글을-쓰게된-이유" class="headerlink" title="이 글을 쓰게된 이유"></a>이 글을 쓰게된 이유</h1><p>나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다.</p>
+<h1 id="비동기처리-패턴의-역사"><a href="#비동기처리-패턴의-역사" class="headerlink" title="비동기처리 패턴의 역사"></a>비동기처리 패턴의 역사</h1><p>웹을 경험한 기간이 짧아서 아쉬운 점은 실제로 내가 예전의 구린 웹을 써본 적이 없다는 것이다 ㅠㅠ 이건 비단 웹 뿐만 아니라 프로그래밍의 거의 모든 분야에서 그렇긴 하지만. 실제로 불편했던 기억이 있으면 예를 들어 설명하기 더 좋지 않았을까 생각한다.<br>아무튼 나는 경험한 바가 없기 때문에, 비동기처리 패턴이 예전엔 어떻게 구렸는 지 좀 찾아봤다.</p>
+<h2 id="Callback-패턴"><a href="#Callback-패턴" class="headerlink" title="Callback 패턴"></a>Callback 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="function"><span class="title">doSomethingAsynchronously</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    asyncFuncWithCallback(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        doSomethng();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이건 안써봐도 별로이게 생겼다. 순차적으로 비동기 처리를 원하는 경우, Callback 안에 Callback 안에 Callback.. 을 넣어줘야한다.</p>
+<h2 id="Promise-패턴-then-catch-finally"><a href="#Promise-패턴-then-catch-finally" class="headerlink" title="Promise 패턴 (then, catch, finally)"></a>Promise 패턴 (then, catch, finally)</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">asyncFunc()</span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is rejected</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .finally(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved or rejected</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>ES6에 등장했다는 이 패턴에서는, 순차적으로 비동기 처리를 원하는 경우 then then then.. 으로 Promise를 return하고 다음 then에서 처리하는 방식으로 엮을 수 있다.<br>위에 것 보다는 편해보인다. 하지만 뒤쪽의 then 절에서 res에 뭐가 들어있는 지 따라가는 것이 쉽지 않다.</p>
+<h2 id="async-await-패턴"><a href="#async-await-패턴" class="headerlink" title="async await 패턴"></a>async await 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line"><span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line"><span class="built_in">console</span>.log(res1, res2);</span><br></pre></td></tr></table></figure>
+
+<p>ES8에 등장한 이 패턴은, 확실히 위의 두 패턴보다 가독성이 좋아 보인다.</p>
+<h1 id="동기함수에서-비동기-함수를-호출하고-싶은데…"><a href="#동기함수에서-비동기-함수를-호출하고-싶은데…" class="headerlink" title="동기함수에서 비동기 함수를 호출하고 싶은데…"></a>동기함수에서 비동기 함수를 호출하고 싶은데…</h1><p>예를 들어 화면 쪽 로직에 이런 기능이 있다.</p>
+<p>‘제출하기 버튼을 누르면 제출 api를 호출하게 해주세요’</p>
+<p>물론 제출하기 버튼에 제출 api 호출 함수를 넣으면 된다. 바로 동작하는 것을 볼 수 있다. 그런데 여기에 type checking 이 들어가면 버튼의 onClick 핸들러는 동기 함수를 받기를 원하므로, 비동기인 api 호출 함수를 넣으면 정적 소스 분석툴에서 type이 맞지 않다고 징징거린다.</p>
+<p>그래서 처음에는 이런식의 코드를 짰다.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    groupedAsyncFunc.then((res) =&gt; &#123;</span></span><br><span class="line"><span class="xml">      doSomething(res);</span></span><br><span class="line"><span class="xml">    &#125;);</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>다건의 연속된 비동기 처리는 async await로 보기 좋게 짜더라도, 마지막에 한번은 동기로 마무리하려면 then을 써주어야한다고 생각한 것이다. 여유를 갖고 검색해볼 시간이 없었던 것 같다.</p>
+<p>다행히 시간을 내어 이 내용을 구글링한 끝에, 두 가지의 대안을 찾았다.</p>
+<ol>
+<li>비동기 함수 호출 시 void 붙여주기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> void groupedAsyncFunc()&#125; /&gt;</span>;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>IIFE (즉시실행함수) 패턴 사용하기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    (async () =&gt; await groupedAsyncFunc())();</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function">2안을 사용하도록 가이드</a>하는 경우도 꽤 있었다. 나는 몰랐지만, IIFE는 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이며, 변수의 호이스팅 때문에 원하는 대로 동작하지 않는 케이스를 방지해준다는 큰 장점이 있다고 한다. 이 내용을 접했을 때, 내가 <em>동기함수에서 비동기 함수를 호출</em> 하고 싶다는 내 작은 요건에 너무 오버되는 패턴을 찾은 것 같다는 생각을 했다. ㅋㅋㅋ 굳이 이걸 쓸 필요가 없어보였다. Scope 처리가 너무나 당연한 환경에서 웹 개발을 하고있는 나에게는 별로 매력적이지 않아보였기 때문이다. 그래서 2안은 IIFE 개념에 대해 접할 수 있었던 것에만 의의를 두고, 사용하지는 않기로 했다.</p>
+<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>비동기 action의 결과를 명시적으로 기다리지 않는 경우 void 키워드를 붙여주자.</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>내 서버를 RESTful하게 설계하기</title>
+    <url>/2022/03/27/Basic/rest-api/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+  </entry>
+  <entry>
     <title>[토이프로젝트] 개더타운 클론코딩 - 1</title>
     <url>/2022/07/20/Lab/gather-clonecoding-1/</url>
     <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>나는 코딩이던 미싱이던 그림이던 단시간에 머리를 풀가동해서 결과물을 끌어내는것을 좋아한다.<br>사실 이런 챌린지를 기획할 때 제일 어려운 점은 목표를 정하는 것이다. 끝내는 데에 시간이 N시간 정도면 되겠다 싶으면서도 그 시간 동안 끊임없이 흥미와 도전정신을 끌어올릴 수 있는 목표를 정해야하기 때문이다. 말 그대로 시작이 반인 셈 ㅎㅎ</p>
@@ -346,6 +346,19 @@
       </tags>
   </entry>
   <entry>
+    <title>[토이프로젝트] 개더타운 클론코딩 - 3</title>
+    <url>/2022/08/25/Lab/gather-clonecoding-3/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>토이프로젝트</category>
+      </categories>
+      <tags>
+        <tag>토이프로젝트</tag>
+        <tag>WebRTC</tag>
+        <tag>Phaser</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[토이프로젝트] 개더타운 클론코딩 - 2</title>
     <url>/2022/07/28/Lab/gather-clonecoding-2/</url>
     <content><![CDATA[<p>이전 포스트에서는 MOTIVATION, PREPARATION 까지 정리했고, 이어서 DELEVERY했던 내용을 기록한다.</p>
@@ -410,19 +423,6 @@
 <h3 id="자-이제-회의실을-그려보자"><a href="#자-이제-회의실을-그려보자" class="headerlink" title="자 이제 회의실을 그려보자"></a>자 이제 회의실을 그려보자</h3><p>이제 어느 위치에 어떤 타일을 배치할지 json으로 일러주면 되는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했는데 ㅎㅎ 어렵지 않게 툴을 찾을 수 있었다. <a href="https://www.mapeditor.org/">고마워요 Tiled</a> 위에서 모아둔 애셋 타일셋을 넣고 한칸 한칸 그려주면 된다.</p>
 <h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
 <h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>]]></content>
-      <categories>
-        <category>토이프로젝트</category>
-      </categories>
-      <tags>
-        <tag>토이프로젝트</tag>
-        <tag>WebRTC</tag>
-        <tag>Phaser</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[토이프로젝트] 개더타운 클론코딩 - 3</title>
-    <url>/2022/08/25/Lab/gather-clonecoding-3/</url>
-    <content><![CDATA[]]></content>
       <categories>
         <category>토이프로젝트</category>
       </categories>

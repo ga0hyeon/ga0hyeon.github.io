@@ -321,7 +321,28 @@ export default SamplePage;
 
 ### 자 이제 회의실을 그려보자
 
-이제 어느 위치에 어떤 타일을 배치할지 json으로 일러주면 되는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했는데 ㅎㅎ 어렵지 않게 툴을 찾을 수 있었다. [고마워요 Tiled](https://www.mapeditor.org/) 위에서 모아둔 애셋 타일셋을 넣고 한칸 한칸 그려주면 된다.
+이제 어느 위치에 어떤 타일을 배치할지 정의하면 된다. Phaser 예제를 둘러보니 아래 캡쳐와 같이 json 형식으로 좌표값을 넘겨받고 있다는 것을 어렵지 않게 확인할 수 있었는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했다.
+![json](/images/gather_clone_coding/5.png)
+
+당연히 요 json을 쉽게 만들 수 있도록 도와주는 프로그램이 이미 있고, 그 중 나는 [Tiled](https://www.mapeditor.org/) 를 사용해보았다.
+
+Tiled를 실행한 뒤 프로젝트와 맵을 신규 생성하고, 위에서 모아둔 애셋 타일셋을 import 해주면 아래와 같이 맵을 한칸 한칸 그려줄 수 있다.
+
+![회의실 전경](/images/gather_clone_coding/2.png)
+
+타일셋을 그릴 때는 용도에 맞게 레이어를 추가할 수 있는 듯 하다. 나는 바닥, 벽, 집기류 총 세 개의 레이어를 사용하여 회의실을 꾸몄다. 맵 메이커를 제대로/잘 사용하는 방법에 대해서는 다른 포스트에서 추가로 다루어야 할 정도로 양이 되는 듯 하여 이번에는 이 정도로 만족하고 넘어간다.
+
+이제 만든 맵을 Phaser에서 읽을 수 있도록 json 형식으로 저장해주면 되는데, 그전에 맵이 타일셋을 내장하도록 해야하는데... 무슨 이유에서인지 가이드대로 '타일셋 내장' 버튼을 클릭하면 맵이 깨진다 ㅠㅠ
+![요것을 누르면](/images/gather_clone_coding/3.png)
+![이렇게 된다 ㅠㅠ 왜!!!](/images/gather_clone_coding/4.png)
+잠시 생각해보니 json에 어떻게 이미지 정보를 내장하는 것이 효율적일 것 같지는 않아서 문득 위에 캡쳐한 Phaser 예제의 json 내용을 살펴보니, 타일셋 부분은 절대경로로 되어있다. 아하. onCreate 시점에 타일셋 자원도 로드하는 모양이다.
+
+[예제 소스](https://phaser.io/examples/v3/view/camera/follow-zoom-tilemap)에 보니 아래와 같은 코드가 있었다.
+
+```jsx
+this.load.tilemapTiledJSON("map", "assets/tilemaps/maps/super-mario.json");
+this.load.image("tiles1", "assets/tilemaps/tiles/super-mario.png");
+```
 
 ## 4. 캐릭터 이동 구현하기
 
