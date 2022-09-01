@@ -1,8 +1,8 @@
 ---
 title: "[토이프로젝트] 개더타운 클론코딩 - 1"
 date: 2022-07-20 02:14:38
-categories: [WebRTC]
-tags: [토이프로젝트, WebRTC]
+categories: [토이프로젝트]
+tags: [토이프로젝트, WebRTC, Phaser]
 ---
 
 # MOTIVATION

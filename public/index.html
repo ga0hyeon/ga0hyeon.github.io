@@ -179,7 +179,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -227,93 +227,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/08/30/Lab/phaser3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/30/Lab/phaser3/" class="post-title-link" itemprop="url">phaser3</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2022-08-30 16:24:39" itemprop="dateCreated datePublished" datetime="2022-08-30T16:24:39+09:00">2022-08-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-09-01 03:07:29" itemprop="dateModified" datetime="2022-09-01T03:07:29+09:00">2022-09-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>개더타운 클론코딩을 하면서 맵, 캐릭터 렌더를 위해 Phaser를 사용해보게 되었는데 웬걸 생각보다 너무 방대해서 새 포스트를 파게 되었다.</p>
-<p>(참고 가이드)[<a target="_blank" rel="noopener" href="https://phaser.io/tutorials/making-your-first-phaser-3-game]">https://phaser.io/tutorials/making-your-first-phaser-3-game]</a></p>
-<h1 id="Phaser란"><a href="#Phaser란" class="headerlink" title="Phaser란?"></a>Phaser란?</h1><p>cross-browser HTML5 게임을 쉽고 빠르게 만들 수 있도록하는 프레임워크.</p>
-<h1 id="개발환경-setup"><a href="#개발환경-setup" class="headerlink" title="개발환경 setup"></a>개발환경 setup</h1><p>Phaser가 html 기반으로 게임을 만들수 있게 해준다고 하더라도, 브라우저에서는 원칙적으로 로컬 리소스에 접근할 수 없기 때문에 html 파일 만으로는 Phaser 게임을 실행할 수 없다. 따라서 html과 리소스를 올릴 서버가 필요하고, 공식 가이드에서는 python, php, node.js 정도를 언급하고 있다. 나는 React로 페이지 뼈대를 구성할 것이고, 운영 단계까지 올릴 생각이 없으므로 React 개발 서버면 충분하다.<br>그리고 가이드에 IDE도 몇 가지 언급되하고있는데, brakets 같은 HTML 편집기로도 개발이 가능하다고 한다. 재밌다. 하지만 나는 평소에 사용하던 VS Code를 그대로 쓸 것이다 ㅋㅋㅋㅋㅋ</p>
-<p>정리하자면 요 정도만 추가로 해주면 되겠다.</p>
-<ul>
-<li>CRA로 React 개발환경 셋업</li>
-<li>npm으로 Phaser 설치</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install phaser</span><br></pre></td></tr></table></figure>
-
-<h1 id="샘플-페이지-띄워보기"><a href="#샘플-페이지-띄워보기" class="headerlink" title="샘플 페이지 띄워보기"></a>샘플 페이지 띄워보기</h1><p>가이드로 제공된 소스는 html script라서 react에 맞게 약간 수정해서 샘플 페이지를 띄워봤다. 잘 뜬다 :)<br>(참고 가이드)[<a target="_blank" rel="noopener" href="https://phaser.io/tutorials/getting-started-phaser3/part5]">https://phaser.io/tutorials/getting-started-phaser3/part5]</a></p>
-<p>파티클과 로고의 속성값을 바꾸어가면서 소스를 만져보면 Phaser를 어떻게 사용해야할지 감이 온다! 좋은 샘플이다 ㅎㅎ</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line">import Phaser from &quot;phaser&quot;;</span><br><span class="line">import &#123; useEffect, useRef, useState &#125; from &quot;react&quot;;</span><br><span class="line"></span><br><span class="line">const SamplePage = () =&gt; &#123;</span><br><span class="line">  const variables = useRef&lt;&#123;</span><br><span class="line">    platforms: Phaser.Physics.Arcade.StaticGroup;</span><br><span class="line">    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;</span><br><span class="line">    cursors: Phaser.Types.Input.Keyboard.CursorKeys;</span><br><span class="line">    stars: Phaser.Physics.Arcade.Group;</span><br><span class="line">  &#125;&gt;();</span><br><span class="line"></span><br><span class="line">  const config = useRef&lt;Phaser.Types.Core.GameConfig&gt;(&#123;</span><br><span class="line">    type: Phaser.AUTO,</span><br><span class="line">    parent: &quot;sample-page&quot;, //NOTE : 아래 div의 id값을 넣어주면 된다.</span><br><span class="line">    width: 800,</span><br><span class="line">    height: 600,</span><br><span class="line">    physics: &#123;</span><br><span class="line">      default: &quot;arcade&quot;,</span><br><span class="line">      arcade: &#123;</span><br><span class="line">        gravity: &#123; y: 200 &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    scene: &#123;</span><br><span class="line">      preload: function () &#123;</span><br><span class="line">        this.load.image(&quot;sky&quot;, &quot;assets/sky.png&quot;);</span><br><span class="line">        this.load.image(&quot;ground&quot;, &quot;assets/platform.png&quot;);</span><br><span class="line">        this.load.image(&quot;star&quot;, &quot;assets/star.png&quot;);</span><br><span class="line">        this.load.image(&quot;bomb&quot;, &quot;assets/bomb.png&quot;);</span><br><span class="line">        this.load.spritesheet(&quot;dude&quot;, &quot;assets/dude.png&quot;, &#123;</span><br><span class="line">          frameWidth: 32,</span><br><span class="line">          frameHeight: 48,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line">      create: function () &#123;</span><br><span class="line">        this.add.image(400, 300, &quot;sky&quot;);</span><br><span class="line"></span><br><span class="line">        //NOTE : config에 physics를 정의해두어야 정상적으로 동작한다</span><br><span class="line">        const platforms = this.physics.add.staticGroup();</span><br><span class="line"></span><br><span class="line">        //NOTE : static physics body의 크기를 변경했으므로 refreshBody 호출</span><br><span class="line">        platforms.create(400, 568, &quot;ground&quot;).setScale(2).refreshBody();</span><br><span class="line"></span><br><span class="line">        platforms.create(600, 400, &quot;ground&quot;);</span><br><span class="line">        platforms.create(50, 250, &quot;ground&quot;);</span><br><span class="line">        platforms.create(750, 220, &quot;ground&quot;);</span><br><span class="line"></span><br><span class="line">        const player = this.physics.add.sprite(100, 450, &quot;dude&quot;);</span><br><span class="line">        player.setBounce(0.2);</span><br><span class="line">        player.setCollideWorldBounds(true);</span><br><span class="line"></span><br><span class="line">        this.anims.create(&#123;</span><br><span class="line">          key: &quot;left&quot;,</span><br><span class="line">          frames: this.anims.generateFrameNumbers(&quot;dude&quot;, &#123; start: 0, end: 3 &#125;),</span><br><span class="line">          frameRate: 10,</span><br><span class="line">          repeat: -1,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.anims.create(&#123;</span><br><span class="line">          key: &quot;turn&quot;,</span><br><span class="line">          frames: [&#123; key: &quot;dude&quot;, frame: 4 &#125;],</span><br><span class="line">          frameRate: 20,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.anims.create(&#123;</span><br><span class="line">          key: &quot;right&quot;,</span><br><span class="line">          frames: this.anims.generateFrameNumbers(&quot;dude&quot;, &#123; start: 5, end: 8 &#125;),</span><br><span class="line">          frameRate: 10,</span><br><span class="line">          repeat: -1,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(player, platforms);</span><br><span class="line"></span><br><span class="line">        const cursors = this.input.keyboard.createCursorKeys();</span><br><span class="line"></span><br><span class="line">        const scoreText = this.add.text(16, 16, &quot;score: 0&quot;, &#123;</span><br><span class="line">          fontSize: &quot;32px&quot;,</span><br><span class="line">          color: &quot;#fff&quot;,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        const stars = this.physics.add.group(&#123;</span><br><span class="line">          key: &quot;star&quot;,</span><br><span class="line">          repeat: 11,</span><br><span class="line">          setXY: &#123; x: 12, y: 0, stepX: 70 &#125;,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        stars.children.iterate(function (child) &#123;</span><br><span class="line">          (child as any).setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(stars, platforms);</span><br><span class="line">        this.physics.add.overlap(</span><br><span class="line">          player,</span><br><span class="line">          stars,</span><br><span class="line">          (player, star) =&gt; &#123;</span><br><span class="line">            (star as any).disableBody(true, true);</span><br><span class="line">            setScore((prev) =&gt; &#123;</span><br><span class="line">              scoreText.setText(&quot;Score: &quot; + (prev + 1));</span><br><span class="line">              return prev + 1;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            if (stars.countActive(true) === 0) &#123;</span><br><span class="line">              stars.children.iterate(function (child) &#123;</span><br><span class="line">                (child as any).enableBody(</span><br><span class="line">                  true,</span><br><span class="line">                  (child as any).x,</span><br><span class="line">                  0,</span><br><span class="line">                  true,</span><br><span class="line">                  true</span><br><span class="line">                );</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">              const x =</span><br><span class="line">                (player as any).x &lt; 400</span><br><span class="line">                  ? Phaser.Math.Between(400, 800)</span><br><span class="line">                  : Phaser.Math.Between(0, 400);</span><br><span class="line"></span><br><span class="line">              const bomb = bombs.create(x, 16, &quot;bomb&quot;);</span><br><span class="line">              bomb.setBounce(1);</span><br><span class="line">              bomb.setCollideWorldBounds(true);</span><br><span class="line">              bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          undefined,</span><br><span class="line">          this</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        const bombs = this.physics.add.group();</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(bombs, platforms);</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(</span><br><span class="line">          player,</span><br><span class="line">          bombs,</span><br><span class="line">          (player, bomb) =&gt; &#123;</span><br><span class="line">            this.physics.pause();</span><br><span class="line"></span><br><span class="line">            (player as any).setTint(0xff0000);</span><br><span class="line"></span><br><span class="line">            this.anims.play(&quot;turn&quot;, player);</span><br><span class="line"></span><br><span class="line">            this.add.text(240, 300, &quot;GAME OVER&quot;, &#123;</span><br><span class="line">              fontSize: &quot;64px&quot;,</span><br><span class="line">              color: &quot;#0xff00&quot;,</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;,</span><br><span class="line">          undefined,</span><br><span class="line">          this</span><br><span class="line">        );</span><br><span class="line">        variables.current = &#123;</span><br><span class="line">          platforms,</span><br><span class="line">          player,</span><br><span class="line">          cursors,</span><br><span class="line">          stars,</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;,</span><br><span class="line">      update: function () &#123;</span><br><span class="line">        if (variables.current) &#123;</span><br><span class="line">          const &#123; cursors, player &#125; = variables.current;</span><br><span class="line"></span><br><span class="line">          if (cursors.left.isDown) &#123;</span><br><span class="line">            player.setVelocityX(-160);</span><br><span class="line">            player.anims.play(&quot;left&quot;, true);</span><br><span class="line">          &#125; else if (cursors.right.isDown) &#123;</span><br><span class="line">            player.setVelocityX(160);</span><br><span class="line">            player.anims.play(&quot;right&quot;, true);</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            player.setVelocityX(0);</span><br><span class="line">            player.anims.play(&quot;turn&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">          if (cursors.up.isDown &amp;&amp; player.body.touching.down) &#123;</span><br><span class="line">            player.setVelocityY(-330);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  const [score, setScore] = useState&lt;number&gt;(0);</span><br><span class="line">  const [game, setGame] = useState&lt;Phaser.Game&gt;();</span><br><span class="line"></span><br><span class="line">  useEffect(() =&gt; &#123;</span><br><span class="line">    const game = new Phaser.Game(config.current);</span><br><span class="line">    setGame(game);</span><br><span class="line"></span><br><span class="line">    return () =&gt; &#123;</span><br><span class="line">      game.destroy(true);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  return &lt;div id=&quot;sample-page&quot;&gt;&lt;/div&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default SamplePage;</span><br></pre></td></tr></table></figure>
-
-<h1 id="타일셋을-사용하여-맵-그리기"><a href="#타일셋을-사용하여-맵-그리기" class="headerlink" title="타일셋을 사용하여 맵 그리기"></a>타일셋을 사용하여 맵 그리기</h1><p>사실 요 내용을 서칭하다가 포스트를 쓰게 됐다.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -421,7 +334,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/07/20/Lab/gather-clonecoding/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/07/20/Lab/gather-clonecoding-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -435,7 +348,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/20/Lab/gather-clonecoding/" class="post-title-link" itemprop="url">[WebRTC] 화상채팅 구현하기</a>
+          <a href="/2022/07/20/Lab/gather-clonecoding-1/" class="post-title-link" itemprop="url">[토이프로젝트] 개더타운 클론코딩 - 1</a>
         </h2>
 
         <div class="post-meta-container">
@@ -453,7 +366,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-09-01 01:47:16" itemprop="dateModified" datetime="2022-09-01T01:47:16+09:00">2022-09-01</time>
+      <time title="Updated at: 2022-09-01 03:14:19" itemprop="dateModified" datetime="2022-09-01T03:14:19+09:00">2022-09-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -543,6 +456,88 @@
 <ul>
 <li>생각보다 멍때릴때 나오는 코드가 각잡고 짠 코드보다 선방하는 것 같아서 ㅋㅋㅋ 이번에 실험해본다.</li>
 </ul>
+<p>DELEVERY 단계부터는 내용이 길어져서 다음 포스트에서 이어서 정리한다 :)</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/07/20/Lab/gather-clonecoding-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/20/Lab/gather-clonecoding-2/" class="post-title-link" itemprop="url">[토이프로젝트] 개더타운 클론코딩 - 2</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-07-20 02:14:38" itemprop="dateCreated datePublished" datetime="2022-07-20T02:14:38+09:00">2022-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-09-01 03:57:09" itemprop="dateModified" datetime="2022-09-01T03:57:09+09:00">2022-09-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/WebRTC/" itemprop="url" rel="index"><span itemprop="name">WebRTC</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>이전 포스트에서는 MOTIVATION, PREPARATION 까지 정리했고, 이어서 DELEVERY했던 내용을 기록한다.</p>
 <h1 id="DELEVERY"><a href="#DELEVERY" class="headerlink" title="DELEVERY"></a>DELEVERY</h1><h2 id="1-git-repository-생성-및-각-모듈-셋업하기"><a href="#1-git-repository-생성-및-각-모듈-셋업하기" class="headerlink" title="1. git repository 생성 및 각 모듈 셋업하기"></a>1. git repository 생성 및 각 모듈 셋업하기</h2><p><a target="_blank" rel="noopener" href="https://github.com/ga0hyeon/cowork-saga">git repository</a>를 만들어주고, signalingServer와 client 폴더에 각각 Django와 React 셋업을 진행했다.</p>
 <h3 id="Django-셋업-with-djangoRestFramework"><a href="#Django-셋업-with-djangoRestFramework" class="headerlink" title="Django 셋업 with djangoRestFramework"></a>Django 셋업 with djangoRestFramework</h3><p><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/ko/4.0/intro/">django docs</a>를 참고하여 초기 세팅을 진행한다.<br>+) mac에 python 2.7이 기본으로 깔려있어서 3.x 버전의 python을 받아주었다. python3을 기본으로 바라보도록 bashrc에도 alias를 추가해준다.</p>
 <p>django를 설치해주고</p>
@@ -572,15 +567,198 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">App.tsx</span><br><span class="line">pages</span><br><span class="line"> ⌞IntroPage.tsx</span><br><span class="line"> ⌞MeetingPage.tsx</span><br></pre></td></tr></table></figure>
 
 <p>IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현한다. 우선은 구분을 위해 이름 정도만 입력받도록 하자.</p>
-<h2 id="3-맵-구성하기"><a href="#3-맵-구성하기" class="headerlink" title="3. 맵 구성하기"></a>3. 맵 구성하기</h2><p>맵 구성에는 Phaser를 사용한다. <a target="_blank" rel="noopener" href="https://phaser.io/examples">매우 다양한 예시</a>가 준비되어있어서 어렵지 않았다. 그 중 <a target="_blank" rel="noopener" href="https://phaser.io/examples/v3/view/tilemap/collision/tile-callbacks">기본적인 타일맵 구성과 충돌, 캐릭터 이동이 구현되어있는 예제</a>를 찾아서 간하게 맵을 구성해볼것이다.</p>
-<p>위의 예제 소스를 살펴보면 크게 세 가지의 애셋이 필요하다. <a target="_blank" rel="noopener" href="https://itch.io/game-assets/free">무료로 애셋을 받을 수 있는 사이트</a>에서 줍줍해본다.</p>
+<h2 id="3-맵-구성하기"><a href="#3-맵-구성하기" class="headerlink" title="3. 맵 구성하기"></a>3. 맵 구성하기</h2><p>맵 구성에는 Phaser를 사용한다.</p>
+<h3 id="Phaser란"><a href="#Phaser란" class="headerlink" title="Phaser란?"></a>Phaser란?</h3><p>cross-browser HTML5 게임을 쉽고 빠르게 만들 수 있도록하는 프레임워크.</p>
+<h3 id="Phaser를-사용하기-위한-추가적인-개발환경-setup"><a href="#Phaser를-사용하기-위한-추가적인-개발환경-setup" class="headerlink" title="Phaser를 사용하기 위한 추가적인 개발환경 setup"></a>Phaser를 사용하기 위한 추가적인 개발환경 setup</h3><p>Phaser가 html 기반으로 게임을 만들수 있게 해준다고 하더라도, 브라우저에서는 원칙적으로 로컬 리소스에 접근할 수 없기 때문에 html 파일 만으로는 Phaser 게임을 실행할 수 없다. (사실 이 개념 예전에도 접했었는데 그때는 바로 이해가 안되었는데.. 지금은 후루룩 읽힌다. 아주 좋다!!)따라서 html과 리소스를 올릴 서버가 필요하고, 공식 가이드에서는 python, php, node.js 정도를 언급하고 있다.</p>
+<p>나는 위에서 이미 React로 페이지 뼈대를 구성했고, 운영 단계까지 올릴 생각이 없으므로 React 개발 서버면 충분하다.</p>
+<p>그리고 가이드에 IDE도 몇 가지 언급하고있는데, brakets 같은 HTML 편집기로도 개발이 가능하다고 한다. 재밌다. 물론 나는 위에서 세팅해둔 VS code를 사용한다 ㅎㅎ</p>
+<p>추가적인 서버 셋업과 IDE 설정이 필요 없으니 Phaser 사용을 위해서는 요 정도만 추가로 해주면 되겠다.</p>
+<ul>
+<li>npm으로 Phaser 설치</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install phaser</span><br></pre></td></tr></table></figure>
+
+<h3 id="가이드를-따라-샘플-게임-만들기"><a href="#가이드를-따라-샘플-게임-만들기" class="headerlink" title="가이드를 따라 샘플 게임 만들기"></a>가이드를 따라 샘플 게임 만들기</h3><p>본격적으로 구미에 맡는 맵을 만들기 전에 Phaser에 익숙해질 겸 가이드를 따라 샘플 게임을 만들어본다. 가이드로 제공된 소스는 html script라서, 글로벌 변수가 따로 없는 react에 맞게 ref, state를 사용해서 약간 수정해봤다. 잘 뜬다 :)<br>(making-your-first-phaser-3-game)[<a target="_blank" rel="noopener" href="https://phaser.io/tutorials/making-your-first-phaser-3-game]">https://phaser.io/tutorials/making-your-first-phaser-3-game]</a></p>
+<p>이 샘플 소스만으로도 회의실 구성에 필요한 요소는 어느정도 구현이 가능해보인다. 굿!</p>
+<p><img src="/images/gather_clone_coding/1.png" alt="Sample Game"></p>
+<details>
+<summary>샘플 소스 전문</summary>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line">import Phaser from &quot;phaser&quot;;</span><br><span class="line">import &#123; useEffect, useRef, useState &#125; from &quot;react&quot;;</span><br><span class="line"></span><br><span class="line">const SamplePage = () =&gt; &#123;</span><br><span class="line">  const variables = useRef&lt;&#123;</span><br><span class="line">    platforms: Phaser.Physics.Arcade.StaticGroup;</span><br><span class="line">    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;</span><br><span class="line">    cursors: Phaser.Types.Input.Keyboard.CursorKeys;</span><br><span class="line">    stars: Phaser.Physics.Arcade.Group;</span><br><span class="line">  &#125;&gt;();</span><br><span class="line"></span><br><span class="line">  const config = useRef&lt;Phaser.Types.Core.GameConfig&gt;(&#123;</span><br><span class="line">    type: Phaser.AUTO,</span><br><span class="line">    parent: &quot;sample-page&quot;, //NOTE : 아래 div의 id값을 넣어주면 된다.</span><br><span class="line">    width: 800,</span><br><span class="line">    height: 600,</span><br><span class="line">    physics: &#123;</span><br><span class="line">      default: &quot;arcade&quot;,</span><br><span class="line">      arcade: &#123;</span><br><span class="line">        gravity: &#123; y: 200 &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    scene: &#123;</span><br><span class="line">      preload: function () &#123;</span><br><span class="line">        this.load.image(&quot;sky&quot;, &quot;assets/sky.png&quot;);</span><br><span class="line">        this.load.image(&quot;ground&quot;, &quot;assets/platform.png&quot;);</span><br><span class="line">        this.load.image(&quot;star&quot;, &quot;assets/star.png&quot;);</span><br><span class="line">        this.load.image(&quot;bomb&quot;, &quot;assets/bomb.png&quot;);</span><br><span class="line">        this.load.spritesheet(&quot;dude&quot;, &quot;assets/dude.png&quot;, &#123;</span><br><span class="line">          frameWidth: 32,</span><br><span class="line">          frameHeight: 48,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line">      create: function () &#123;</span><br><span class="line">        this.add.image(400, 300, &quot;sky&quot;);</span><br><span class="line"></span><br><span class="line">        //NOTE : config에 physics를 정의해두어야 정상적으로 동작한다</span><br><span class="line">        const platforms = this.physics.add.staticGroup();</span><br><span class="line"></span><br><span class="line">        //NOTE : static physics body의 크기를 변경했으므로 refreshBody 호출</span><br><span class="line">        platforms.create(400, 568, &quot;ground&quot;).setScale(2).refreshBody();</span><br><span class="line"></span><br><span class="line">        platforms.create(600, 400, &quot;ground&quot;);</span><br><span class="line">        platforms.create(50, 250, &quot;ground&quot;);</span><br><span class="line">        platforms.create(750, 220, &quot;ground&quot;);</span><br><span class="line"></span><br><span class="line">        const player = this.physics.add.sprite(100, 450, &quot;dude&quot;);</span><br><span class="line">        player.setBounce(0.2);</span><br><span class="line">        player.setCollideWorldBounds(true);</span><br><span class="line"></span><br><span class="line">        this.anims.create(&#123;</span><br><span class="line">          key: &quot;left&quot;,</span><br><span class="line">          frames: this.anims.generateFrameNumbers(&quot;dude&quot;, &#123; start: 0, end: 3 &#125;),</span><br><span class="line">          frameRate: 10,</span><br><span class="line">          repeat: -1,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.anims.create(&#123;</span><br><span class="line">          key: &quot;turn&quot;,</span><br><span class="line">          frames: [&#123; key: &quot;dude&quot;, frame: 4 &#125;],</span><br><span class="line">          frameRate: 20,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.anims.create(&#123;</span><br><span class="line">          key: &quot;right&quot;,</span><br><span class="line">          frames: this.anims.generateFrameNumbers(&quot;dude&quot;, &#123; start: 5, end: 8 &#125;),</span><br><span class="line">          frameRate: 10,</span><br><span class="line">          repeat: -1,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(player, platforms);</span><br><span class="line"></span><br><span class="line">        const cursors = this.input.keyboard.createCursorKeys();</span><br><span class="line"></span><br><span class="line">        const scoreText = this.add.text(16, 16, &quot;score: 0&quot;, &#123;</span><br><span class="line">          fontSize: &quot;32px&quot;,</span><br><span class="line">          color: &quot;#fff&quot;,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        const stars = this.physics.add.group(&#123;</span><br><span class="line">          key: &quot;star&quot;,</span><br><span class="line">          repeat: 11,</span><br><span class="line">          setXY: &#123; x: 12, y: 0, stepX: 70 &#125;,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        stars.children.iterate(function (child) &#123;</span><br><span class="line">          (child as any).setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(stars, platforms);</span><br><span class="line">        this.physics.add.overlap(</span><br><span class="line">          player,</span><br><span class="line">          stars,</span><br><span class="line">          (player, star) =&gt; &#123;</span><br><span class="line">            (star as any).disableBody(true, true);</span><br><span class="line">            setScore((prev) =&gt; &#123;</span><br><span class="line">              scoreText.setText(&quot;Score: &quot; + (prev + 1));</span><br><span class="line">              return prev + 1;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            if (stars.countActive(true) === 0) &#123;</span><br><span class="line">              stars.children.iterate(function (child) &#123;</span><br><span class="line">                (child as any).enableBody(</span><br><span class="line">                  true,</span><br><span class="line">                  (child as any).x,</span><br><span class="line">                  0,</span><br><span class="line">                  true,</span><br><span class="line">                  true</span><br><span class="line">                );</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">              const x =</span><br><span class="line">                (player as any).x &lt; 400</span><br><span class="line">                  ? Phaser.Math.Between(400, 800)</span><br><span class="line">                  : Phaser.Math.Between(0, 400);</span><br><span class="line"></span><br><span class="line">              const bomb = bombs.create(x, 16, &quot;bomb&quot;);</span><br><span class="line">              bomb.setBounce(1);</span><br><span class="line">              bomb.setCollideWorldBounds(true);</span><br><span class="line">              bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          undefined,</span><br><span class="line">          this</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        const bombs = this.physics.add.group();</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(bombs, platforms);</span><br><span class="line"></span><br><span class="line">        this.physics.add.collider(</span><br><span class="line">          player,</span><br><span class="line">          bombs,</span><br><span class="line">          (player, bomb) =&gt; &#123;</span><br><span class="line">            this.physics.pause();</span><br><span class="line"></span><br><span class="line">            (player as any).setTint(0xff0000);</span><br><span class="line"></span><br><span class="line">            this.anims.play(&quot;turn&quot;, player);</span><br><span class="line"></span><br><span class="line">            this.add.text(240, 300, &quot;GAME OVER&quot;, &#123;</span><br><span class="line">              fontSize: &quot;64px&quot;,</span><br><span class="line">              color: &quot;#0xff00&quot;,</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;,</span><br><span class="line">          undefined,</span><br><span class="line">          this</span><br><span class="line">        );</span><br><span class="line">        variables.current = &#123;</span><br><span class="line">          platforms,</span><br><span class="line">          player,</span><br><span class="line">          cursors,</span><br><span class="line">          stars,</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;,</span><br><span class="line">      update: function () &#123;</span><br><span class="line">        if (variables.current) &#123;</span><br><span class="line">          const &#123; cursors, player &#125; = variables.current;</span><br><span class="line"></span><br><span class="line">          if (cursors.left.isDown) &#123;</span><br><span class="line">            player.setVelocityX(-160);</span><br><span class="line">            player.anims.play(&quot;left&quot;, true);</span><br><span class="line">          &#125; else if (cursors.right.isDown) &#123;</span><br><span class="line">            player.setVelocityX(160);</span><br><span class="line">            player.anims.play(&quot;right&quot;, true);</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            player.setVelocityX(0);</span><br><span class="line">            player.anims.play(&quot;turn&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">          if (cursors.up.isDown &amp;&amp; player.body.touching.down) &#123;</span><br><span class="line">            player.setVelocityY(-330);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  const [score, setScore] = useState&lt;number&gt;(0);</span><br><span class="line">  const [game, setGame] = useState&lt;Phaser.Game&gt;();</span><br><span class="line"></span><br><span class="line">  useEffect(() =&gt; &#123;</span><br><span class="line">    const game = new Phaser.Game(config.current);</span><br><span class="line">    setGame(game);</span><br><span class="line"></span><br><span class="line">    return () =&gt; &#123;</span><br><span class="line">      game.destroy(true);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  return &lt;div id=&quot;sample-page&quot;&gt;&lt;/div&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default SamplePage;</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h3 id="회의실을-그리는데에-사용할-무료-애셋을-찾자"><a href="#회의실을-그리는데에-사용할-무료-애셋을-찾자" class="headerlink" title="회의실을 그리는데에 사용할 무료 애셋을 찾자"></a>회의실을 그리는데에 사용할 무료 애셋을 찾자</h3><p>가장 기본적인 회의실 맵을 그리기 위해서 아래와 같이 크게 세 가지의 애셋이 필요하다.</p>
 <ul>
 <li>바닥</li>
 <li>캐릭터</li>
 <li>오브젝트 (벽, 책상, 집기 등등)</li>
+<li>맵 뒷배경 이미지</li>
 </ul>
+<p><a target="_blank" rel="noopener" href="https://itch.io/game-assets/free">무료로 애셋을 받을 수 있는 사이트</a>와 <a target="_blank" rel="noopener" href="https://pixabay.com/ko">Pixabay</a>에서 발품을 팔아 줍줍한 애셋들은 root의 public 폴더에 차곡차곡 담아준다.</p>
+<h3 id="자-이제-회의실을-그려보자"><a href="#자-이제-회의실을-그려보자" class="headerlink" title="자 이제 회의실을 그려보자"></a>자 이제 회의실을 그려보자</h3><p>이제 어느 위치에 어떤 타일을 배치할지 json으로 일러주면 되는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했는데 ㅎㅎ 어렵지 않게 툴을 찾을 수 있었다. <a target="_blank" rel="noopener" href="https://www.mapeditor.org/">고마워요 Tiled</a> 위에서 모아둔 애셋 타일셋을 넣고 한칸 한칸 그려주면 된다. (근데 프로그램 호환성이 좋지 않은 것 같다. 맥이 힘들어함… 이거나 만들어볼까 ㅋㅋ )</p>
 <h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
 <h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/07/20/Lab/gather-clonecoding-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/20/Lab/gather-clonecoding-3/" class="post-title-link" itemprop="url">[토이프로젝트] 개더타운 클론코딩 - 2</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-07-20 02:14:38" itemprop="dateCreated datePublished" datetime="2022-07-20T02:14:38+09:00">2022-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-09-01 03:33:51" itemprop="dateModified" datetime="2022-09-01T03:33:51+09:00">2022-09-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/WebRTC/" itemprop="url" rel="index"><span itemprop="name">WebRTC</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/07/20/Lab/gather-clonecoding-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/20/Lab/gather-clonecoding-4/" class="post-title-link" itemprop="url">[토이프로젝트] 개더타운 클론코딩 - 2</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-07-20 02:14:38" itemprop="dateCreated datePublished" datetime="2022-07-20T02:14:38+09:00">2022-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2022-09-01 03:33:54" itemprop="dateModified" datetime="2022-09-01T03:33:54+09:00">2022-09-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/WebRTC/" itemprop="url" rel="index"><span itemprop="name">WebRTC</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
       
     </div>
 
@@ -886,94 +1064,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/ReactNative/RN-ios-image-not-showing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/08/ReactNative/RN-ios-image-not-showing/" class="post-title-link" itemprop="url">[React Native] iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2022-04-08 22:28:41" itemprop="dateCreated datePublished" datetime="2022-04-08T22:28:41+09:00">2022-04-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-04-16 05:33:01" itemprop="dateModified" datetime="2022-04-16T05:33:01+09:00">2022-04-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때"><a href="#WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때" class="headerlink" title="WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때"></a>WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</h1><p>현상은 다음과 같다. 예를 들어 특정 도메인이 <em><a target="_blank" rel="noopener" href="https://some.url/">https://some.url</a></em> 이라고 하면</p>
-<ul>
-<li>AOS에서는 <em><a target="_blank" rel="noopener" href="https://some.url/">https://some.url</a></em> 로 uri 지정한 Image 컴포넌트가 아주 잘 보인다.</li>
-<li>iOS에서는 완전히 동일한 React Native 소스인데 <em><a target="_blank" rel="noopener" href="https://some.url/">https://some.url</a></em>를 바라보고 있는 Image 컴포넌트가 안그려진다.</li>
-<li>iOS에서 사파리로 <em><a target="_blank" rel="noopener" href="https://some.url/">https://some.url</a></em> 접근시에는 잘보인다.</li>
-<li>iOS에서 다른 도메인 이미지로 Image 컴포넌트를 그려보면 잘 보인다.</li>
-</ul>
-<p>네트워크 적으로 뭔가 막힌거같은데… 아직 못찾았다 ㅠㅠ</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/ReactNative/RN-publishing-align-center/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1055,7 +1145,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/ReactNative/RN-publishing-branch-os/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/08/ReactNative/RN-ios-image-not-showing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -1069,7 +1159,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/08/ReactNative/RN-publishing-branch-os/" class="post-title-link" itemprop="url">[React Native] 플랫폼별로 디자인을 달리 하고 싶을 때</a>
+          <a href="/2022/04/08/ReactNative/RN-ios-image-not-showing/" class="post-title-link" itemprop="url">[React Native] iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1087,7 +1177,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-04-16 05:30:14" itemprop="dateModified" datetime="2022-04-16T05:30:14+09:00">2022-04-16</time>
+      <time title="Updated at: 2022-04-16 05:33:01" itemprop="dateModified" datetime="2022-04-16T05:33:01+09:00">2022-04-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1109,110 +1199,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="플랫폼별로-디자인을-달리-하고-싶을-때"><a href="#플랫폼별로-디자인을-달리-하고-싶을-때" class="headerlink" title="플랫폼별로 디자인을 달리 하고 싶을 때"></a>플랫폼별로 디자인을 달리 하고 싶을 때</h1><p><code>react-native</code> 패키지의 <code>Platform</code> 모듈을 사용하자</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  <span class="attr">pagination_wrapper</span>: &#123;</span><br><span class="line">    <span class="attr">position</span>: <span class="string">&quot;absolute&quot;</span>,</span><br><span class="line">    <span class="attr">left</span>: width / <span class="number">2</span> - <span class="number">100</span>,</span><br><span class="line">    ...Platform.select(&#123;</span><br><span class="line">      <span class="attr">ios</span>: &#123;</span><br><span class="line">        <span class="attr">top</span>: height + <span class="number">70</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">android</span>: &#123;</span><br><span class="line">        <span class="attr">top</span>: height + <span class="number">75</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/05/Basic/asynchronous-programming/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/05/Basic/asynchronous-programming/" class="post-title-link" itemprop="url">[JavaScript] 비동기 프로그래밍</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2022-04-05 00:01:04" itemprop="dateCreated datePublished" datetime="2022-04-05T00:01:04+09:00">2022-04-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-04-16 05:26:10" itemprop="dateModified" datetime="2022-04-16T05:26:10+09:00">2022-04-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="이-글을-쓰게된-이유"><a href="#이-글을-쓰게된-이유" class="headerlink" title="이 글을 쓰게된 이유"></a>이 글을 쓰게된 이유</h1><p>나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다.</p>
-<h1 id="비동기처리-패턴의-역사"><a href="#비동기처리-패턴의-역사" class="headerlink" title="비동기처리 패턴의 역사"></a>비동기처리 패턴의 역사</h1><p>웹을 경험한 기간이 짧아서 아쉬운 점은 실제로 내가 예전의 구린 웹을 써본 적이 없다는 것이다 ㅠㅠ 이건 비단 웹 뿐만 아니라 프로그래밍의 거의 모든 분야에서 그렇긴 하지만. 실제로 불편했던 기억이 있으면 예를 들어 설명하기 더 좋지 않았을까 생각한다.<br>아무튼 나는 경험한 바가 없기 때문에, 비동기처리 패턴이 예전엔 어떻게 구렸는 지 좀 찾아봤다.</p>
-<h2 id="Callback-패턴"><a href="#Callback-패턴" class="headerlink" title="Callback 패턴"></a>Callback 패턴</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="function"><span class="title">doSomethingAsynchronously</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    asyncFuncWithCallback(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        doSomethng();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>이건 안써봐도 별로이게 생겼다. 순차적으로 비동기 처리를 원하는 경우, Callback 안에 Callback 안에 Callback.. 을 넣어줘야한다.</p>
-<h2 id="Promise-패턴-then-catch-finally"><a href="#Promise-패턴-then-catch-finally" class="headerlink" title="Promise 패턴 (then, catch, finally)"></a>Promise 패턴 (then, catch, finally)</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">asyncFunc()</span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is rejected</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .finally(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved or rejected</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>ES6에 등장했다는 이 패턴에서는, 순차적으로 비동기 처리를 원하는 경우 then then then.. 으로 Promise를 return하고 다음 then에서 처리하는 방식으로 엮을 수 있다.<br>위에 것 보다는 편해보인다. 하지만 뒤쪽의 then 절에서 res에 뭐가 들어있는 지 따라가는 것이 쉽지 않다.</p>
-<h2 id="async-await-패턴"><a href="#async-await-패턴" class="headerlink" title="async await 패턴"></a>async await 패턴</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line"><span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line"><span class="built_in">console</span>.log(res1, res2);</span><br></pre></td></tr></table></figure>
-
-<p>ES8에 등장한 이 패턴은, 확실히 위의 두 패턴보다 가독성이 좋아 보인다.</p>
-<h1 id="동기함수에서-비동기-함수를-호출하고-싶은데…"><a href="#동기함수에서-비동기-함수를-호출하고-싶은데…" class="headerlink" title="동기함수에서 비동기 함수를 호출하고 싶은데…"></a>동기함수에서 비동기 함수를 호출하고 싶은데…</h1><p>예를 들어 화면 쪽 로직에 이런 기능이 있다.</p>
-<p>‘제출하기 버튼을 누르면 제출 api를 호출하게 해주세요’</p>
-<p>물론 제출하기 버튼에 제출 api 호출 함수를 넣으면 된다. 바로 동작하는 것을 볼 수 있다. 그런데 여기에 type checking 이 들어가면 버튼의 onClick 핸들러는 동기 함수를 받기를 원하므로, 비동기인 api 호출 함수를 넣으면 정적 소스 분석툴에서 type이 맞지 않다고 징징거린다.</p>
-<p>그래서 처음에는 이런식의 코드를 짰다.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    groupedAsyncFunc.then((res) =&gt; &#123;</span></span><br><span class="line"><span class="xml">      doSomething(res);</span></span><br><span class="line"><span class="xml">    &#125;);</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>다건의 연속된 비동기 처리는 async await로 보기 좋게 짜더라도, 마지막에 한번은 동기로 마무리하려면 then을 써주어야한다고 생각한 것이다. 여유를 갖고 검색해볼 시간이 없었던 것 같다.</p>
-<p>다행히 시간을 내어 이 내용을 구글링한 끝에, 두 가지의 대안을 찾았다.</p>
-<ol>
-<li>비동기 함수 호출 시 void 붙여주기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> void groupedAsyncFunc()&#125; /&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>IIFE (즉시실행함수) 패턴 사용하기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    (async () =&gt; await groupedAsyncFunc())();</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function">2안을 사용하도록 가이드</a>하는 경우도 꽤 있었다. 나는 몰랐지만, IIFE는 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이며, 변수의 호이스팅 때문에 원하는 대로 동작하지 않는 케이스를 방지해준다는 큰 장점이 있다고 한다. 이 내용을 접했을 때, 내가 <em>동기함수에서 비동기 함수를 호출</em> 하고 싶다는 내 작은 요건에 너무 오버되는 패턴을 찾은 것 같다는 생각을 했다. ㅋㅋㅋ 굳이 이걸 쓸 필요가 없어보였다. Scope 처리가 너무나 당연한 환경에서 웹 개발을 하고있는 나에게는 별로 매력적이지 않아보였기 때문이다. 그래서 2안은 IIFE 개념에 대해 접할 수 있었던 것에만 의의를 두고, 사용하지는 않기로 했다.</p>
-<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>비동기 action의 결과를 명시적으로 기다리지 않는 경우 void 키워드를 붙여주자.</p>
+          <h1 id="WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때"><a href="#WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때" class="headerlink" title="WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때"></a>WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</h1><p>현상은 다음과 같다. 예를 들어 특정 도메인이 <em><a target="_blank" rel="noopener" href="https://some.url/">https://some.url</a></em> 이라고 하면</p>
+<ul>
+<li>AOS에서는 <em><a target="_blank" rel="noopener" href="https://some.url/">https://some.url</a></em> 로 uri 지정한 Image 컴포넌트가 아주 잘 보인다.</li>
+<li>iOS에서는 완전히 동일한 React Native 소스인데 <em><a target="_blank" rel="noopener" href="https://some.url/">https://some.url</a></em>를 바라보고 있는 Image 컴포넌트가 안그려진다.</li>
+<li>iOS에서 사파리로 <em><a target="_blank" rel="noopener" href="https://some.url/">https://some.url</a></em> 접근시에는 잘보인다.</li>
+<li>iOS에서 다른 도메인 이미지로 Image 컴포넌트를 그려보면 잘 보인다.</li>
+</ul>
+<p>네트워크 적으로 뭔가 막힌거같은데… 아직 못찾았다 ㅠㅠ</p>
 
       
     </div>
