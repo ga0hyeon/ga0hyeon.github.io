@@ -22,25 +22,26 @@
 <meta name="description" content="이전 포스트에서는 MOTIVATION, PREPARATION 까지 정리했고, 이어서 DELEVERY했던 내용을 기록한다. DELEVERY1. git repository 생성 및 각 모듈 셋업하기git repository를 만들어주고, signalingServer와 client 폴더에 각각 Django와 React 셋업을 진행했다. Django 셋업 with">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[토이프로젝트] 개더타운 클론코딩 - 2">
-<meta property="og:url" content="https://ga0hyeon.github.io/2022/07/20/Lab/gather-clonecoding-2/index.html">
+<meta property="og:url" content="https://ga0hyeon.github.io/2022/07/28/Lab/gather-clonecoding-2/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
 <meta property="og:description" content="이전 포스트에서는 MOTIVATION, PREPARATION 까지 정리했고, 이어서 DELEVERY했던 내용을 기록한다. DELEVERY1. git repository 생성 및 각 모듈 셋업하기git repository를 만들어주고, signalingServer와 client 폴더에 각각 Django와 React 셋업을 진행했다. Django 셋업 with">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://ga0hyeon.github.io/images/gather_clone_coding/1.png">
-<meta property="article:published_time" content="2022-07-19T17:14:38.000Z">
-<meta property="article:modified_time" content="2022-08-31T18:57:09.049Z">
+<meta property="article:published_time" content="2022-07-27T17:14:38.000Z">
+<meta property="article:modified_time" content="2022-09-01T02:43:56.375Z">
 <meta property="article:author" content="Gayoung Hyeon">
 <meta property="article:tag" content="토이프로젝트">
 <meta property="article:tag" content="WebRTC">
+<meta property="article:tag" content="Phaser">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://ga0hyeon.github.io/images/gather_clone_coding/1.png">
 
 
-<link rel="canonical" href="https://ga0hyeon.github.io/2022/07/20/Lab/gather-clonecoding-2/">
+<link rel="canonical" href="https://ga0hyeon.github.io/2022/07/28/Lab/gather-clonecoding-2/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/07/20/Lab/gather-clonecoding-2/","path":"2022/07/20/Lab/gather-clonecoding-2/","title":"[토이프로젝트] 개더타운 클론코딩 - 2"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/07/28/Lab/gather-clonecoding-2/","path":"2022/07/28/Lab/gather-clonecoding-2/","title":"[토이프로젝트] 개더타운 클론코딩 - 2"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>[토이프로젝트] 개더타운 클론코딩 - 2 | Hyeon's Dev Blog</title>
@@ -197,7 +198,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -244,7 +245,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/07/20/Lab/gather-clonecoding-2/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/07/28/Lab/gather-clonecoding-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -269,14 +270,14 @@
       </span>
       <span class="post-meta-item-text">작성일</span>
 
-      <time title="Post created: 2022-07-20 02:14:38" itemprop="dateCreated datePublished" datetime="2022-07-20T02:14:38+09:00">2022-07-20</time>
+      <time title="Post created: 2022-07-28 02:14:38" itemprop="dateCreated datePublished" datetime="2022-07-28T02:14:38+09:00">2022-07-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-09-01 03:57:09" itemprop="dateModified" datetime="2022-09-01T03:57:09+09:00">2022-09-01</time>
+      <time title="Updated at: 2022-09-01 11:43:56" itemprop="dateModified" datetime="2022-09-01T11:43:56+09:00">2022-09-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -284,7 +285,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/WebRTC/" itemprop="url" rel="index"><span itemprop="name">WebRTC</span></a>
+          <a href="/categories/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" itemprop="url" rel="index"><span itemprop="name">토이프로젝트</span></a>
         </span>
     </span>
 
@@ -357,7 +358,7 @@
 <li>맵 뒷배경 이미지</li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://itch.io/game-assets/free">무료로 애셋을 받을 수 있는 사이트</a>와 <a target="_blank" rel="noopener" href="https://pixabay.com/ko">Pixabay</a>에서 발품을 팔아 줍줍한 애셋들은 root의 public 폴더에 차곡차곡 담아준다.</p>
-<h3 id="자-이제-회의실을-그려보자"><a href="#자-이제-회의실을-그려보자" class="headerlink" title="자 이제 회의실을 그려보자"></a>자 이제 회의실을 그려보자</h3><p>이제 어느 위치에 어떤 타일을 배치할지 json으로 일러주면 되는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했는데 ㅎㅎ 어렵지 않게 툴을 찾을 수 있었다. <a target="_blank" rel="noopener" href="https://www.mapeditor.org/">고마워요 Tiled</a> 위에서 모아둔 애셋 타일셋을 넣고 한칸 한칸 그려주면 된다. (근데 프로그램 호환성이 좋지 않은 것 같다. 맥이 힘들어함… 이거나 만들어볼까 ㅋㅋ )</p>
+<h3 id="자-이제-회의실을-그려보자"><a href="#자-이제-회의실을-그려보자" class="headerlink" title="자 이제 회의실을 그려보자"></a>자 이제 회의실을 그려보자</h3><p>이제 어느 위치에 어떤 타일을 배치할지 json으로 일러주면 되는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했는데 ㅎㅎ 어렵지 않게 툴을 찾을 수 있었다. <a target="_blank" rel="noopener" href="https://www.mapeditor.org/">고마워요 Tiled</a> 위에서 모아둔 애셋 타일셋을 넣고 한칸 한칸 그려주면 된다.</p>
 <h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
 <h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>
     </div>
@@ -372,10 +373,10 @@
       <div class="popular-posts-title"><a href="/2022/07/20/Lab/gather-clonecoding-1/" rel="bookmark">[토이프로젝트] 개더타운 클론코딩 - 1</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2022/07/20/Lab/gather-clonecoding-3/" rel="bookmark">[토이프로젝트] 개더타운 클론코딩 - 2</a></div>
+      <div class="popular-posts-title"><a href="/2022/08/25/Lab/gather-clonecoding-3/" rel="bookmark">[토이프로젝트] 개더타운 클론코딩 - 3</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2022/07/20/Lab/gather-clonecoding-4/" rel="bookmark">[토이프로젝트] 개더타운 클론코딩 - 2</a></div>
+      <div class="popular-posts-title"><a href="/2022/08/28/Lab/gather-clonecoding-4/" rel="bookmark">[토이프로젝트] 개더타운 클론코딩 - 4</a></div>
     </li>
   </ul>
 
@@ -384,19 +385,20 @@
           <div class="post-tags">
               <a href="/tags/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" rel="tag"><i class="fa fa-tag"></i> 토이프로젝트</a>
               <a href="/tags/WebRTC/" rel="tag"><i class="fa fa-tag"></i> WebRTC</a>
+              <a href="/tags/Phaser/" rel="tag"><i class="fa fa-tag"></i> Phaser</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/07/20/Lab/gather-clonecoding-3/" rel="prev" title="[토이프로젝트] 개더타운 클론코딩 - 2">
-                  <i class="fa fa-chevron-left"></i> [토이프로젝트] 개더타운 클론코딩 - 2
+                <a href="/2022/07/20/Lab/gather-clonecoding-1/" rel="prev" title="[토이프로젝트] 개더타운 클론코딩 - 1">
+                  <i class="fa fa-chevron-left"></i> [토이프로젝트] 개더타운 클론코딩 - 1
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/07/20/Lab/gather-clonecoding-1/" rel="next" title="[토이프로젝트] 개더타운 클론코딩 - 1">
-                  [토이프로젝트] 개더타운 클론코딩 - 1 <i class="fa fa-chevron-right"></i>
+                <a href="/2022/08/25/Lab/gather-clonecoding-3/" rel="next" title="[토이프로젝트] 개더타운 클론코딩 - 3">
+                  [토이프로젝트] 개더타운 클론코딩 - 3 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
