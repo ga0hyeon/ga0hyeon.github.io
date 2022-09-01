@@ -346,19 +346,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[토이프로젝트] 개더타운 클론코딩 - 3</title>
-    <url>/2022/08/25/Lab/gather-clonecoding-3/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>토이프로젝트</category>
-      </categories>
-      <tags>
-        <tag>토이프로젝트</tag>
-        <tag>WebRTC</tag>
-        <tag>Phaser</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[토이프로젝트] 개더타운 클론코딩 - 2</title>
     <url>/2022/07/28/Lab/gather-clonecoding-2/</url>
     <content><![CDATA[<p>이전 포스트에서는 MOTIVATION, PREPARATION 까지 정리했고, 이어서 DELEVERY했던 내용을 기록한다.</p>
@@ -420,9 +407,30 @@
 <li>맵 뒷배경 이미지</li>
 </ul>
 <p><a href="https://itch.io/game-assets/free">무료로 애셋을 받을 수 있는 사이트</a>와 <a href="https://pixabay.com/ko">Pixabay</a>에서 발품을 팔아 줍줍한 애셋들은 root의 public 폴더에 차곡차곡 담아준다.</p>
-<h3 id="자-이제-회의실을-그려보자"><a href="#자-이제-회의실을-그려보자" class="headerlink" title="자 이제 회의실을 그려보자"></a>자 이제 회의실을 그려보자</h3><p>이제 어느 위치에 어떤 타일을 배치할지 json으로 일러주면 되는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했는데 ㅎㅎ 어렵지 않게 툴을 찾을 수 있었다. <a href="https://www.mapeditor.org/">고마워요 Tiled</a> 위에서 모아둔 애셋 타일셋을 넣고 한칸 한칸 그려주면 된다.</p>
+<h3 id="자-이제-회의실을-그려보자"><a href="#자-이제-회의실을-그려보자" class="headerlink" title="자 이제 회의실을 그려보자"></a>자 이제 회의실을 그려보자</h3><p>이제 어느 위치에 어떤 타일을 배치할지 정의하면 된다. Phaser 예제를 둘러보니 아래 캡쳐와 같이 json 형식으로 좌표값을 넘겨받고 있다는 것을 어렵지 않게 확인할 수 있었는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했다.<br><img src="/images/gather_clone_coding/5.png" alt="json"></p>
+<p>당연히 요 json을 쉽게 만들 수 있도록 도와주는 프로그램이 이미 있고, 그 중 나는 <a href="https://www.mapeditor.org/">Tiled</a> 를 사용해보았다.</p>
+<p>Tiled를 실행한 뒤 프로젝트와 맵을 신규 생성하고, 위에서 모아둔 애셋 타일셋을 import 해주면 아래와 같이 맵을 한칸 한칸 그려줄 수 있다.</p>
+<p><img src="/images/gather_clone_coding/2.png" alt="회의실 전경"></p>
+<p>타일셋을 그릴 때는 용도에 맞게 레이어를 추가할 수 있는 듯 하다. 나는 바닥, 벽, 집기류 총 세 개의 레이어를 사용하여 회의실을 꾸몄다. 맵 메이커를 제대로/잘 사용하는 방법에 대해서는 다른 포스트에서 추가로 다루어야 할 정도로 양이 되는 듯 하여 이번에는 이 정도로 만족하고 넘어간다.</p>
+<p>이제 만든 맵을 Phaser에서 읽을 수 있도록 json 형식으로 저장해주면 되는데, 그전에 맵이 타일셋을 내장하도록 해야하는데… 무슨 이유에서인지 가이드대로 ‘타일셋 내장’ 버튼을 클릭하면 맵이 깨진다 ㅠㅠ<br><img src="/images/gather_clone_coding/3.png" alt="요것을 누르면"><br><img src="/images/gather_clone_coding/4.png" alt="이렇게 된다 ㅠㅠ 왜!!!"><br>잠시 생각해보니 json에 어떻게 이미지 정보를 내장하는 것이 효율적일 것 같지는 않아서 문득 위에 캡쳐한 Phaser 예제의 json 내용을 살펴보니, 타일셋 부분은 절대경로로 되어있다. 아하. onCreate 시점에 타일셋 자원도 로드하는 모양이다.</p>
+<p><a href="https://phaser.io/examples/v3/view/camera/follow-zoom-tilemap">예제 소스</a>에 보니 아래와 같은 코드가 있었다.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.load.tilemapTiledJSON(<span class="string">&quot;map&quot;</span>, <span class="string">&quot;assets/tilemaps/maps/super-mario.json&quot;</span>);</span><br><span class="line"><span class="built_in">this</span>.load.image(<span class="string">&quot;tiles1&quot;</span>, <span class="string">&quot;assets/tilemaps/tiles/super-mario.png&quot;</span>);</span><br></pre></td></tr></table></figure>
+
 <h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
 <h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>]]></content>
+      <categories>
+        <category>토이프로젝트</category>
+      </categories>
+      <tags>
+        <tag>토이프로젝트</tag>
+        <tag>WebRTC</tag>
+        <tag>Phaser</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[토이프로젝트] 개더타운 클론코딩 - 3</title>
+    <url>/2022/08/25/Lab/gather-clonecoding-3/</url>
+    <content><![CDATA[]]></content>
       <categories>
         <category>토이프로젝트</category>
       </categories>

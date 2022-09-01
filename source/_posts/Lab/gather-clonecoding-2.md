@@ -5,7 +5,20 @@ categories: [토이프로젝트]
 tags: [토이프로젝트, WebRTC, Phaser]
 ---
 
-이전 포스트에서는 MOTIVATION, PREPARATION 까지 정리했고, 이어서 DELEVERY했던 내용을 기록한다.
+이전 포스트에서는 MOTIVATION, PREPARATION 까지 정리했고, 이어서 DELEVERY했던 내용 중 3.맵 구성하기 항목까지 기록한다.
+
+1. **git repository 생성 및 각 모듈 셋업하기**
+   🎁 React, Django 셋업과정
+2. **화면 뼈대 구성하기**
+   🎁 Chakra 사용법
+3. **맵 구성하기**
+   🎁 Phaser 사용법
+   🎁 Phaser와 React.js를 함께 사용하는 과정
+4. 캐릭터 이동 구현하기
+5. 회의실 입장 구현하기
+6. 2인 음성 영상 챗 구현하기
+7. 다자 음성 영상 챗 구현하기
+8. 미디어 설정 기능 구현하기
 
 # DELEVERY
 
@@ -343,15 +356,3 @@ Tiled를 실행한 뒤 프로젝트와 맵을 신규 생성하고, 위에서 모
 this.load.tilemapTiledJSON("map", "assets/tilemaps/maps/super-mario.json");
 this.load.image("tiles1", "assets/tilemaps/tiles/super-mario.png");
 ```
-
-## 4. 캐릭터 이동 구현하기
-
-## 5. 회의실 입장 구현하기
-
-## 6. 2인 음성 영상 챗 구현하기
-
-🎁 WebRTC 예제 이해 및 응용
-
-## 7. 다자 음성 영상 챗 구현하기
-
-## 8. 미디어 설정 기능 구현하기
