@@ -1,8 +1,8 @@
 ---
-title: "[WebRTC] 화상채팅 구현하기"
+title: "[토이프로젝트] 개더타운 클론코딩 - 1"
 date: 2022-07-20 02:14:38
 categories: [WebRTC]
-tags: [WebRTC, WebSocket]
+tags: [토이프로젝트, WebRTC]
 ---
 
 # MOTIVATION
@@ -106,91 +106,4 @@ REST api를 주로 설계/개발해왔기 때문에 실시간 통신에 대해 �
 
 - 생각보다 멍때릴때 나오는 코드가 각잡고 짠 코드보다 선방하는 것 같아서 ㅋㅋㅋ 이번에 실험해본다.
 
-# DELEVERY
-
-## 1. git repository 생성 및 각 모듈 셋업하기
-
-[git repository](https://github.com/ga0hyeon/cowork-saga)를 만들어주고, signalingServer와 client 폴더에 각각 Django와 React 셋업을 진행했다.
-
-### Django 셋업 with djangoRestFramework
-
-[django docs](https://docs.djangoproject.com/ko/4.0/intro/)를 참고하여 초기 세팅을 진행한다.
-+) mac에 python 2.7이 기본으로 깔려있어서 3.x 버전의 python을 받아주었다. python3을 기본으로 바라보도록 bashrc에도 alias를 추가해준다.
-
-django를 설치해주고
-
-```bash
-$ python -m pip install Django
-```
-
-설치 후 잘 설치되었는지 버전을 확인한다.
-
-```bash
-$ python -m django --version
-```
-
-그리고 아래 명령어로 현재 경로에 django 프로젝트를 생성한다.
-
-```bash
-$ python -m django startproject gather_clone_siganlling_server
-```
-
-지정해준 폴더 (나의 경우 gather_clone_siganlling_server)로 이동하여 아래의 명령어를 수행하면, 짜잔! 기본포트(8000)에 샘플페이지가 뜬다.
-
-```bash
-$ python manage.py runserver
-```
-
-나는 웹서버가 아니라 REST Api 서버로 사용할 것이므로, [django-rest-framework docs](https://www.django-rest-framework.org/#installation)를 참고하여 djangoRestFramework를 깔아주자.  
-example까지 따라서 만들면, 이제 localhost:8000에 이전의 django 샘플페이지가 아니라 swagger와 유사한 형태의 REST framework 페이지가 뜬다.
-
-### React 셋업 with Chakra UI & Adapter.js
-
-1. CRA로 React 앱 초기 세팅
-
-```bash
-   $ npx create-react-app gather-clone-client --template @chakra-ui/typescript
-```
-
-2. Adapter.js 라이브러리 설치
-   Adapter.js는 Polyfill(브라우저에서 지원하지 않는 최신 기능을 사용할 수 있도록 도와주는 코드의 모음)과 Shim(이미 존재하는 코드의 동작을 바로잡는데에 사용하는 코드의 모음)을 사용하여 WebRTC의 브라우저 간 호환성 문제를 해결해둔 라이브러리이다.
-   WebRTC가 계속해서 변화하고 있는 기술이고, 각 브라우저별로 지원 수준이 다르기 때문에 일괄 적용이 쉽지 않은 모양이다.
-
-```bash
-npm install webrtc-adapter
-```
-
-## 2. 화면 뼈대 구성하기
-
-위에서 만들어준 React 프로젝트 폴더에서 화면 뼈대 구성을 이어서 진행한다. 화면 구조는 아래와 매우 간단하다 :)
-
-```bash
-   App.tsx
-   pages
-    ⌞IntroPage.tsx
-    ⌞MeetingPage.tsx
-```
-
-IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현한다. 우선은 구분을 위해 이름 정도만 입력받도록 하자.
-
-## 3. 맵 구성하기
-
-맵 구성에는 Phaser를 사용한다. [매우 다양한 예시](https://phaser.io/examples)가 준비되어있어서 어렵지 않았다. 그 중 [기본적인 타일맵 구성과 충돌, 캐릭터 이동이 구현되어있는 예제](https://phaser.io/examples/v3/view/tilemap/collision/tile-callbacks)를 찾아서 간하게 맵을 구성해볼것이다.
-
-위의 예제 소스를 살펴보면 크게 세 가지의 애셋이 필요하다. [무료로 애셋을 받을 수 있는 사이트](https://itch.io/game-assets/free)에서 줍줍해본다.
-
-- 바닥
-- 캐릭터
-- 오브젝트 (벽, 책상, 집기 등등)
-
-## 4. 캐릭터 이동 구현하기
-
-## 5. 회의실 입장 구현하기
-
-## 6. 2인 음성 영상 챗 구현하기
-
-🎁 WebRTC 예제 이해 및 응용
-
-## 7. 다자 음성 영상 챗 구현하기
-
-## 8. 미디어 설정 기능 구현하기
+DELEVERY 단계부터는 내용이 길어져서 다음 포스트에서 이어서 정리한다 :)
