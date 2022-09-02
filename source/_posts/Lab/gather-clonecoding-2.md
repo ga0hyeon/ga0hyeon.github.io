@@ -123,7 +123,7 @@ $ npm install phaser
 <details>
 <summary>샘플 소스 전문</summary>
 
-```tsx
+```jsx
 import Phaser from "phaser";
 import { useEffect, useRef, useState } from "react";
 
