@@ -347,15 +347,18 @@ body_scrollbar:
   # Present the scrollbar even if the content is not overflowing.
   stable: false
 
+highlight:
+  enable: true
+
+prismjs:
+  enable: false
+
 codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
   theme:
-    light: default
-    dark: tomorrow-night
-  prism:
-    light: prism
-    dark: prism-dark
+    light: rainbow
+    dark: rainbow
   # Add copy button on codeblock
   copy_button:
     enable: true

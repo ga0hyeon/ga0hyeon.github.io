@@ -146,15 +146,27 @@ hexo deploy
 
 ## (2022.09.02 추가) highlight.js 적용하기
 
-개발 블로그이다 보니 코드 블럭을 매우 자주 사용하는데, 색이 없으니 못생겨보여서 [hightlight.js](https://highlightjs.org/download/)를 적용해줬다.
-source/\_data/head.njk에 아래 내용을 넣어주자.
+개발 블로그이다 보니 코드 블럭을 매우 자주 사용하는데, 색이 없으니 못생겨보여서 테마를 적용했다.
+[테마 목록](https://theme-next.js.org/highlight/)중에 원하는 것을 고른뒤 아래 html의 `{스타일명}` 자리에 넣어주면 된다. 나는 rainbow를 선택했다 ㅎㅎ
 
-```html
-<link
-  rel="stylesheet"
-  href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css"
-/>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+```yaml
+highlight:
+  enable: true
+
+prismjs:
+  enable: false
+
+codeblock:
+  # Code Highlight theme
+  # All available themes: https://theme-next.js.org/highlight/
+  theme:
+    light: { 스타일명 }
+    dark: { 스타일명 }
+  # Add copy button on codeblock
+  copy_button:
+    enable: true
+    # Available values: default | flat | mac
+    style:
 ```
 
 # 그리고 더 해야할일
