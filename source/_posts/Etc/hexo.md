@@ -147,6 +147,7 @@ hexo deploy
 ## (2022.09.02 추가) highlight.js 적용하기
 
 개발 블로그이다 보니 코드 블럭을 매우 자주 사용하는데, 색이 없으니 못생겨보여서 [hightlight.js](https://highlightjs.org/download/)를 적용해줬다.
+source/\_data/head.njk에 아래 내용을 넣어주자.
 
 ```html
 <link
