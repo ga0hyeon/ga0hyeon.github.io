@@ -46,6 +46,101 @@
       </tags>
   </entry>
   <entry>
+    <title>javscript OCR 라이브러리로 제품정보 인식하기</title>
+    <url>/2022/05/22/AI_MLOps/ocr/</url>
+    <content><![CDATA[<h1 id="AWS-Textract"><a href="#AWS-Textract" class="headerlink" title="AWS Textract"></a>AWS Textract</h1><p>처음에는 AWS Textract를 사용하려고 하였으나… 지원 언어에 한국어가 아직 없는 관계로 패스</p>
+<h1 id="Javascript-OCR-라이브러리들"><a href="#Javascript-OCR-라이브러리들" class="headerlink" title="Javascript OCR 라이브러리들"></a>Javascript OCR 라이브러리들</h1><p>직접 구현하기로 마음을 먹고 javascript OCR 라이브러리를 찾아보니 생각보다 굉장히 많았다.<br><a href="https://openbase.com/categories/js/best-nodejs-ocr-libraries">https://openbase.com/categories/js/best-nodejs-ocr-libraries</a><br>1위인 Tesseract를 선택했다.</p>
+<h1 id="input으로-어떤-이미지가-들어올까"><a href="#input으로-어떤-이미지가-들어올까" class="headerlink" title="input으로 어떤 이미지가 들어올까?"></a>input으로 어떤 이미지가 들어올까?</h1><p>일반 사용자에게 “제품 모델명을 촬영해달라”고 한다면 어느 부분을 찍을지 생각해봤다.<br>얼마 고민해보지 않아도 제품 어딘가에 모델명이 쓰여있는 경우를 모두 고려해야한다는 결론이 났다.</p>
+<ul>
+<li>단순 텍스트</li>
+<li>행과 열이 선으로 구분된 테이블 형태의 상세정보</li>
+<li>행과 열이 선으로 구분되지 않은 테이블 형태의 상세정보</li>
+</ul>
+<p>가이드 문서에서 제공되는 아래의 기본 코드로 위의 세가지 케이스를 각각 인식해본 결과…</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> worker = createWorker(&#123;</span><br><span class="line">  <span class="attr">logger</span>: <span class="function">(<span class="params">m</span>) =&gt;</span> <span class="built_in">console</span>.log(m),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> recognize = <span class="function">(<span class="params">file: File</span>) =&gt;</span> &#123;</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> worker.load();</span><br><span class="line">    <span class="keyword">await</span> worker.loadLanguage(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> worker.initialize(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      <span class="attr">data</span>: &#123; text &#125;,</span><br><span class="line">    &#125; = <span class="keyword">await</span> worker.recognize(file);</span><br><span class="line">    setResult(text);</span><br><span class="line">    <span class="keyword">await</span> worker.terminate();</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/ocr_result_1.png" alt="인식결과_1"><br>나~~~~름 뭔가가 인식되는 것을 볼 수 있었다. 나름… 하지만 제품정보를 “인식”했다고 하기에는 정확도가 민망할 정도로 낮아서, 보완할 포인트를 정리해봤다.</p>
+<ul>
+<li>먼지가 글자로 인식되어, 먼지가 많은 사진을 인식하는 데에 수 분이 소요된다<ul>
+<li>의도한 것은 아니나, 단순 텍스트 인식을 위해 촬영한 이미지 (공유기)에 먼지가 많아서 이걸 다 글자로 인식하는 바람에 정확도 0% 처리 시간 N분이라는 결과가… 나왔다</li>
+</ul>
+</li>
+<li>input 사진의 size가 불필요하게 크다</li>
+<li>글자와 배경만 구분하면 될텐데… 이미지가 컬러일 필요가 없어보인다</li>
+<li>글자가 있는 영역 외의 Object는 인식에서 제외할 필요가 있어보인다</li>
+<li>테이블 형식의 input 데이터는 사실 행-열 조합 만으로 매우 큰 정보를 제공하는데, 인식 결과에서는 그 내용을 활용하지 못한다</li>
+</ul>
+<p>도출된 보완점 중 <strong>먼지</strong> 문제와 <strong>input size</strong> 문제, <strong>grayscale</strong> 문제는 쉽게 해결 가능해보이고,<br><strong>Object</strong> 문제와 <strong>Table</strong> 문제는 detection 관련해서 좀 더 찾아볼 필요가 있어보였다.</p>
+<p>아무튼. 쓸만하게 만들기 위해서는 전처리가 필요하다.</p>
+<p>구글링해보니 인식률을 높이는 방법으로 몇 가지 전처리가 추천되고 있다. 다들 비슷하게 생각하고 있다 ㅋㅋㅋ 재밌음<br><a href="https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy">https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy</a></p>
+<h1 id="전처리를-추가하자"><a href="#전처리를-추가하자" class="headerlink" title="전처리를 추가하자"></a>전처리를 추가하자</h1><h2 id="openCV-js를-붙여보자"><a href="#openCV-js를-붙여보자" class="headerlink" title="openCV.js를 붙여보자"></a>openCV.js를 붙여보자</h2><p>javascript에서 영상처리를 하는 방법에 대해 열심히 구글링했지만… 쉽지 않았다. cdn을 통해서나 js를 받아 직접 script를 붙여서 사용하도록 가이드하는 오픈소스는 종종 보였으나 npm 라이브러리는 쓸만한게 없었다. 아쉬운대로 openCV.js를 받아서 써보기로 했다.</p>
+<ol>
+<li><p><a href="https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html">https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html</a> 를 참고해서 4.5.5버전의 openCV.zip를 다운로드한다.</p>
+</li>
+<li><p>zip 폴더를 풀어 public 폴더에 넣고, 폴더명은 openCV_4.5.5로 변경했다. 그리고 index.html에 아래와 같이 js를 붙여준다. js가 로드된 이후 부터는 글로벌하게 선언된 <code>cv</code> 변수를 이용해서 openCV를 사용할 수 있다.</p>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;openCV_4.5.5/opencv.js&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onload</span>=<span class="string">&quot;onOpenCvReady();&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="이미지를-흑백으로-변환하자"><a href="#이미지를-흑백으로-변환하자" class="headerlink" title="이미지를 흑백으로 변환하자"></a>이미지를 흑백으로 변환하자</h2><p><a href="https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html">https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html</a></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> src = cv.imread(<span class="string">&quot;canvasInput&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> dst = <span class="keyword">new</span> cv.Mat();</span><br><span class="line">cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>사이드 프로젝트</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[JavaScript] 비동기 프로그래밍</title>
+    <url>/2022/04/05/Basic/asynchronous-programming/</url>
+    <content><![CDATA[<h1 id="이-글을-쓰게된-이유"><a href="#이-글을-쓰게된-이유" class="headerlink" title="이 글을 쓰게된 이유"></a>이 글을 쓰게된 이유</h1><p>나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다.</p>
+<h1 id="비동기처리-패턴의-역사"><a href="#비동기처리-패턴의-역사" class="headerlink" title="비동기처리 패턴의 역사"></a>비동기처리 패턴의 역사</h1><p>웹을 경험한 기간이 짧아서 아쉬운 점은 실제로 내가 예전의 구린 웹을 써본 적이 없다는 것이다 ㅠㅠ 이건 비단 웹 뿐만 아니라 프로그래밍의 거의 모든 분야에서 그렇긴 하지만. 실제로 불편했던 기억이 있으면 예를 들어 설명하기 더 좋지 않았을까 생각한다.<br>아무튼 나는 경험한 바가 없기 때문에, 비동기처리 패턴이 예전엔 어떻게 구렸는 지 좀 찾아봤다.</p>
+<h2 id="Callback-패턴"><a href="#Callback-패턴" class="headerlink" title="Callback 패턴"></a>Callback 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="function"><span class="title">doSomethingAsynchronously</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    asyncFuncWithCallback(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        doSomethng();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이건 안써봐도 별로이게 생겼다. 순차적으로 비동기 처리를 원하는 경우, Callback 안에 Callback 안에 Callback.. 을 넣어줘야한다.</p>
+<h2 id="Promise-패턴-then-catch-finally"><a href="#Promise-패턴-then-catch-finally" class="headerlink" title="Promise 패턴 (then, catch, finally)"></a>Promise 패턴 (then, catch, finally)</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">asyncFunc()</span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is rejected</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .finally(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved or rejected</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>ES6에 등장했다는 이 패턴에서는, 순차적으로 비동기 처리를 원하는 경우 then then then.. 으로 Promise를 return하고 다음 then에서 처리하는 방식으로 엮을 수 있다.<br>위에 것 보다는 편해보인다. 하지만 뒤쪽의 then 절에서 res에 뭐가 들어있는 지 따라가는 것이 쉽지 않다.</p>
+<h2 id="async-await-패턴"><a href="#async-await-패턴" class="headerlink" title="async await 패턴"></a>async await 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line"><span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line"><span class="built_in">console</span>.log(res1, res2);</span><br></pre></td></tr></table></figure>
+
+<p>ES8에 등장한 이 패턴은, 확실히 위의 두 패턴보다 가독성이 좋아 보인다.</p>
+<h1 id="동기함수에서-비동기-함수를-호출하고-싶은데…"><a href="#동기함수에서-비동기-함수를-호출하고-싶은데…" class="headerlink" title="동기함수에서 비동기 함수를 호출하고 싶은데…"></a>동기함수에서 비동기 함수를 호출하고 싶은데…</h1><p>예를 들어 화면 쪽 로직에 이런 기능이 있다.</p>
+<p>‘제출하기 버튼을 누르면 제출 api를 호출하게 해주세요’</p>
+<p>물론 제출하기 버튼에 제출 api 호출 함수를 넣으면 된다. 바로 동작하는 것을 볼 수 있다. 그런데 여기에 type checking 이 들어가면 버튼의 onClick 핸들러는 동기 함수를 받기를 원하므로, 비동기인 api 호출 함수를 넣으면 정적 소스 분석툴에서 type이 맞지 않다고 징징거린다.</p>
+<p>그래서 처음에는 이런식의 코드를 짰다.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    groupedAsyncFunc.then((res) =&gt; &#123;</span></span><br><span class="line"><span class="xml">      doSomething(res);</span></span><br><span class="line"><span class="xml">    &#125;);</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>다건의 연속된 비동기 처리는 async await로 보기 좋게 짜더라도, 마지막에 한번은 동기로 마무리하려면 then을 써주어야한다고 생각한 것이다. 여유를 갖고 검색해볼 시간이 없었던 것 같다.</p>
+<p>다행히 시간을 내어 이 내용을 구글링한 끝에, 두 가지의 대안을 찾았다.</p>
+<ol>
+<li>비동기 함수 호출 시 void 붙여주기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> void groupedAsyncFunc()&#125; /&gt;</span>;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>IIFE (즉시실행함수) 패턴 사용하기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    (async () =&gt; await groupedAsyncFunc())();</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function">2안을 사용하도록 가이드</a>하는 경우도 꽤 있었다. 나는 몰랐지만, IIFE는 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이며, 변수의 호이스팅 때문에 원하는 대로 동작하지 않는 케이스를 방지해준다는 큰 장점이 있다고 한다. 이 내용을 접했을 때, 내가 <em>동기함수에서 비동기 함수를 호출</em> 하고 싶다는 내 작은 요건에 너무 오버되는 패턴을 찾은 것 같다는 생각을 했다. ㅋㅋㅋ 굳이 이걸 쓸 필요가 없어보였다. Scope 처리가 너무나 당연한 환경에서 웹 개발을 하고있는 나에게는 별로 매력적이지 않아보였기 때문이다. 그래서 2안은 IIFE 개념에 대해 접할 수 있었던 것에만 의의를 두고, 사용하지는 않기로 했다.</p>
+<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>비동기 action의 결과를 명시적으로 기다리지 않는 경우 void 키워드를 붙여주자.</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>내 서버를 RESTful하게 설계하기</title>
+    <url>/2022/03/27/Basic/rest-api/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+  </entry>
+  <entry>
     <title>[React] React CDN 버전으로 나를 표현하는 이력 페이지를 만들자</title>
     <url>/2022/01/22/Etc/Resume/</url>
     <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.</p>
@@ -347,17 +442,16 @@
     <url>/2022/08/25/Lab/gather-clonecoding-3/</url>
     <content><![CDATA[<p>이전 포스트에 이어서 DELEVERY했던 내용 중 5.회의실 입장 구현하기 항목까지 기록한다.</p>
 <ol>
-<li>~~ git repository 생성 및 각 모듈 셋업하기~~</li>
-<li>~~ 화면 뼈대 구성하기~~</li>
-<li>~~ 맵 구성하기~~</li>
+<li><del>git repository 생성 및 각 모듈 셋업하기</del></li>
+<li><del>화면 뼈대 구성하기</del></li>
+<li><del>맵 구성하기</del></li>
 <li><strong>캐릭터 이동 구현하기</strong></li>
 <li><strong>회의실 입장 구현하기</strong></li>
 <li>2인 음성 영상 챗 구현하기</li>
 <li>다자 음성 영상 챗 구현하기</li>
 <li>미디어 설정 기능 구현하기</li>
 </ol>
-<h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
-<h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>]]></content>
+<h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2>]]></content>
       <categories>
         <category>토이프로젝트</category>
         <category>개더타운 클론코딩</category>
@@ -373,16 +467,16 @@
     <url>/2022/08/28/Lab/gather-clonecoding-4/</url>
     <content><![CDATA[<p>이전 포스트에 이어서 DELEVERY했던 내용 중 8.맵 구성하기 항목까지 기록한다.</p>
 <ol>
-<li>~~ git repository 생성 및 각 모듈 셋업하기 ~~</li>
-<li>~~ 화면 뼈대 구성하기 ~~</li>
-<li>~~ 맵 구성하기~~</li>
-<li>~~ 캐릭터 이동 구현하기~~</li>
-<li>~~ 회의실 입장 구현하기~~</li>
+<li><del>git repository 생성 및 각 모듈 셋업하기</del></li>
+<li><del>화면 뼈대 구성하기</del></li>
+<li><del>맵 구성하기</del></li>
+<li><del>캐릭터 이동 구현하기</del></li>
+<li><del>회의실 입장 구현하기</del></li>
 <li><strong>2인 음성 영상 챗 구현하기</strong><br>🎁 WebRTC 예제 이해 및 응용</li>
 <li><strong>다자 음성 영상 챗 구현하기</strong></li>
 <li><strong>미디어 설정 기능 구현하기</strong></li>
 </ol>
-<h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
+<h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
 <h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>]]></content>
       <categories>
         <category>토이프로젝트</category>
@@ -392,32 +486,6 @@
         <tag>토이프로젝트</tag>
         <tag>WebRTC</tag>
         <tag>Phaser</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>2022 상반기 회고</title>
-    <url>/2022/08/26/Retro/2022_1/</url>
-    <content><![CDATA[<h1 id="회고"><a href="#회고" class="headerlink" title="회고"></a>회고</h1><p>올 초부터 투입되어있던 프로젝트가 얼추 마무리 되었다. 야호~ 철수는 역시 넘나 짜릿하다.<br>정말 많은 것을 배웠다. ㅎㅎ 물론 배운 것의 양보다 놓친 것이 더 많은 것 같아 아쉬운 마음이 들지만, 잘 정리해서 다음 프로젝트에 거름으로 싸들고 가면 되니까 괜찮다. 이번에 아쉬웠던 점을 크게 몇 가지 추려봤고, 남은 하반기에 틈틈히 공부할 키워드도 뽑아봤다.</p>
-<h3 id="상태관리-라이브러리의-장단점을-미리-알아둘-걸-그리고-다양한-디자인-패턴을-적용해볼-걸"><a href="#상태관리-라이브러리의-장단점을-미리-알아둘-걸-그리고-다양한-디자인-패턴을-적용해볼-걸" class="headerlink" title="상태관리 라이브러리의 장단점을 미리 알아둘 걸, 그리고 다양한 디자인 패턴을 적용해볼 걸"></a>상태관리 라이브러리의 장단점을 미리 알아둘 걸, 그리고 다양한 디자인 패턴을 적용해볼 걸</h3><p>작년까지 Redux, Recoil을 써봤고 이번에 MobX를 접했다. MobX의 장점을 알고 있기 때문에 MobX를 골랐다기 보다는 Redux, Recoil의 단점 때문에 + MobX도 써보고 싶어서 MobX를 골랐는데 좀 더 전략적으로 선택했어도 좋았을 것 같다. 장점을 뽑아서 N개의 상태관리 라이브러리를 용도에 맞게 섞어서 써본다거나, 아니면 한 개의 상태관리 라이브러리를 사용하더라도 용도에 맞게 여러 디자인 패턴을 적용해볼 걸 하는 아쉬움이 있다.</p>
-<h3 id="네이티브-코드를-미리-만져볼-걸-적어도-도구-사용법만이라도-알았으면-좋았을-걸"><a href="#네이티브-코드를-미리-만져볼-걸-적어도-도구-사용법만이라도-알았으면-좋았을-걸" class="headerlink" title="네이티브 코드를 미리 만져볼 걸, 적어도 도구 사용법만이라도 알았으면 좋았을 걸"></a>네이티브 코드를 미리 만져볼 걸, 적어도 도구 사용법만이라도 알았으면 좋았을 걸</h3><p>내가 스스로 만들어본 마지막 앱은 cocos2d와 C#으로 만든 모바일 게임이었는데, 부끄럽지만 그때는 명령어 하나로 뚝딱 apk가 나오기에 ‘역시 프레임워크 최고! 네이티브의 시대는 지고 있구나’ 라고 생각했다. 하지만 이번에 크로스플랫폼 앱 프레임워크를 사용해서 앱을 개발하면서 정말 많이 들었던 생각이 ‘미리 네이티브 개발 좀 해볼걸’ 이었다. 성능을 끌어올리기 위해서 / 커스텀 기능을 구현하기 위해서 / 외부 sdk 또는 라이브러리를 적용하기 위해서는 필수로 네이티브를 건드려야했는데, 프로젝트 일정 중간에 딥하게 파기에는 시간도 없을 뿐더러 이미 네이티브 담당자가 있는 상황이라 애매한 너낌쓰.. 미리 네이티브 코드를 경험해본 적이 있었다면 좀 더 능동적으로 문제를 해결할 수 있었을 것 같아서 아쉬웠다.</p>
-<h3 id="공통화-공통화-공통화-그리고-말잘하는-연습을-할-걸"><a href="#공통화-공통화-공통화-그리고-말잘하는-연습을-할-걸" class="headerlink" title="공통화 공통화 공통화.. 그리고 말잘하는 연습을 할 걸"></a>공통화 공통화 공통화.. 그리고 말잘하는 연습을 할 걸</h3><p>개인적으로 이전의 프로젝트들에서 컴포넌트/유틸 공통화에 대한 부족함을 느꼈고, 이번 프로젝트에서 열심히 만회했다고 생각한다. 하지만 공통화 해야하는 것이 단순 컴포넌트/유틸 (= 코드조각) 뿐만이 아니라는 것을 이번에 배웠다… 이전에는 컨벤션을 공유 받고 따르는게 내 메인 롤이었다면 이번 프로젝트에서는 컨벤션을 정리하고 가이드하는게 메인 롤이 되면서 공통화 해야할 항목에 대한 시야가 강제로(?) 넓어진게 이유인 것 같다. 들여쓰기나 변수명명법처럼 정적인 것 부터 api 주소 설계, 클래스 설계 처럼 상황에 따라 가변적인 것들까지 일종의 룰이 필요하다는 것을 이번에서야 절실히 깨달았다 ㅋㅋ 쓰고보니 너무나 당연한 이야기이지만… 그리고 이 룰을 서로에게 설득하기 위해, 정리된 룰을 신규 투입 인원에게 효과적으로 인계하기 위해 ‘이유’와 ‘예시’를 명확하게 말로 풀어낼 수 있는 능력이 내게 부족하다는 점도 깨달았다.</p>
-<h3 id="좀-더-똑똑하게-판단하고-소리낼-걸"><a href="#좀-더-똑똑하게-판단하고-소리낼-걸" class="headerlink" title="좀 더 똑똑하게 판단하고 소리낼 걸"></a>좀 더 똑똑하게 판단하고 소리낼 걸</h3><p>요거는 개발 외적인 반성이다. 나는 내가 개발하고 싶은 요건을 집어가는 것을 선호하는데, 이번 프로젝트에서는 그 외에 내가 해야만 하는 일이 생기면서 두 가지를 병행하게 되었다. 물론 내 선택이라 후회하거나 징징거리고 싶은건 아니다 ^_^ 일의 양이 늘어나기는 했지만 원래 일하던 방식도 최선은 아니었으니, 좀 더 효율적으로 일하면 overwork 하지 않을 수 있었을 것 같은데… 아쉽게도 이번에는 ‘내가 일을 하는’게 아니라 ‘일이 나를 끌고가는’ 상황이 벌어지게 되었다. 내가 어느 시간대에 어떤 방식으로 (재택 / 출근) 어떤 업무를 처리할 때 효율이 가장 높은 지, 각각의 할 일이 어느정도의 우선 순위를 가지는 지를 똑똑하게 판단하고 소리내었으면 좋았으련만, 소심하게 판단을 일임하거나 보류하거나 쉬쉬한게 결과적으로는 내 정신 &amp; 육체 건강의 피폐함을 초래한 것 같아 정말 아쉬웠다.</p>
-<h1 id="하반기-키워드"><a href="#하반기-키워드" class="headerlink" title="하반기 키워드"></a>하반기 키워드</h1><ul>
-<li>디자인 패턴</li>
-<li>Redux Recoil MobX</li>
-<li>Android / iOS 개발 및 마켓 배포</li>
-<li>Gitlab 활용 BP</li>
-<li>내가 참여할 수 있는 의사결정에는 능동적으로</li>
-<li>말을 잘하는 연습 (책 읽기?)</li>
-</ul>
-<p>고생했고, 다음에는 더 잘할 수 있을거라 믿는당 나자신 화이팅</p>
-]]></content>
-      <categories>
-        <category>회고</category>
-        <category>2022 상반기</category>
-      </categories>
-      <tags>
-        <tag>회고</tag>
       </tags>
   </entry>
   <entry>
@@ -558,42 +626,29 @@
       </tags>
   </entry>
   <entry>
-    <title>[JavaScript] 비동기 프로그래밍</title>
-    <url>/2022/04/05/Basic/asynchronous-programming/</url>
-    <content><![CDATA[<h1 id="이-글을-쓰게된-이유"><a href="#이-글을-쓰게된-이유" class="headerlink" title="이 글을 쓰게된 이유"></a>이 글을 쓰게된 이유</h1><p>나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다.</p>
-<h1 id="비동기처리-패턴의-역사"><a href="#비동기처리-패턴의-역사" class="headerlink" title="비동기처리 패턴의 역사"></a>비동기처리 패턴의 역사</h1><p>웹을 경험한 기간이 짧아서 아쉬운 점은 실제로 내가 예전의 구린 웹을 써본 적이 없다는 것이다 ㅠㅠ 이건 비단 웹 뿐만 아니라 프로그래밍의 거의 모든 분야에서 그렇긴 하지만. 실제로 불편했던 기억이 있으면 예를 들어 설명하기 더 좋지 않았을까 생각한다.<br>아무튼 나는 경험한 바가 없기 때문에, 비동기처리 패턴이 예전엔 어떻게 구렸는 지 좀 찾아봤다.</p>
-<h2 id="Callback-패턴"><a href="#Callback-패턴" class="headerlink" title="Callback 패턴"></a>Callback 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="function"><span class="title">doSomethingAsynchronously</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    asyncFuncWithCallback(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        doSomethng();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>이건 안써봐도 별로이게 생겼다. 순차적으로 비동기 처리를 원하는 경우, Callback 안에 Callback 안에 Callback.. 을 넣어줘야한다.</p>
-<h2 id="Promise-패턴-then-catch-finally"><a href="#Promise-패턴-then-catch-finally" class="headerlink" title="Promise 패턴 (then, catch, finally)"></a>Promise 패턴 (then, catch, finally)</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">asyncFunc()</span><br><span class="line">  .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is rejected</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .finally(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved or rejected</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>ES6에 등장했다는 이 패턴에서는, 순차적으로 비동기 처리를 원하는 경우 then then then.. 으로 Promise를 return하고 다음 then에서 처리하는 방식으로 엮을 수 있다.<br>위에 것 보다는 편해보인다. 하지만 뒤쪽의 then 절에서 res에 뭐가 들어있는 지 따라가는 것이 쉽지 않다.</p>
-<h2 id="async-await-패턴"><a href="#async-await-패턴" class="headerlink" title="async await 패턴"></a>async await 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line"><span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line"><span class="built_in">console</span>.log(res1, res2);</span><br></pre></td></tr></table></figure>
-
-<p>ES8에 등장한 이 패턴은, 확실히 위의 두 패턴보다 가독성이 좋아 보인다.</p>
-<h1 id="동기함수에서-비동기-함수를-호출하고-싶은데…"><a href="#동기함수에서-비동기-함수를-호출하고-싶은데…" class="headerlink" title="동기함수에서 비동기 함수를 호출하고 싶은데…"></a>동기함수에서 비동기 함수를 호출하고 싶은데…</h1><p>예를 들어 화면 쪽 로직에 이런 기능이 있다.</p>
-<p>‘제출하기 버튼을 누르면 제출 api를 호출하게 해주세요’</p>
-<p>물론 제출하기 버튼에 제출 api 호출 함수를 넣으면 된다. 바로 동작하는 것을 볼 수 있다. 그런데 여기에 type checking 이 들어가면 버튼의 onClick 핸들러는 동기 함수를 받기를 원하므로, 비동기인 api 호출 함수를 넣으면 정적 소스 분석툴에서 type이 맞지 않다고 징징거린다.</p>
-<p>그래서 처음에는 이런식의 코드를 짰다.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    groupedAsyncFunc.then((res) =&gt; &#123;</span></span><br><span class="line"><span class="xml">      doSomething(res);</span></span><br><span class="line"><span class="xml">    &#125;);</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>다건의 연속된 비동기 처리는 async await로 보기 좋게 짜더라도, 마지막에 한번은 동기로 마무리하려면 then을 써주어야한다고 생각한 것이다. 여유를 갖고 검색해볼 시간이 없었던 것 같다.</p>
-<p>다행히 시간을 내어 이 내용을 구글링한 끝에, 두 가지의 대안을 찾았다.</p>
-<ol>
-<li>비동기 함수 호출 시 void 붙여주기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> void groupedAsyncFunc()&#125; /&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>IIFE (즉시실행함수) 패턴 사용하기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> groupedAsyncFunc = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> asyncFunc1();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> asyncFunc2();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="xml">    (async () =&gt; await groupedAsyncFunc())();</span></span><br><span class="line"><span class="xml">  &#125;&#125;</span></span><br><span class="line"><span class="xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function">2안을 사용하도록 가이드</a>하는 경우도 꽤 있었다. 나는 몰랐지만, IIFE는 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이며, 변수의 호이스팅 때문에 원하는 대로 동작하지 않는 케이스를 방지해준다는 큰 장점이 있다고 한다. 이 내용을 접했을 때, 내가 <em>동기함수에서 비동기 함수를 호출</em> 하고 싶다는 내 작은 요건에 너무 오버되는 패턴을 찾은 것 같다는 생각을 했다. ㅋㅋㅋ 굳이 이걸 쓸 필요가 없어보였다. Scope 처리가 너무나 당연한 환경에서 웹 개발을 하고있는 나에게는 별로 매력적이지 않아보였기 때문이다. 그래서 2안은 IIFE 개념에 대해 접할 수 있었던 것에만 의의를 두고, 사용하지는 않기로 했다.</p>
-<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>비동기 action의 결과를 명시적으로 기다리지 않는 경우 void 키워드를 붙여주자.</p>
+    <title>2022 상반기 회고</title>
+    <url>/2022/08/26/Retro/2022_1/</url>
+    <content><![CDATA[<h1 id="회고"><a href="#회고" class="headerlink" title="회고"></a>회고</h1><p>올 초부터 투입되어있던 프로젝트가 얼추 마무리 되었다. 야호~ 철수는 역시 넘나 짜릿하다.<br>정말 많은 것을 배웠다. ㅎㅎ 물론 배운 것의 양보다 놓친 것이 더 많은 것 같아 아쉬운 마음이 들지만, 잘 정리해서 다음 프로젝트에 거름으로 싸들고 가면 되니까 괜찮다. 이번에 아쉬웠던 점을 크게 몇 가지 추려봤고, 남은 하반기에 틈틈히 공부할 키워드도 뽑아봤다.</p>
+<h3 id="상태관리-라이브러리의-장단점을-미리-알아둘-걸-그리고-다양한-디자인-패턴을-적용해볼-걸"><a href="#상태관리-라이브러리의-장단점을-미리-알아둘-걸-그리고-다양한-디자인-패턴을-적용해볼-걸" class="headerlink" title="상태관리 라이브러리의 장단점을 미리 알아둘 걸, 그리고 다양한 디자인 패턴을 적용해볼 걸"></a>상태관리 라이브러리의 장단점을 미리 알아둘 걸, 그리고 다양한 디자인 패턴을 적용해볼 걸</h3><p>작년까지 Redux, Recoil을 써봤고 이번에 MobX를 접했다. MobX의 장점을 알고 있기 때문에 MobX를 골랐다기 보다는 Redux, Recoil의 단점 때문에 + MobX도 써보고 싶어서 MobX를 골랐는데 좀 더 전략적으로 선택했어도 좋았을 것 같다. 장점을 뽑아서 N개의 상태관리 라이브러리를 용도에 맞게 섞어서 써본다거나, 아니면 한 개의 상태관리 라이브러리를 사용하더라도 용도에 맞게 여러 디자인 패턴을 적용해볼 걸 하는 아쉬움이 있다.</p>
+<h3 id="네이티브-코드를-미리-만져볼-걸-적어도-도구-사용법만이라도-알았으면-좋았을-걸"><a href="#네이티브-코드를-미리-만져볼-걸-적어도-도구-사용법만이라도-알았으면-좋았을-걸" class="headerlink" title="네이티브 코드를 미리 만져볼 걸, 적어도 도구 사용법만이라도 알았으면 좋았을 걸"></a>네이티브 코드를 미리 만져볼 걸, 적어도 도구 사용법만이라도 알았으면 좋았을 걸</h3><p>내가 스스로 만들어본 마지막 앱은 cocos2d와 C#으로 만든 모바일 게임이었는데, 부끄럽지만 그때는 명령어 하나로 뚝딱 apk가 나오기에 ‘역시 프레임워크 최고! 네이티브의 시대는 지고 있구나’ 라고 생각했다. 하지만 이번에 크로스플랫폼 앱 프레임워크를 사용해서 앱을 개발하면서 정말 많이 들었던 생각이 ‘미리 네이티브 개발 좀 해볼걸’ 이었다. 성능을 끌어올리기 위해서 / 커스텀 기능을 구현하기 위해서 / 외부 sdk 또는 라이브러리를 적용하기 위해서는 필수로 네이티브를 건드려야했는데, 프로젝트 일정 중간에 딥하게 파기에는 시간도 없을 뿐더러 이미 네이티브 담당자가 있는 상황이라 애매한 너낌쓰.. 미리 네이티브 코드를 경험해본 적이 있었다면 좀 더 능동적으로 문제를 해결할 수 있었을 것 같아서 아쉬웠다.</p>
+<h3 id="공통화-공통화-공통화-그리고-말잘하는-연습을-할-걸"><a href="#공통화-공통화-공통화-그리고-말잘하는-연습을-할-걸" class="headerlink" title="공통화 공통화 공통화.. 그리고 말잘하는 연습을 할 걸"></a>공통화 공통화 공통화.. 그리고 말잘하는 연습을 할 걸</h3><p>개인적으로 이전의 프로젝트들에서 컴포넌트/유틸 공통화에 대한 부족함을 느꼈고, 이번 프로젝트에서 열심히 만회했다고 생각한다. 하지만 공통화 해야하는 것이 단순 컴포넌트/유틸 (= 코드조각) 뿐만이 아니라는 것을 이번에 배웠다… 이전에는 컨벤션을 공유 받고 따르는게 내 메인 롤이었다면 이번 프로젝트에서는 컨벤션을 정리하고 가이드하는게 메인 롤이 되면서 공통화 해야할 항목에 대한 시야가 강제로(?) 넓어진게 이유인 것 같다. 들여쓰기나 변수명명법처럼 정적인 것 부터 api 주소 설계, 클래스 설계 처럼 상황에 따라 가변적인 것들까지 일종의 룰이 필요하다는 것을 이번에서야 절실히 깨달았다 ㅋㅋ 쓰고보니 너무나 당연한 이야기이지만… 그리고 이 룰을 서로에게 설득하기 위해, 정리된 룰을 신규 투입 인원에게 효과적으로 인계하기 위해 ‘이유’와 ‘예시’를 명확하게 말로 풀어낼 수 있는 능력이 내게 부족하다는 점도 깨달았다.</p>
+<h3 id="좀-더-똑똑하게-판단하고-소리낼-걸"><a href="#좀-더-똑똑하게-판단하고-소리낼-걸" class="headerlink" title="좀 더 똑똑하게 판단하고 소리낼 걸"></a>좀 더 똑똑하게 판단하고 소리낼 걸</h3><p>요거는 개발 외적인 반성이다. 나는 내가 개발하고 싶은 요건을 집어가는 것을 선호하는데, 이번 프로젝트에서는 그 외에 내가 해야만 하는 일이 생기면서 두 가지를 병행하게 되었다. 물론 내 선택이라 후회하거나 징징거리고 싶은건 아니다 ^_^ 일의 양이 늘어나기는 했지만 원래 일하던 방식도 최선은 아니었으니, 좀 더 효율적으로 일하면 overwork 하지 않을 수 있었을 것 같은데… 아쉽게도 이번에는 ‘내가 일을 하는’게 아니라 ‘일이 나를 끌고가는’ 상황이 벌어지게 되었다. 내가 어느 시간대에 어떤 방식으로 (재택 / 출근) 어떤 업무를 처리할 때 효율이 가장 높은 지, 각각의 할 일이 어느정도의 우선 순위를 가지는 지를 똑똑하게 판단하고 소리내었으면 좋았으련만, 소심하게 판단을 일임하거나 보류하거나 쉬쉬한게 결과적으로는 내 정신 &amp; 육체 건강의 피폐함을 초래한 것 같아 정말 아쉬웠다.</p>
+<h1 id="하반기-키워드"><a href="#하반기-키워드" class="headerlink" title="하반기 키워드"></a>하반기 키워드</h1><ul>
+<li>디자인 패턴</li>
+<li>Redux Recoil MobX</li>
+<li>Android / iOS 개발 및 마켓 배포</li>
+<li>Gitlab 활용 BP</li>
+<li>내가 참여할 수 있는 의사결정에는 능동적으로</li>
+<li>말을 잘하는 연습 (책 읽기?)</li>
+</ul>
+<p>고생했고, 다음에는 더 잘할 수 있을거라 믿는당 나자신 화이팅</p>
 ]]></content>
+      <categories>
+        <category>회고</category>
+        <category>2022 상반기</category>
+      </categories>
       <tags>
-        <tag>JavaScript</tag>
+        <tag>회고</tag>
       </tags>
   </entry>
   <entry>
@@ -642,61 +697,5 @@
         <tag>Spring</tag>
         <tag>Annotation</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>javscript OCR 라이브러리로 제품정보 인식하기</title>
-    <url>/2022/05/22/AI_MLOps/ocr/</url>
-    <content><![CDATA[<h1 id="AWS-Textract"><a href="#AWS-Textract" class="headerlink" title="AWS Textract"></a>AWS Textract</h1><p>처음에는 AWS Textract를 사용하려고 하였으나… 지원 언어에 한국어가 아직 없는 관계로 패스</p>
-<h1 id="Javascript-OCR-라이브러리들"><a href="#Javascript-OCR-라이브러리들" class="headerlink" title="Javascript OCR 라이브러리들"></a>Javascript OCR 라이브러리들</h1><p>직접 구현하기로 마음을 먹고 javascript OCR 라이브러리를 찾아보니 생각보다 굉장히 많았다.<br><a href="https://openbase.com/categories/js/best-nodejs-ocr-libraries">https://openbase.com/categories/js/best-nodejs-ocr-libraries</a><br>1위인 Tesseract를 선택했다.</p>
-<h1 id="input으로-어떤-이미지가-들어올까"><a href="#input으로-어떤-이미지가-들어올까" class="headerlink" title="input으로 어떤 이미지가 들어올까?"></a>input으로 어떤 이미지가 들어올까?</h1><p>일반 사용자에게 “제품 모델명을 촬영해달라”고 한다면 어느 부분을 찍을지 생각해봤다.<br>얼마 고민해보지 않아도 제품 어딘가에 모델명이 쓰여있는 경우를 모두 고려해야한다는 결론이 났다.</p>
-<ul>
-<li>단순 텍스트</li>
-<li>행과 열이 선으로 구분된 테이블 형태의 상세정보</li>
-<li>행과 열이 선으로 구분되지 않은 테이블 형태의 상세정보</li>
-</ul>
-<p>가이드 문서에서 제공되는 아래의 기본 코드로 위의 세가지 케이스를 각각 인식해본 결과…</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> worker = createWorker(&#123;</span><br><span class="line">  <span class="attr">logger</span>: <span class="function">(<span class="params">m</span>) =&gt;</span> <span class="built_in">console</span>.log(m),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> recognize = <span class="function">(<span class="params">file: File</span>) =&gt;</span> &#123;</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> worker.load();</span><br><span class="line">    <span class="keyword">await</span> worker.loadLanguage(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> worker.initialize(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      <span class="attr">data</span>: &#123; text &#125;,</span><br><span class="line">    &#125; = <span class="keyword">await</span> worker.recognize(file);</span><br><span class="line">    setResult(text);</span><br><span class="line">    <span class="keyword">await</span> worker.terminate();</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/ocr_result_1.png" alt="인식결과_1"><br>나~~~~름 뭔가가 인식되는 것을 볼 수 있었다. 나름… 하지만 제품정보를 “인식”했다고 하기에는 정확도가 민망할 정도로 낮아서, 보완할 포인트를 정리해봤다.</p>
-<ul>
-<li>먼지가 글자로 인식되어, 먼지가 많은 사진을 인식하는 데에 수 분이 소요된다<ul>
-<li>의도한 것은 아니나, 단순 텍스트 인식을 위해 촬영한 이미지 (공유기)에 먼지가 많아서 이걸 다 글자로 인식하는 바람에 정확도 0% 처리 시간 N분이라는 결과가… 나왔다</li>
-</ul>
-</li>
-<li>input 사진의 size가 불필요하게 크다</li>
-<li>글자와 배경만 구분하면 될텐데… 이미지가 컬러일 필요가 없어보인다</li>
-<li>글자가 있는 영역 외의 Object는 인식에서 제외할 필요가 있어보인다</li>
-<li>테이블 형식의 input 데이터는 사실 행-열 조합 만으로 매우 큰 정보를 제공하는데, 인식 결과에서는 그 내용을 활용하지 못한다</li>
-</ul>
-<p>도출된 보완점 중 <strong>먼지</strong> 문제와 <strong>input size</strong> 문제, <strong>grayscale</strong> 문제는 쉽게 해결 가능해보이고,<br><strong>Object</strong> 문제와 <strong>Table</strong> 문제는 detection 관련해서 좀 더 찾아볼 필요가 있어보였다.</p>
-<p>아무튼. 쓸만하게 만들기 위해서는 전처리가 필요하다.</p>
-<p>구글링해보니 인식률을 높이는 방법으로 몇 가지 전처리가 추천되고 있다. 다들 비슷하게 생각하고 있다 ㅋㅋㅋ 재밌음<br><a href="https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy">https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy</a></p>
-<h1 id="전처리를-추가하자"><a href="#전처리를-추가하자" class="headerlink" title="전처리를 추가하자"></a>전처리를 추가하자</h1><h2 id="openCV-js를-붙여보자"><a href="#openCV-js를-붙여보자" class="headerlink" title="openCV.js를 붙여보자"></a>openCV.js를 붙여보자</h2><p>javascript에서 영상처리를 하는 방법에 대해 열심히 구글링했지만… 쉽지 않았다. cdn을 통해서나 js를 받아 직접 script를 붙여서 사용하도록 가이드하는 오픈소스는 종종 보였으나 npm 라이브러리는 쓸만한게 없었다. 아쉬운대로 openCV.js를 받아서 써보기로 했다.</p>
-<ol>
-<li><p><a href="https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html">https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html</a> 를 참고해서 4.5.5버전의 openCV.zip를 다운로드한다.</p>
-</li>
-<li><p>zip 폴더를 풀어 public 폴더에 넣고, 폴더명은 openCV_4.5.5로 변경했다. 그리고 index.html에 아래와 같이 js를 붙여준다. js가 로드된 이후 부터는 글로벌하게 선언된 <code>cv</code> 변수를 이용해서 openCV를 사용할 수 있다.</p>
-</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;openCV_4.5.5/opencv.js&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onload</span>=<span class="string">&quot;onOpenCvReady();&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="이미지를-흑백으로-변환하자"><a href="#이미지를-흑백으로-변환하자" class="headerlink" title="이미지를 흑백으로 변환하자"></a>이미지를 흑백으로 변환하자</h2><p><a href="https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html">https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html</a></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> src = cv.imread(<span class="string">&quot;canvasInput&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> dst = <span class="keyword">new</span> cv.Mat();</span><br><span class="line">cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>사이드 프로젝트</category>
-      </categories>
-      <tags>
-        <tag>AI</tag>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>내 서버를 RESTful하게 설계하기</title>
-    <url>/2022/03/27/Basic/rest-api/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
   </entry>
 </search>
