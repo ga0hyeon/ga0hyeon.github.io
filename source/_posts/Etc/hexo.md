@@ -144,6 +144,18 @@ hexo deploy
 
 +) github credential 설정이 되어있지 않은 경우 에러 메시지가 발생할 수 있다. 흔한 에러이므로 구글링하면 금방 해결 가능하다.
 
+## (2022.09.02 추가) highlight.js 적용하기
+
+개발 블로그이다 보니 코드 블럭을 매우 자주 사용하는데, 색이 없으니 못생겨보여서 [hightlight.js](https://highlightjs.org/download/)를 적용해줬다.
+
+```html
+<link
+  rel="stylesheet"
+  href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css"
+/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+```
+
 # 그리고 더 해야할일
 
 - [ ] github actions로 배포 자동화하기
