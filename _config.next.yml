@@ -348,17 +348,17 @@ body_scrollbar:
   stable: false
 
 highlight:
-  enable: true
+  enable: false
 
 prismjs:
-  enable: false
+  enable: true
 
 codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
-  theme:
-    light: rainbow
-    dark: rainbow
+  prism:
+    light: prism-okaidia
+    dark: prism-okaidia
   # Add copy button on codeblock
   copy_button:
     enable: true
