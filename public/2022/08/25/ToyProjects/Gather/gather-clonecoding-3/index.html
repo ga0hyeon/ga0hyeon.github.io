@@ -19,15 +19,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="(작성중) ㅜㅜ 코딩보다 포스트트 쓰는데에 시간이 더 드는 것 같다.. 이전 포스트에 이어서 DELEVERY했던 내용 중 5.회의실 입장 구현하기 항목까지 기록한다.  git repository 생성 및 각 모듈 셋업하기 화면 뼈대 구성하기 맵 구성하기 캐릭터 이동 구현하기 회의실 입장 구현하기 2인 음성 영상 챗 구현하기 다자 음성 영상 챗 구현하기 미디">
+<meta name="description" content="이전 포스트에 이어서 DELEVERY했던 내용 중 5.회의실 입장 구현하기 항목까지 기록한다.  git repository 생성 및 각 모듈 셋업하기 화면 뼈대 구성하기 맵 구성하기 캐릭터 이동 구현하기 회의실 입장 구현하기 2인 음성 영상 챗 구현하기 다자 음성 영상 챗 구현하기 미디어 설정 기능 구현하기  4. 캐릭터 이동 구현하기캐릭터 이동도 사실은">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[토이프로젝트] 개더타운 클론코딩 - 3">
 <meta property="og:url" content="https://ga0hyeon.github.io/2022/08/25/ToyProjects/Gather/gather-clonecoding-3/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
-<meta property="og:description" content="(작성중) ㅜㅜ 코딩보다 포스트트 쓰는데에 시간이 더 드는 것 같다.. 이전 포스트에 이어서 DELEVERY했던 내용 중 5.회의실 입장 구현하기 항목까지 기록한다.  git repository 생성 및 각 모듈 셋업하기 화면 뼈대 구성하기 맵 구성하기 캐릭터 이동 구현하기 회의실 입장 구현하기 2인 음성 영상 챗 구현하기 다자 음성 영상 챗 구현하기 미디">
+<meta property="og:description" content="이전 포스트에 이어서 DELEVERY했던 내용 중 5.회의실 입장 구현하기 항목까지 기록한다.  git repository 생성 및 각 모듈 셋업하기 화면 뼈대 구성하기 맵 구성하기 캐릭터 이동 구현하기 회의실 입장 구현하기 2인 음성 영상 챗 구현하기 다자 음성 영상 챗 구현하기 미디어 설정 기능 구현하기  4. 캐릭터 이동 구현하기캐릭터 이동도 사실은">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2022-08-24T17:14:38.000Z">
-<meta property="article:modified_time" content="2022-09-06T04:33:12.839Z">
+<meta property="article:modified_time" content="2022-09-16T01:30:35.883Z">
 <meta property="article:author" content="Gayoung Hyeon">
 <meta property="article:tag" content="토이프로젝트">
 <meta property="article:tag" content="WebRTC">
@@ -185,18 +185,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">카테고리</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -275,7 +275,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-09-06 13:33:12" itemprop="dateModified" datetime="2022-09-06T13:33:12+09:00">2022-09-06</time>
+      <time title="Updated at: 2022-09-16 10:30:35" itemprop="dateModified" datetime="2022-09-16T10:30:35+09:00">2022-09-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -301,8 +301,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>(작성중) ㅜㅜ 코딩보다 포스트트 쓰는데에 시간이 더 드는 것 같다..</p>
-<p>이전 포스트에 이어서 DELEVERY했던 내용 중 5.회의실 입장 구현하기 항목까지 기록한다.</p>
+        <p>이전 포스트에 이어서 DELEVERY했던 내용 중 5.회의실 입장 구현하기 항목까지 기록한다.</p>
 <ol>
 <li><del>git repository 생성 및 각 모듈 셋업하기</del></li>
 <li><del>화면 뼈대 구성하기</del></li>
@@ -313,7 +312,9 @@
 <li>다자 음성 영상 챗 구현하기</li>
 <li>미디어 설정 기능 구현하기</li>
 </ol>
-<h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2>
+<h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><p>캐릭터 이동도 사실은 이전 포스트에서 본 예제 코드에 친절히 있었다. create에 에셋을 로드하고 update에 이동 시 애니메이션을 표현해주면 된다.</p>
+<h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><p>대망의 회의실 입장 구현~ 이라고 해봤자 별거없다 ^_^<br>캐릭터가 이동할 때마다 회의실 사각형안에 캐릭터의 좌표가 포함되는지 계산하고, 회의실에 들어온 사람이 2명 이상이 되는 순간 WebRTC 커넥션을 열어주면 된다. 시간을 좀 더 써본다면 이 좌표 계산에도 최적의 알고리즘이 있을 것 같긴하다 ㅎㅎ</p>
+
     </div>
 
     

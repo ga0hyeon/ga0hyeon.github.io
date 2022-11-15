@@ -19,15 +19,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="(작성중) ㅜㅜ 코딩보다 포스트트 쓰는데에 시간이 더 드는 것 같다.. 이전 포스트에 이어서 DELEVERY했던 내용 중 8.맵 구성하기 항목까지 기록한다.  git repository 생성 및 각 모듈 셋업하기 화면 뼈대 구성하기 맵 구성하기 캐릭터 이동 구현하기 회의실 입장 구현하기 2인 음성 영상 챗 구현하기🎁 WebRTC 예제 이해 및 응용 다자">
+<meta name="description" content="이전 포스트에 이어서 DELEVERY했던 내용 중 8.맵 구성하기 항목까지 기록한다.  git repository 생성 및 각 모듈 셋업하기 화면 뼈대 구성하기 맵 구성하기 캐릭터 이동 구현하기 회의실 입장 구현하기 2인 음성 영상 챗 구현하기🎁 WebRTC 예제 이해 및 응용 다자 음성 영상 챗 구현하기 미디어 설정 기능 구현하기  6. 2인 음성 영상">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[토이프로젝트] 개더타운 클론코딩 - 4">
 <meta property="og:url" content="https://ga0hyeon.github.io/2022/08/28/ToyProjects/Gather/gather-clonecoding-4/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
-<meta property="og:description" content="(작성중) ㅜㅜ 코딩보다 포스트트 쓰는데에 시간이 더 드는 것 같다.. 이전 포스트에 이어서 DELEVERY했던 내용 중 8.맵 구성하기 항목까지 기록한다.  git repository 생성 및 각 모듈 셋업하기 화면 뼈대 구성하기 맵 구성하기 캐릭터 이동 구현하기 회의실 입장 구현하기 2인 음성 영상 챗 구현하기🎁 WebRTC 예제 이해 및 응용 다자">
+<meta property="og:description" content="이전 포스트에 이어서 DELEVERY했던 내용 중 8.맵 구성하기 항목까지 기록한다.  git repository 생성 및 각 모듈 셋업하기 화면 뼈대 구성하기 맵 구성하기 캐릭터 이동 구현하기 회의실 입장 구현하기 2인 음성 영상 챗 구현하기🎁 WebRTC 예제 이해 및 응용 다자 음성 영상 챗 구현하기 미디어 설정 기능 구현하기  6. 2인 음성 영상">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2022-08-27T17:14:38.000Z">
-<meta property="article:modified_time" content="2022-09-06T04:33:12.853Z">
+<meta property="article:modified_time" content="2022-09-16T06:55:59.628Z">
 <meta property="article:author" content="Gayoung Hyeon">
 <meta property="article:tag" content="토이프로젝트">
 <meta property="article:tag" content="WebRTC">
@@ -185,18 +185,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">카테고리</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -275,7 +275,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2022-09-06 13:33:12" itemprop="dateModified" datetime="2022-09-06T13:33:12+09:00">2022-09-06</time>
+      <time title="Updated at: 2022-09-16 15:55:59" itemprop="dateModified" datetime="2022-09-16T15:55:59+09:00">2022-09-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -301,8 +301,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>(작성중) ㅜㅜ 코딩보다 포스트트 쓰는데에 시간이 더 드는 것 같다..</p>
-<p>이전 포스트에 이어서 DELEVERY했던 내용 중 8.맵 구성하기 항목까지 기록한다.</p>
+        <p>이전 포스트에 이어서 DELEVERY했던 내용 중 8.맵 구성하기 항목까지 기록한다.</p>
 <ol>
 <li><del>git repository 생성 및 각 모듈 셋업하기</del></li>
 <li><del>화면 뼈대 구성하기</del></li>
@@ -313,7 +312,7 @@
 <li><strong>다자 음성 영상 챗 구현하기</strong></li>
 <li><strong>미디어 설정 기능 구현하기</strong></li>
 </ol>
-<h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p>🎁 WebRTC 예제 이해 및 응용</p>
+<h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p><a target="_blank" rel="noopener" href="https://codelabs.developers.google.com/codelabs/webrtc-web?hl=ko#0">codelab</a></p>
 <h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>
     </div>
 
