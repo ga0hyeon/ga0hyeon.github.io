@@ -2943,9 +2943,9 @@ article img {
 article h1 {
   font-size: 2rem;
 }
+article .post-body p {
+  font-size: 1em;
+}
 body {
   font-size: 0.9em;
-}
-code {
-  background-color: #282c34;
 }

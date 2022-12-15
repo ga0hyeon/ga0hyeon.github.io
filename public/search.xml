@@ -38,132 +38,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[React] React CDN 버전으로 나를 표현하는 이력 페이지를 만들자</title>
-    <url>/2022/01/22/ToyProjects/Blog/Resume/</url>
-    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.</p>
-<p>한 페이지에 내가 잘하는 것, 하고싶은 것, 했던 것에 대한 정보를 짜임새 있게 보여주기가 어렵더라구요… 감히 html 쪼가리가 나를 표현한다니! 라는 생각도 들고요 ㅋㅋㅋ<br>다른 한 편으로는 나에 대해서 정리하고 돌아보는 시간을 계속 미루고 싶었던 것 같기도 합니다.</p>
-<p>어떻게 하면 짜임새 있게 나를 표현할 수 있을까 고민했던 내용을 기록해볼게요.</p>
-<h1 id="계획"><a href="#계획" class="headerlink" title="계획"></a>계획</h1><p>우선 보여주고 싶은 정보의 특성에 따라 보여주는 방식도 달랐으면 했습니다.</p>
-<ul>
-<li>이력은 타임라인</li>
-<li>기술스택은 관련 직군이라면 알아볼 수 있을 만큼만 간결하게 뱃지로</li>
-<li>사이드 플젝 진행이력은 신뢰가 가도록 다양한 정보를 담아서</li>
-<li>성격이 드러나는 짧은 소개글</li>
-</ul>
-<p>또, 화면과 인터랙션해서 보여줘야하는 추가정보인지 / 처음부터 보여져야하는 필수정보인지에 따라서도 구현 방식이 달라져야 했구요.</p>
-<ul>
-<li>추가정보라면 툴팁과 아코디언을 적절히 사용해서 화면이 복잡해 보이지 얺도록</li>
-<li>필수정보라면 font style과 margin, padding 을 조절하여 화면이 복잡해 보이지 않도록</li>
-</ul>
-<p>🤔 뜬금없지만, 역시 내 product를 만든다고 생각하고 UX를 고민하는 작업은 항상 재미있는 것 같아요. 잘하고 싶어져서 더 알아보고, 더 알아보면 더 잘하게 되고…</p>
-<h1 id="구현"><a href="#구현" class="headerlink" title="구현"></a>구현</h1><p>이전 글에서 언급했듯 이 블로그는 Hexo와 Next theme 그리고 약간의 customizing으로 구현되어있는데요. 기존의 틀을 그대로 활용하여 마크다운 추가만으로도 이력 페이지를 꾸밀 수는 있겠지만 그걸로는 원하는 기능을 모두 구현할 수 없었고, 고민하지 않고 React의 도움을 받기로 했습니다.</p>
-<p>전체가 React로 구성되는 프로젝트는 아주 많이 만들어봤지만, html로 이미 구현된 페이지에 React Element를 삽입하는 형태로는 작업해본 적이 없었네요. 물론 공식 가이드 첫 부분에 나올 정도로 흔한 상식이긴하지만요… =)</p>
-<h2 id="React-ReactDOM-CDN-추가"><a href="#React-ReactDOM-CDN-추가" class="headerlink" title="React, ReactDOM CDN 추가"></a>React, ReactDOM CDN 추가</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;like_button_container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- global 변수로 React를 가져다 사용하기 위해 아래와 같이 CDN을 통해 js를 불러오도록 합니다. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">//아래의 예제는 React 공식 docs에서 제공하는 예제입니다.</span></span></span><br><span class="line"><span class="javascript"><span class="meta">      &quot;use strict&quot;</span>; <span class="comment">//올바르지 않은 문법을 사전에 검출할 수 있도록 strict 모드를 쓴다는 의미라네요.</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> e = React.createElement;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="class"><span class="keyword">class</span> <span class="title">LikeButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="built_in">super</span>(props);</span></span><br><span class="line"><span class="javascript">          <span class="built_in">this</span>.state = &#123; <span class="attr">liked</span>: <span class="literal">false</span> &#125;;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span> (<span class="built_in">this</span>.state.liked) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="string">&quot;You liked this.&quot;</span>;</span></span><br><span class="line"><span class="javascript">          &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">          <span class="keyword">return</span> e(</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;button&quot;</span>,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="attr">onClick</span>: <span class="function">() =&gt;</span> <span class="built_in">this</span>.setState(&#123; <span class="attr">liked</span>: <span class="literal">true</span> &#125;) &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;Like&quot;</span></span></span><br><span class="line"><span class="javascript">          );</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> domContainer = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#like_button_container&quot;</span>);</span></span><br><span class="line"><span class="javascript">      ReactDOM.render(e(LikeButton), domContainer);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>이제 root/about/ 경로에 index.md 대신 index.html을 생성하고, 위의 코드를 넣어주면 끝입니다.</p>
-<h2 id="babel-CDN-추가"><a href="#babel-CDN-추가" class="headerlink" title="babel CDN 추가"></a>babel CDN 추가</h2><p>이제 React를 CDN으로 바로 가져다 쓸 수 있다는 것이 확인되었으니, 제가 쓰기 편한 코드로 바꾸고 싶어졌습니다.<br>위의 예제에서 저는 크게 두 가지가 불편해보였어요.</p>
-<ul>
-<li>createElement</li>
-<li>Class Component</li>
-</ul>
-<p>혹시 위의 예제에서 createElement 함수의 사용법을 보셨나요? 아래의 두 코드는 같은 동작을 위한 코드입니다.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;button onClick=&#123;doSomething&#125; /&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">createElement(<span class="string">&quot;button&quot;</span>, &#123; <span class="attr">onClick</span>: doSomething &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>차이점은, jsx가 훨씬 더 html스럽게 생겨서 개발자 친화적인 것 같네요. 저도 jsx를 사용하는게 더 편하기 때문에 CDN으로부터 불러온 babel 스크립트가 jsx 형식을 알아먹을 수 있도록 수정해볼게요.</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;like_button_container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/@babel/standalone/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- type을 주는 것을 잊지 마세요. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span>&gt;</span><span class="javascript"><span class="meta"></span></span></span><br><span class="line"><span class="meta"><span class="javascript">      &quot;use strict&quot;</span>;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> &#123; useState &#125; = React;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> LikeButton = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> [liked, setLiked] = useState(<span class="literal">false</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> liked ? (</span></span><br><span class="line"><span class="javascript">          <span class="string">&quot;You liked this.&quot;</span></span></span><br><span class="line"><span class="javascript">        ) : (</span></span><br><span class="line"><span class="javascript">          <span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span></span><br><span class="line"><span class="tag"><span class="xml"><span class="javascript">            <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="xml"><span class="javascript">              setLiked(true);</span></span></span><br><span class="line"><span class="xml"><span class="javascript">            &#125;&#125;</span></span></span><br><span class="line"><span class="xml"><span class="javascript">          &gt;</span></span></span><br><span class="line"><span class="xml"><span class="javascript">            Like</span></span></span><br><span class="line"><span class="xml"><span class="javascript">          <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span></span><br><span class="line"><span class="javascript">        );</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">LikeButton</span> /&gt;</span></span>, domContainer);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>짠! 이제 제가 쓰기 편한 형태로 어느정도 정리가 된 것 같습니다.</p>
-<h2 id="개발"><a href="#개발" class="headerlink" title="개발!"></a>개발!</h2><p>개발환경이 갖추어졌으니 아래의 주요 기능을 중심으로 개발하면 되겠습니다.</p>
-<ul>
-<li>이력 타임라인</li>
-<li>기술스택 뱃지목록</li>
-<li>사이드 플젝 진행이력</li>
-<li>성격이 드러나는 짧은 소개글</li>
-</ul>
-<p>(WIP) 생각날 때마다 추가 중입니다 =)</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>React</tag>
-        <tag>UI/UX</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Hexo] Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그를 만들자</title>
-    <url>/2022/01/12/ToyProjects/Blog/hexo/</url>
-    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 <strong>놀이터</strong> 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.<br>그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 <em>내 웹페이지를 만들어보자</em>는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다.</p>
-<h1 id="요구사항"><a href="#요구사항" class="headerlink" title="요구사항"></a>요구사항</h1><p>고객(나)과 개발자(이것도 나)의 입장에서 여러가지 옵션을 재보았던 내용은 아래와 같다.</p>
-<p><strong>서버 비용은 들이고 싶지 않아요</strong></p>
-<ul>
-<li>처음에는 집에 굴러다니는 라즈베리파이에 올릴까 생각도 했는데 의외로 나도 모르는 사이에 전원을 꺼버리는 일이 잦고, update 하려면 서버에 붙어야한다는 점이 너무 번거로워서 몇 번 해보고 포기했다.</li>
-<li>정적 웹 사이트를 무료로 deploy할 수 있는 github page 를 선택하게 되었다. 나만 안쓰고 있었어…</li>
-</ul>
-<p><strong>웹사이트 구성을 직접 하는 건 어려울 것 같은데?</strong></p>
-<ul>
-<li>이것도 처음에는 내 취지 (<strong>놀이터</strong> 같은 블로그)에 맞게 처음부터 다 구성하려고 했었다. 하지만 막상 손을 대고 보니 고려할 부분이 정말정말 많더라… 검색이나 태그, 카테고리 기능을 추가하려고 하니까 구조를 잡는 것이 너무 부담스럽게 느껴졌다.</li>
-<li>검색 성능이 보장되는 태그나 카테고리를 구성하기 위해서 알고리즘과 자료구조부터 찾아봤고, 서버 비용을 들이더라도 elastic search 를 한 번 써볼까 spike도 해봤는데 ㅠㅠ 공부할 내용이 꽤 되는 것은 둘째치고 재미가 없었다. 그래서 얼마안가 포기.</li>
-</ul>
-<p><strong>정적 웹 사이트 생성기의 도움을 받자</strong></p>
-<ul>
-<li>github page를 사용하기로 정했을 때 Jekyll로 대표되는 정적 웹 사이트 생성기에 대해서 함께 찾아본 적은 있는데, theme가 모두 마음에 들지 않았던 것 같다.</li>
-<li>몇 개월 뒤에 검색 기능 구현에 지쳐서 찬찬히 다시 찾아봤는데, <a href="https://hexo.io/ko/index.html">Hexo</a> 라는 정적 웹 사이트 생성기에 <a href="https://theme-next.js.org/">NexT</a> theme이 눈에 들었다.</li>
-</ul>
-<p>Hexo 및 NexT 모두 가이드가 잘 되어있는 편이라, 이틀 정도로 github deploy 까지 완료 가능했다.</p>
-<h1 id="진행내용"><a href="#진행내용" class="headerlink" title="진행내용"></a>진행내용</h1><h2 id="Hexo-프로젝트-생성-및-구동"><a href="#Hexo-프로젝트-생성-및-구동" class="headerlink" title="Hexo 프로젝트 생성 및 구동"></a>Hexo 프로젝트 생성 및 구동</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h2 id="NexT-테마-적용"><a href="#NexT-테마-적용" class="headerlink" title="NexT 테마 적용"></a>NexT 테마 적용</h2><p>프로젝트 root 경로에서</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
-
-<p>그리고 hexo/_config.yml 에서</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="NexT-테마-커스터마이징-기본"><a href="#NexT-테마-커스터마이징-기본" class="headerlink" title="NexT 테마 커스터마이징 (기본)"></a>NexT 테마 커스터마이징 (기본)</h2><p><a href="https://theme-next.js.org/docs/getting-started/">NexT docs</a>를 참고하여 커스터마이징.<br>대부분의 기본 옵션은 _config.next.yml에 명시되어있어서, flag나 값을 바꿔주는 방식으로 쉽게 변경이 가능하다.</p>
-<h2 id="NexT-테마-커스터마이징-고오급"><a href="#NexT-테마-커스터마이징-고오급" class="headerlink" title="NexT 테마 커스터마이징 (고오급)"></a>NexT 테마 커스터마이징 (고오급)</h2><p>style이나 html을 추가하고 싶은 경우, _config.next.yml에서 아래의 항목을 주석 해제하고 해당 경로에 파일을 만들어서 추가하고 싶은 style이나 html을 넣어주면 된다.</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">head:</span> <span class="string">source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="attr">variable:</span> <span class="string">source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-
-<p>예를 들어 나는 google AdSense를 추가하고 싶었는데, html head 태그 안에 script를 넣을 방법이 필요했다.<br>그럴때 위 의 custom_file_path 에서 head 항목을 주석 해제하고 해당 경로에 head.njk 파일을 만들어준 다음 아래와 같이 입력해주면</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;google-site-verification&quot;</span> <span class="attr">content</span>=<span class="string">&quot;some_value&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">async</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=some_value&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>hexo generate</code>명령어 수행 시 위의 html 코드가 head 하단에 삽입된다.</p>
-<p>또, style 커스터마이징도 동일한 방법으로 가능하다.<br>custom_file_path 에서 style 항목을 주석 해제하고 해당 경로에 variables.styl 파일을 만들어준 다음 아래와 같이 입력해주면</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.search-popup</span></span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>hexo generate</code>명령어 수행 시 원하는대로 style이 잘 변경된 것을 확인할 수 있다.</p>
-<p>+) 위의 방법으로 style 커스터마이징을 하면 전반적인 통일성이 깨지므로 theme 사용의 이점이 퇴색될 수 있을 것 같아서 좀 더 찾아봤는데 (.node_modules/hexo-theme-next 에서 직접 열어볼 수 있다. )<br>기본적으로 font family나 size, 대표 color 는 variable로 관리되고 있음을 확인할 수 있었다. 따라서 테마 색상, 폰트 정도만 변경하고자 한다면 variables.styl에 아래와 같이 써주는게 좋겠다.</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="variable">$theme</span>-<span class="attribute">color</span> = <span class="number">#FFD460</span>;</span><br><span class="line"><span class="variable">$brand</span>-<span class="attribute">color</span> = <span class="number">#2D4059</span>;</span><br><span class="line"><span class="variable">$text</span>-<span class="attribute">color</span> = <span class="number">#2D4059</span>;</span><br><span class="line"><span class="variable">$font</span>-family-chinese = <span class="string">&#x27;IBM Plex Sans KR&#x27;</span>, sans-serif;</span><br><span class="line"><span class="variable">$font</span>-family-base         = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-logo         = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-headings     = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-posts        = <span class="variable">$font</span>-family-chinese;</span><br></pre></td></tr></table></figure>
-
-<h2 id="github-page-배포"><a href="#github-page-배포" class="headerlink" title="github page 배포"></a>github page 배포</h2><p>_config.yml에 deploy target을 명시한다.</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/ga0hyeon/ga0hyeon.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">gh-pages</span></span><br></pre></td></tr></table></figure>
-
-<p>deployer를 설치하고</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
-<p>배포 명령어를 수행하면 끝이다.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>+) github credential 설정이 되어있지 않은 경우 에러 메시지가 발생할 수 있다. 흔한 에러이므로 구글링하면 금방 해결 가능하다.</p>
-<h2 id="2022-09-02-추가-highlight-js-적용하기"><a href="#2022-09-02-추가-highlight-js-적용하기" class="headerlink" title="(2022.09.02 추가) highlight.js 적용하기"></a>(2022.09.02 추가) highlight.js 적용하기</h2><p>개발 블로그이다 보니 코드 블럭을 매우 자주 사용하는데, 색이 없으니 못생겨보여서 테마를 적용했다.<br><a href="https://theme-next.js.org/highlight/">테마 목록</a>중에 원하는 것을 고른뒤 아래 html의 <code>&#123;스타일명&#125;</code> 자리에 넣어주면 된다. 나는 rainbow를 선택했다 ㅎㅎ</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="comment"># Code Highlight theme</span></span><br><span class="line">  <span class="comment"># All available themes: https://theme-next.js.org/highlight/</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="attr">light:</span> &#123; <span class="string">스타일명</span> &#125;</span><br><span class="line">    <span class="attr">dark:</span> &#123; <span class="string">스타일명</span> &#125;</span><br><span class="line">  <span class="comment"># Add copy button on codeblock</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">    <span class="attr">style:</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="그리고-더-해야할일"><a href="#그리고-더-해야할일" class="headerlink" title="그리고 더 해야할일"></a>그리고 더 해야할일</h1><ul>
-<li><input disabled="" type="checkbox"> github actions로 배포 자동화하기</li>
-<li><input disabled="" type="checkbox"> 사이드바에 category tree가 보이게 하고싶다!</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>NexT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2022 상반기 회고</title>
     <url>/2022/08/26/Diary/Retro/2022_1/</url>
     <content><![CDATA[<h1 id="회고"><a href="#회고" class="headerlink" title="회고"></a>회고</h1><p>올 초부터 투입되어있던 프로젝트가 얼추 마무리 되었다. 야호~ 철수는 역시 넘나 짜릿하다.<br>정말 많은 것을 배웠다. ㅎㅎ 물론 배운 것의 양보다 놓친 것이 더 많은 것 같아 아쉬운 마음이 들지만, 잘 정리해서 다음 프로젝트에 거름으로 싸들고 가면 되니까 괜찮다. 이번에 아쉬웠던 점을 크게 몇 가지 추려봤고, 남은 하반기에 틈틈히 공부할 키워드도 뽑아봤다.</p>
@@ -190,233 +64,14 @@
       </tags>
   </entry>
   <entry>
-    <title>[토이프로젝트] 개더타운 클론코딩 - 1</title>
-    <url>/2022/07/20/ToyProjects/Gather/gather-clonecoding-1/</url>
-    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>나는 코딩이던 미싱이던 그림이던 단시간에 머리를 풀가동해서 결과물을 끌어내는것을 좋아한다.<br>사실 이런 챌린지를 기획할 때 제일 어려운 점은 목표를 정하는 것이다. 끝내는 데에 시간이 N시간 정도면 되겠다 싶으면서도 그 시간 동안 끊임없이 흥미와 도전정신을 끌어올릴 수 있는 목표를 정해야하기 때문이다. 말 그대로 시작이 반인 셈 ㅎㅎ</p>
-<p>멘탈 상태가 좋을 때는 이런 아이디어가 샘솟는데 최근에는 이래저래 의욕이 하나도 없어서 침체되어있다가… 간만에 주말에 시간이 생겨서 일을 벌려 보았다.</p>
-<p>요즘 업무하면서 정말 유용하게 사용하고 있는 개더타운을 참고하여 화상채팅 웹사이트를 구현해보려고 한다. 이런 주제를 선정하게 된 이유는 다음과 같다.</p>
-<ul>
-<li>정제된 전체 가이드나 소스가 흔히 돌아다니지 않는 듯 하다. 개발하면서 제일 꿀맛은 개척하는 맛이니까</li>
-<li>평소에 궁금했던 웹 기술 분야를 세 개나 체험할 수 있다.<ul>
-<li>WebSocket 통신 (을 사용하는 줄 알았지만 뒤에 가서 WebRTC 라는 것을 깨닫게 될 예정) 체험하기</li>
-<li>HTML5 게임 개발 라이브러리 또는 프레임워크 서칭 및 체험하기</li>
-<li>인기 있는 디자인 시스템 서칭 및 체험하기</li>
-</ul>
-</li>
-</ul>
-<h1 id="PREPARATION"><a href="#PREPARATION" class="headerlink" title="PREPARATION"></a>PREPARATION</h1><h2 id="개더타운은-무엇으로-만들어져있나"><a href="#개더타운은-무엇으로-만들어져있나" class="headerlink" title="개더타운은 무엇으로 만들어져있나?"></a>개더타운은 무엇으로 만들어져있나?</h2><p>REST api를 주로 설계/개발해왔기 때문에 실시간 통신에 대해 아는 것이 없어서, 막연하게 ‘개더타운은 WebSocket으로 뭔가 되어있지 않을까?’ 라고 생각했다.<br>물론 그러면서도 어떻게 그 많은 사람이 음성 / 비디오를 서로 전송하고 있을까… 서버가 중간에서 이 많은 미디어를 다 나누어주고 있다면 개더타운은 어떻게 공짜인걸까… 생각은 했으나 그 뒤까지는 몰랐다.<br>찾아보니 개더타운은 P2P로 미디어 또는 임의의 데이터를 주고받을 수 있는 WebRTC를 사용하고 있고, WebRTC은 이미 오래전부터 많은 곳에서 (게임, 화상회의, 휘발성 채팅) 쓰이고 있다고 한다. 떠올려보니 회의 참여자 중 로컬 자원을 많이 쓰고 있는 사람이 포함되어 있을 때 내 게더타운이 약간 느려지는 현상이 종종 있었는데 P2P라서 그랬던 걸 수 있다는 생각이 든다.</p>
-<p>메인 기술 셋을 알아냈으니 WebRTC에 대해 구글링해봤다. 생각보다 공식 가이드 및 샘플이 탄탄해서 처음 접하는 기술임에도 왠지 순탄히 진행될 것 같다. 찾은 리소스는 아래와 같이 리스트업 해둔다.</p>
-<ul>
-<li><a href="https://webrtc.org/getting-started/firebase-rtc-codelab">잘 정리된 공식 가이드</a></li>
-<li><a href="https://webrtc.github.io/samples">잘 정리된 공식 샘플코드</a></li>
-<li><a href="https://developer.mozilla.org/ko/docs/Web/API/WebRTC_API/Signaling_and_video_calling">Mozilla의 WebRTC 설명</a></li>
-</ul>
-<h2 id="어떻게-만들까"><a href="#어떻게-만들까" class="headerlink" title="어떻게 만들까?"></a>어떻게 만들까?</h2><p>개더타운에 접속해서 F12도 켜보고, 구글링으로 찾은 가이드도 읽어어 보니 어느정도 아키텍처는 그려진 것 같다.<br><image src="/images/webrtc_layout.png" /><br>각 항목에 대한 설명은 다음과 같다.</p>
-<ul>
-<li>Signaling Server 구성 : <strong>Django with djangoRestFramework</strong><br>WebRTC 자체는 P2P 방식이라 미디어 교환 자체를 위해서는 중간다리 역할을 하는 서버가 필요없지만, 맨 처음 통신을 시작할 때 Client 간의 메시지 포맷 등을 협의 (Signaling) 하기 위한 서버가 필요하다고 한다. 요건 오랜만에 Django로 만들어보기로 한다.</li>
-<li>화면구성<ul>
-<li>뼈대 : <strong>React.js with Chakra UI</strong><br>화면 디자인 및 스타일링 작업도 재미있고 신나는 일이지만 요즘 표준 없는 UX/UI (정확히는 FE 개발자 - UX/UI 협업 표준의 부재(?) 또는 어려움(?)..)에 현타를 느끼고 있어서, 유명한 디자인 시스템을 써보기로 했다. 검색하면 여러 개의 빵빵한 디자인 시스템이 나오는데, 그 중 나는 <a href="https://www.npmjs.com/package/@chakra-ui/react">Chakra UI</a>를 써보기로 했다.</li>
-<li>맵 및 캐릭터 렌더 : <strong>Phaser</strong><br>HTML5 게임 개발 라이브러리 / 프레임워크에 대해서도 서칭을 했고, 최종으로는 Phaser와 PixiJS 두 개가 후보에 올랐다. 처음 관심 가져본 분야여서 판단을 내리기 어려웠는데 <a href="https://stackoverflow.com/questions/38509629/decide-pixi-js-or-phaser">요 글</a>이 큰 도움이 됐다. 내가 이해한 바를 키워드로 요약하자면 편리함(Phaser) vs 자유도(PixiJS) 같다. PixiJS를 쓰면 좀 더 deep하게 이해할 수 있을 것 같아서 10초 정도 고민됐는데, 욕심 같아서 포기했다. 이번에는 Phaser를 사용해보고, 다음에 HTML5 게임 개발이 정말 하고 싶어지면 그때 PixiJS를 써보자.<br>+) 뜬금없지만 <a href="https://phaser.io/">Phaser 웹사이트</a>가 너무나 2000년대 감성이다.</li>
-</ul>
-</li>
-<li>미디어 전송 : <strong>WebRTC</strong></li>
-</ul>
-<h2 id="무엇부터-어떤-순서로-만들까"><a href="#무엇부터-어떤-순서로-만들까" class="headerlink" title="무엇부터 어떤 순서로 만들까?"></a>무엇부터 어떤 순서로 만들까?</h2><p>이번 사이드 프로젝트에서 제일 큰 수확이 요 스텝이라고 생각한다. 일정에 쫒기며 떠밀리듯이 개발하는 것이 요즘 내 개발 기피(?)의 원인이라고 생각하기 때문에 토이 프로젝트 만큼은 그렇게 진행하지 않으려고 노력했다. 사실 과거를 돌아보면 나는 토이 프로젝트도 그렇게 일정에 쫒기며 했던 사람이었긴하다 ㅋㅋㅋ 물론 오버웤이 내 의지였냐는 또 다른 문제긴 하지만…</p>
-<hr>
-<p>아모튼!! 이제는 그렇게 일하지 않으리라.. 다짐하면서 개발에 착수하기 전 내가 한 고민들을 적어보면 다음과 같다.</p>
-<p><strong>고민1️⃣</strong> 다음 중 내가 우선 시 하는 것은 무엇인가?</p>
-<ul>
-<li>내가 할애하려고 계획한 에포트 이상은 들이지 않고 진행하기</li>
-<li>내가 마무리하려고 계획한 날짜까지는 끝내기</li>
-<li>내가 계획했던 수준까지는 결과물의 퀄리티 내기<ul>
-<li>외적인 퀄리티 (기능성, 사용성, 심미성 등등)</li>
-<li>내적인 퀄리티 (코드 품질)</li>
-</ul>
-</li>
-</ul>
-<p><strong>고민2️⃣</strong> 목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?</p>
-<p><strong>고민3️⃣</strong> 작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?</p>
-<hr>
-<p>그리고 위 고민에 대한 결론은 요렇게 냈다. 물론 앞으로 계속해서 개정해나갈 예정이다 ㅎㅎ 실험🧪적인 것도 있고 ㅋㅋㅋ</p>
-<p><strong>고민1️⃣</strong> 다음 중 내가 우선 시 하는 것은 무엇인가?<br><strong>결론💡</strong> 이 토이 프로젝트에서 나는 <code>내적인 퀄리티 &gt; 마감일 지키기 &gt; 에포트 지키기 &gt; 외적인 퀄리티</code> 순서대로 중요하게 생각할 것이다.</p>
-<ol>
-<li>내적인 퀄리티 기준 : <code>Github public repo에 공개할 수 있는 수준</code> 으로</li>
-<li>마감일 지키기 기준 : 8/28</li>
-<li>에포트 지키기 기준 : <code>평일은 MAX 하루 3시간 이내, 주말은 하루 골라서 MAX 반나절만</code> 투자</li>
-<li>외적인 퀄리티 기준 : 뭐 그냥 데모 가능한 정도로만?<br>나는 요게 제일 신선했다. 실제로 내가 토이 플젝을 하면서 들였던 시간의 꽤 많은 부분이 외적인 퀄리티에 있었는데,<br>정작 진지하게 내가 이것을 얼마나 중요하게 생각하는가를 생각해보았더니 사실은 내가 외적인 퀄리티의 중요도를 별로 높게 생각하고 있지 않았다. 작은 부분이 눈에 거슬리면 ‘에이 뭐 별로 안걸리는데 지금 금방 고칠까’ 하는 마음에 바로 바로 코드에 손을 대는 것이 누적되어 결과적으로 시간을 많이 쏟은 셈이 되었던 것 같다. 한 눈을 팔았다고 해야하나… 아무튼 시간을 내어 이런 고민을 했던 것이 이번 토이 프로젝트 최고의 수확인 것 같다. 👍</li>
-</ol>
-<p><strong>고민2️⃣</strong> 목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?<br><strong>결론💡</strong> 이 토이 프로젝트에서 나는 성취감을 느낄수 있는 최소한의 단위로 일을 쪼개고, 요렇게 쪼갠 일들을 다시 연관된 것들 끼리 뭉쳐서 진행할 것이다. 각 항목에서 성취할 수 있는 내용은 🎁 표시로 적어봤다.</p>
-<ol>
-<li>git repository 생성 및 각 모듈 셋업하기<br>🎁 React, Django 셋업과정</li>
-<li>화면 뼈대 구성하기<br>🎁 Chakra 사용법</li>
-<li>맵 구성하기<br>🎁 Phaser 사용법<br>🎁 Phaser와 React.js를 함께 사용하는 과정</li>
-<li>캐릭터 이동 구현하기</li>
-<li>회의실 입장 구현하기</li>
-<li>2인 음성 영상 챗 구현하기<br>🎁 WebRTC 예제 이해 및 응용</li>
-<li>다자 음성 영상 챗 구현하기</li>
-<li>미디어 설정 기능 구현하기</li>
-</ol>
-<p><strong>고민3️⃣</strong> 작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?<br><strong>결론🧪</strong> 이 토이 프로젝트에서 나는 현재 작업 마무리 직후 다음 작업 내용에 대한 서칭을 하고, 실제 다음 작업 까지 약간의 텀을 두고 스스로에게 고민할 시간을 의도적으로 줄 것이다.</p>
-<ul>
-<li>생각보다 멍때릴때 나오는 코드가 각잡고 짠 코드보다 선방하는 것 같아서 ㅋㅋㅋ 이번에 실험해본다.</li>
-</ul>
-<p>DELEVERY 단계부터는 내용이 길어져서 다음 포스트에서 이어서 정리한다 :)</p>
-]]></content>
+    <title>devops</title>
+    <url>/2022/09/11/Tech/DevOps/devops-1/</url>
+    <content><![CDATA[]]></content>
       <categories>
-        <category>토이프로젝트</category>
-        <category>개더타운 클론코딩</category>
+        <category>devops</category>
       </categories>
       <tags>
-        <tag>토이프로젝트</tag>
-        <tag>WebRTC</tag>
-        <tag>Phaser</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[토이프로젝트] 개더타운 클론코딩 - 2</title>
-    <url>/2022/07/28/ToyProjects/Gather/gather-clonecoding-2/</url>
-    <content><![CDATA[<p>이전 포스트에서는 MOTIVATION, PREPARATION 까지 정리했고, 이어서 DELEVERY했던 내용 중 3.맵 구성하기 항목까지 기록한다.</p>
-<ol>
-<li><strong>git repository 생성 및 각 모듈 셋업하기</strong><br>🎁 React, Django 셋업과정</li>
-<li><strong>화면 뼈대 구성하기</strong><br>🎁 Chakra 사용법</li>
-<li><strong>맵 구성하기</strong><br>🎁 Phaser 사용법<br>🎁 Phaser와 React.js를 함께 사용하는 과정</li>
-<li>캐릭터 이동 구현하기</li>
-<li>회의실 입장 구현하기</li>
-<li>2인 음성 영상 챗 구현하기</li>
-<li>다자 음성 영상 챗 구현하기</li>
-<li>미디어 설정 기능 구현하기</li>
-</ol>
-<h1 id="DELEVERY"><a href="#DELEVERY" class="headerlink" title="DELEVERY"></a>DELEVERY</h1><h2 id="1-git-repository-생성-및-각-모듈-셋업하기"><a href="#1-git-repository-생성-및-각-모듈-셋업하기" class="headerlink" title="1. git repository 생성 및 각 모듈 셋업하기"></a>1. git repository 생성 및 각 모듈 셋업하기</h2><p><a href="https://github.com/ga0hyeon/cowork-saga">git repository</a>를 만들어주고, signalingServer와 client 폴더에 각각 Django와 React 셋업을 진행했다.</p>
-<h3 id="Django-셋업-with-djangoRestFramework"><a href="#Django-셋업-with-djangoRestFramework" class="headerlink" title="Django 셋업 with djangoRestFramework"></a>Django 셋업 with djangoRestFramework</h3><p><a href="https://docs.djangoproject.com/ko/4.0/intro/">django docs</a>를 참고하여 초기 세팅을 진행한다.<br>+) mac에 python 2.7이 기본으로 깔려있어서 3.x 버전의 python을 받아주었다. python3을 기본으로 바라보도록 bashrc에도 alias를 추가해준다.</p>
-<p>django를 설치해주고</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m pip install Django</span><br></pre></td></tr></table></figure>
-
-<p>설치 후 잘 설치되었는지 버전을 확인한다.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m django --version</span><br></pre></td></tr></table></figure>
-
-<p>그리고 아래 명령어로 현재 경로에 django 프로젝트를 생성한다.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m django startproject gather_clone_siganlling_server</span><br></pre></td></tr></table></figure>
-
-<p>지정해준 폴더 (나의 경우 gather_clone_siganlling_server)로 이동하여 아래의 명령어를 수행하면, 짜잔! 기본포트(8000)에 샘플페이지가 뜬다.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python manage.py runserver</span><br></pre></td></tr></table></figure>
-
-<p>나는 웹서버가 아니라 REST Api 서버로 사용할 것이므로, <a href="https://www.django-rest-framework.org/#installation">django-rest-framework docs</a>를 참고하여 djangoRestFramework를 깔아주자.<br>example까지 따라서 만들면, 이제 localhost:8000에 이전의 django 샘플페이지가 아니라 swagger와 유사한 형태의 REST framework 페이지가 뜬다.</p>
-<h3 id="React-셋업-with-Chakra-UI-amp-Adapter-js"><a href="#React-셋업-with-Chakra-UI-amp-Adapter-js" class="headerlink" title="React 셋업 with Chakra UI &amp; Adapter.js"></a>React 셋업 with Chakra UI &amp; Adapter.js</h3><ol>
-<li>CRA로 React 앱 초기 세팅</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npx create-react-app gather-clone-client --template @chakra-ui/typescript</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>Adapter.js 라이브러리 설치<br>Adapter.js는 Polyfill(브라우저에서 지원하지 않는 최신 기능을 사용할 수 있도록 도와주는 코드의 모음)과 Shim(이미 존재하는 코드의 동작을 바로잡는데에 사용하는 코드의 모음)을 사용하여 WebRTC의 브라우저 간 호환성 문제를 해결해둔 라이브러리이다.<br>WebRTC가 계속해서 변화하고 있는 기술이고, 각 브라우저별로 지원 수준이 다르기 때문에 일괄 적용이 쉽지 않은 모양이다.</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install webrtc-adapter</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-화면-뼈대-구성하기"><a href="#2-화면-뼈대-구성하기" class="headerlink" title="2. 화면 뼈대 구성하기"></a>2. 화면 뼈대 구성하기</h2><p>위에서 만들어준 React 프로젝트 폴더에서 화면 뼈대 구성을 이어서 진행한다. 화면 구조는 아래와 매우 간단하다 :)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">App.tsx</span><br><span class="line">pages</span><br><span class="line"> ⌞IntroPage.tsx</span><br><span class="line"> ⌞MeetingPage.tsx</span><br></pre></td></tr></table></figure>
-
-<p>IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현한다. 우선은 구분을 위해 이름 정도만 입력받도록 하자.</p>
-<h2 id="3-맵-구성하기"><a href="#3-맵-구성하기" class="headerlink" title="3. 맵 구성하기"></a>3. 맵 구성하기</h2><p>맵 구성에는 Phaser를 사용한다.</p>
-<h3 id="Phaser란"><a href="#Phaser란" class="headerlink" title="Phaser란?"></a>Phaser란?</h3><p>cross-browser HTML5 게임을 쉽고 빠르게 만들 수 있도록하는 프레임워크.</p>
-<h3 id="Phaser를-사용하기-위한-추가적인-개발환경-setup"><a href="#Phaser를-사용하기-위한-추가적인-개발환경-setup" class="headerlink" title="Phaser를 사용하기 위한 추가적인 개발환경 setup"></a>Phaser를 사용하기 위한 추가적인 개발환경 setup</h3><p>Phaser가 html 기반으로 게임을 만들수 있게 해준다고 하더라도, 브라우저에서는 원칙적으로 로컬 리소스에 접근할 수 없기 때문에 html 파일 만으로는 Phaser 게임을 실행할 수 없다. (사실 이 개념 예전에도 접했었는데 그때는 바로 이해가 안되었는데.. 지금은 후루룩 읽힌다. 아주 좋다!!)따라서 html과 리소스를 올릴 서버가 필요하고, 공식 가이드에서는 python, php, node.js 정도를 언급하고 있다.</p>
-<p>나는 위에서 이미 React로 페이지 뼈대를 구성했고, 운영 단계까지 올릴 생각이 없으므로 React 개발 서버면 충분하다.</p>
-<p>그리고 가이드에 IDE도 몇 가지 언급하고있는데, brakets 같은 HTML 편집기로도 개발이 가능하다고 한다. 재밌다. 물론 나는 위에서 세팅해둔 VS code를 사용한다 ㅎㅎ</p>
-<p>추가적인 서버 셋업과 IDE 설정이 필요 없으니 Phaser 사용을 위해서는 요 정도만 추가로 해주면 되겠다.</p>
-<ul>
-<li>npm으로 Phaser 설치</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install phaser</span><br></pre></td></tr></table></figure>
-
-<h3 id="가이드를-따라-샘플-게임-만들기"><a href="#가이드를-따라-샘플-게임-만들기" class="headerlink" title="가이드를 따라 샘플 게임 만들기"></a>가이드를 따라 샘플 게임 만들기</h3><p>본격적으로 구미에 맡는 맵을 만들기 전에 Phaser에 익숙해질 겸 가이드를 따라 샘플 게임을 만들어본다. 가이드로 제공된 소스는 html script라서, 글로벌 변수가 따로 없는 react에 맞게 ref, state를 사용해서 약간 수정해봤다. 잘 뜬다 :)<br>(making-your-first-phaser-3-game)[<a href="https://phaser.io/tutorials/making-your-first-phaser-3-game]">https://phaser.io/tutorials/making-your-first-phaser-3-game]</a></p>
-<p>이 샘플 소스만으로도 회의실 구성에 필요한 요소는 어느정도 구현이 가능해보인다. 굿!</p>
-<p><img src="/images/gather_clone_coding/1.png" alt="Sample Game"></p>
-<details>
-<summary>샘플 소스 전문</summary>
-
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Phaser <span class="keyword">from</span> <span class="string">&quot;phaser&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useEffect, useRef, useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> SamplePage = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> variables = useRef&lt;&#123;</span><br><span class="line">    <span class="attr">platforms</span>: Phaser.Physics.Arcade.StaticGroup;</span><br><span class="line">    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;</span><br><span class="line">    cursors: Phaser.Types.Input.Keyboard.CursorKeys;</span><br><span class="line">    stars: Phaser.Physics.Arcade.Group;</span><br><span class="line">  &#125;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> config = useRef&lt;Phaser.Types.Core.GameConfig&gt;(&#123;</span><br><span class="line">    <span class="attr">type</span>: Phaser.AUTO,</span><br><span class="line">    <span class="attr">parent</span>: <span class="string">&quot;sample-page&quot;</span>, <span class="comment">//NOTE : 아래 div의 id값을 넣어주면 된다.</span></span><br><span class="line">    <span class="attr">width</span>: <span class="number">800</span>,</span><br><span class="line">    <span class="attr">height</span>: <span class="number">600</span>,</span><br><span class="line">    <span class="attr">physics</span>: &#123;</span><br><span class="line">      <span class="attr">default</span>: <span class="string">&quot;arcade&quot;</span>,</span><br><span class="line">      <span class="attr">arcade</span>: &#123;</span><br><span class="line">        <span class="attr">gravity</span>: &#123; <span class="attr">y</span>: <span class="number">200</span> &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">scene</span>: &#123;</span><br><span class="line">      <span class="attr">preload</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.load.image(<span class="string">&quot;sky&quot;</span>, <span class="string">&quot;assets/sky.png&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.load.image(<span class="string">&quot;ground&quot;</span>, <span class="string">&quot;assets/platform.png&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.load.image(<span class="string">&quot;star&quot;</span>, <span class="string">&quot;assets/star.png&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.load.image(<span class="string">&quot;bomb&quot;</span>, <span class="string">&quot;assets/bomb.png&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.load.spritesheet(<span class="string">&quot;dude&quot;</span>, <span class="string">&quot;assets/dude.png&quot;</span>, &#123;</span><br><span class="line">          <span class="attr">frameWidth</span>: <span class="number">32</span>,</span><br><span class="line">          <span class="attr">frameHeight</span>: <span class="number">48</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">create</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.add.image(<span class="number">400</span>, <span class="number">300</span>, <span class="string">&quot;sky&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//NOTE : config에 physics를 정의해두어야 정상적으로 동작한다</span></span><br><span class="line">        <span class="keyword">const</span> platforms = <span class="built_in">this</span>.physics.add.staticGroup();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//NOTE : static physics body의 크기를 변경했으므로 refreshBody 호출</span></span><br><span class="line">        platforms.create(<span class="number">400</span>, <span class="number">568</span>, <span class="string">&quot;ground&quot;</span>).setScale(<span class="number">2</span>).refreshBody();</span><br><span class="line"></span><br><span class="line">        platforms.create(<span class="number">600</span>, <span class="number">400</span>, <span class="string">&quot;ground&quot;</span>);</span><br><span class="line">        platforms.create(<span class="number">50</span>, <span class="number">250</span>, <span class="string">&quot;ground&quot;</span>);</span><br><span class="line">        platforms.create(<span class="number">750</span>, <span class="number">220</span>, <span class="string">&quot;ground&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> player = <span class="built_in">this</span>.physics.add.sprite(<span class="number">100</span>, <span class="number">450</span>, <span class="string">&quot;dude&quot;</span>);</span><br><span class="line">        player.setBounce(<span class="number">0.2</span>);</span><br><span class="line">        player.setCollideWorldBounds(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.anims.create(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;left&quot;</span>,</span><br><span class="line">          <span class="attr">frames</span>: <span class="built_in">this</span>.anims.generateFrameNumbers(<span class="string">&quot;dude&quot;</span>, &#123; <span class="attr">start</span>: <span class="number">0</span>, <span class="attr">end</span>: <span class="number">3</span> &#125;),</span><br><span class="line">          <span class="attr">frameRate</span>: <span class="number">10</span>,</span><br><span class="line">          <span class="attr">repeat</span>: -<span class="number">1</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.anims.create(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;turn&quot;</span>,</span><br><span class="line">          <span class="attr">frames</span>: [&#123; <span class="attr">key</span>: <span class="string">&quot;dude&quot;</span>, <span class="attr">frame</span>: <span class="number">4</span> &#125;],</span><br><span class="line">          <span class="attr">frameRate</span>: <span class="number">20</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.anims.create(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;right&quot;</span>,</span><br><span class="line">          <span class="attr">frames</span>: <span class="built_in">this</span>.anims.generateFrameNumbers(<span class="string">&quot;dude&quot;</span>, &#123; <span class="attr">start</span>: <span class="number">5</span>, <span class="attr">end</span>: <span class="number">8</span> &#125;),</span><br><span class="line">          <span class="attr">frameRate</span>: <span class="number">10</span>,</span><br><span class="line">          <span class="attr">repeat</span>: -<span class="number">1</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.physics.add.collider(player, platforms);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> cursors = <span class="built_in">this</span>.input.keyboard.createCursorKeys();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> scoreText = <span class="built_in">this</span>.add.text(<span class="number">16</span>, <span class="number">16</span>, <span class="string">&quot;score: 0&quot;</span>, &#123;</span><br><span class="line">          <span class="attr">fontSize</span>: <span class="string">&quot;32px&quot;</span>,</span><br><span class="line">          <span class="attr">color</span>: <span class="string">&quot;#fff&quot;</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> stars = <span class="built_in">this</span>.physics.add.group(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;star&quot;</span>,</span><br><span class="line">          <span class="attr">repeat</span>: <span class="number">11</span>,</span><br><span class="line">          <span class="attr">setXY</span>: &#123; <span class="attr">x</span>: <span class="number">12</span>, <span class="attr">y</span>: <span class="number">0</span>, <span class="attr">stepX</span>: <span class="number">70</span> &#125;,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        stars.children.iterate(<span class="function"><span class="keyword">function</span> (<span class="params">child</span>) </span>&#123;</span><br><span class="line">          (child <span class="keyword">as</span> any).setBounceY(Phaser.Math.FloatBetween(<span class="number">0.4</span>, <span class="number">0.8</span>));</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.physics.add.collider(stars, platforms);</span><br><span class="line">        <span class="built_in">this</span>.physics.add.overlap(</span><br><span class="line">          player,</span><br><span class="line">          stars,</span><br><span class="line">          <span class="function">(<span class="params">player, star</span>) =&gt;</span> &#123;</span><br><span class="line">            (star <span class="keyword">as</span> any).disableBody(<span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line">            setScore(<span class="function">(<span class="params">prev</span>) =&gt;</span> &#123;</span><br><span class="line">              scoreText.setText(<span class="string">&quot;Score: &quot;</span> + (prev + <span class="number">1</span>));</span><br><span class="line">              <span class="keyword">return</span> prev + <span class="number">1</span>;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (stars.countActive(<span class="literal">true</span>) === <span class="number">0</span>) &#123;</span><br><span class="line">              stars.children.iterate(<span class="function"><span class="keyword">function</span> (<span class="params">child</span>) </span>&#123;</span><br><span class="line">                (child <span class="keyword">as</span> any).enableBody(</span><br><span class="line">                  <span class="literal">true</span>,</span><br><span class="line">                  (child <span class="keyword">as</span> any).x,</span><br><span class="line">                  <span class="number">0</span>,</span><br><span class="line">                  <span class="literal">true</span>,</span><br><span class="line">                  <span class="literal">true</span></span><br><span class="line">                );</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">              <span class="keyword">const</span> x =</span><br><span class="line">                (player <span class="keyword">as</span> any).x &lt; <span class="number">400</span></span><br><span class="line">                  ? Phaser.Math.Between(<span class="number">400</span>, <span class="number">800</span>)</span><br><span class="line">                  : Phaser.Math.Between(<span class="number">0</span>, <span class="number">400</span>);</span><br><span class="line"></span><br><span class="line">              <span class="keyword">const</span> bomb = bombs.create(x, <span class="number">16</span>, <span class="string">&quot;bomb&quot;</span>);</span><br><span class="line">              bomb.setBounce(<span class="number">1</span>);</span><br><span class="line">              bomb.setCollideWorldBounds(<span class="literal">true</span>);</span><br><span class="line">              bomb.setVelocity(Phaser.Math.Between(-<span class="number">200</span>, <span class="number">200</span>), <span class="number">20</span>);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="literal">undefined</span>,</span><br><span class="line">          <span class="built_in">this</span></span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> bombs = <span class="built_in">this</span>.physics.add.group();</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.physics.add.collider(bombs, platforms);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.physics.add.collider(</span><br><span class="line">          player,</span><br><span class="line">          bombs,</span><br><span class="line">          <span class="function">(<span class="params">player, bomb</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.physics.pause();</span><br><span class="line"></span><br><span class="line">            (player <span class="keyword">as</span> any).setTint(<span class="number">0xff0000</span>);</span><br><span class="line"></span><br><span class="line">            <span class="built_in">this</span>.anims.play(<span class="string">&quot;turn&quot;</span>, player);</span><br><span class="line"></span><br><span class="line">            <span class="built_in">this</span>.add.text(<span class="number">240</span>, <span class="number">300</span>, <span class="string">&quot;GAME OVER&quot;</span>, &#123;</span><br><span class="line">              <span class="attr">fontSize</span>: <span class="string">&quot;64px&quot;</span>,</span><br><span class="line">              <span class="attr">color</span>: <span class="string">&quot;#0xff00&quot;</span>,</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="literal">undefined</span>,</span><br><span class="line">          <span class="built_in">this</span></span><br><span class="line">        );</span><br><span class="line">        variables.current = &#123;</span><br><span class="line">          platforms,</span><br><span class="line">          player,</span><br><span class="line">          cursors,</span><br><span class="line">          stars,</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">update</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (variables.current) &#123;</span><br><span class="line">          <span class="keyword">const</span> &#123; cursors, player &#125; = variables.current;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (cursors.left.isDown) &#123;</span><br><span class="line">            player.setVelocityX(-<span class="number">160</span>);</span><br><span class="line">            player.anims.play(<span class="string">&quot;left&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">          &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cursors.right.isDown) &#123;</span><br><span class="line">            player.setVelocityX(<span class="number">160</span>);</span><br><span class="line">            player.anims.play(<span class="string">&quot;right&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            player.setVelocityX(<span class="number">0</span>);</span><br><span class="line">            player.anims.play(<span class="string">&quot;turn&quot;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (cursors.up.isDown &amp;&amp; player.body.touching.down) &#123;</span><br><span class="line">            player.setVelocityY(-<span class="number">330</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [score, setScore] = useState&lt;number&gt;(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> [game, setGame] = useState&lt;Phaser.Game&gt;();</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> game = <span class="keyword">new</span> Phaser.Game(config.current);</span><br><span class="line">    setGame(game);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      game.destroy(<span class="literal">true</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;sample-page&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> SamplePage;</span><br></pre></td></tr></table></figure>
-
-</details>
-
-<h3 id="회의실을-그리는데에-사용할-무료-애셋을-찾자"><a href="#회의실을-그리는데에-사용할-무료-애셋을-찾자" class="headerlink" title="회의실을 그리는데에 사용할 무료 애셋을 찾자"></a>회의실을 그리는데에 사용할 무료 애셋을 찾자</h3><p>가장 기본적인 회의실 맵을 그리기 위해서 아래와 같이 크게 세 가지의 애셋이 필요하다.</p>
-<ul>
-<li>바닥</li>
-<li>캐릭터</li>
-<li>오브젝트 (벽, 책상, 집기 등등)</li>
-<li>맵 뒷배경 이미지</li>
-</ul>
-<p><a href="https://itch.io/game-assets/free">무료로 애셋을 받을 수 있는 사이트</a>와 <a href="https://pixabay.com/ko">Pixabay</a>에서 발품을 팔아 줍줍한 애셋들은 root의 public 폴더에 차곡차곡 담아준다.</p>
-<h3 id="자-이제-회의실을-그려보자"><a href="#자-이제-회의실을-그려보자" class="headerlink" title="자 이제 회의실을 그려보자"></a>자 이제 회의실을 그려보자</h3><p>이제 어느 위치에 어떤 타일을 배치할지 정의하면 된다. Phaser 예제를 둘러보니 아래 캡쳐와 같이 json 형식으로 좌표값을 넘겨받고 있다는 것을 어렵지 않게 확인할 수 있었는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했다.<br><img src="/images/gather_clone_coding/5.png" alt="json"></p>
-<p>당연히 요 json을 쉽게 만들 수 있도록 도와주는 프로그램이 이미 있더라. 한 가지만은 아닌 것 같은데, 그 중 나는 <a href="https://www.mapeditor.org/">Tiled</a> 를 사용해보았다. 검색결과가 제일 많아서 ㅎㅎ</p>
-<p>Tiled를 실행한 뒤 프로젝트와 맵을 신규 생성하고, 위에서 모아둔 애셋 타일셋을 import 해주면 아래와 같이 맵을 한칸 한칸 그려줄 수 있다.</p>
-<p><img src="/images/gather_clone_coding/2.png" alt="회의실 전경"></p>
-<p>타일셋을 그릴 때는 용도에 맞게 레이어를 추가할 수 있는 듯 하다. 나는 바닥, 벽, 집기류 총 세 개의 레이어를 사용하여 회의실을 꾸몄다.<br>참고로 맵 메이커를 제대로/잘 사용하는 방법에 대해서는 다른 포스트에서 추가로 다루어야 할 정도로 양이 되는 듯 하다, 이번에는 이 정도로 만족하고 넘어간다.</p>
-<p>이제 만든 맵을 Phaser에서 읽을 수 있도록 json 형식으로 저장해주면 되는데, 그전에 맵이 타일셋을 내장하도록 해야하는데… 무슨 이유에서인지 가이드대로 ‘타일셋 내장’ 버튼을 클릭하면 맵이 깨진다 ㅠㅠ<br><img src="/images/gather_clone_coding/3.png" alt="요것을 누르면"><br><img src="/images/gather_clone_coding/4.png" alt="이렇게 된다 ㅠㅠ 왜!!!"><br>잠시 생각해보니 json에 이미지 정보를 내장하는 것이 자연스러운 방법만은 아니라는 생각이 들기도한다. 문득 위에 캡쳐한 Phaser 예제에서 힌트를 얻을 수 있지 않을까 싶어 <a href="https://phaser.io/examples/v3/view/camera/follow-zoom-tilemap">예제 소스</a>를 확인 해보니 아래 코드와 같이 타일셋의 경로도 상대경로로 지정이 되어있었다. onCreate 시점에 타일셋 자원도 로드하는 모양 ㅎㅎ</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.load.tilemapTiledJSON(<span class="string">&quot;map&quot;</span>, <span class="string">&quot;assets/tilemaps/maps/super-mario.json&quot;</span>);</span><br><span class="line"><span class="built_in">this</span>.load.image(<span class="string">&quot;tiles1&quot;</span>, <span class="string">&quot;assets/tilemaps/tiles/super-mario.png&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>타일셋을 포함해서 저장했을 때 왜 깨지는지까지는 빨리 파악이 어려울 것 같으니 우선은 예제를 참고하여 얼른 넘어가기로하고 (응 그렇게 넘어간거 산더미~) 나도 타일셋 이미지를 asset 쪽에 넣어줬다.</p>
-<h3 id="짜잔"><a href="#짜잔" class="headerlink" title="짜잔"></a>짜잔</h3><p>onCreate 함수에 아래와 같이 에셋과 맵정보를 로드하면 화면에 희의실이 그려진 것을 확인할 수 있다 :) 이제 다음 포스트 부터는 실제로 캐릭터를 이동해보도록 하겠다</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.load.tilemapTiledJSON(<span class="string">&quot;map&quot;</span>, <span class="string">&quot;assets/tilemaps/maps/super-mario.json&quot;</span>);</span><br><span class="line"><span class="built_in">this</span>.load.image(<span class="string">&quot;tiles1&quot;</span>, <span class="string">&quot;assets/tilemaps/tiles/super-mario.png&quot;</span>);</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>토이프로젝트</category>
-        <category>개더타운 클론코딩</category>
-      </categories>
-      <tags>
-        <tag>토이프로젝트</tag>
-        <tag>WebRTC</tag>
-        <tag>Phaser</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[토이프로젝트] 개더타운 클론코딩 - 3</title>
-    <url>/2022/08/25/ToyProjects/Gather/gather-clonecoding-3/</url>
-    <content><![CDATA[<p>이전 포스트에 이어서 DELEVERY했던 내용 중 5.회의실 입장 구현하기 항목까지 기록한다.</p>
-<ol>
-<li><del>git repository 생성 및 각 모듈 셋업하기</del></li>
-<li><del>화면 뼈대 구성하기</del></li>
-<li><del>맵 구성하기</del></li>
-<li><strong>캐릭터 이동 구현하기</strong></li>
-<li><strong>회의실 입장 구현하기</strong></li>
-<li>2인 음성 영상 챗 구현하기</li>
-<li>다자 음성 영상 챗 구현하기</li>
-<li>미디어 설정 기능 구현하기</li>
-</ol>
-<h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><p>캐릭터 이동도 사실은 이전 포스트에서 본 예제 코드에 친절히 있었다. create에 에셋을 로드하고 update에 이동 시 애니메이션을 표현해주면 된다.</p>
-<h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><p>대망의 회의실 입장 구현~ 이라고 해봤자 별거없다 ^_^<br>캐릭터가 이동할 때마다 회의실 사각형안에 캐릭터의 좌표가 포함되는지 계산하고, 회의실에 들어온 사람이 2명 이상이 되는 순간 WebRTC 커넥션을 열어주면 된다. 시간을 좀 더 써본다면 이 좌표 계산에도 최적의 알고리즘이 있을 것 같긴하다 ㅎㅎ</p>
-]]></content>
-      <categories>
-        <category>토이프로젝트</category>
-        <category>개더타운 클론코딩</category>
-      </categories>
-      <tags>
-        <tag>토이프로젝트</tag>
-        <tag>WebRTC</tag>
-        <tag>Phaser</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[토이프로젝트] 개더타운 클론코딩 - 4</title>
-    <url>/2022/08/28/ToyProjects/Gather/gather-clonecoding-4/</url>
-    <content><![CDATA[<p>이전 포스트에 이어서 DELEVERY했던 내용 중 8.맵 구성하기 항목까지 기록한다.</p>
-<ol>
-<li><del>git repository 생성 및 각 모듈 셋업하기</del></li>
-<li><del>화면 뼈대 구성하기</del></li>
-<li><del>맵 구성하기</del></li>
-<li><del>캐릭터 이동 구현하기</del></li>
-<li><del>회의실 입장 구현하기</del></li>
-<li><strong>2인 음성 영상 챗 구현하기</strong><br>🎁 WebRTC 예제 이해 및 응용</li>
-<li><strong>다자 음성 영상 챗 구현하기</strong></li>
-<li><strong>미디어 설정 기능 구현하기</strong></li>
-</ol>
-<h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p><a href="https://codelabs.developers.google.com/codelabs/webrtc-web?hl=ko#0">codelab</a></p>
-<h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>]]></content>
-      <categories>
-        <category>토이프로젝트</category>
-        <category>개더타운 클론코딩</category>
-      </categories>
-      <tags>
-        <tag>토이프로젝트</tag>
-        <tag>WebRTC</tag>
-        <tag>Phaser</tag>
+        <tag>devops</tag>
       </tags>
   </entry>
   <entry>
@@ -510,22 +165,6 @@
       <tags>
         <tag>AI</tag>
         <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>playwith-1</title>
-    <url>/2022/09/06/ToyProjects/PlayWith/playwith-1/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>devops</title>
-    <url>/2022/09/11/Tech/DevOps/devops-1/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>devops</category>
-      </categories>
-      <tags>
-        <tag>devops</tag>
       </tags>
   </entry>
   <entry>
@@ -826,5 +465,366 @@
         <tag>Spring</tag>
         <tag>Annotation</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>[React] React CDN 버전으로 나를 표현하는 이력 페이지를 만들자</title>
+    <url>/2022/01/22/ToyProjects/Blog/Resume/</url>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.</p>
+<p>한 페이지에 내가 잘하는 것, 하고싶은 것, 했던 것에 대한 정보를 짜임새 있게 보여주기가 어렵더라구요… 감히 html 쪼가리가 나를 표현한다니! 라는 생각도 들고요 ㅋㅋㅋ<br>다른 한 편으로는 나에 대해서 정리하고 돌아보는 시간을 계속 미루고 싶었던 것 같기도 합니다.</p>
+<p>어떻게 하면 짜임새 있게 나를 표현할 수 있을까 고민했던 내용을 기록해볼게요.</p>
+<h1 id="계획"><a href="#계획" class="headerlink" title="계획"></a>계획</h1><p>우선 보여주고 싶은 정보의 특성에 따라 보여주는 방식도 달랐으면 했습니다.</p>
+<ul>
+<li>이력은 타임라인</li>
+<li>기술스택은 관련 직군이라면 알아볼 수 있을 만큼만 간결하게 뱃지로</li>
+<li>사이드 플젝 진행이력은 신뢰가 가도록 다양한 정보를 담아서</li>
+<li>성격이 드러나는 짧은 소개글</li>
+</ul>
+<p>또, 화면과 인터랙션해서 보여줘야하는 추가정보인지 / 처음부터 보여져야하는 필수정보인지에 따라서도 구현 방식이 달라져야 했구요.</p>
+<ul>
+<li>추가정보라면 툴팁과 아코디언을 적절히 사용해서 화면이 복잡해 보이지 얺도록</li>
+<li>필수정보라면 font style과 margin, padding 을 조절하여 화면이 복잡해 보이지 않도록</li>
+</ul>
+<p>🤔 뜬금없지만, 역시 내 product를 만든다고 생각하고 UX를 고민하는 작업은 항상 재미있는 것 같아요. 잘하고 싶어져서 더 알아보고, 더 알아보면 더 잘하게 되고…</p>
+<h1 id="구현"><a href="#구현" class="headerlink" title="구현"></a>구현</h1><p>이전 글에서 언급했듯 이 블로그는 Hexo와 Next theme 그리고 약간의 customizing으로 구현되어있는데요. 기존의 틀을 그대로 활용하여 마크다운 추가만으로도 이력 페이지를 꾸밀 수는 있겠지만 그걸로는 원하는 기능을 모두 구현할 수 없었고, 고민하지 않고 React의 도움을 받기로 했습니다.</p>
+<p>전체가 React로 구성되는 프로젝트는 아주 많이 만들어봤지만, html로 이미 구현된 페이지에 React Element를 삽입하는 형태로는 작업해본 적이 없었네요. 물론 공식 가이드 첫 부분에 나올 정도로 흔한 상식이긴하지만요… =)</p>
+<h2 id="React-ReactDOM-CDN-추가"><a href="#React-ReactDOM-CDN-추가" class="headerlink" title="React, ReactDOM CDN 추가"></a>React, ReactDOM CDN 추가</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;like_button_container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- global 변수로 React를 가져다 사용하기 위해 아래와 같이 CDN을 통해 js를 불러오도록 합니다. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">//아래의 예제는 React 공식 docs에서 제공하는 예제입니다.</span></span></span><br><span class="line"><span class="javascript"><span class="meta">      &quot;use strict&quot;</span>; <span class="comment">//올바르지 않은 문법을 사전에 검출할 수 있도록 strict 모드를 쓴다는 의미라네요.</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> e = React.createElement;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="class"><span class="keyword">class</span> <span class="title">LikeButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="built_in">super</span>(props);</span></span><br><span class="line"><span class="javascript">          <span class="built_in">this</span>.state = &#123; <span class="attr">liked</span>: <span class="literal">false</span> &#125;;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span> (<span class="built_in">this</span>.state.liked) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="string">&quot;You liked this.&quot;</span>;</span></span><br><span class="line"><span class="javascript">          &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">          <span class="keyword">return</span> e(</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;button&quot;</span>,</span></span><br><span class="line"><span class="javascript">            &#123; <span class="attr">onClick</span>: <span class="function">() =&gt;</span> <span class="built_in">this</span>.setState(&#123; <span class="attr">liked</span>: <span class="literal">true</span> &#125;) &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;Like&quot;</span></span></span><br><span class="line"><span class="javascript">          );</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> domContainer = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#like_button_container&quot;</span>);</span></span><br><span class="line"><span class="javascript">      ReactDOM.render(e(LikeButton), domContainer);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>이제 root/about/ 경로에 index.md 대신 index.html을 생성하고, 위의 코드를 넣어주면 끝입니다.</p>
+<h2 id="babel-CDN-추가"><a href="#babel-CDN-추가" class="headerlink" title="babel CDN 추가"></a>babel CDN 추가</h2><p>이제 React를 CDN으로 바로 가져다 쓸 수 있다는 것이 확인되었으니, 제가 쓰기 편한 코드로 바꾸고 싶어졌습니다.<br>위의 예제에서 저는 크게 두 가지가 불편해보였어요.</p>
+<ul>
+<li>createElement</li>
+<li>Class Component</li>
+</ul>
+<p>혹시 위의 예제에서 createElement 함수의 사용법을 보셨나요? 아래의 두 코드는 같은 동작을 위한 코드입니다.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;button onClick=&#123;doSomething&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">createElement(<span class="string">&quot;button&quot;</span>, &#123; <span class="attr">onClick</span>: doSomething &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>차이점은, jsx가 훨씬 더 html스럽게 생겨서 개발자 친화적인 것 같네요. 저도 jsx를 사용하는게 더 편하기 때문에 CDN으로부터 불러온 babel 스크립트가 jsx 형식을 알아먹을 수 있도록 수정해볼게요.</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;like_button_container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/@babel/standalone/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- type을 주는 것을 잊지 마세요. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span>&gt;</span><span class="javascript"><span class="meta"></span></span></span><br><span class="line"><span class="meta"><span class="javascript">      &quot;use strict&quot;</span>;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> &#123; useState &#125; = React;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> LikeButton = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> [liked, setLiked] = useState(<span class="literal">false</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> liked ? (</span></span><br><span class="line"><span class="javascript">          <span class="string">&quot;You liked this.&quot;</span></span></span><br><span class="line"><span class="javascript">        ) : (</span></span><br><span class="line"><span class="javascript">          <span class="xml"><span class="tag">&lt;<span class="name">button</span></span></span></span></span><br><span class="line"><span class="tag"><span class="xml"><span class="javascript">            <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="xml"><span class="javascript">              setLiked(true);</span></span></span><br><span class="line"><span class="xml"><span class="javascript">            &#125;&#125;</span></span></span><br><span class="line"><span class="xml"><span class="javascript">          &gt;</span></span></span><br><span class="line"><span class="xml"><span class="javascript">            Like</span></span></span><br><span class="line"><span class="xml"><span class="javascript">          <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span></span><br><span class="line"><span class="javascript">        );</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">LikeButton</span> /&gt;</span></span>, domContainer);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>짠! 이제 제가 쓰기 편한 형태로 어느정도 정리가 된 것 같습니다.</p>
+<h2 id="개발"><a href="#개발" class="headerlink" title="개발!"></a>개발!</h2><p>개발환경이 갖추어졌으니 아래의 주요 기능을 중심으로 개발하면 되겠습니다.</p>
+<ul>
+<li>이력 타임라인</li>
+<li>기술스택 뱃지목록</li>
+<li>사이드 플젝 진행이력</li>
+<li>성격이 드러나는 짧은 소개글</li>
+</ul>
+<p>(WIP) 생각날 때마다 추가 중입니다 =)</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>React</tag>
+        <tag>UI/UX</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Hexo] Hexo와 NexT 테마를 이용하여 내 입맛에 맞는 개발 블로그를 만들자</title>
+    <url>/2022/01/12/ToyProjects/Blog/hexo/</url>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>개발 블로그를 시작했을 때부터 tistory를 애용해왔는데, 최근 들어서는 좀 더 <strong>놀이터</strong> 같은 느낌의 블로그를 갖고 싶다는 생각이 들었음.<br>그래서 작년(2021년) 상반기 즈음 사이드 프로젝트로 <em>내 웹페이지를 만들어보자</em>는 계획을 세우게 되었고, 미루고 미루다가 드디어 올해(2022년) 첫 사이드 프로젝트로 다시 꺼내게 되었다.</p>
+<h1 id="요구사항"><a href="#요구사항" class="headerlink" title="요구사항"></a>요구사항</h1><p>고객(나)과 개발자(이것도 나)의 입장에서 여러가지 옵션을 재보았던 내용은 아래와 같다.</p>
+<p><strong>서버 비용은 들이고 싶지 않아요</strong></p>
+<ul>
+<li>처음에는 집에 굴러다니는 라즈베리파이에 올릴까 생각도 했는데 의외로 나도 모르는 사이에 전원을 꺼버리는 일이 잦고, update 하려면 서버에 붙어야한다는 점이 너무 번거로워서 몇 번 해보고 포기했다.</li>
+<li>정적 웹 사이트를 무료로 deploy할 수 있는 github page 를 선택하게 되었다. 나만 안쓰고 있었어…</li>
+</ul>
+<p><strong>웹사이트 구성을 직접 하는 건 어려울 것 같은데?</strong></p>
+<ul>
+<li>이것도 처음에는 내 취지 (<strong>놀이터</strong> 같은 블로그)에 맞게 처음부터 다 구성하려고 했었다. 하지만 막상 손을 대고 보니 고려할 부분이 정말정말 많더라… 검색이나 태그, 카테고리 기능을 추가하려고 하니까 구조를 잡는 것이 너무 부담스럽게 느껴졌다.</li>
+<li>검색 성능이 보장되는 태그나 카테고리를 구성하기 위해서 알고리즘과 자료구조부터 찾아봤고, 서버 비용을 들이더라도 elastic search 를 한 번 써볼까 spike도 해봤는데 ㅠㅠ 공부할 내용이 꽤 되는 것은 둘째치고 재미가 없었다. 그래서 얼마안가 포기.</li>
+</ul>
+<p><strong>정적 웹 사이트 생성기의 도움을 받자</strong></p>
+<ul>
+<li>github page를 사용하기로 정했을 때 Jekyll로 대표되는 정적 웹 사이트 생성기에 대해서 함께 찾아본 적은 있는데, theme가 모두 마음에 들지 않았던 것 같다.</li>
+<li>몇 개월 뒤에 검색 기능 구현에 지쳐서 찬찬히 다시 찾아봤는데, <a href="https://hexo.io/ko/index.html">Hexo</a> 라는 정적 웹 사이트 생성기에 <a href="https://theme-next.js.org/">NexT</a> theme이 눈에 들었다.</li>
+</ul>
+<p>Hexo 및 NexT 모두 가이드가 잘 되어있는 편이라, 이틀 정도로 github deploy 까지 완료 가능했다.</p>
+<h1 id="진행내용"><a href="#진행내용" class="headerlink" title="진행내용"></a>진행내용</h1><h2 id="Hexo-프로젝트-생성-및-구동"><a href="#Hexo-프로젝트-생성-및-구동" class="headerlink" title="Hexo 프로젝트 생성 및 구동"></a>Hexo 프로젝트 생성 및 구동</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h2 id="NexT-테마-적용"><a href="#NexT-테마-적용" class="headerlink" title="NexT 테마 적용"></a>NexT 테마 적용</h2><p>프로젝트 root 경로에서</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
+
+<p>그리고 hexo/_config.yml 에서</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="NexT-테마-커스터마이징-기본"><a href="#NexT-테마-커스터마이징-기본" class="headerlink" title="NexT 테마 커스터마이징 (기본)"></a>NexT 테마 커스터마이징 (기본)</h2><p><a href="https://theme-next.js.org/docs/getting-started/">NexT docs</a>를 참고하여 커스터마이징.<br>대부분의 기본 옵션은 _config.next.yml에 명시되어있어서, flag나 값을 바꿔주는 방식으로 쉽게 변경이 가능하다.</p>
+<h2 id="NexT-테마-커스터마이징-고오급"><a href="#NexT-테마-커스터마이징-고오급" class="headerlink" title="NexT 테마 커스터마이징 (고오급)"></a>NexT 테마 커스터마이징 (고오급)</h2><p>style이나 html을 추가하고 싶은 경우, _config.next.yml에서 아래의 항목을 주석 해제하고 해당 경로에 파일을 만들어서 추가하고 싶은 style이나 html을 넣어주면 된다.</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">head:</span> <span class="string">source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="attr">variable:</span> <span class="string">source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+
+<p>예를 들어 나는 google AdSense를 추가하고 싶었는데, html head 태그 안에 script를 넣을 방법이 필요했다.<br>그럴때 위 의 custom_file_path 에서 head 항목을 주석 해제하고 해당 경로에 head.njk 파일을 만들어준 다음 아래와 같이 입력해주면</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;google-site-verification&quot;</span> <span class="attr">content</span>=<span class="string">&quot;some_value&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">async</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=some_value&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>hexo generate</code>명령어 수행 시 위의 html 코드가 head 하단에 삽입된다.</p>
+<p>또, style 커스터마이징도 동일한 방법으로 가능하다.<br>custom_file_path 에서 style 항목을 주석 해제하고 해당 경로에 variables.styl 파일을 만들어준 다음 아래와 같이 입력해주면</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.search-popup</span></span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>hexo generate</code>명령어 수행 시 원하는대로 style이 잘 변경된 것을 확인할 수 있다.</p>
+<p>+) 위의 방법으로 style 커스터마이징을 하면 전반적인 통일성이 깨지므로 theme 사용의 이점이 퇴색될 수 있을 것 같아서 좀 더 찾아봤는데 (.node_modules/hexo-theme-next 에서 직접 열어볼 수 있다. )<br>기본적으로 font family나 size, 대표 color 는 variable로 관리되고 있음을 확인할 수 있었다. 따라서 테마 색상, 폰트 정도만 변경하고자 한다면 variables.styl에 아래와 같이 써주는게 좋겠다.</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="variable">$theme</span>-<span class="attribute">color</span> = <span class="number">#FFD460</span>;</span><br><span class="line"><span class="variable">$brand</span>-<span class="attribute">color</span> = <span class="number">#2D4059</span>;</span><br><span class="line"><span class="variable">$text</span>-<span class="attribute">color</span> = <span class="number">#2D4059</span>;</span><br><span class="line"><span class="variable">$font</span>-family-chinese = <span class="string">&#x27;IBM Plex Sans KR&#x27;</span>, sans-serif;</span><br><span class="line"><span class="variable">$font</span>-family-base         = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-logo         = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-headings     = <span class="variable">$font</span>-family-chinese;</span><br><span class="line"><span class="variable">$font</span>-family-posts        = <span class="variable">$font</span>-family-chinese;</span><br></pre></td></tr></table></figure>
+
+<h2 id="github-page-배포"><a href="#github-page-배포" class="headerlink" title="github page 배포"></a>github page 배포</h2><p>_config.yml에 deploy target을 명시한다.</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/ga0hyeon/ga0hyeon.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">gh-pages</span></span><br></pre></td></tr></table></figure>
+
+<p>deployer를 설치하고</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></table></figure>
+
+<p>배포 명령어를 수행하면 끝이다.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>+) github credential 설정이 되어있지 않은 경우 에러 메시지가 발생할 수 있다. 흔한 에러이므로 구글링하면 금방 해결 가능하다.</p>
+<h2 id="2022-09-02-추가-highlight-js-적용하기"><a href="#2022-09-02-추가-highlight-js-적용하기" class="headerlink" title="(2022.09.02 추가) highlight.js 적용하기"></a>(2022.09.02 추가) highlight.js 적용하기</h2><p>개발 블로그이다 보니 코드 블럭을 매우 자주 사용하는데, 색이 없으니 못생겨보여서 테마를 적용했다.<br><a href="https://theme-next.js.org/highlight/">테마 목록</a>중에 원하는 것을 고른뒤 아래 html의 <code>&#123;스타일명&#125;</code> 자리에 넣어주면 된다. 나는 rainbow를 선택했다 ㅎㅎ</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="comment"># Code Highlight theme</span></span><br><span class="line">  <span class="comment"># All available themes: https://theme-next.js.org/highlight/</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="attr">light:</span> &#123; <span class="string">스타일명</span> &#125;</span><br><span class="line">    <span class="attr">dark:</span> &#123; <span class="string">스타일명</span> &#125;</span><br><span class="line">  <span class="comment"># Add copy button on codeblock</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">    <span class="attr">style:</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="그리고-더-해야할일"><a href="#그리고-더-해야할일" class="headerlink" title="그리고 더 해야할일"></a>그리고 더 해야할일</h1><ul>
+<li><input disabled="" type="checkbox"> github actions로 배포 자동화하기</li>
+<li><input disabled="" type="checkbox"> 사이드바에 category tree가 보이게 하고싶다!</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>NexT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[토이프로젝트] 개더타운 클론코딩 - 1</title>
+    <url>/2022/07/20/ToyProjects/Gather/gather-clonecoding-1/</url>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>나는 코딩이던 미싱이던 그림이던 단시간에 머리를 풀가동해서 결과물을 끌어내는것을 좋아한다.<br>사실 이런 챌린지를 기획할 때 제일 어려운 점은 목표를 정하는 것이다. 끝내는 데에 시간이 N시간 정도면 되겠다 싶으면서도 그 시간 동안 끊임없이 흥미와 도전정신을 끌어올릴 수 있는 목표를 정해야하기 때문이다. 말 그대로 시작이 반인 셈 ㅎㅎ</p>
+<p>멘탈 상태가 좋을 때는 이런 아이디어가 샘솟는데 최근에는 이래저래 의욕이 하나도 없어서 침체되어있다가… 간만에 주말에 시간이 생겨서 일을 벌려 보았다.</p>
+<p>요즘 업무하면서 정말 유용하게 사용하고 있는 개더타운을 참고하여 화상채팅 웹사이트를 구현해보려고 한다. 이런 주제를 선정하게 된 이유는 다음과 같다.</p>
+<ul>
+<li>정제된 전체 가이드나 소스가 흔히 돌아다니지 않는 듯 하다. 개발하면서 제일 꿀맛은 개척하는 맛이니까</li>
+<li>평소에 궁금했던 웹 기술 분야를 세 개나 체험할 수 있다.<ul>
+<li>WebSocket 통신 (을 사용하는 줄 알았지만 뒤에 가서 WebRTC 라는 것을 깨닫게 될 예정) 체험하기</li>
+<li>HTML5 게임 개발 라이브러리 또는 프레임워크 서칭 및 체험하기</li>
+<li>인기 있는 디자인 시스템 서칭 및 체험하기</li>
+</ul>
+</li>
+</ul>
+<h1 id="PREPARATION"><a href="#PREPARATION" class="headerlink" title="PREPARATION"></a>PREPARATION</h1><h2 id="개더타운은-무엇으로-만들어져있나"><a href="#개더타운은-무엇으로-만들어져있나" class="headerlink" title="개더타운은 무엇으로 만들어져있나?"></a>개더타운은 무엇으로 만들어져있나?</h2><p>REST api를 주로 설계/개발해왔기 때문에 실시간 통신에 대해 아는 것이 없어서, 막연하게 ‘개더타운은 WebSocket으로 뭔가 되어있지 않을까?’ 라고 생각했다.<br>물론 그러면서도 어떻게 그 많은 사람이 음성 / 비디오를 서로 전송하고 있을까… 서버가 중간에서 이 많은 미디어를 다 나누어주고 있다면 개더타운은 어떻게 공짜인걸까… 생각은 했으나 그 뒤까지는 몰랐다.<br>찾아보니 개더타운은 P2P로 미디어 또는 임의의 데이터를 주고받을 수 있는 WebRTC를 사용하고 있고, WebRTC은 이미 오래전부터 많은 곳에서 (게임, 화상회의, 휘발성 채팅) 쓰이고 있다고 한다. 떠올려보니 회의 참여자 중 로컬 자원을 많이 쓰고 있는 사람이 포함되어 있을 때 내 게더타운이 약간 느려지는 현상이 종종 있었는데 P2P라서 그랬던 걸 수 있다는 생각이 든다.</p>
+<p>메인 기술 셋을 알아냈으니 WebRTC에 대해 구글링해봤다. 생각보다 공식 가이드 및 샘플이 탄탄해서 처음 접하는 기술임에도 왠지 순탄히 진행될 것 같다. 찾은 리소스는 아래와 같이 리스트업 해둔다.</p>
+<ul>
+<li><a href="https://webrtc.org/getting-started/firebase-rtc-codelab">잘 정리된 공식 가이드</a></li>
+<li><a href="https://webrtc.github.io/samples">잘 정리된 공식 샘플코드</a></li>
+<li><a href="https://developer.mozilla.org/ko/docs/Web/API/WebRTC_API/Signaling_and_video_calling">Mozilla의 WebRTC 설명</a></li>
+</ul>
+<h2 id="어떻게-만들까"><a href="#어떻게-만들까" class="headerlink" title="어떻게 만들까?"></a>어떻게 만들까?</h2><p>개더타운에 접속해서 F12도 켜보고, 구글링으로 찾은 가이드도 읽어어 보니 어느정도 아키텍처는 그려진 것 같다.<br><image src="/images/webrtc_layout.png" /><br>각 항목에 대한 설명은 다음과 같다.</p>
+<ul>
+<li>Signaling Server 구성 : <strong>Django with djangoRestFramework</strong><br>WebRTC 자체는 P2P 방식이라 미디어 교환 자체를 위해서는 중간다리 역할을 하는 서버가 필요없지만, 맨 처음 통신을 시작할 때 Client 간의 메시지 포맷 등을 협의 (Signaling) 하기 위한 서버가 필요하다고 한다. 요건 오랜만에 Django로 만들어보기로 한다.</li>
+<li>화면구성<ul>
+<li>뼈대 : <strong>React.js with Chakra UI</strong><br>화면 디자인 및 스타일링 작업도 재미있고 신나는 일이지만 요즘 표준 없는 UX/UI (정확히는 FE 개발자 - UX/UI 협업 표준의 부재(?) 또는 어려움(?)..)에 현타를 느끼고 있어서, 유명한 디자인 시스템을 써보기로 했다. 검색하면 여러 개의 빵빵한 디자인 시스템이 나오는데, 그 중 나는 <a href="https://www.npmjs.com/package/@chakra-ui/react">Chakra UI</a>를 써보기로 했다.</li>
+<li>맵 및 캐릭터 렌더 : <strong>Phaser</strong><br>HTML5 게임 개발 라이브러리 / 프레임워크에 대해서도 서칭을 했고, 최종으로는 Phaser와 PixiJS 두 개가 후보에 올랐다. 처음 관심 가져본 분야여서 판단을 내리기 어려웠는데 <a href="https://stackoverflow.com/questions/38509629/decide-pixi-js-or-phaser">요 글</a>이 큰 도움이 됐다. 내가 이해한 바를 키워드로 요약하자면 편리함(Phaser) vs 자유도(PixiJS) 같다. PixiJS를 쓰면 좀 더 deep하게 이해할 수 있을 것 같아서 10초 정도 고민됐는데, 욕심 같아서 포기했다. 이번에는 Phaser를 사용해보고, 다음에 HTML5 게임 개발이 정말 하고 싶어지면 그때 PixiJS를 써보자.<br>+) 뜬금없지만 <a href="https://phaser.io/">Phaser 웹사이트</a>가 너무나 2000년대 감성이다.</li>
+</ul>
+</li>
+<li>미디어 전송 : <strong>WebRTC</strong></li>
+</ul>
+<h2 id="무엇부터-어떤-순서로-만들까"><a href="#무엇부터-어떤-순서로-만들까" class="headerlink" title="무엇부터 어떤 순서로 만들까?"></a>무엇부터 어떤 순서로 만들까?</h2><p>이번 사이드 프로젝트에서 제일 큰 수확이 요 스텝이라고 생각한다. 일정에 쫒기며 떠밀리듯이 개발하는 것이 요즘 내 개발 기피(?)의 원인이라고 생각하기 때문에 토이 프로젝트 만큼은 그렇게 진행하지 않으려고 노력했다. 사실 과거를 돌아보면 나는 토이 프로젝트도 그렇게 일정에 쫒기며 했던 사람이었긴하다 ㅋㅋㅋ 물론 오버웤이 내 의지였냐는 또 다른 문제긴 하지만…</p>
+<hr>
+<p>아모튼!! 이제는 그렇게 일하지 않으리라.. 다짐하면서 개발에 착수하기 전 내가 한 고민들을 적어보면 다음과 같다.</p>
+<p><strong>고민1️⃣</strong> 다음 중 내가 우선 시 하는 것은 무엇인가?</p>
+<ul>
+<li>내가 할애하려고 계획한 에포트 이상은 들이지 않고 진행하기</li>
+<li>내가 마무리하려고 계획한 날짜까지는 끝내기</li>
+<li>내가 계획했던 수준까지는 결과물의 퀄리티 내기<ul>
+<li>외적인 퀄리티 (기능성, 사용성, 심미성 등등)</li>
+<li>내적인 퀄리티 (코드 품질)</li>
+</ul>
+</li>
+</ul>
+<p><strong>고민2️⃣</strong> 목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?</p>
+<p><strong>고민3️⃣</strong> 작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?</p>
+<hr>
+<p>그리고 위 고민에 대한 결론은 요렇게 냈다. 물론 앞으로 계속해서 개정해나갈 예정이다 ㅎㅎ 실험🧪적인 것도 있고 ㅋㅋㅋ</p>
+<p><strong>고민1️⃣</strong> 다음 중 내가 우선 시 하는 것은 무엇인가?<br><strong>결론💡</strong> 이 토이 프로젝트에서 나는 <code>내적인 퀄리티 &gt; 마감일 지키기 &gt; 에포트 지키기 &gt; 외적인 퀄리티</code> 순서대로 중요하게 생각할 것이다.</p>
+<ol>
+<li>내적인 퀄리티 기준 : <code>Github public repo에 공개할 수 있는 수준</code> 으로</li>
+<li>마감일 지키기 기준 : 8/28</li>
+<li>에포트 지키기 기준 : <code>평일은 MAX 하루 3시간 이내, 주말은 하루 골라서 MAX 반나절만</code> 투자</li>
+<li>외적인 퀄리티 기준 : 뭐 그냥 데모 가능한 정도로만?<br>나는 요게 제일 신선했다. 실제로 내가 토이 플젝을 하면서 들였던 시간의 꽤 많은 부분이 외적인 퀄리티에 있었는데,<br>정작 진지하게 내가 이것을 얼마나 중요하게 생각하는가를 생각해보았더니 사실은 내가 외적인 퀄리티의 중요도를 별로 높게 생각하고 있지 않았다. 작은 부분이 눈에 거슬리면 ‘에이 뭐 별로 안걸리는데 지금 금방 고칠까’ 하는 마음에 바로 바로 코드에 손을 대는 것이 누적되어 결과적으로 시간을 많이 쏟은 셈이 되었던 것 같다. 한 눈을 팔았다고 해야하나… 아무튼 시간을 내어 이런 고민을 했던 것이 이번 토이 프로젝트 최고의 수확인 것 같다. 👍</li>
+</ol>
+<p><strong>고민2️⃣</strong> 목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?<br><strong>결론💡</strong> 이 토이 프로젝트에서 나는 성취감을 느낄수 있는 최소한의 단위로 일을 쪼개고, 요렇게 쪼갠 일들을 다시 연관된 것들 끼리 뭉쳐서 진행할 것이다. 각 항목에서 성취할 수 있는 내용은 🎁 표시로 적어봤다.</p>
+<ol>
+<li>git repository 생성 및 각 모듈 셋업하기<br>🎁 React, Django 셋업과정</li>
+<li>화면 뼈대 구성하기<br>🎁 Chakra 사용법</li>
+<li>맵 구성하기<br>🎁 Phaser 사용법<br>🎁 Phaser와 React.js를 함께 사용하는 과정</li>
+<li>캐릭터 이동 구현하기</li>
+<li>회의실 입장 구현하기</li>
+<li>2인 음성 영상 챗 구현하기<br>🎁 WebRTC 예제 이해 및 응용</li>
+<li>다자 음성 영상 챗 구현하기</li>
+<li>미디어 설정 기능 구현하기</li>
+</ol>
+<p><strong>고민3️⃣</strong> 작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?<br><strong>결론🧪</strong> 이 토이 프로젝트에서 나는 현재 작업 마무리 직후 다음 작업 내용에 대한 서칭을 하고, 실제 다음 작업 까지 약간의 텀을 두고 스스로에게 고민할 시간을 의도적으로 줄 것이다.</p>
+<ul>
+<li>생각보다 멍때릴때 나오는 코드가 각잡고 짠 코드보다 선방하는 것 같아서 ㅋㅋㅋ 이번에 실험해본다.</li>
+</ul>
+<p>DELEVERY 단계부터는 내용이 길어져서 다음 포스트에서 이어서 정리한다 :)</p>
+]]></content>
+      <categories>
+        <category>토이프로젝트</category>
+        <category>개더타운 클론코딩</category>
+      </categories>
+      <tags>
+        <tag>토이프로젝트</tag>
+        <tag>WebRTC</tag>
+        <tag>Phaser</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[토이프로젝트] 개더타운 클론코딩 - 2</title>
+    <url>/2022/07/28/ToyProjects/Gather/gather-clonecoding-2/</url>
+    <content><![CDATA[<p>이전 포스트에서는 MOTIVATION, PREPARATION 까지 정리했고, 이어서 DELEVERY했던 내용 중 3.맵 구성하기 항목까지 기록한다.</p>
+<ol>
+<li><strong>git repository 생성 및 각 모듈 셋업하기</strong><br>🎁 React, Django 셋업과정</li>
+<li><strong>화면 뼈대 구성하기</strong><br>🎁 Chakra 사용법</li>
+<li><strong>맵 구성하기</strong><br>🎁 Phaser 사용법<br>🎁 Phaser와 React.js를 함께 사용하는 과정</li>
+<li>캐릭터 이동 구현하기</li>
+<li>회의실 입장 구현하기</li>
+<li>2인 음성 영상 챗 구현하기</li>
+<li>다자 음성 영상 챗 구현하기</li>
+<li>미디어 설정 기능 구현하기</li>
+</ol>
+<h1 id="DELEVERY"><a href="#DELEVERY" class="headerlink" title="DELEVERY"></a>DELEVERY</h1><h2 id="1-git-repository-생성-및-각-모듈-셋업하기"><a href="#1-git-repository-생성-및-각-모듈-셋업하기" class="headerlink" title="1. git repository 생성 및 각 모듈 셋업하기"></a>1. git repository 생성 및 각 모듈 셋업하기</h2><p><a href="https://github.com/ga0hyeon/cowork-saga">git repository</a>를 만들어주고, signalingServer와 client 폴더에 각각 Django와 React 셋업을 진행했다.</p>
+<h3 id="Django-셋업-with-djangoRestFramework"><a href="#Django-셋업-with-djangoRestFramework" class="headerlink" title="Django 셋업 with djangoRestFramework"></a>Django 셋업 with djangoRestFramework</h3><p><a href="https://docs.djangoproject.com/ko/4.0/intro/">django docs</a>를 참고하여 초기 세팅을 진행한다.<br>+) mac에 python 2.7이 기본으로 깔려있어서 3.x 버전의 python을 받아주었다. python3을 기본으로 바라보도록 bashrc에도 alias를 추가해준다.</p>
+<p>django를 설치해주고</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m pip install Django</span><br></pre></td></tr></table></figure>
+
+<p>설치 후 잘 설치되었는지 버전을 확인한다.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m django --version</span><br></pre></td></tr></table></figure>
+
+<p>그리고 아래 명령어로 현재 경로에 django 프로젝트를 생성한다.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python -m django startproject gather_clone_siganlling_server</span><br></pre></td></tr></table></figure>
+
+<p>지정해준 폴더 (나의 경우 gather_clone_siganlling_server)로 이동하여 아래의 명령어를 수행하면, 짜잔! 기본포트(8000)에 샘플페이지가 뜬다.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python manage.py runserver</span><br></pre></td></tr></table></figure>
+
+<p>나는 웹서버가 아니라 REST Api 서버로 사용할 것이므로, <a href="https://www.django-rest-framework.org/#installation">django-rest-framework docs</a>를 참고하여 djangoRestFramework를 깔아주자.<br>example까지 따라서 만들면, 이제 localhost:8000에 이전의 django 샘플페이지가 아니라 swagger와 유사한 형태의 REST framework 페이지가 뜬다.</p>
+<h3 id="React-셋업-with-Chakra-UI-amp-Adapter-js"><a href="#React-셋업-with-Chakra-UI-amp-Adapter-js" class="headerlink" title="React 셋업 with Chakra UI &amp; Adapter.js"></a>React 셋업 with Chakra UI &amp; Adapter.js</h3><ol>
+<li>CRA로 React 앱 초기 세팅</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npx create-react-app gather-clone-client --template @chakra-ui/typescript</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Adapter.js 라이브러리 설치<br>Adapter.js는 Polyfill(브라우저에서 지원하지 않는 최신 기능을 사용할 수 있도록 도와주는 코드의 모음)과 Shim(이미 존재하는 코드의 동작을 바로잡는데에 사용하는 코드의 모음)을 사용하여 WebRTC의 브라우저 간 호환성 문제를 해결해둔 라이브러리이다.<br>WebRTC가 계속해서 변화하고 있는 기술이고, 각 브라우저별로 지원 수준이 다르기 때문에 일괄 적용이 쉽지 않은 모양이다.</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install webrtc-adapter</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-화면-뼈대-구성하기"><a href="#2-화면-뼈대-구성하기" class="headerlink" title="2. 화면 뼈대 구성하기"></a>2. 화면 뼈대 구성하기</h2><p>위에서 만들어준 React 프로젝트 폴더에서 화면 뼈대 구성을 이어서 진행한다. 화면 구조는 아래와 매우 간단하다 :)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">App.tsx</span><br><span class="line">pages</span><br><span class="line"> ⌞IntroPage.tsx</span><br><span class="line"> ⌞MeetingPage.tsx</span><br></pre></td></tr></table></figure>
+
+<p>IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현한다. 우선은 구분을 위해 이름 정도만 입력받도록 하자.</p>
+<h2 id="3-맵-구성하기"><a href="#3-맵-구성하기" class="headerlink" title="3. 맵 구성하기"></a>3. 맵 구성하기</h2><p>맵 구성에는 Phaser를 사용한다.</p>
+<h3 id="Phaser란"><a href="#Phaser란" class="headerlink" title="Phaser란?"></a>Phaser란?</h3><p>cross-browser HTML5 게임을 쉽고 빠르게 만들 수 있도록하는 프레임워크.</p>
+<h3 id="Phaser를-사용하기-위한-추가적인-개발환경-setup"><a href="#Phaser를-사용하기-위한-추가적인-개발환경-setup" class="headerlink" title="Phaser를 사용하기 위한 추가적인 개발환경 setup"></a>Phaser를 사용하기 위한 추가적인 개발환경 setup</h3><p>Phaser가 html 기반으로 게임을 만들수 있게 해준다고 하더라도, 브라우저에서는 원칙적으로 로컬 리소스에 접근할 수 없기 때문에 html 파일 만으로는 Phaser 게임을 실행할 수 없다. (사실 이 개념 예전에도 접했었는데 그때는 바로 이해가 안되었는데.. 지금은 후루룩 읽힌다. 아주 좋다!!)따라서 html과 리소스를 올릴 서버가 필요하고, 공식 가이드에서는 python, php, node.js 정도를 언급하고 있다.</p>
+<p>나는 위에서 이미 React로 페이지 뼈대를 구성했고, 운영 단계까지 올릴 생각이 없으므로 React 개발 서버면 충분하다.</p>
+<p>그리고 가이드에 IDE도 몇 가지 언급하고있는데, brakets 같은 HTML 편집기로도 개발이 가능하다고 한다. 재밌다. 물론 나는 위에서 세팅해둔 VS code를 사용한다 ㅎㅎ</p>
+<p>추가적인 서버 셋업과 IDE 설정이 필요 없으니 Phaser 사용을 위해서는 요 정도만 추가로 해주면 되겠다.</p>
+<ul>
+<li>npm으로 Phaser 설치</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install phaser</span><br></pre></td></tr></table></figure>
+
+<h3 id="가이드를-따라-샘플-게임-만들기"><a href="#가이드를-따라-샘플-게임-만들기" class="headerlink" title="가이드를 따라 샘플 게임 만들기"></a>가이드를 따라 샘플 게임 만들기</h3><p>본격적으로 구미에 맡는 맵을 만들기 전에 Phaser에 익숙해질 겸 가이드를 따라 샘플 게임을 만들어본다. 가이드로 제공된 소스는 html script라서, 글로벌 변수가 따로 없는 react에 맞게 ref, state를 사용해서 약간 수정해봤다. 잘 뜬다 :)<br>(making-your-first-phaser-3-game)[<a href="https://phaser.io/tutorials/making-your-first-phaser-3-game]">https://phaser.io/tutorials/making-your-first-phaser-3-game]</a></p>
+<p>이 샘플 소스만으로도 회의실 구성에 필요한 요소는 어느정도 구현이 가능해보인다. 굿!</p>
+<p><img src="/images/gather_clone_coding/1.png" alt="Sample Game"></p>
+<details>
+<summary>샘플 소스 전문</summary>
+
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Phaser <span class="keyword">from</span> <span class="string">&quot;phaser&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useEffect, useRef, useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> SamplePage = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> variables = useRef&lt;&#123;</span><br><span class="line">    <span class="attr">platforms</span>: Phaser.Physics.Arcade.StaticGroup;</span><br><span class="line">    player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;</span><br><span class="line">    cursors: Phaser.Types.Input.Keyboard.CursorKeys;</span><br><span class="line">    stars: Phaser.Physics.Arcade.Group;</span><br><span class="line">  &#125;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> config = useRef&lt;Phaser.Types.Core.GameConfig&gt;(&#123;</span><br><span class="line">    <span class="attr">type</span>: Phaser.AUTO,</span><br><span class="line">    <span class="attr">parent</span>: <span class="string">&quot;sample-page&quot;</span>, <span class="comment">//NOTE : 아래 div의 id값을 넣어주면 된다.</span></span><br><span class="line">    <span class="attr">width</span>: <span class="number">800</span>,</span><br><span class="line">    <span class="attr">height</span>: <span class="number">600</span>,</span><br><span class="line">    <span class="attr">physics</span>: &#123;</span><br><span class="line">      <span class="attr">default</span>: <span class="string">&quot;arcade&quot;</span>,</span><br><span class="line">      <span class="attr">arcade</span>: &#123;</span><br><span class="line">        <span class="attr">gravity</span>: &#123; <span class="attr">y</span>: <span class="number">200</span> &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">scene</span>: &#123;</span><br><span class="line">      <span class="attr">preload</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.load.image(<span class="string">&quot;sky&quot;</span>, <span class="string">&quot;assets/sky.png&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.load.image(<span class="string">&quot;ground&quot;</span>, <span class="string">&quot;assets/platform.png&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.load.image(<span class="string">&quot;star&quot;</span>, <span class="string">&quot;assets/star.png&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.load.image(<span class="string">&quot;bomb&quot;</span>, <span class="string">&quot;assets/bomb.png&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.load.spritesheet(<span class="string">&quot;dude&quot;</span>, <span class="string">&quot;assets/dude.png&quot;</span>, &#123;</span><br><span class="line">          <span class="attr">frameWidth</span>: <span class="number">32</span>,</span><br><span class="line">          <span class="attr">frameHeight</span>: <span class="number">48</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">create</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.add.image(<span class="number">400</span>, <span class="number">300</span>, <span class="string">&quot;sky&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//NOTE : config에 physics를 정의해두어야 정상적으로 동작한다</span></span><br><span class="line">        <span class="keyword">const</span> platforms = <span class="built_in">this</span>.physics.add.staticGroup();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//NOTE : static physics body의 크기를 변경했으므로 refreshBody 호출</span></span><br><span class="line">        platforms.create(<span class="number">400</span>, <span class="number">568</span>, <span class="string">&quot;ground&quot;</span>).setScale(<span class="number">2</span>).refreshBody();</span><br><span class="line"></span><br><span class="line">        platforms.create(<span class="number">600</span>, <span class="number">400</span>, <span class="string">&quot;ground&quot;</span>);</span><br><span class="line">        platforms.create(<span class="number">50</span>, <span class="number">250</span>, <span class="string">&quot;ground&quot;</span>);</span><br><span class="line">        platforms.create(<span class="number">750</span>, <span class="number">220</span>, <span class="string">&quot;ground&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> player = <span class="built_in">this</span>.physics.add.sprite(<span class="number">100</span>, <span class="number">450</span>, <span class="string">&quot;dude&quot;</span>);</span><br><span class="line">        player.setBounce(<span class="number">0.2</span>);</span><br><span class="line">        player.setCollideWorldBounds(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.anims.create(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;left&quot;</span>,</span><br><span class="line">          <span class="attr">frames</span>: <span class="built_in">this</span>.anims.generateFrameNumbers(<span class="string">&quot;dude&quot;</span>, &#123; <span class="attr">start</span>: <span class="number">0</span>, <span class="attr">end</span>: <span class="number">3</span> &#125;),</span><br><span class="line">          <span class="attr">frameRate</span>: <span class="number">10</span>,</span><br><span class="line">          <span class="attr">repeat</span>: -<span class="number">1</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.anims.create(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;turn&quot;</span>,</span><br><span class="line">          <span class="attr">frames</span>: [&#123; <span class="attr">key</span>: <span class="string">&quot;dude&quot;</span>, <span class="attr">frame</span>: <span class="number">4</span> &#125;],</span><br><span class="line">          <span class="attr">frameRate</span>: <span class="number">20</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.anims.create(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;right&quot;</span>,</span><br><span class="line">          <span class="attr">frames</span>: <span class="built_in">this</span>.anims.generateFrameNumbers(<span class="string">&quot;dude&quot;</span>, &#123; <span class="attr">start</span>: <span class="number">5</span>, <span class="attr">end</span>: <span class="number">8</span> &#125;),</span><br><span class="line">          <span class="attr">frameRate</span>: <span class="number">10</span>,</span><br><span class="line">          <span class="attr">repeat</span>: -<span class="number">1</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.physics.add.collider(player, platforms);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> cursors = <span class="built_in">this</span>.input.keyboard.createCursorKeys();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> scoreText = <span class="built_in">this</span>.add.text(<span class="number">16</span>, <span class="number">16</span>, <span class="string">&quot;score: 0&quot;</span>, &#123;</span><br><span class="line">          <span class="attr">fontSize</span>: <span class="string">&quot;32px&quot;</span>,</span><br><span class="line">          <span class="attr">color</span>: <span class="string">&quot;#fff&quot;</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> stars = <span class="built_in">this</span>.physics.add.group(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;star&quot;</span>,</span><br><span class="line">          <span class="attr">repeat</span>: <span class="number">11</span>,</span><br><span class="line">          <span class="attr">setXY</span>: &#123; <span class="attr">x</span>: <span class="number">12</span>, <span class="attr">y</span>: <span class="number">0</span>, <span class="attr">stepX</span>: <span class="number">70</span> &#125;,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        stars.children.iterate(<span class="function"><span class="keyword">function</span> (<span class="params">child</span>) </span>&#123;</span><br><span class="line">          (child <span class="keyword">as</span> any).setBounceY(Phaser.Math.FloatBetween(<span class="number">0.4</span>, <span class="number">0.8</span>));</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.physics.add.collider(stars, platforms);</span><br><span class="line">        <span class="built_in">this</span>.physics.add.overlap(</span><br><span class="line">          player,</span><br><span class="line">          stars,</span><br><span class="line">          <span class="function">(<span class="params">player, star</span>) =&gt;</span> &#123;</span><br><span class="line">            (star <span class="keyword">as</span> any).disableBody(<span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line">            setScore(<span class="function">(<span class="params">prev</span>) =&gt;</span> &#123;</span><br><span class="line">              scoreText.setText(<span class="string">&quot;Score: &quot;</span> + (prev + <span class="number">1</span>));</span><br><span class="line">              <span class="keyword">return</span> prev + <span class="number">1</span>;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (stars.countActive(<span class="literal">true</span>) === <span class="number">0</span>) &#123;</span><br><span class="line">              stars.children.iterate(<span class="function"><span class="keyword">function</span> (<span class="params">child</span>) </span>&#123;</span><br><span class="line">                (child <span class="keyword">as</span> any).enableBody(</span><br><span class="line">                  <span class="literal">true</span>,</span><br><span class="line">                  (child <span class="keyword">as</span> any).x,</span><br><span class="line">                  <span class="number">0</span>,</span><br><span class="line">                  <span class="literal">true</span>,</span><br><span class="line">                  <span class="literal">true</span></span><br><span class="line">                );</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">              <span class="keyword">const</span> x =</span><br><span class="line">                (player <span class="keyword">as</span> any).x &lt; <span class="number">400</span></span><br><span class="line">                  ? Phaser.Math.Between(<span class="number">400</span>, <span class="number">800</span>)</span><br><span class="line">                  : Phaser.Math.Between(<span class="number">0</span>, <span class="number">400</span>);</span><br><span class="line"></span><br><span class="line">              <span class="keyword">const</span> bomb = bombs.create(x, <span class="number">16</span>, <span class="string">&quot;bomb&quot;</span>);</span><br><span class="line">              bomb.setBounce(<span class="number">1</span>);</span><br><span class="line">              bomb.setCollideWorldBounds(<span class="literal">true</span>);</span><br><span class="line">              bomb.setVelocity(Phaser.Math.Between(-<span class="number">200</span>, <span class="number">200</span>), <span class="number">20</span>);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="literal">undefined</span>,</span><br><span class="line">          <span class="built_in">this</span></span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> bombs = <span class="built_in">this</span>.physics.add.group();</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.physics.add.collider(bombs, platforms);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.physics.add.collider(</span><br><span class="line">          player,</span><br><span class="line">          bombs,</span><br><span class="line">          <span class="function">(<span class="params">player, bomb</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.physics.pause();</span><br><span class="line"></span><br><span class="line">            (player <span class="keyword">as</span> any).setTint(<span class="number">0xff0000</span>);</span><br><span class="line"></span><br><span class="line">            <span class="built_in">this</span>.anims.play(<span class="string">&quot;turn&quot;</span>, player);</span><br><span class="line"></span><br><span class="line">            <span class="built_in">this</span>.add.text(<span class="number">240</span>, <span class="number">300</span>, <span class="string">&quot;GAME OVER&quot;</span>, &#123;</span><br><span class="line">              <span class="attr">fontSize</span>: <span class="string">&quot;64px&quot;</span>,</span><br><span class="line">              <span class="attr">color</span>: <span class="string">&quot;#0xff00&quot;</span>,</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="literal">undefined</span>,</span><br><span class="line">          <span class="built_in">this</span></span><br><span class="line">        );</span><br><span class="line">        variables.current = &#123;</span><br><span class="line">          platforms,</span><br><span class="line">          player,</span><br><span class="line">          cursors,</span><br><span class="line">          stars,</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">update</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (variables.current) &#123;</span><br><span class="line">          <span class="keyword">const</span> &#123; cursors, player &#125; = variables.current;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (cursors.left.isDown) &#123;</span><br><span class="line">            player.setVelocityX(-<span class="number">160</span>);</span><br><span class="line">            player.anims.play(<span class="string">&quot;left&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">          &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cursors.right.isDown) &#123;</span><br><span class="line">            player.setVelocityX(<span class="number">160</span>);</span><br><span class="line">            player.anims.play(<span class="string">&quot;right&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            player.setVelocityX(<span class="number">0</span>);</span><br><span class="line">            player.anims.play(<span class="string">&quot;turn&quot;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (cursors.up.isDown &amp;&amp; player.body.touching.down) &#123;</span><br><span class="line">            player.setVelocityY(-<span class="number">330</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [score, setScore] = useState&lt;number&gt;(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> [game, setGame] = useState&lt;Phaser.Game&gt;();</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> game = <span class="keyword">new</span> Phaser.Game(config.current);</span><br><span class="line">    setGame(game);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      game.destroy(<span class="literal">true</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;sample-page&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> SamplePage;</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h3 id="회의실을-그리는데에-사용할-무료-애셋을-찾자"><a href="#회의실을-그리는데에-사용할-무료-애셋을-찾자" class="headerlink" title="회의실을 그리는데에 사용할 무료 애셋을 찾자"></a>회의실을 그리는데에 사용할 무료 애셋을 찾자</h3><p>가장 기본적인 회의실 맵을 그리기 위해서 아래와 같이 크게 세 가지의 애셋이 필요하다.</p>
+<ul>
+<li>바닥</li>
+<li>캐릭터</li>
+<li>오브젝트 (벽, 책상, 집기 등등)</li>
+<li>맵 뒷배경 이미지</li>
+</ul>
+<p><a href="https://itch.io/game-assets/free">무료로 애셋을 받을 수 있는 사이트</a>와 <a href="https://pixabay.com/ko">Pixabay</a>에서 발품을 팔아 줍줍한 애셋들은 root의 public 폴더에 차곡차곡 담아준다.</p>
+<h3 id="자-이제-회의실을-그려보자"><a href="#자-이제-회의실을-그려보자" class="headerlink" title="자 이제 회의실을 그려보자"></a>자 이제 회의실을 그려보자</h3><p>이제 어느 위치에 어떤 타일을 배치할지 정의하면 된다. Phaser 예제를 둘러보니 아래 캡쳐와 같이 json 형식으로 좌표값을 넘겨받고 있다는 것을 어렵지 않게 확인할 수 있었는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했다.<br><img src="/images/gather_clone_coding/5.png" alt="json"></p>
+<p>당연히 요 json을 쉽게 만들 수 있도록 도와주는 프로그램이 이미 있더라. 한 가지만은 아닌 것 같은데, 그 중 나는 <a href="https://www.mapeditor.org/">Tiled</a> 를 사용해보았다. 검색결과가 제일 많아서 ㅎㅎ</p>
+<p>Tiled를 실행한 뒤 프로젝트와 맵을 신규 생성하고, 위에서 모아둔 애셋 타일셋을 import 해주면 아래와 같이 맵을 한칸 한칸 그려줄 수 있다.</p>
+<p><img src="/images/gather_clone_coding/2.png" alt="회의실 전경"></p>
+<p>타일셋을 그릴 때는 용도에 맞게 레이어를 추가할 수 있는 듯 하다. 나는 바닥, 벽, 집기류 총 세 개의 레이어를 사용하여 회의실을 꾸몄다.<br>참고로 맵 메이커를 제대로/잘 사용하는 방법에 대해서는 다른 포스트에서 추가로 다루어야 할 정도로 양이 되는 듯 하다, 이번에는 이 정도로 만족하고 넘어간다.</p>
+<p>이제 만든 맵을 Phaser에서 읽을 수 있도록 json 형식으로 저장해주면 되는데, 그전에 맵이 타일셋을 내장하도록 해야하는데… 무슨 이유에서인지 가이드대로 ‘타일셋 내장’ 버튼을 클릭하면 맵이 깨진다 ㅠㅠ<br><img src="/images/gather_clone_coding/3.png" alt="요것을 누르면"><br><img src="/images/gather_clone_coding/4.png" alt="이렇게 된다 ㅠㅠ 왜!!!"><br>잠시 생각해보니 json에 이미지 정보를 내장하는 것이 자연스러운 방법만은 아니라는 생각이 들기도한다. 문득 위에 캡쳐한 Phaser 예제에서 힌트를 얻을 수 있지 않을까 싶어 <a href="https://phaser.io/examples/v3/view/camera/follow-zoom-tilemap">예제 소스</a>를 확인 해보니 아래 코드와 같이 타일셋의 경로도 상대경로로 지정이 되어있었다. onCreate 시점에 타일셋 자원도 로드하는 모양 ㅎㅎ</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.load.tilemapTiledJSON(<span class="string">&quot;map&quot;</span>, <span class="string">&quot;assets/tilemaps/maps/super-mario.json&quot;</span>);</span><br><span class="line"><span class="built_in">this</span>.load.image(<span class="string">&quot;tiles1&quot;</span>, <span class="string">&quot;assets/tilemaps/tiles/super-mario.png&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>타일셋을 포함해서 저장했을 때 왜 깨지는지까지는 빨리 파악이 어려울 것 같으니 우선은 예제를 참고하여 얼른 넘어가기로하고 (응 그렇게 넘어간거 산더미~) 나도 타일셋 이미지를 asset 쪽에 넣어줬다.</p>
+<h3 id="짜잔"><a href="#짜잔" class="headerlink" title="짜잔"></a>짜잔</h3><p>onCreate 함수에 아래와 같이 에셋과 맵정보를 로드하면 화면에 희의실이 그려진 것을 확인할 수 있다 :) 이제 다음 포스트 부터는 실제로 캐릭터를 이동해보도록 하겠다</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.load.tilemapTiledJSON(<span class="string">&quot;map&quot;</span>, <span class="string">&quot;assets/tilemaps/maps/super-mario.json&quot;</span>);</span><br><span class="line"><span class="built_in">this</span>.load.image(<span class="string">&quot;tiles1&quot;</span>, <span class="string">&quot;assets/tilemaps/tiles/super-mario.png&quot;</span>);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>토이프로젝트</category>
+        <category>개더타운 클론코딩</category>
+      </categories>
+      <tags>
+        <tag>토이프로젝트</tag>
+        <tag>WebRTC</tag>
+        <tag>Phaser</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[토이프로젝트] 개더타운 클론코딩 - 3</title>
+    <url>/2022/08/25/ToyProjects/Gather/gather-clonecoding-3/</url>
+    <content><![CDATA[<p>이전 포스트에 이어서 DELEVERY했던 내용 중 5.회의실 입장 구현하기 항목까지 기록한다.</p>
+<ol>
+<li><del>git repository 생성 및 각 모듈 셋업하기</del></li>
+<li><del>화면 뼈대 구성하기</del></li>
+<li><del>맵 구성하기</del></li>
+<li><strong>캐릭터 이동 구현하기</strong></li>
+<li><strong>회의실 입장 구현하기</strong></li>
+<li>2인 음성 영상 챗 구현하기</li>
+<li>다자 음성 영상 챗 구현하기</li>
+<li>미디어 설정 기능 구현하기</li>
+</ol>
+<h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><p>캐릭터 이동도 사실은 이전 포스트에서 본 예제 코드에 친절히 있었다. create에 에셋을 로드하고 update에 이동 시 애니메이션을 표현해주면 된다.</p>
+<h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><p>대망의 회의실 입장 구현~ 이라고 해봤자 별거없다 ^_^<br>캐릭터가 이동할 때마다 회의실 사각형안에 캐릭터의 좌표가 포함되는지 계산하고, 회의실에 들어온 사람이 2명 이상이 되는 순간 WebRTC 커넥션을 열어주면 된다. 시간을 좀 더 써본다면 이 좌표 계산에도 최적의 알고리즘이 있을 것 같긴하다 ㅎㅎ</p>
+]]></content>
+      <categories>
+        <category>토이프로젝트</category>
+        <category>개더타운 클론코딩</category>
+      </categories>
+      <tags>
+        <tag>토이프로젝트</tag>
+        <tag>WebRTC</tag>
+        <tag>Phaser</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[토이프로젝트] 개더타운 클론코딩 - 4</title>
+    <url>/2022/08/28/ToyProjects/Gather/gather-clonecoding-4/</url>
+    <content><![CDATA[<p>이전 포스트에 이어서 DELEVERY했던 내용 중 8.맵 구성하기 항목까지 기록한다.</p>
+<ol>
+<li><del>git repository 생성 및 각 모듈 셋업하기</del></li>
+<li><del>화면 뼈대 구성하기</del></li>
+<li><del>맵 구성하기</del></li>
+<li><del>캐릭터 이동 구현하기</del></li>
+<li><del>회의실 입장 구현하기</del></li>
+<li><strong>2인 음성 영상 챗 구현하기</strong><br>🎁 WebRTC 예제 이해 및 응용</li>
+<li><strong>다자 음성 영상 챗 구현하기</strong></li>
+<li><strong>미디어 설정 기능 구현하기</strong></li>
+</ol>
+<h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p><a href="https://codelabs.developers.google.com/codelabs/webrtc-web?hl=ko#0">codelab</a></p>
+<h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>]]></content>
+      <categories>
+        <category>토이프로젝트</category>
+        <category>개더타운 클론코딩</category>
+      </categories>
+      <tags>
+        <tag>토이프로젝트</tag>
+        <tag>WebRTC</tag>
+        <tag>Phaser</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>playwith-1</title>
+    <url>/2022/09/06/ToyProjects/PlayWith/playwith-1/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
