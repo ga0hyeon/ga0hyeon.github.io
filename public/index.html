@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="재미있어 보이는 것들을 공부합니다. 일기처럼 개발일지를 씁니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hyeon&#39;s Dev Blog">
+<meta property="og:url" content="https://ga0hyeon.github.io/index.html">
+<meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
+<meta property="og:description" content="재미있어 보이는 것들을 공부합니다. 일기처럼 개발일지를 씁니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:author" content="Gayoung Hyeon">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://ga0hyeon.github.io/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"ko","comments":"","permalink":"","path":"index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hyeon's Dev Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+<meta
+    name="google-site-verification"
+    content="LTmJ0YPGF5Gbzsn3tie9k0UHemQLjwsS1NszONuhJII"
+/>
+<script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4287897577887270"
+    crossorigin="anonymous"
+></script>    
+<script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.production.min.js"
+></script>
+<script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hyeon's Dev Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about-me"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About Me</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-놀이터"><a href="/playground/" rel="section"><i class="fa fa-gamepad fa-fw"></i>놀이터</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>검색
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gayoung Hyeon"
+      src="/images/profile.png">
+  <p class="site-author-name" itemprop="name">Gayoung Hyeon</p>
+  <div class="site-description" itemprop="description">재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ga0hyeon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ga0hyeon" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/studio._.0224" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;studio._.0224" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2023/01/13/Diary/Retro/2023/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/01/13/Diary/Retro/2023/" class="post-title-link" itemprop="url">2023</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2023-01-13 06:43:13" itemprop="dateCreated datePublished" datetime="2023-01-13T06:43:13+09:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/11/15/Tech/SpringBoot/setting-JPA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/15/Tech/SpringBoot/setting-JPA/" class="post-title-link" itemprop="url">Spring Boot + MySQL + JPA + Flyway 셋업하고 REST api 만들기</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-11-15 23:49:08" itemprop="dateCreated datePublished" datetime="2022-11-15T23:49:08+09:00">2022-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>나는 JPA를 써본적이 없당</p>
+<p>JPA를 사용해본/하고있는 사람들에게 JPA를 설명해달라고 하면 “하… 너넨 이런거 하지마라 🚬” 느낌으로다가 말해주곤 하는데</p>
+<p>하지 말라고 하면 더 해보고 싶은 법이다. 왜 하지말라는건데~~~~</p>
+<p>그래서 사이드 프로젝트 BE를 JPA로 만들기로 결정<del>!</del>!</p>
+<h1 id="Spring-Initializer-로-프로젝트-뼈대-생성"><a href="#Spring-Initializer-로-프로젝트-뼈대-생성" class="headerlink" title="Spring Initializer 로 프로젝트 뼈대 생성"></a>Spring Initializer 로 프로젝트 뼈대 생성</h1><p><a target="_blank" rel="noopener" href="https://start.spring.io/">Initializer</a>로 프로젝트 뼈대를 생성한다.</p>
+<p>언어 옵션 중 Kotlin이 아주 잠깐 궁금했으나 잘 참고 Java를 고른다 ㅎㅎ 왜냐면 아직 Java도 아직 잘모름 🤦‍♀️<br>Dependency는 각자 필요한 것을 선택하면 되는데 나는 Lombok, JPA, Flyway, Web 정도가 필요하다.</p>
+<p>+) 개발자인데 GUI가 좋다고 하면 왠지 주눅이 들어서 잘 말하고 다니지 않지만, Initializer를 처음 찾았을때 너무 기분이 좋았다 ㅋㅋㅋ ㅠㅠ</p>
+<h1 id="Application-yaml-설정"><a href="#Application-yaml-설정" class="headerlink" title="Application.yaml 설정"></a>Application.yaml 설정</h1><p>Initializer로 만든 폴더 안에는 application.properties가 기본으로 생성되어있으나 나는 가독성 때문에 yaml 포맷을 선호하므로 application.yaml 파일을 만든다.</p>
+<p>위에서 만들어준 프로젝트에 MySQL을 붙이고 JPA, flyway를 사용하기 위해 구글링 구글링..</p>
+<p><a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-data-jpa-run-app-without-db">baeldung 아티클</a> 에서 database 없이 JPA 를 붙이고, 에러가 나지 않도록 줘야하는 옵션값을 설명해준다.<br>( JPA에 대해 정말 지식이 없어서 단순히 메소드 명으로 쿼리 만들어주는 그런 친구인줄로 알았는데, DDL 자동 생성 기능도 있었다.<br>여기저기 포스트를 찾아보기도 하고 혼자서도 생각해보니 오히려 불편할 것 같다는 생각이 들어 이 기능은 끄기로 한다. )</p>
+<p>아래와 같이 application.yaml를 설정해주면 <code>MySQL - JPA - flyway</code> 는 잘 연동이 된다.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">address:</span> <span class="string">localhost</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">flyway:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">locations:</span> <span class="string">classpath:db/migration</span></span><br><span class="line">    <span class="attr">schemas:</span> <span class="string">coworksaga</span></span><br><span class="line">    <span class="attr">baseline-on-migrate:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">&amp;db-url</span> <span class="string">jdbc:mysql://localhost:3306/coworksaga?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Seoul&amp;createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true</span></span><br><span class="line">    <span class="attr">user:</span> <span class="string">&amp;db-user</span> <span class="string">coworksaga</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">&amp;db-pwd</span> <span class="string">root1234</span></span><br><span class="line">    <span class="attr">create-schemas:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">hibernate:</span></span><br><span class="line">      <span class="attr">ddl-auto:</span> <span class="string">validate</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">format-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">use-sql-comments:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">properties:</span></span><br><span class="line">      <span class="attr">hibernate:</span></span><br><span class="line">        <span class="attr">temp:</span></span><br><span class="line">          <span class="attr">use_jdbc_metadata_defaults:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">*db-url</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">*db-user</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">*db-pwd</span></span><br><span class="line">      <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">org.hibernate.SQL:</span> <span class="string">DEBUG</span></span><br><span class="line">    <span class="attr">org.hibernate.type:</span> <span class="string">TRACE</span></span><br></pre></td></tr></table></figure>
+
+<p>+) yaml 쓰면서 깨달은점</p>
+<ul>
+<li>&amp;, * 페어로 변수를 선언하고 불러다 쓸 수 있다. 굿굿</li>
+<li>database가 없을때 자동으로 생성하도록 하는 옵션을 검색하는게 어려웠다. 어떤사람은 hibernate.ddl-auto 라고 하고 어떤 사람은 create-schemas라고 하고 ㅎㅎ 결론은 jdbc url에 <code>createDatabaseIfNotExist=true</code> 요 옵션을 주는걸로.</li>
+</ul>
+<p>+) yaml 쓰면서 궁금한점</p>
+<ul>
+<li>비슷한 카테고리 같은데 왜 depth가 왜 다른걸까? jpa.hibernate랑 jpa.properties.hibernate 처럼.</li>
+<li>url username passwork 이거 다 datasource, flyway에 두 번씩 쓰게 되어있는데 ㅠ 변수로 정리해두긴 했으나.. 두 옵션이 한 값을 바라보도록 바로 설정은 안되는걸까?</li>
+</ul>
+<h1 id="Layer-별-폴더-트리-생성"><a href="#Layer-별-폴더-트리-생성" class="headerlink" title="Layer 별 폴더 트리 생성"></a>Layer 별 폴더 트리 생성</h1><p>이제 로컬에 서버를 띄울 수 있는 상태가 되었으니 실제로 기능 개발을 할 수 있도록 폴더를 생성하자.</p>
+<p>매번 Layer (Controller, Service, Repository) 별로 폴더링을 했는데 문득 다른 사람들은 어쩌고 있나 싶어 찾아보니 Entity/Domain별로 묶는 방법도 쓰이고 있다. 음 폴더로 묶으면 한 패키지가 되는데.. 패키지랑 맥락이 비슷한 개념은 Layer보단 Entity/Domain인 것 같기도 하고 고민이 되었지만… 실제로 패키지별로 따로 묶어서 배포/공유하는 것도 아니니 생각보다 엄청나게 메리트가 있을 것 같지 않다. 이번에도 Layer로 쪼개도록 한다.</p>
+<h1 id="첫번째-flyway-스크립트와-REST-api-만들기"><a href="#첫번째-flyway-스크립트와-REST-api-만들기" class="headerlink" title="첫번째 flyway 스크립트와 REST api 만들기"></a>첫번째 flyway 스크립트와 REST api 만들기</h1><p>위에 yaml에 써있기는 한데 지금 만들고 있는 건 사이드프로젝트 중 하나였던 cowork-saga의 BE 이다. 만들 당시에는 node.js로 급하게 만들어서 썼는데 마음에 썩 들지 않았다… ㅎㅎ 그리고 그마저도 처음엔 장고였고 나의 pyhon 생산성이 심각히 떨어지는 것을 깨닫고 포기했던 것…  그래도 예전에 좀 써봤으니 할 수 있지 않을까 했는데 충격이었다 ^^</p>
+<p>암튼 요 BE는 signalling server의 기능을 수행하기 위해 socket 통신도 필요하고, 메타 정보를 조회하고 저장하기 위해 REST 통신도 필요하다. 우선은 익숙한 REST api 부터 만들도록 한다.</p>
+<p>uuid를 넘기면 workspace 이름을 조회하는 api를 만들어볼건데, 그러려면 우선 workspace 테이블을 생성해주어야겠다.</p>
+<ul>
+<li><p>V0_1_0__create_workspaces.sql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> workspaces (</span><br><span class="line">	workspace_id <span class="type">INT</span> UNSIGNED auto_increment <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">	workspace_name <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	workspace_uuid <span class="type">varchar</span>(<span class="number">36</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	workspace_password <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">NULL</span>,</span><br><span class="line">	created_at DATETIME <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> NOW(),</span><br><span class="line">	updated_at DATETIME <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> NOW() <span class="keyword">ON</span> <span class="keyword">UPDATE</span> NOW()</span><br><span class="line">)</span><br><span class="line">ENGINE<span class="operator">=</span>InnoDB</span><br><span class="line"><span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8mb4</span><br><span class="line"><span class="keyword">COLLATE</span><span class="operator">=</span>utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure></li>
+<li><p>V0_1_1__insert_workspaces.sql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> workspaces</span><br><span class="line">(workspace_id, workspace_name, workspace_uuid, workspace_password, created_at, updated_at)</span><br><span class="line"><span class="keyword">VALUES</span>(<span class="number">1</span>, &quot;HYEON&#x27;s workspace&quot;, <span class="string">&#x27;2a2ba386-1ca1-49c6-8573-076916ac6139&#x27;</span>, <span class="string">&#x27;Password&#x27;</span>, now(), now());</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>이제 Entity를 생성해준다.</p>
+<ul>
+<li><p>Workspace</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;workspaces&quot;)</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Workspace</span> &#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@Column(name = &quot;uuid&quot;, unique = true)</span></span><br><span class="line">    <span class="keyword">private</span> String uuid;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> String createdAt;</span><br><span class="line">    <span class="keyword">private</span> String updatedAt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>그리고 차례대로 Repository, Service, Controller를 만들어준다.</p>
+<ul>
+<li><p>WorkspaceRepository</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">WorkspaceRepository</span> <span class="keyword">extends</span> <span class="title class_">JpaRepository</span>&lt;Workspace, Integer&gt; &#123;</span><br><span class="line">    Workspace <span class="title function_">findByUuid</span><span class="params">(String uuid)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>WorkspaceService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WorkspaceService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> WorkspaceRepository workspaceRepository;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Workspace <span class="title function_">getWorkspace</span><span class="params">(String uuid)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> workspaceRepository.findByUuid(uuid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>WorkspaceController</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WorkspaceController</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> WorkspaceService workspaceService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/workspaces/&#123;uuid&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Workspace <span class="title function_">workspaceDetail</span><span class="params">(<span class="meta">@PathVariable</span> <span class="meta">@Length(min=16, max=16)</span> String uuid)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> workspaceService.getWorkspace(uuid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>+) 쿼리 결과는 정상적이지만 api 응답이 그냥  <code>&#123;&#125;</code> 로 떨어질 때</p>
+<ul>
+<li>return 한 Entity에 public getter가 없어서 그럴 수 있다. <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/49117622/spring-rest-controller-returns-empty-json-iterable-data-structure-why">참고</a></li>
+</ul>
+<p>이제 뼈대는 얼추 갖추게 된 것 같다. 다음 api 부터는 유용한 annotation 좀 찾고 aspect 붙이면서 보완해나가면 될 듯. 👩‍💻</p>
+<h1 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h1><ul>
+<li>처음부터 해보면 머리에 확실히 잘 들오는 것 같다. get api 하나 만드는데 생각보다 많은 것을 배웠다!</li>
+<li>JPA 아직은 왜 “하… 너넨 이런거 하지마라 🚬” 하는건 지 못느꼈다. 더 써봐야지.</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/09/15/Diary/Daily/220915/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/15/Diary/Daily/220915/" class="post-title-link" itemprop="url">220915</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-09-15 18:40:14" itemprop="dateCreated datePublished" datetime="2022-09-15T18:40:14+09:00">2022-09-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li>각 기술의 장단점에 대한 직관을 기르고 싶다<ul>
+<li>이거 기르려면 무조건 경험을 넓혀야할 것 같아서 ㅎㅎ<ul>
+<li>쿠버네티스 공부를 시작했다</li>
+<li>서비스 기획 UX/UI 발표 제안 같은 영역도 진지하게 임해볼까</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>내가 알고있는 영역과 내가 추측하고 있는 영역 (얼마나 자신있게 추측하는 지도 또 다르겠지)을 잘 버무려서 말하는 능력을 기르고 싶다<ul>
+<li>실속없이 알고있는 것을 너무 디테일하게 다 털어서 이야기 해버리거나 (밑천이 드러남)</li>
+<li>아는 것도 제대로 말 못하거나 (어버버..)</li>
+<li>확신의 정도가 다른 추론을 남에게 말하면서 강약 조절실패하거나</li>
+<li>등등 자괴감 모먼트가 종종 있다…… 멋쟁이가 되고싶다 ㅠㅠ</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/09/11/Tech/DevOps/devops-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/11/Tech/DevOps/devops-1/" class="post-title-link" itemprop="url">devops</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-09-11 21:48:36" itemprop="dateCreated datePublished" datetime="2022-09-11T21:48:36+09:00">2022-09-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/devops/" itemprop="url" rel="index"><span itemprop="name">devops</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/09/06/ToyProjects/PlayWith/playwith-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/06/ToyProjects/PlayWith/playwith-1/" class="post-title-link" itemprop="url">playwith-1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-09-06 13:32:36" itemprop="dateCreated datePublished" datetime="2022-09-06T13:32:36+09:00">2022-09-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/09/06/Diary/Daily/220906/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/06/Diary/Daily/220906/" class="post-title-link" itemprop="url">220906</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-09-06 08:40:14" itemprop="dateCreated datePublished" datetime="2022-09-06T08:40:14+09:00">2022-09-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li>실속있게 지식을 공유하는 방법</li>
+<li>맥락이 있는 글쓰기</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/08/28/ToyProjects/Gather/gather-clonecoding-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/08/28/ToyProjects/Gather/gather-clonecoding-4/" class="post-title-link" itemprop="url">[토이프로젝트] 개더타운 클론코딩 - 4</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-08-28 02:14:38" itemprop="dateCreated datePublished" datetime="2022-08-28T02:14:38+09:00">2022-08-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" itemprop="url" rel="index"><span itemprop="name">토이프로젝트</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EA%B0%9C%EB%8D%94%ED%83%80%EC%9A%B4-%ED%81%B4%EB%A1%A0%EC%BD%94%EB%94%A9/" itemprop="url" rel="index"><span itemprop="name">개더타운 클론코딩</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>이전 포스트에 이어서 DELEVERY했던 내용 중 8.맵 구성하기 항목까지 기록한다.</p>
+<ol>
+<li><del>git repository 생성 및 각 모듈 셋업하기</del></li>
+<li><del>화면 뼈대 구성하기</del></li>
+<li><del>맵 구성하기</del></li>
+<li><del>캐릭터 이동 구현하기</del></li>
+<li><del>회의실 입장 구현하기</del></li>
+<li><strong>2인 음성 영상 챗 구현하기</strong><br>🎁 WebRTC 예제 이해 및 응용</li>
+<li><strong>다자 음성 영상 챗 구현하기</strong></li>
+<li><strong>미디어 설정 기능 구현하기</strong></li>
+</ol>
+<h2 id="6-2인-음성-영상-챗-구현하기"><a href="#6-2인-음성-영상-챗-구현하기" class="headerlink" title="6. 2인 음성 영상 챗 구현하기"></a>6. 2인 음성 영상 챗 구현하기</h2><p><a target="_blank" rel="noopener" href="https://codelabs.developers.google.com/codelabs/webrtc-web?hl=ko#0">codelab</a></p>
+<h2 id="7-다자-음성-영상-챗-구현하기"><a href="#7-다자-음성-영상-챗-구현하기" class="headerlink" title="7. 다자 음성 영상 챗 구현하기"></a>7. 다자 음성 영상 챗 구현하기</h2><h2 id="8-미디어-설정-기능-구현하기"><a href="#8-미디어-설정-기능-구현하기" class="headerlink" title="8. 미디어 설정 기능 구현하기"></a>8. 미디어 설정 기능 구현하기</h2>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/08/26/Diary/Retro/2022_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/08/26/Diary/Retro/2022_1/" class="post-title-link" itemprop="url">2022 상반기 회고</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-08-26 17:00:21" itemprop="dateCreated datePublished" datetime="2022-08-26T17:00:21+09:00">2022-08-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%ED%9A%8C%EA%B3%A0/" itemprop="url" rel="index"><span itemprop="name">회고</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%ED%9A%8C%EA%B3%A0/2022-%EC%83%81%EB%B0%98%EA%B8%B0/" itemprop="url" rel="index"><span itemprop="name">2022 상반기</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="회고"><a href="#회고" class="headerlink" title="회고"></a>회고</h1><p>올 초부터 투입되어있던 프로젝트가 얼추 마무리 되었다. 야호~ 철수는 역시 넘나 짜릿하다.<br>정말 많은 것을 배웠다. ㅎㅎ 물론 배운 것의 양보다 놓친 것이 더 많은 것 같아 아쉬운 마음이 들지만, 잘 정리해서 다음 프로젝트에 거름으로 싸들고 가면 되니까 괜찮다. 이번에 아쉬웠던 점을 크게 몇 가지 추려봤고, 남은 하반기에 틈틈히 공부할 키워드도 뽑아봤다.</p>
+<h3 id="상태관리-라이브러리의-장단점을-미리-알아둘-걸-그리고-다양한-디자인-패턴을-적용해볼-걸"><a href="#상태관리-라이브러리의-장단점을-미리-알아둘-걸-그리고-다양한-디자인-패턴을-적용해볼-걸" class="headerlink" title="상태관리 라이브러리의 장단점을 미리 알아둘 걸, 그리고 다양한 디자인 패턴을 적용해볼 걸"></a>상태관리 라이브러리의 장단점을 미리 알아둘 걸, 그리고 다양한 디자인 패턴을 적용해볼 걸</h3><p>작년까지 Redux, Recoil을 써봤고 이번에 MobX를 접했다. MobX의 장점을 알고 있기 때문에 MobX를 골랐다기 보다는 Redux, Recoil의 단점 때문에 + MobX도 써보고 싶어서 MobX를 골랐는데 좀 더 전략적으로 선택했어도 좋았을 것 같다. 장점을 뽑아서 N개의 상태관리 라이브러리를 용도에 맞게 섞어서 써본다거나, 아니면 한 개의 상태관리 라이브러리를 사용하더라도 용도에 맞게 여러 디자인 패턴을 적용해볼 걸 하는 아쉬움이 있다.</p>
+<h3 id="네이티브-코드를-미리-만져볼-걸-적어도-도구-사용법만이라도-알았으면-좋았을-걸"><a href="#네이티브-코드를-미리-만져볼-걸-적어도-도구-사용법만이라도-알았으면-좋았을-걸" class="headerlink" title="네이티브 코드를 미리 만져볼 걸, 적어도 도구 사용법만이라도 알았으면 좋았을 걸"></a>네이티브 코드를 미리 만져볼 걸, 적어도 도구 사용법만이라도 알았으면 좋았을 걸</h3><p>내가 스스로 만들어본 마지막 앱은 cocos2d와 C#으로 만든 모바일 게임이었는데, 부끄럽지만 그때는 명령어 하나로 뚝딱 apk가 나오기에 ‘역시 프레임워크 최고! 네이티브의 시대는 지고 있구나’ 라고 생각했다. 하지만 이번에 크로스플랫폼 앱 프레임워크를 사용해서 앱을 개발하면서 정말 많이 들었던 생각이 ‘미리 네이티브 개발 좀 해볼걸’ 이었다. 성능을 끌어올리기 위해서 / 커스텀 기능을 구현하기 위해서 / 외부 sdk 또는 라이브러리를 적용하기 위해서는 필수로 네이티브를 건드려야했는데, 프로젝트 일정 중간에 딥하게 파기에는 시간도 없을 뿐더러 이미 네이티브 담당자가 있는 상황이라 애매한 너낌쓰.. 미리 네이티브 코드를 경험해본 적이 있었다면 좀 더 능동적으로 문제를 해결할 수 있었을 것 같아서 아쉬웠다.</p>
+<h3 id="공통화-공통화-공통화-그리고-말잘하는-연습을-할-걸"><a href="#공통화-공통화-공통화-그리고-말잘하는-연습을-할-걸" class="headerlink" title="공통화 공통화 공통화.. 그리고 말잘하는 연습을 할 걸"></a>공통화 공통화 공통화.. 그리고 말잘하는 연습을 할 걸</h3><p>개인적으로 이전의 프로젝트들에서 컴포넌트/유틸 공통화에 대한 부족함을 느꼈고, 이번 프로젝트에서 열심히 만회했다고 생각한다. 하지만 공통화 해야하는 것이 단순 컴포넌트/유틸 (= 코드조각) 뿐만이 아니라는 것을 이번에 배웠다… 이전에는 컨벤션을 공유 받고 따르는게 내 메인 롤이었다면 이번 프로젝트에서는 컨벤션을 정리하고 가이드하는게 메인 롤이 되면서 공통화 해야할 항목에 대한 시야가 강제로(?) 넓어진게 이유인 것 같다. 들여쓰기나 변수명명법처럼 정적인 것 부터 api 주소 설계, 클래스 설계 처럼 상황에 따라 가변적인 것들까지 일종의 룰이 필요하다는 것을 이번에서야 절실히 깨달았다 ㅋㅋ 쓰고보니 너무나 당연한 이야기이지만… 그리고 이 룰을 서로에게 설득하기 위해, 정리된 룰을 신규 투입 인원에게 효과적으로 인계하기 위해 ‘이유’와 ‘예시’를 명확하게 말로 풀어낼 수 있는 능력이 내게 부족하다는 점도 깨달았다.</p>
+<h3 id="좀-더-똑똑하게-판단하고-소리낼-걸"><a href="#좀-더-똑똑하게-판단하고-소리낼-걸" class="headerlink" title="좀 더 똑똑하게 판단하고 소리낼 걸"></a>좀 더 똑똑하게 판단하고 소리낼 걸</h3><p>요거는 개발 외적인 반성이다. 나는 내가 개발하고 싶은 요건을 집어가는 것을 선호하는데, 이번 프로젝트에서는 그 외에 내가 해야만 하는 일이 생기면서 두 가지를 병행하게 되었다. 물론 내 선택이라 후회하거나 징징거리고 싶은건 아니다 ^_^ 일의 양이 늘어나기는 했지만 원래 일하던 방식도 최선은 아니었으니, 좀 더 효율적으로 일하면 overwork 하지 않을 수 있었을 것 같은데… 아쉽게도 이번에는 ‘내가 일을 하는’게 아니라 ‘일이 나를 끌고가는’ 상황이 벌어지게 되었다. 내가 어느 시간대에 어떤 방식으로 (재택 / 출근) 어떤 업무를 처리할 때 효율이 가장 높은 지, 각각의 할 일이 어느정도의 우선 순위를 가지는 지를 똑똑하게 판단하고 소리내었으면 좋았으련만, 소심하게 판단을 일임하거나 보류하거나 쉬쉬한게 결과적으로는 내 정신 &amp; 육체 건강의 피폐함을 초래한 것 같아 정말 아쉬웠다.</p>
+<h1 id="하반기-키워드"><a href="#하반기-키워드" class="headerlink" title="하반기 키워드"></a>하반기 키워드</h1><ul>
+<li>디자인 패턴</li>
+<li>Redux Recoil MobX</li>
+<li>Android / iOS 개발 및 마켓 배포</li>
+<li>Gitlab 활용 BP</li>
+<li>내가 참여할 수 있는 의사결정에는 능동적으로</li>
+<li>말을 잘하는 연습 (책 읽기?)</li>
+</ul>
+<p>고생했고, 다음에는 더 잘할 수 있을거라 믿는당 나자신 화이팅</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/08/25/ToyProjects/Gather/gather-clonecoding-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/08/25/ToyProjects/Gather/gather-clonecoding-3/" class="post-title-link" itemprop="url">[토이프로젝트] 개더타운 클론코딩 - 3</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-08-25 02:14:38" itemprop="dateCreated datePublished" datetime="2022-08-25T02:14:38+09:00">2022-08-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" itemprop="url" rel="index"><span itemprop="name">토이프로젝트</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EA%B0%9C%EB%8D%94%ED%83%80%EC%9A%B4-%ED%81%B4%EB%A1%A0%EC%BD%94%EB%94%A9/" itemprop="url" rel="index"><span itemprop="name">개더타운 클론코딩</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>이전 포스트에 이어서 DELEVERY했던 내용 중 5.회의실 입장 구현하기 항목까지 기록한다.</p>
+<ol>
+<li><del>git repository 생성 및 각 모듈 셋업하기</del></li>
+<li><del>화면 뼈대 구성하기</del></li>
+<li><del>맵 구성하기</del></li>
+<li><strong>캐릭터 이동 구현하기</strong></li>
+<li><strong>회의실 입장 구현하기</strong></li>
+<li>2인 음성 영상 챗 구현하기</li>
+<li>다자 음성 영상 챗 구현하기</li>
+<li>미디어 설정 기능 구현하기</li>
+</ol>
+<h2 id="4-캐릭터-이동-구현하기"><a href="#4-캐릭터-이동-구현하기" class="headerlink" title="4. 캐릭터 이동 구현하기"></a>4. 캐릭터 이동 구현하기</h2><p>캐릭터 이동도 사실은 이전 포스트에서 본 예제 코드에 친절히 있었다. create에 에셋을 로드하고 update에 이동 시 애니메이션을 표현해주면 된다.</p>
+<h2 id="5-회의실-입장-구현하기"><a href="#5-회의실-입장-구현하기" class="headerlink" title="5. 회의실 입장 구현하기"></a>5. 회의실 입장 구현하기</h2><p>대망의 회의실 입장 구현~ 이라고 해봤자 별거없다 ^_^<br>캐릭터가 이동할 때마다 회의실 사각형안에 캐릭터의 좌표가 포함되는지 계산하고, 회의실에 들어온 사람이 2명 이상이 되는 순간 WebRTC 커넥션을 열어주면 된다. 시간을 좀 더 써본다면 이 좌표 계산에도 최적의 알고리즘이 있을 것 같긴하다 ㅎㅎ</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/07/28/ToyProjects/Gather/gather-clonecoding-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/28/ToyProjects/Gather/gather-clonecoding-2/" class="post-title-link" itemprop="url">[토이프로젝트] 개더타운 클론코딩 - 2</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-07-28 02:14:38" itemprop="dateCreated datePublished" datetime="2022-07-28T02:14:38+09:00">2022-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" itemprop="url" rel="index"><span itemprop="name">토이프로젝트</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%ED%86%A0%EC%9D%B4%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EA%B0%9C%EB%8D%94%ED%83%80%EC%9A%B4-%ED%81%B4%EB%A1%A0%EC%BD%94%EB%94%A9/" itemprop="url" rel="index"><span itemprop="name">개더타운 클론코딩</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>이전 포스트에서는 MOTIVATION, PREPARATION 까지 정리했고, 이어서 DELEVERY했던 내용 중 3.맵 구성하기 항목까지 기록한다.</p>
+<ol>
+<li><strong>git repository 생성 및 각 모듈 셋업하기</strong><br>🎁 React, Django 셋업과정</li>
+<li><strong>화면 뼈대 구성하기</strong><br>🎁 Chakra 사용법</li>
+<li><strong>맵 구성하기</strong><br>🎁 Phaser 사용법<br>🎁 Phaser와 React.js를 함께 사용하는 과정</li>
+<li>캐릭터 이동 구현하기</li>
+<li>회의실 입장 구현하기</li>
+<li>2인 음성 영상 챗 구현하기</li>
+<li>다자 음성 영상 챗 구현하기</li>
+<li>미디어 설정 기능 구현하기</li>
+</ol>
+<h1 id="DELEVERY"><a href="#DELEVERY" class="headerlink" title="DELEVERY"></a>DELEVERY</h1><h2 id="1-git-repository-생성-및-각-모듈-셋업하기"><a href="#1-git-repository-생성-및-각-모듈-셋업하기" class="headerlink" title="1. git repository 생성 및 각 모듈 셋업하기"></a>1. git repository 생성 및 각 모듈 셋업하기</h2><p><a target="_blank" rel="noopener" href="https://github.com/ga0hyeon/cowork-saga">git repository</a>를 만들어주고, signalingServer와 client 폴더에 각각 Django와 React 셋업을 진행했다.</p>
+<h3 id="Django-셋업-with-djangoRestFramework"><a href="#Django-셋업-with-djangoRestFramework" class="headerlink" title="Django 셋업 with djangoRestFramework"></a>Django 셋업 with djangoRestFramework</h3><p><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/ko/4.0/intro/">django docs</a>를 참고하여 초기 세팅을 진행한다.<br>+) mac에 python 2.7이 기본으로 깔려있어서 3.x 버전의 python을 받아주었다. python3을 기본으로 바라보도록 bashrc에도 alias를 추가해준다.</p>
+<p>django를 설치해주고</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m pip install Django</span><br></pre></td></tr></table></figure>
+
+<p>설치 후 잘 설치되었는지 버전을 확인한다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m django --version</span><br></pre></td></tr></table></figure>
+
+<p>그리고 아래 명령어로 현재 경로에 django 프로젝트를 생성한다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m django startproject gather_clone_siganlling_server</span><br></pre></td></tr></table></figure>
+
+<p>지정해준 폴더 (나의 경우 gather_clone_siganlling_server)로 이동하여 아래의 명령어를 수행하면, 짜잔! 기본포트(8000)에 샘플페이지가 뜬다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py runserver</span><br></pre></td></tr></table></figure>
+
+<p>나는 웹서버가 아니라 REST Api 서버로 사용할 것이므로, <a target="_blank" rel="noopener" href="https://www.django-rest-framework.org/#installation">django-rest-framework docs</a>를 참고하여 djangoRestFramework를 깔아주자.<br>example까지 따라서 만들면, 이제 localhost:8000에 이전의 django 샘플페이지가 아니라 swagger와 유사한 형태의 REST framework 페이지가 뜬다.</p>
+<h3 id="React-셋업-with-Chakra-UI-amp-Adapter-js"><a href="#React-셋업-with-Chakra-UI-amp-Adapter-js" class="headerlink" title="React 셋업 with Chakra UI &amp; Adapter.js"></a>React 셋업 with Chakra UI &amp; Adapter.js</h3><ol>
+<li>CRA로 React 앱 초기 세팅</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npx create-react-app gather-clone-client --template @chakra-ui/typescript</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Adapter.js 라이브러리 설치<br>Adapter.js는 Polyfill(브라우저에서 지원하지 않는 최신 기능을 사용할 수 있도록 도와주는 코드의 모음)과 Shim(이미 존재하는 코드의 동작을 바로잡는데에 사용하는 코드의 모음)을 사용하여 WebRTC의 브라우저 간 호환성 문제를 해결해둔 라이브러리이다.<br>WebRTC가 계속해서 변화하고 있는 기술이고, 각 브라우저별로 지원 수준이 다르기 때문에 일괄 적용이 쉽지 않은 모양이다.</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webrtc-adapter</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-화면-뼈대-구성하기"><a href="#2-화면-뼈대-구성하기" class="headerlink" title="2. 화면 뼈대 구성하기"></a>2. 화면 뼈대 구성하기</h2><p>위에서 만들어준 React 프로젝트 폴더에서 화면 뼈대 구성을 이어서 진행한다. 화면 구조는 아래와 매우 간단하다 :)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">App.tsx</span><br><span class="line">pages</span><br><span class="line"> ⌞IntroPage.tsx</span><br><span class="line"> ⌞MeetingPage.tsx</span><br></pre></td></tr></table></figure>
+
+<p>IntroPage에는 Chakra UI를 활용해서 간단한 정보 입력 form을 구현한다. 우선은 구분을 위해 이름 정도만 입력받도록 하자.</p>
+<h2 id="3-맵-구성하기"><a href="#3-맵-구성하기" class="headerlink" title="3. 맵 구성하기"></a>3. 맵 구성하기</h2><p>맵 구성에는 Phaser를 사용한다.</p>
+<h3 id="Phaser란"><a href="#Phaser란" class="headerlink" title="Phaser란?"></a>Phaser란?</h3><p>cross-browser HTML5 게임을 쉽고 빠르게 만들 수 있도록하는 프레임워크.</p>
+<h3 id="Phaser를-사용하기-위한-추가적인-개발환경-setup"><a href="#Phaser를-사용하기-위한-추가적인-개발환경-setup" class="headerlink" title="Phaser를 사용하기 위한 추가적인 개발환경 setup"></a>Phaser를 사용하기 위한 추가적인 개발환경 setup</h3><p>Phaser가 html 기반으로 게임을 만들수 있게 해준다고 하더라도, 브라우저에서는 원칙적으로 로컬 리소스에 접근할 수 없기 때문에 html 파일 만으로는 Phaser 게임을 실행할 수 없다. (사실 이 개념 예전에도 접했었는데 그때는 바로 이해가 안되었는데.. 지금은 후루룩 읽힌다. 아주 좋다!!)따라서 html과 리소스를 올릴 서버가 필요하고, 공식 가이드에서는 python, php, node.js 정도를 언급하고 있다.</p>
+<p>나는 위에서 이미 React로 페이지 뼈대를 구성했고, 운영 단계까지 올릴 생각이 없으므로 React 개발 서버면 충분하다.</p>
+<p>그리고 가이드에 IDE도 몇 가지 언급하고있는데, brakets 같은 HTML 편집기로도 개발이 가능하다고 한다. 재밌다. 물론 나는 위에서 세팅해둔 VS code를 사용한다 ㅎㅎ</p>
+<p>추가적인 서버 셋업과 IDE 설정이 필요 없으니 Phaser 사용을 위해서는 요 정도만 추가로 해주면 되겠다.</p>
+<ul>
+<li>npm으로 Phaser 설치</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install phaser</span><br></pre></td></tr></table></figure>
+
+<h3 id="가이드를-따라-샘플-게임-만들기"><a href="#가이드를-따라-샘플-게임-만들기" class="headerlink" title="가이드를 따라 샘플 게임 만들기"></a>가이드를 따라 샘플 게임 만들기</h3><p>본격적으로 구미에 맡는 맵을 만들기 전에 Phaser에 익숙해질 겸 가이드를 따라 샘플 게임을 만들어본다. 가이드로 제공된 소스는 html script라서, 글로벌 변수가 따로 없는 react에 맞게 ref, state를 사용해서 약간 수정해봤다. 잘 뜬다 :)<br>(making-your-first-phaser-3-game)[<a target="_blank" rel="noopener" href="https://phaser.io/tutorials/making-your-first-phaser-3-game]">https://phaser.io/tutorials/making-your-first-phaser-3-game]</a></p>
+<p>이 샘플 소스만으로도 회의실 구성에 필요한 요소는 어느정도 구현이 가능해보인다. 굿!</p>
+<p><img src="/images/gather_clone_coding/1.png" alt="Sample Game"></p>
+<details>
+<summary>샘플 소스 전문</summary>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Phaser</span> <span class="keyword">from</span> <span class="string">&quot;phaser&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useEffect, useRef, useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">SamplePage</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> variables = useRef&lt;&#123;</span><br><span class="line">    <span class="attr">platforms</span>: <span class="title class_">Phaser</span>.<span class="property">Physics</span>.<span class="property">Arcade</span>.<span class="property">StaticGroup</span>;</span><br><span class="line">    <span class="attr">player</span>: <span class="title class_">Phaser</span>.<span class="property">Types</span>.<span class="property">Physics</span>.<span class="property">Arcade</span>.<span class="property">SpriteWithDynamicBody</span>;</span><br><span class="line">    <span class="attr">cursors</span>: <span class="title class_">Phaser</span>.<span class="property">Types</span>.<span class="property">Input</span>.<span class="property">Keyboard</span>.<span class="property">CursorKeys</span>;</span><br><span class="line">    <span class="attr">stars</span>: <span class="title class_">Phaser</span>.<span class="property">Physics</span>.<span class="property">Arcade</span>.<span class="property">Group</span>;</span><br><span class="line">  &#125;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> config = useRef&lt;<span class="title class_">Phaser</span>.<span class="property">Types</span>.<span class="property">Core</span>.<span class="property">GameConfig</span>&gt;(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">Phaser</span>.<span class="property">AUTO</span>,</span><br><span class="line">    <span class="attr">parent</span>: <span class="string">&quot;sample-page&quot;</span>, <span class="comment">//NOTE : 아래 div의 id값을 넣어주면 된다.</span></span><br><span class="line">    <span class="attr">width</span>: <span class="number">800</span>,</span><br><span class="line">    <span class="attr">height</span>: <span class="number">600</span>,</span><br><span class="line">    <span class="attr">physics</span>: &#123;</span><br><span class="line">      <span class="attr">default</span>: <span class="string">&quot;arcade&quot;</span>,</span><br><span class="line">      <span class="attr">arcade</span>: &#123;</span><br><span class="line">        <span class="attr">gravity</span>: &#123; <span class="attr">y</span>: <span class="number">200</span> &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">scene</span>: &#123;</span><br><span class="line">      <span class="attr">preload</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">image</span>(<span class="string">&quot;sky&quot;</span>, <span class="string">&quot;assets/sky.png&quot;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">image</span>(<span class="string">&quot;ground&quot;</span>, <span class="string">&quot;assets/platform.png&quot;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">image</span>(<span class="string">&quot;star&quot;</span>, <span class="string">&quot;assets/star.png&quot;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">image</span>(<span class="string">&quot;bomb&quot;</span>, <span class="string">&quot;assets/bomb.png&quot;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">spritesheet</span>(<span class="string">&quot;dude&quot;</span>, <span class="string">&quot;assets/dude.png&quot;</span>, &#123;</span><br><span class="line">          <span class="attr">frameWidth</span>: <span class="number">32</span>,</span><br><span class="line">          <span class="attr">frameHeight</span>: <span class="number">48</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">create</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">add</span>.<span class="title function_">image</span>(<span class="number">400</span>, <span class="number">300</span>, <span class="string">&quot;sky&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//NOTE : config에 physics를 정의해두어야 정상적으로 동작한다</span></span><br><span class="line">        <span class="keyword">const</span> platforms = <span class="variable language_">this</span>.<span class="property">physics</span>.<span class="property">add</span>.<span class="title function_">staticGroup</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//NOTE : static physics body의 크기를 변경했으므로 refreshBody 호출</span></span><br><span class="line">        platforms.<span class="title function_">create</span>(<span class="number">400</span>, <span class="number">568</span>, <span class="string">&quot;ground&quot;</span>).<span class="title function_">setScale</span>(<span class="number">2</span>).<span class="title function_">refreshBody</span>();</span><br><span class="line"></span><br><span class="line">        platforms.<span class="title function_">create</span>(<span class="number">600</span>, <span class="number">400</span>, <span class="string">&quot;ground&quot;</span>);</span><br><span class="line">        platforms.<span class="title function_">create</span>(<span class="number">50</span>, <span class="number">250</span>, <span class="string">&quot;ground&quot;</span>);</span><br><span class="line">        platforms.<span class="title function_">create</span>(<span class="number">750</span>, <span class="number">220</span>, <span class="string">&quot;ground&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> player = <span class="variable language_">this</span>.<span class="property">physics</span>.<span class="property">add</span>.<span class="title function_">sprite</span>(<span class="number">100</span>, <span class="number">450</span>, <span class="string">&quot;dude&quot;</span>);</span><br><span class="line">        player.<span class="title function_">setBounce</span>(<span class="number">0.2</span>);</span><br><span class="line">        player.<span class="title function_">setCollideWorldBounds</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">anims</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;left&quot;</span>,</span><br><span class="line">          <span class="attr">frames</span>: <span class="variable language_">this</span>.<span class="property">anims</span>.<span class="title function_">generateFrameNumbers</span>(<span class="string">&quot;dude&quot;</span>, &#123; <span class="attr">start</span>: <span class="number">0</span>, <span class="attr">end</span>: <span class="number">3</span> &#125;),</span><br><span class="line">          <span class="attr">frameRate</span>: <span class="number">10</span>,</span><br><span class="line">          <span class="attr">repeat</span>: -<span class="number">1</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">anims</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;turn&quot;</span>,</span><br><span class="line">          <span class="attr">frames</span>: [&#123; <span class="attr">key</span>: <span class="string">&quot;dude&quot;</span>, <span class="attr">frame</span>: <span class="number">4</span> &#125;],</span><br><span class="line">          <span class="attr">frameRate</span>: <span class="number">20</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">anims</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;right&quot;</span>,</span><br><span class="line">          <span class="attr">frames</span>: <span class="variable language_">this</span>.<span class="property">anims</span>.<span class="title function_">generateFrameNumbers</span>(<span class="string">&quot;dude&quot;</span>, &#123; <span class="attr">start</span>: <span class="number">5</span>, <span class="attr">end</span>: <span class="number">8</span> &#125;),</span><br><span class="line">          <span class="attr">frameRate</span>: <span class="number">10</span>,</span><br><span class="line">          <span class="attr">repeat</span>: -<span class="number">1</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">physics</span>.<span class="property">add</span>.<span class="title function_">collider</span>(player, platforms);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> cursors = <span class="variable language_">this</span>.<span class="property">input</span>.<span class="property">keyboard</span>.<span class="title function_">createCursorKeys</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> scoreText = <span class="variable language_">this</span>.<span class="property">add</span>.<span class="title function_">text</span>(<span class="number">16</span>, <span class="number">16</span>, <span class="string">&quot;score: 0&quot;</span>, &#123;</span><br><span class="line">          <span class="attr">fontSize</span>: <span class="string">&quot;32px&quot;</span>,</span><br><span class="line">          <span class="attr">color</span>: <span class="string">&quot;#fff&quot;</span>,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> stars = <span class="variable language_">this</span>.<span class="property">physics</span>.<span class="property">add</span>.<span class="title function_">group</span>(&#123;</span><br><span class="line">          <span class="attr">key</span>: <span class="string">&quot;star&quot;</span>,</span><br><span class="line">          <span class="attr">repeat</span>: <span class="number">11</span>,</span><br><span class="line">          <span class="attr">setXY</span>: &#123; <span class="attr">x</span>: <span class="number">12</span>, <span class="attr">y</span>: <span class="number">0</span>, <span class="attr">stepX</span>: <span class="number">70</span> &#125;,</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        stars.<span class="property">children</span>.<span class="title function_">iterate</span>(<span class="keyword">function</span> (<span class="params">child</span>) &#123;</span><br><span class="line">          (child <span class="keyword">as</span> any).<span class="title function_">setBounceY</span>(<span class="title class_">Phaser</span>.<span class="property">Math</span>.<span class="title class_">FloatBetween</span>(<span class="number">0.4</span>, <span class="number">0.8</span>));</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">physics</span>.<span class="property">add</span>.<span class="title function_">collider</span>(stars, platforms);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">physics</span>.<span class="property">add</span>.<span class="title function_">overlap</span>(</span><br><span class="line">          player,</span><br><span class="line">          stars,</span><br><span class="line">          <span class="function">(<span class="params">player, star</span>) =&gt;</span> &#123;</span><br><span class="line">            (star <span class="keyword">as</span> any).<span class="title function_">disableBody</span>(<span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line">            <span class="title function_">setScore</span>(<span class="function">(<span class="params">prev</span>) =&gt;</span> &#123;</span><br><span class="line">              scoreText.<span class="title function_">setText</span>(<span class="string">&quot;Score: &quot;</span> + (prev + <span class="number">1</span>));</span><br><span class="line">              <span class="keyword">return</span> prev + <span class="number">1</span>;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (stars.<span class="title function_">countActive</span>(<span class="literal">true</span>) === <span class="number">0</span>) &#123;</span><br><span class="line">              stars.<span class="property">children</span>.<span class="title function_">iterate</span>(<span class="keyword">function</span> (<span class="params">child</span>) &#123;</span><br><span class="line">                (child <span class="keyword">as</span> any).<span class="title function_">enableBody</span>(</span><br><span class="line">                  <span class="literal">true</span>,</span><br><span class="line">                  (child <span class="keyword">as</span> any).<span class="property">x</span>,</span><br><span class="line">                  <span class="number">0</span>,</span><br><span class="line">                  <span class="literal">true</span>,</span><br><span class="line">                  <span class="literal">true</span></span><br><span class="line">                );</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">              <span class="keyword">const</span> x =</span><br><span class="line">                (player <span class="keyword">as</span> any).<span class="property">x</span> &lt; <span class="number">400</span></span><br><span class="line">                  ? <span class="title class_">Phaser</span>.<span class="property">Math</span>.<span class="title class_">Between</span>(<span class="number">400</span>, <span class="number">800</span>)</span><br><span class="line">                  : <span class="title class_">Phaser</span>.<span class="property">Math</span>.<span class="title class_">Between</span>(<span class="number">0</span>, <span class="number">400</span>);</span><br><span class="line"></span><br><span class="line">              <span class="keyword">const</span> bomb = bombs.<span class="title function_">create</span>(x, <span class="number">16</span>, <span class="string">&quot;bomb&quot;</span>);</span><br><span class="line">              bomb.<span class="title function_">setBounce</span>(<span class="number">1</span>);</span><br><span class="line">              bomb.<span class="title function_">setCollideWorldBounds</span>(<span class="literal">true</span>);</span><br><span class="line">              bomb.<span class="title function_">setVelocity</span>(<span class="title class_">Phaser</span>.<span class="property">Math</span>.<span class="title class_">Between</span>(-<span class="number">200</span>, <span class="number">200</span>), <span class="number">20</span>);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="literal">undefined</span>,</span><br><span class="line">          <span class="variable language_">this</span></span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> bombs = <span class="variable language_">this</span>.<span class="property">physics</span>.<span class="property">add</span>.<span class="title function_">group</span>();</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">physics</span>.<span class="property">add</span>.<span class="title function_">collider</span>(bombs, platforms);</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">physics</span>.<span class="property">add</span>.<span class="title function_">collider</span>(</span><br><span class="line">          player,</span><br><span class="line">          bombs,</span><br><span class="line">          <span class="function">(<span class="params">player, bomb</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">physics</span>.<span class="title function_">pause</span>();</span><br><span class="line"></span><br><span class="line">            (player <span class="keyword">as</span> any).<span class="title function_">setTint</span>(<span class="number">0xff0000</span>);</span><br><span class="line"></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">anims</span>.<span class="title function_">play</span>(<span class="string">&quot;turn&quot;</span>, player);</span><br><span class="line"></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">add</span>.<span class="title function_">text</span>(<span class="number">240</span>, <span class="number">300</span>, <span class="string">&quot;GAME OVER&quot;</span>, &#123;</span><br><span class="line">              <span class="attr">fontSize</span>: <span class="string">&quot;64px&quot;</span>,</span><br><span class="line">              <span class="attr">color</span>: <span class="string">&quot;#0xff00&quot;</span>,</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="literal">undefined</span>,</span><br><span class="line">          <span class="variable language_">this</span></span><br><span class="line">        );</span><br><span class="line">        variables.<span class="property">current</span> = &#123;</span><br><span class="line">          platforms,</span><br><span class="line">          player,</span><br><span class="line">          cursors,</span><br><span class="line">          stars,</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">update</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (variables.<span class="property">current</span>) &#123;</span><br><span class="line">          <span class="keyword">const</span> &#123; cursors, player &#125; = variables.<span class="property">current</span>;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (cursors.<span class="property">left</span>.<span class="property">isDown</span>) &#123;</span><br><span class="line">            player.<span class="title function_">setVelocityX</span>(-<span class="number">160</span>);</span><br><span class="line">            player.<span class="property">anims</span>.<span class="title function_">play</span>(<span class="string">&quot;left&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">          &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cursors.<span class="property">right</span>.<span class="property">isDown</span>) &#123;</span><br><span class="line">            player.<span class="title function_">setVelocityX</span>(<span class="number">160</span>);</span><br><span class="line">            player.<span class="property">anims</span>.<span class="title function_">play</span>(<span class="string">&quot;right&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            player.<span class="title function_">setVelocityX</span>(<span class="number">0</span>);</span><br><span class="line">            player.<span class="property">anims</span>.<span class="title function_">play</span>(<span class="string">&quot;turn&quot;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (cursors.<span class="property">up</span>.<span class="property">isDown</span> &amp;&amp; player.<span class="property">body</span>.<span class="property">touching</span>.<span class="property">down</span>) &#123;</span><br><span class="line">            player.<span class="title function_">setVelocityY</span>(-<span class="number">330</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [score, setScore] = useState&lt;number&gt;(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> [game, setGame] = useState&lt;<span class="title class_">Phaser</span>.<span class="property">Game</span>&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> game = <span class="keyword">new</span> <span class="title class_">Phaser</span>.<span class="title class_">Game</span>(config.<span class="property">current</span>);</span><br><span class="line">    <span class="title function_">setGame</span>(game);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      game.<span class="title function_">destroy</span>(<span class="literal">true</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;sample-page&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">SamplePage</span>;</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h3 id="회의실을-그리는데에-사용할-무료-애셋을-찾자"><a href="#회의실을-그리는데에-사용할-무료-애셋을-찾자" class="headerlink" title="회의실을 그리는데에 사용할 무료 애셋을 찾자"></a>회의실을 그리는데에 사용할 무료 애셋을 찾자</h3><p>가장 기본적인 회의실 맵을 그리기 위해서 아래와 같이 크게 세 가지의 애셋이 필요하다.</p>
+<ul>
+<li>바닥</li>
+<li>캐릭터</li>
+<li>오브젝트 (벽, 책상, 집기 등등)</li>
+<li>맵 뒷배경 이미지</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://itch.io/game-assets/free">무료로 애셋을 받을 수 있는 사이트</a>와 <a target="_blank" rel="noopener" href="https://pixabay.com/ko">Pixabay</a>에서 발품을 팔아 줍줍한 애셋들은 root의 public 폴더에 차곡차곡 담아준다.</p>
+<h3 id="자-이제-회의실을-그려보자"><a href="#자-이제-회의실을-그려보자" class="headerlink" title="자 이제 회의실을 그려보자"></a>자 이제 회의실을 그려보자</h3><p>이제 어느 위치에 어떤 타일을 배치할지 정의하면 된다. Phaser 예제를 둘러보니 아래 캡쳐와 같이 json 형식으로 좌표값을 넘겨받고 있다는 것을 어렵지 않게 확인할 수 있었는데, 처음에는 이걸 손으로 하나하나 해야하는 줄 알고 포기할까 했다.<br><img src="/images/gather_clone_coding/5.png" alt="json"></p>
+<p>당연히 요 json을 쉽게 만들 수 있도록 도와주는 프로그램이 이미 있더라. 한 가지만은 아닌 것 같은데, 그 중 나는 <a target="_blank" rel="noopener" href="https://www.mapeditor.org/">Tiled</a> 를 사용해보았다. 검색결과가 제일 많아서 ㅎㅎ</p>
+<p>Tiled를 실행한 뒤 프로젝트와 맵을 신규 생성하고, 위에서 모아둔 애셋 타일셋을 import 해주면 아래와 같이 맵을 한칸 한칸 그려줄 수 있다.</p>
+<p><img src="/images/gather_clone_coding/2.png" alt="회의실 전경"></p>
+<p>타일셋을 그릴 때는 용도에 맞게 레이어를 추가할 수 있는 듯 하다. 나는 바닥, 벽, 집기류 총 세 개의 레이어를 사용하여 회의실을 꾸몄다.<br>참고로 맵 메이커를 제대로/잘 사용하는 방법에 대해서는 다른 포스트에서 추가로 다루어야 할 정도로 양이 되는 듯 하다, 이번에는 이 정도로 만족하고 넘어간다.</p>
+<p>이제 만든 맵을 Phaser에서 읽을 수 있도록 json 형식으로 저장해주면 되는데, 그전에 맵이 타일셋을 내장하도록 해야하는데… 무슨 이유에서인지 가이드대로 ‘타일셋 내장’ 버튼을 클릭하면 맵이 깨진다 ㅠㅠ<br><img src="/images/gather_clone_coding/3.png" alt="요것을 누르면"><br><img src="/images/gather_clone_coding/4.png" alt="이렇게 된다 ㅠㅠ 왜!!!"><br>잠시 생각해보니 json에 이미지 정보를 내장하는 것이 자연스러운 방법만은 아니라는 생각이 들기도한다. 문득 위에 캡쳐한 Phaser 예제에서 힌트를 얻을 수 있지 않을까 싶어 <a target="_blank" rel="noopener" href="https://phaser.io/examples/v3/view/camera/follow-zoom-tilemap">예제 소스</a>를 확인 해보니 아래 코드와 같이 타일셋의 경로도 상대경로로 지정이 되어있었다. onCreate 시점에 타일셋 자원도 로드하는 모양 ㅎㅎ</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">tilemapTiledJSON</span>(<span class="string">&quot;map&quot;</span>, <span class="string">&quot;assets/tilemaps/maps/super-mario.json&quot;</span>);</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">image</span>(<span class="string">&quot;tiles1&quot;</span>, <span class="string">&quot;assets/tilemaps/tiles/super-mario.png&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>타일셋을 포함해서 저장했을 때 왜 깨지는지까지는 빨리 파악이 어려울 것 같으니 우선은 예제를 참고하여 얼른 넘어가기로하고 (응 그렇게 넘어간거 산더미~) 나도 타일셋 이미지를 asset 쪽에 넣어줬다.</p>
+<h3 id="짜잔"><a href="#짜잔" class="headerlink" title="짜잔"></a>짜잔</h3><p>onCreate 함수에 아래와 같이 에셋과 맵정보를 로드하면 화면에 희의실이 그려진 것을 확인할 수 있다 :) 이제 다음 포스트 부터는 실제로 캐릭터를 이동해보도록 하겠다</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">tilemapTiledJSON</span>(<span class="string">&quot;map&quot;</span>, <span class="string">&quot;assets/tilemaps/maps/super-mario.json&quot;</span>);</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">image</span>(<span class="string">&quot;tiles1&quot;</span>, <span class="string">&quot;assets/tilemaps/tiles/super-mario.png&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" title="다음 페이지" aria-label="다음 페이지" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-running"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gayoung Hyeon</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"ga0hyeon/ga0hyeon.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
