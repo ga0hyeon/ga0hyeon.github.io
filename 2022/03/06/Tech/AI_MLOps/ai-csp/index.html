@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="MOTIVATION작년 상반기에 구상하여 하반기에 기획 &amp; 개발하고, 연말에 공모전에 냈던 나의 애증의 사이드 프로젝트 ‘주말엔 엄빠랑 놀자’…퇴근하고 저녁, 주말에만 개발하느라 시간도 부족했는데 또 발등에 불 떨어질 때까지 미루는 바람에 실제로는 한 달안에 우다다 만들어서코드도 못생기고 기능도 허접해서 다시 꺼내보고 싶지 않았는데… 요즘 문득 다시">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[주말엔 엄빠랑 놀자] 멍청한 내 사이드 프로젝트에 MLOps 적용하기">
+<meta property="og:url" content="https://ga0hyeon.github.io/2022/03/06/Tech/AI_MLOps/ai-csp/index.html">
+<meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
+<meta property="og:description" content="MOTIVATION작년 상반기에 구상하여 하반기에 기획 &amp; 개발하고, 연말에 공모전에 냈던 나의 애증의 사이드 프로젝트 ‘주말엔 엄빠랑 놀자’…퇴근하고 저녁, 주말에만 개발하느라 시간도 부족했는데 또 발등에 불 떨어질 때까지 미루는 바람에 실제로는 한 달안에 우다다 만들어서코드도 못생기고 기능도 허접해서 다시 꺼내보고 싶지 않았는데… 요즘 문득 다시">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://ga0hyeon.github.io/images/playwith_preference_draft.png">
+<meta property="article:published_time" content="2022-03-06T11:28:59.000Z">
+<meta property="article:modified_time" content="2023-01-12T21:38:10.596Z">
+<meta property="article:author" content="Gayoung Hyeon">
+<meta property="article:tag" content="MLOps">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Cloud">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ga0hyeon.github.io/images/playwith_preference_draft.png">
+
+
+<link rel="canonical" href="https://ga0hyeon.github.io/2022/03/06/Tech/AI_MLOps/ai-csp/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/03/06/Tech/AI_MLOps/ai-csp/","path":"2022/03/06/Tech/AI_MLOps/ai-csp/","title":"[주말엔 엄빠랑 놀자] 멍청한 내 사이드 프로젝트에 MLOps 적용하기"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>[주말엔 엄빠랑 놀자] 멍청한 내 사이드 프로젝트에 MLOps 적용하기 | Hyeon's Dev Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+<meta
+    name="google-site-verification"
+    content="LTmJ0YPGF5Gbzsn3tie9k0UHemQLjwsS1NszONuhJII"
+/>
+<script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4287897577887270"
+    crossorigin="anonymous"
+></script>    
+<script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.production.min.js"
+></script>
+<script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hyeon's Dev Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about-me"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About Me</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li><li class="menu-item menu-item-놀이터"><a href="/playground/" rel="section"><i class="fa fa-gamepad fa-fw"></i>놀이터</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>아카이브</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>검색
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MOTIVATION"><span class="nav-number">1.</span> <span class="nav-text">MOTIVATION</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EA%B5%AC%EC%83%81%ED%95%98%EA%B8%B0"><span class="nav-number">2.</span> <span class="nav-text">구상하기</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%8B%B9%EC%8B%A0%EA%B3%BC-%EC%9C%A0%EC%82%AC%ED%95%9C-%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80-%EB%B3%B8-%EC%BB%A8%ED%85%90%EC%B8%A0-vs-%EB%8B%B9%EC%8B%A0%EC%9D%B4-%EA%B4%80%EC%8B%AC%EC%9E%88%EC%97%88%EB%8D%98-%EC%BB%A8%ED%85%90%EC%B8%A0%EC%99%80-%EC%9C%A0%EC%82%AC%ED%95%9C-%EC%BB%A8%ED%85%90%EC%B8%A0"><span class="nav-number">2.1.</span> <span class="nav-text">당신과 유사한 사용자가 본 컨텐츠 vs 당신이 관심있었던 컨텐츠와 유사한 컨텐츠</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B7%B8%EB%9F%B0%EB%8D%B0-%EC%96%B4%EB%8A%90-%EC%BB%A8%ED%85%90%EC%B8%A0%EC%97%90-%EA%B4%80%EC%8B%AC%EC%9D%B4-%EC%9E%88%EC%9C%BC%EC%85%A8%EC%A3%A0"><span class="nav-number">2.2.</span> <span class="nav-text">그런데 어느 컨텐츠에 관심이 있으셨죠?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B7%B8%EB%A0%87%EB%8B%A4%EB%A9%B4-%EC%96%B4%EB%96%A4-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EC%88%98%EC%A7%91%ED%95%98%EA%B3%A0-%EC%88%98%EC%A7%91%EB%90%9C-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%B7%A8%ED%96%A5%EC%9D%98-%EA%B7%BC%EA%B1%B0%EB%A1%9C-%ED%99%9C%EC%9A%A9%ED%95%A0%EA%B9%8C"><span class="nav-number">2.3.</span> <span class="nav-text">그렇다면 어떤 정보를 수집하고, 수집된 정보를 어떻게 취향의 근거로 활용할까?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%B7%A8%ED%96%A5%EC%97%90-%EB%A7%9E%EB%8A%94-%EC%BB%A8%ED%85%90%EC%B8%A0%EB%A5%BC-%EC%A0%9C%EA%B3%B5%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%B4-%EC%84%A0%ED%96%89%EB%90%98%EC%96%B4%EC%95%BC%ED%95%A0-%EC%9E%91%EC%97%85%EC%9D%80-%EB%AD%98%EA%B9%8C-%EC%BB%A8%ED%85%90%EC%B8%A0-%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC%EB%A5%BC-%EC%A0%95%ED%99%95%ED%95%98%EA%B3%A0-%EC%9E%90%EC%84%B8%ED%95%98%EA%B2%8C-%EC%A0%95%ED%95%98%EB%8A%94-%EA%B2%83"><span class="nav-number">2.4.</span> <span class="nav-text">취향에 맞는 컨텐츠를 제공하기 위해 선행되어야할 작업은 뭘까? 컨텐츠 카테고리를 정확하고 자세하게 정하는 것?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%A1%B0%EC%82%AC%ED%95%98%EA%B8%B0"><span class="nav-number">3.</span> <span class="nav-text">조사하기</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%82%AC%EC%9A%A9%EC%9E%90%EC%9D%98-action-%EC%9D%B4%EB%A0%A5%EC%9D%84-%EC%88%98%EC%A7%91%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80-%EB%AD%90%EA%B0%80-%EC%9E%88%EC%9D%84%EA%B9%8C"><span class="nav-number">3.1.</span> <span class="nav-text">사용자의 action 이력을 수집하는 방법은 뭐가 있을까?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%82%AC%EC%9A%A9%EC%9E%90%EC%9D%98-action-%EC%9D%B4%EB%A0%A5%EA%B3%BC-%EA%B0%80%EC%A4%91%EC%B9%98%EB%A5%BC-%EB%84%98%EA%B8%B0%EB%A9%B4-%EC%9D%B4-%EC%82%AC%EC%9A%A9%EC%9E%90%EC%9D%98-feature-%EB%B3%84-%EA%B4%80%EC%8B%AC%EB%8F%84%EB%A5%BC-%EB%BD%91%EC%95%84%EC%A3%BC%EB%8A%94-%EC%84%9C%EB%B9%84%EC%8A%A4%EB%82%98-%EB%AA%A8%EB%8D%B8%EC%9D%B4-%EB%AD%90%EA%B0%80-%EC%9E%88%EC%9D%84%EA%B9%8C"><span class="nav-number">3.2.</span> <span class="nav-text">사용자의 action 이력과 가중치를 넘기면 이 사용자의 feature 별 관심도를 뽑아주는 서비스나 모델이 뭐가 있을까?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%ED%8A%B9%EC%A0%95-%EC%82%AC%EC%9A%A9%EC%9E%90%EC%9D%98-feature-%EB%B3%84-%EA%B4%80%EC%8B%AC%EB%8F%84%EB%A5%BC-%EB%84%98%EA%B8%B0%EB%A9%B4-%EA%B7%B8-%EC%82%AC%EC%9A%A9%EC%9E%90%EC%97%90%EA%B2%8C-%EC%B6%94%EC%B2%9C%ED%95%A0%EB%A7%8C%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EB%BD%91%EC%95%84%EC%A3%BC%EB%8A%94-%EC%84%9C%EB%B9%84%EC%8A%A4%EB%82%98-%EB%AA%A8%EB%8D%B8%EC%9D%B4-%EB%AD%90%EA%B0%80-%EC%9E%88%EC%9D%84%EA%B9%8C"><span class="nav-number">3.3.</span> <span class="nav-text">특정 사용자의 feature 별 관심도를 넘기면 그 사용자에게 추천할만한 데이터를 뽑아주는 서비스나 모델이 뭐가 있을까?</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gayoung Hyeon"
+      src="/images/profile.png">
+  <p class="site-author-name" itemprop="name">Gayoung Hyeon</p>
+  <div class="site-description" itemprop="description">재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ga0hyeon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ga0hyeon" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/studio._.0224" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;studio._.0224" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/03/06/Tech/AI_MLOps/ai-csp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="[주말엔 엄빠랑 놀자] 멍청한 내 사이드 프로젝트에 MLOps 적용하기 | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [주말엔 엄빠랑 놀자] 멍청한 내 사이드 프로젝트에 MLOps 적용하기
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-03-06 20:28:59" itemprop="dateCreated datePublished" datetime="2022-03-06T20:28:59+09:00">2022-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EC%82%AC%EC%9D%B4%EB%93%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/" itemprop="url" rel="index"><span itemprop="name">사이드 프로젝트</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EC%82%AC%EC%9D%B4%EB%93%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EC%A3%BC%EB%A7%90%EC%97%94-%EC%97%84%EB%B9%A0%EB%9E%91-%EB%86%80%EC%9E%90/" itemprop="url" rel="index"><span itemprop="name">주말엔 엄빠랑 놀자</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>작년 상반기에 구상하여 하반기에 기획 &amp; 개발하고, 연말에 공모전에 냈던 나의 애증의 사이드 프로젝트 ‘주말엔 엄빠랑 놀자’…<br>퇴근하고 저녁, 주말에만 개발하느라 시간도 부족했는데 또 발등에 불 떨어질 때까지 미루는 바람에 실제로는 한 달안에 우다다 만들어서<br>코드도 못생기고 기능도 허접해서 다시 꺼내보고 싶지 않았는데… 요즘 문득 다시 만들어볼까 생각이 들어서 꺼내봤다.</p>
+<p>기억과 그대로 소스코드는 지저분했지만, 리소스가 아깝기도 하고 작년 하반기 대비 내 실력이 얼마나 늘었는지도 볼 겸 모바일앱으로 전환을 해보기로 마음먹었다.</p>
+<p>그리고 이 꼬질꼬질한 친구를 더 멋드러지게 만들기 위해, 작년에 기획만 하고 우선순위에 밀려 구현되지 못했던 장소 추천 기능을 넣어보려고한다.</p>
+<p>이 포스트에서는 어떻게 추천 서비스를 1.구상하고 2.조사하고 3.이해하고 4.구현했는지 정리할 것이다.</p>
+<h1 id="구상하기"><a href="#구상하기" class="headerlink" title="구상하기"></a>구상하기</h1><h2 id="당신과-유사한-사용자가-본-컨텐츠-vs-당신이-관심있었던-컨텐츠와-유사한-컨텐츠"><a href="#당신과-유사한-사용자가-본-컨텐츠-vs-당신이-관심있었던-컨텐츠와-유사한-컨텐츠" class="headerlink" title="당신과 유사한 사용자가 본 컨텐츠 vs 당신이 관심있었던 컨텐츠와 유사한 컨텐츠"></a>당신과 유사한 사용자가 본 컨텐츠 vs 당신이 관심있었던 컨텐츠와 유사한 컨텐츠</h2><p><strong>사용자 기반의 추천</strong> / <strong>컨텐츠 기반의 추천</strong> 둘 중 어느 방향으로 추천을 구현할까 고민이 있었는데<br>나와 유사한 사용자가 어떤 선택을 내렸는가에 기반하여 추천을 하려면 일단 일정 규모 이상의 사용자 풀이 확보되어야한다는 점이 마음에 걸렸고,</p>
+<ul>
+<li>사용자 풀을 방대하게 늘리고 싶은 욕심이 없고</li>
+<li>소수의 충성스러운 사용자를 확보하고 싶은</li>
+</ul>
+<p>나로서는 <strong>컨텐츠 기반의 추천</strong>을 선택하는 것이 유리하다고 판단했다.</p>
+<p>따라서 일차적으로는 내 컨텐츠의 카테고리를 분류하고, 사용자로부터 선호하는 카테고리를 수집한 것이 작년까지의 작업 내용이다.</p>
+<h2 id="그런데-어느-컨텐츠에-관심이-있으셨죠"><a href="#그런데-어느-컨텐츠에-관심이-있으셨죠" class="headerlink" title="그런데 어느 컨텐츠에 관심이 있으셨죠?"></a>그런데 어느 컨텐츠에 관심이 있으셨죠?</h2><p>위에서 언급했듯이 컨텐츠 기반으로 추천을 하겠다는 결정과 초기 작업은 작년에 이미 해둔 상태이지만, 이번에 좀 더 잘 다듬어보려고 고심하면서 심화 기능을 생각하자니 뭔가 문제가 좀 있었다.<br><img src="/images/playwith_preference_draft.png" alt="애증의 사이드 프로젝트"></p>
+<ul>
+<li>초기에 선택한 카테고리에 대한 흥미도가 시간이 지남에 따라 변함<br>그렇다고 사용자가 스스로 취향이 바뀌었다는 것을 인지하고 -&gt; 정보 설정 화면에 진입해서 -&gt; 카테고리를 다시 고르게 하는 것은 검색창의 필터 기능이랑 다른점이 무엇인지? “추천”이라고 쓰고 “검색”이라고 읽어야하나?</li>
+<li>제한된 카테고리 내에서 선택을 하다보니 세밀한 취향 선택이 어렵고, 당연히 추천에 대한 만족도도 떨어짐<br>그렇다고 카테고리 수를 늘리는 것은 UX 피로도를 높이고 심미성도 떨어지는데…</li>
+</ul>
+<p><strong>요약하자면</strong> 사용자에게 ‘너의 취향을 골라보라’고 카테고리 몇 가지를 제시하고 입력받는 것 만으로는 사용자의 취향을 자세히 알 수가 없다는 점이 걱정되기 시작했다.<br><strong>결론적으로</strong>, 사용자가 서비스 내에서 어떤 행동을 했는지 로깅하고, 해당 로그를 활용하여 사용자가 어떤 정보에 흥미를 느끼는지 파악하는 파이프라인을 마련해야할 필요가 있었다.</p>
+<h2 id="그렇다면-어떤-정보를-수집하고-수집된-정보를-어떻게-취향의-근거로-활용할까"><a href="#그렇다면-어떤-정보를-수집하고-수집된-정보를-어떻게-취향의-근거로-활용할까" class="headerlink" title="그렇다면 어떤 정보를 수집하고, 수집된 정보를 어떻게 취향의 근거로 활용할까?"></a>그렇다면 어떤 정보를 수집하고, 수집된 정보를 어떻게 취향의 근거로 활용할까?</h2><p>인스타 추천알고리즘이나 유튭 추천알고리즘이 어떤 정보를 수집해간다더라 이것저것 들은 이야기는 있지만, 실제로 내부가 어찌 되어있는지 자세히 알 방도도 없을 뿐더러 내 시간과 비용으로 그 정도 구현은 어렵기 때문에 우선은 몇 가지 action에 대한 측정값을 수집하는 정도로만 먼저 데이터를 모아보기로 했다.</p>
+<p>의미가 있다고 판단한 action은 주로 조회나 화면과의 상호작용 정도이다. 한 가지 나름 신경썼다고 생각하는 특이점으로는 서비스 자체가 메인 추천화면 -&gt; 장소 상세화면 -&gt; 장소 상세화면의 세부 정보별 상호작용 (장소 내용 자세히보기, 주변관광지 추천, 지도연동 등등)과 같이 안쪽으로 타고 들어와야만 정보의 질이 높아지는 구조로, 유용한 정보를 얻고자 하는 사용자라면 장소상세 화면 안쪽까지 들어와야만 한다는 점에 착안하여 <strong>화면 depth에 대한 가중치를 부여</strong>하려고한다는 점이다.</p>
+<h2 id="취향에-맞는-컨텐츠를-제공하기-위해-선행되어야할-작업은-뭘까-컨텐츠-카테고리를-정확하고-자세하게-정하는-것"><a href="#취향에-맞는-컨텐츠를-제공하기-위해-선행되어야할-작업은-뭘까-컨텐츠-카테고리를-정확하고-자세하게-정하는-것" class="headerlink" title="취향에 맞는 컨텐츠를 제공하기 위해 선행되어야할 작업은 뭘까? 컨텐츠 카테고리를 정확하고 자세하게 정하는 것?"></a>취향에 맞는 컨텐츠를 제공하기 위해 선행되어야할 작업은 뭘까? 컨텐츠 카테고리를 정확하고 자세하게 정하는 것?</h2><p>작년 버전의 소스에서는 박물관, 미술관 등의 N가지 카테고리를 대분류로 장소 별 특색에 따라 하위의 분류를 얼추 정해놓았다. 관광공사에서 제공하는 api를 사용하는 것도 프로젝트의 큰 목적이었기때문에, 관광공사에서 제공하는 카테고리를 거의 그대로 가져다 썼다.</p>
+<p>이 다중 트리 구조의 카테고리가 내가 만들고자하는 추천 서비스에 적합한 데이터 구조일까? 제공되는 카테고리가 마음에 들지 않는데, 시간과 노력을 들여 좀 더 세밀하게 / 정확하게 트리의 리프 카테고리까지 검수해야할까? (실제로 작년에는 이 검수 작업을 하려고 했었다)<br>약간의 고민 만으로도 이 접근은 잘못되었다는 것을 알 수 있었다. 트리 구조의 자세한 분류 체계는 내가 구현하고자 하는 추천 시스템에서 상대적으로 덜 중요한 작업이다.</p>
+<p>대신 내가 장소의 feature로 고려할 수 있는 항목이 무엇이 있을지 고민하면 되겠다고 판단했다.</p>
+<p><strong>결론적으로</strong>, 나는 제목의 “취향에 맞는 컨텐츠를 제공하기 위해 선행되어야할 작업은 뭘까?”에 대한 답을 “장소에 대한 feature를 정하자”로 내린 것이다.</p>
+<p>내가 타겟이라고 생각했던 유저층의 마음으로 웹서핑을 하며 몇 가지 feature 를 뽑아보니, 원래부터도 카테고리로 사용하고 있던 <strong>현장학습 지식의 분야</strong>(역사/과학/미술 등등) 외에도 <strong>적정 연령대</strong>, <strong>대중교통 가능 여부</strong> 등등 꽤 여러가지 feature가 뽑혔다.</p>
+<h1 id="조사하기"><a href="#조사하기" class="headerlink" title="조사하기"></a>조사하기</h1><h2 id="사용자의-action-이력을-수집하는-방법은-뭐가-있을까"><a href="#사용자의-action-이력을-수집하는-방법은-뭐가-있을까" class="headerlink" title="사용자의 action 이력을 수집하는 방법은 뭐가 있을까?"></a>사용자의 action 이력을 수집하는 방법은 뭐가 있을까?</h2><p>어플리케이션에 Action 로깅을 심는 방법에 대해 이것저것 구글링해봤다. 웹에서는 이전부터 많이 쓰였어서 그런지, 구글링 결과가 아주 방대했고 기획 &amp; 마케팅 초짜인 나는 어떤 서비스를 사용해야할 지 찾기 어려웠다. 결국엔 그냥 여러 아티클과 블로그를 둘러보며 감이라도 잡는 수 밖에 없었다 😅</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/daria-blog/mlops-%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C-7ba8d9aae221">MLOps란 무엇일까?</a>: 와! 요즘 블로그에서 많이 보이는 복붙된 지식이 준초콜릿 같은거라면 이런 고디바 같은 글도 있다 ㅠㅠ 감격</li>
+<li><a target="_blank" rel="noopener" href="https://brunch.co.kr/@userhabit/52">행동 데이터 분석가를 위한 안내서 - 나(또는 우리 회사)에 맞는 애널리틱스 선택하기</a> : 결론은 광고글인 것 같긴한데, 어떤 솔루션이 유명한지조차 모르는 나에게는 도움이 되었다</li>
+<li><a target="_blank" rel="noopener" href="https://www.itworld.co.kr/news/191844">Apple의 앱 추적 투명성 정책</a> : 어우 언제부턴가 추적을 허용하겠냐는 팝업이 떠서 당연히 매번 거부했는데 ㅎㅎ 정책이었다니! 너무 무지했던 것 같다;</li>
+<li><a target="_blank" rel="noopener" href="https://www.adjust.com/ko/blog/opt-in-design-for-apple-app-tracking-transparency-att-ios14/">위에 언급된 ATT로인해 UX적으로 고려해야하는 것</a>: 관련은 없는데 재밌어서 기록한다. 역시 UX는 재밌다.</li>
+</ul>
+<h2 id="사용자의-action-이력과-가중치를-넘기면-이-사용자의-feature-별-관심도를-뽑아주는-서비스나-모델이-뭐가-있을까"><a href="#사용자의-action-이력과-가중치를-넘기면-이-사용자의-feature-별-관심도를-뽑아주는-서비스나-모델이-뭐가-있을까" class="headerlink" title="사용자의 action 이력과 가중치를 넘기면 이 사용자의 feature 별 관심도를 뽑아주는 서비스나 모델이 뭐가 있을까?"></a>사용자의 action 이력과 가중치를 넘기면 이 사용자의 feature 별 관심도를 뽑아주는 서비스나 모델이 뭐가 있을까?</h2><h2 id="특정-사용자의-feature-별-관심도를-넘기면-그-사용자에게-추천할만한-데이터를-뽑아주는-서비스나-모델이-뭐가-있을까"><a href="#특정-사용자의-feature-별-관심도를-넘기면-그-사용자에게-추천할만한-데이터를-뽑아주는-서비스나-모델이-뭐가-있을까" class="headerlink" title="특정 사용자의 feature 별 관심도를 넘기면 그 사용자에게 추천할만한 데이터를 뽑아주는 서비스나 모델이 뭐가 있을까?"></a>특정 사용자의 feature 별 관심도를 넘기면 그 사용자에게 추천할만한 데이터를 뽑아주는 서비스나 모델이 뭐가 있을까?</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MLOps/" rel="tag"><i class="fa fa-tag"></i> MLOps</a>
+              <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
+              <a href="/tags/Cloud/" rel="tag"><i class="fa fa-tag"></i> Cloud</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/18/Tech/SpringBoot/spring-validation/" rel="prev" title="[Spring] @Valid @Validated에 대해 알아보자">
+                  <i class="fa fa-chevron-left"></i> [Spring] @Valid @Validated에 대해 알아보자
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/03/27/Tech/SpringBoot/rest-api/" rel="next" title="내 서버를 RESTful하게 설계하기">
+                  내 서버를 RESTful하게 설계하기 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-running"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gayoung Hyeon</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"ga0hyeon/ga0hyeon.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
