@@ -173,7 +173,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -184,7 +184,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -429,7 +429,20 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
+      <time title="Updated at: 2023-01-22 23:05:40" itemprop="dateModified" datetime="2023-01-22T23:05:40+09:00">2023-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tech/" itemprop="url" rel="index"><span itemprop="name">Tech</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tech/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
+        </span>
     </span>
 
   
@@ -602,91 +615,6 @@
 </li>
 </ul>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/09/11/Tech/DevOps/devops-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile.png">
-      <meta itemprop="name" content="Gayoung Hyeon">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyeon's Dev Blog">
-      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
-일기처럼 개발일지를 씁니다.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/11/Tech/DevOps/devops-1/" class="post-title-link" itemprop="url">devops</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">작성일</span>
-
-      <time title="Post created: 2022-09-11 21:48:36" itemprop="dateCreated datePublished" datetime="2022-09-11T21:48:36+09:00">2022-09-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2023-01-13 06:38:10" itemprop="dateModified" datetime="2023-01-13T06:38:10+09:00">2023-01-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/devops/" itemprop="url" rel="index"><span itemprop="name">devops</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
       
     </div>
 
@@ -1246,6 +1174,164 @@
 <p>타일셋을 포함해서 저장했을 때 왜 깨지는지까지는 빨리 파악이 어려울 것 같으니 우선은 예제를 참고하여 얼른 넘어가기로하고 (응 그렇게 넘어간거 산더미~) 나도 타일셋 이미지를 asset 쪽에 넣어줬다.</p>
 <h3 id="짜잔"><a href="#짜잔" class="headerlink" title="짜잔"></a>짜잔</h3><p>onCreate 함수에 아래와 같이 에셋과 맵정보를 로드하면 화면에 희의실이 그려진 것을 확인할 수 있다 :) 이제 다음 포스트 부터는 실제로 캐릭터를 이동해보도록 하겠다</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">tilemapTiledJSON</span>(<span class="string">&quot;map&quot;</span>, <span class="string">&quot;assets/tilemaps/maps/super-mario.json&quot;</span>);</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">load</span>.<span class="title function_">image</span>(<span class="string">&quot;tiles1&quot;</span>, <span class="string">&quot;assets/tilemaps/tiles/super-mario.png&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/07/20/ToyProjects/Gather/gather-clonecoding-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/20/ToyProjects/Gather/gather-clonecoding-1/" class="post-title-link" itemprop="url">[토이프로젝트] 개더타운 클론코딩 - 1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-07-20 02:14:38" itemprop="dateCreated datePublished" datetime="2022-07-20T02:14:38+09:00">2022-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-22 23:01:39" itemprop="dateModified" datetime="2023-01-22T23:01:39+09:00">2023-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80/" itemprop="url" rel="index"><span itemprop="name">개발일지</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80/%EA%B0%9C%EB%8D%94%ED%83%80%EC%9A%B4-%ED%81%B4%EB%A1%A0%EC%BD%94%EB%94%A9/" itemprop="url" rel="index"><span itemprop="name">개더타운 클론코딩</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>나는 코딩이던 미싱이던 그림이던 단시간에 머리를 풀가동해서 결과물을 끌어내는것을 좋아한다.<br>사실 이런 챌린지를 기획할 때 제일 어려운 점은 목표를 정하는 것이다. 끝내는 데에 시간이 N시간 정도면 되겠다 싶으면서도 그 시간 동안 끊임없이 흥미와 도전정신을 끌어올릴 수 있는 목표를 정해야하기 때문이다. 말 그대로 시작이 반인 셈 ㅎㅎ</p>
+<p>멘탈 상태가 좋을 때는 이런 아이디어가 샘솟는데 최근에는 이래저래 의욕이 하나도 없어서 침체되어있다가… 간만에 주말에 시간이 생겨서 일을 벌려 보았다.</p>
+<p>요즘 업무하면서 정말 유용하게 사용하고 있는 개더타운을 참고하여 화상채팅 웹사이트를 구현해보려고 한다. 이런 주제를 선정하게 된 이유는 다음과 같다.</p>
+<ul>
+<li>정제된 전체 가이드나 소스가 흔히 돌아다니지 않는 듯 하다. 개발하면서 제일 꿀맛은 개척하는 맛이니까</li>
+<li>평소에 궁금했던 웹 기술 분야를 세 개나 체험할 수 있다.<ul>
+<li>WebSocket 통신 (을 사용하는 줄 알았지만 뒤에 가서 WebRTC 라는 것을 깨닫게 될 예정) 체험하기</li>
+<li>HTML5 게임 개발 라이브러리 또는 프레임워크 서칭 및 체험하기</li>
+<li>인기 있는 디자인 시스템 서칭 및 체험하기</li>
+</ul>
+</li>
+</ul>
+<h1 id="PREPARATION"><a href="#PREPARATION" class="headerlink" title="PREPARATION"></a>PREPARATION</h1><h2 id="개더타운은-무엇으로-만들어져있나"><a href="#개더타운은-무엇으로-만들어져있나" class="headerlink" title="개더타운은 무엇으로 만들어져있나?"></a>개더타운은 무엇으로 만들어져있나?</h2><p>REST api를 주로 설계/개발해왔기 때문에 실시간 통신에 대해 아는 것이 없어서, 막연하게 ‘개더타운은 WebSocket으로 뭔가 되어있지 않을까?’ 라고 생각했다.<br>물론 그러면서도 어떻게 그 많은 사람이 음성 / 비디오를 서로 전송하고 있을까… 서버가 중간에서 이 많은 미디어를 다 나누어주고 있다면 개더타운은 어떻게 공짜인걸까… 생각은 했으나 그 뒤까지는 몰랐다.<br>찾아보니 개더타운은 P2P로 미디어 또는 임의의 데이터를 주고받을 수 있는 WebRTC를 사용하고 있고, WebRTC은 이미 오래전부터 많은 곳에서 (게임, 화상회의, 휘발성 채팅) 쓰이고 있다고 한다. 떠올려보니 회의 참여자 중 로컬 자원을 많이 쓰고 있는 사람이 포함되어 있을 때 내 게더타운이 약간 느려지는 현상이 종종 있었는데 P2P라서 그랬던 걸 수 있다는 생각이 든다.</p>
+<p>메인 기술 셋을 알아냈으니 WebRTC에 대해 구글링해봤다. 생각보다 공식 가이드 및 샘플이 탄탄해서 처음 접하는 기술임에도 왠지 순탄히 진행될 것 같다. 찾은 리소스는 아래와 같이 리스트업 해둔다.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://webrtc.org/getting-started/firebase-rtc-codelab">잘 정리된 공식 가이드</a></li>
+<li><a target="_blank" rel="noopener" href="https://webrtc.github.io/samples">잘 정리된 공식 샘플코드</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/ko/docs/Web/API/WebRTC_API/Signaling_and_video_calling">Mozilla의 WebRTC 설명</a></li>
+</ul>
+<h2 id="어떻게-만들까"><a href="#어떻게-만들까" class="headerlink" title="어떻게 만들까?"></a>어떻게 만들까?</h2><p>개더타운에 접속해서 F12도 켜보고, 구글링으로 찾은 가이드도 읽어어 보니 어느정도 아키텍처는 그려진 것 같다.<br><image src="/images/webrtc_layout.png" /><br>각 항목에 대한 설명은 다음과 같다.</p>
+<ul>
+<li>Signaling Server 구성 : <strong>Django with djangoRestFramework</strong><br>WebRTC 자체는 P2P 방식이라 미디어 교환 자체를 위해서는 중간다리 역할을 하는 서버가 필요없지만, 맨 처음 통신을 시작할 때 Client 간의 메시지 포맷 등을 협의 (Signaling) 하기 위한 서버가 필요하다고 한다. 요건 오랜만에 Django로 만들어보기로 한다.</li>
+<li>화면구성<ul>
+<li>뼈대 : <strong>React.js with Chakra UI</strong><br>화면 디자인 및 스타일링 작업도 재미있고 신나는 일이지만 요즘 표준 없는 UX/UI (정확히는 FE 개발자 - UX/UI 협업 표준의 부재(?) 또는 어려움(?)..)에 현타를 느끼고 있어서, 유명한 디자인 시스템을 써보기로 했다. 검색하면 여러 개의 빵빵한 디자인 시스템이 나오는데, 그 중 나는 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@chakra-ui/react">Chakra UI</a>를 써보기로 했다.</li>
+<li>맵 및 캐릭터 렌더 : <strong>Phaser</strong><br>HTML5 게임 개발 라이브러리 / 프레임워크에 대해서도 서칭을 했고, 최종으로는 Phaser와 PixiJS 두 개가 후보에 올랐다. 처음 관심 가져본 분야여서 판단을 내리기 어려웠는데 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/38509629/decide-pixi-js-or-phaser">요 글</a>이 큰 도움이 됐다. 내가 이해한 바를 키워드로 요약하자면 편리함(Phaser) vs 자유도(PixiJS) 같다. PixiJS를 쓰면 좀 더 deep하게 이해할 수 있을 것 같아서 10초 정도 고민됐는데, 욕심 같아서 포기했다. 이번에는 Phaser를 사용해보고, 다음에 HTML5 게임 개발이 정말 하고 싶어지면 그때 PixiJS를 써보자.<br>+) 뜬금없지만 <a target="_blank" rel="noopener" href="https://phaser.io/">Phaser 웹사이트</a>가 너무나 2000년대 감성이다.</li>
+</ul>
+</li>
+<li>미디어 전송 : <strong>WebRTC</strong></li>
+</ul>
+<h2 id="무엇부터-어떤-순서로-만들까"><a href="#무엇부터-어떤-순서로-만들까" class="headerlink" title="무엇부터 어떤 순서로 만들까?"></a>무엇부터 어떤 순서로 만들까?</h2><p>이번 사이드 프로젝트에서 제일 큰 수확이 요 스텝이라고 생각한다. 일정에 쫒기며 떠밀리듯이 개발하는 것이 요즘 내 개발 기피(?)의 원인이라고 생각하기 때문에 토이 프로젝트 만큼은 그렇게 진행하지 않으려고 노력했다. 사실 과거를 돌아보면 나는 토이 프로젝트도 그렇게 일정에 쫒기며 했던 사람이었긴하다 ㅋㅋㅋ 물론 오버웤이 내 의지였냐는 또 다른 문제긴 하지만…</p>
+<hr>
+<p>아모튼!! 이제는 그렇게 일하지 않으리라.. 다짐하면서 개발에 착수하기 전 내가 한 고민들을 적어보면 다음과 같다.</p>
+<p><strong>고민1️⃣</strong> 다음 중 내가 우선 시 하는 것은 무엇인가?</p>
+<ul>
+<li>내가 할애하려고 계획한 에포트 이상은 들이지 않고 진행하기</li>
+<li>내가 마무리하려고 계획한 날짜까지는 끝내기</li>
+<li>내가 계획했던 수준까지는 결과물의 퀄리티 내기<ul>
+<li>외적인 퀄리티 (기능성, 사용성, 심미성 등등)</li>
+<li>내적인 퀄리티 (코드 품질)</li>
+</ul>
+</li>
+</ul>
+<p><strong>고민2️⃣</strong> 목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?</p>
+<p><strong>고민3️⃣</strong> 작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?</p>
+<hr>
+<p>그리고 위 고민에 대한 결론은 요렇게 냈다. 물론 앞으로 계속해서 개정해나갈 예정이다 ㅎㅎ 실험🧪적인 것도 있고 ㅋㅋㅋ</p>
+<p><strong>고민1️⃣</strong> 다음 중 내가 우선 시 하는 것은 무엇인가?<br><strong>결론💡</strong> 이 토이 프로젝트에서 나는 <code>내적인 퀄리티 &gt; 마감일 지키기 &gt; 에포트 지키기 &gt; 외적인 퀄리티</code> 순서대로 중요하게 생각할 것이다.</p>
+<ol>
+<li>내적인 퀄리티 기준 : <code>Github public repo에 공개할 수 있는 수준</code> 으로</li>
+<li>마감일 지키기 기준 : 8/28</li>
+<li>에포트 지키기 기준 : <code>평일은 MAX 하루 3시간 이내, 주말은 하루 골라서 MAX 반나절만</code> 투자</li>
+<li>외적인 퀄리티 기준 : 뭐 그냥 데모 가능한 정도로만?<br>나는 요게 제일 신선했다. 실제로 내가 토이 플젝을 하면서 들였던 시간의 꽤 많은 부분이 외적인 퀄리티에 있었는데,<br>정작 진지하게 내가 이것을 얼마나 중요하게 생각하는가를 생각해보았더니 사실은 내가 외적인 퀄리티의 중요도를 별로 높게 생각하고 있지 않았다. 작은 부분이 눈에 거슬리면 ‘에이 뭐 별로 안걸리는데 지금 금방 고칠까’ 하는 마음에 바로 바로 코드에 손을 대는 것이 누적되어 결과적으로 시간을 많이 쏟은 셈이 되었던 것 같다. 한 눈을 팔았다고 해야하나… 아무튼 시간을 내어 이런 고민을 했던 것이 이번 토이 프로젝트 최고의 수확인 것 같다. 👍</li>
+</ol>
+<p><strong>고민2️⃣</strong> 목표 기간 내에 효율적이고 빠르게 작업을 하려면 어떻게 일을 쪼개고, 어떤 순서로 일을 해야할까?<br><strong>결론💡</strong> 이 토이 프로젝트에서 나는 성취감을 느낄수 있는 최소한의 단위로 일을 쪼개고, 요렇게 쪼갠 일들을 다시 연관된 것들 끼리 뭉쳐서 진행할 것이다. 각 항목에서 성취할 수 있는 내용은 🎁 표시로 적어봤다.</p>
+<ol>
+<li>git repository 생성 및 각 모듈 셋업하기<br>🎁 React, Django 셋업과정</li>
+<li>화면 뼈대 구성하기<br>🎁 Chakra 사용법</li>
+<li>맵 구성하기<br>🎁 Phaser 사용법<br>🎁 Phaser와 React.js를 함께 사용하는 과정</li>
+<li>캐릭터 이동 구현하기</li>
+<li>회의실 입장 구현하기</li>
+<li>2인 음성 영상 챗 구현하기<br>🎁 WebRTC 예제 이해 및 응용</li>
+<li>다자 음성 영상 챗 구현하기</li>
+<li>미디어 설정 기능 구현하기</li>
+</ol>
+<p><strong>고민3️⃣</strong> 작업 내용이 대부분 내가 처음 해보는 것이라면, 내가 아는 일을 할 때와 어떻게 다르게 일해야할까?<br><strong>결론🧪</strong> 이 토이 프로젝트에서 나는 현재 작업 마무리 직후 다음 작업 내용에 대한 서칭을 하고, 실제 다음 작업 까지 약간의 텀을 두고 스스로에게 고민할 시간을 의도적으로 줄 것이다.</p>
+<ul>
+<li>생각보다 멍때릴때 나오는 코드가 각잡고 짠 코드보다 선방하는 것 같아서 ㅋㅋㅋ 이번에 실험해본다.</li>
+</ul>
+<p>DELEVERY 단계부터는 내용이 길어져서 다음 포스트에서 이어서 정리한다 :)</p>
 
       
     </div>

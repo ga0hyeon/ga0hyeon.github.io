@@ -101,6 +101,406 @@
       </tags>
   </entry>
   <entry>
+    <title>[주말엔 엄빠랑 놀자] 멍청한 내 사이드 프로젝트에 MLOps 적용하기</title>
+    <url>/2022/03/06/Tech/AI_MLOps/ai-csp/</url>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>작년 상반기에 구상하여 하반기에 기획 &amp; 개발하고, 연말에 공모전에 냈던 나의 애증의 사이드 프로젝트 ‘주말엔 엄빠랑 놀자’…<br>퇴근하고 저녁, 주말에만 개발하느라 시간도 부족했는데 또 발등에 불 떨어질 때까지 미루는 바람에 실제로는 한 달안에 우다다 만들어서<br>코드도 못생기고 기능도 허접해서 다시 꺼내보고 싶지 않았는데… 요즘 문득 다시 만들어볼까 생각이 들어서 꺼내봤다.</p>
+<p>기억과 그대로 소스코드는 지저분했지만, 리소스가 아깝기도 하고 작년 하반기 대비 내 실력이 얼마나 늘었는지도 볼 겸 모바일앱으로 전환을 해보기로 마음먹었다.</p>
+<p>그리고 이 꼬질꼬질한 친구를 더 멋드러지게 만들기 위해, 작년에 기획만 하고 우선순위에 밀려 구현되지 못했던 장소 추천 기능을 넣어보려고한다.</p>
+<p>이 포스트에서는 어떻게 추천 서비스를 1.구상하고 2.조사하고 3.이해하고 4.구현했는지 정리할 것이다.</p>
+<h1 id="구상하기"><a href="#구상하기" class="headerlink" title="구상하기"></a>구상하기</h1><h2 id="당신과-유사한-사용자가-본-컨텐츠-vs-당신이-관심있었던-컨텐츠와-유사한-컨텐츠"><a href="#당신과-유사한-사용자가-본-컨텐츠-vs-당신이-관심있었던-컨텐츠와-유사한-컨텐츠" class="headerlink" title="당신과 유사한 사용자가 본 컨텐츠 vs 당신이 관심있었던 컨텐츠와 유사한 컨텐츠"></a>당신과 유사한 사용자가 본 컨텐츠 vs 당신이 관심있었던 컨텐츠와 유사한 컨텐츠</h2><p><strong>사용자 기반의 추천</strong> / <strong>컨텐츠 기반의 추천</strong> 둘 중 어느 방향으로 추천을 구현할까 고민이 있었는데<br>나와 유사한 사용자가 어떤 선택을 내렸는가에 기반하여 추천을 하려면 일단 일정 규모 이상의 사용자 풀이 확보되어야한다는 점이 마음에 걸렸고,</p>
+<ul>
+<li>사용자 풀을 방대하게 늘리고 싶은 욕심이 없고</li>
+<li>소수의 충성스러운 사용자를 확보하고 싶은</li>
+</ul>
+<p>나로서는 <strong>컨텐츠 기반의 추천</strong>을 선택하는 것이 유리하다고 판단했다.</p>
+<p>따라서 일차적으로는 내 컨텐츠의 카테고리를 분류하고, 사용자로부터 선호하는 카테고리를 수집한 것이 작년까지의 작업 내용이다.</p>
+<h2 id="그런데-어느-컨텐츠에-관심이-있으셨죠"><a href="#그런데-어느-컨텐츠에-관심이-있으셨죠" class="headerlink" title="그런데 어느 컨텐츠에 관심이 있으셨죠?"></a>그런데 어느 컨텐츠에 관심이 있으셨죠?</h2><p>위에서 언급했듯이 컨텐츠 기반으로 추천을 하겠다는 결정과 초기 작업은 작년에 이미 해둔 상태이지만, 이번에 좀 더 잘 다듬어보려고 고심하면서 심화 기능을 생각하자니 뭔가 문제가 좀 있었다.<br><img src="/images/playwith_preference_draft.png" alt="애증의 사이드 프로젝트"></p>
+<ul>
+<li>초기에 선택한 카테고리에 대한 흥미도가 시간이 지남에 따라 변함<br>그렇다고 사용자가 스스로 취향이 바뀌었다는 것을 인지하고 -&gt; 정보 설정 화면에 진입해서 -&gt; 카테고리를 다시 고르게 하는 것은 검색창의 필터 기능이랑 다른점이 무엇인지? “추천”이라고 쓰고 “검색”이라고 읽어야하나?</li>
+<li>제한된 카테고리 내에서 선택을 하다보니 세밀한 취향 선택이 어렵고, 당연히 추천에 대한 만족도도 떨어짐<br>그렇다고 카테고리 수를 늘리는 것은 UX 피로도를 높이고 심미성도 떨어지는데…</li>
+</ul>
+<p><strong>요약하자면</strong> 사용자에게 ‘너의 취향을 골라보라’고 카테고리 몇 가지를 제시하고 입력받는 것 만으로는 사용자의 취향을 자세히 알 수가 없다는 점이 걱정되기 시작했다.<br><strong>결론적으로</strong>, 사용자가 서비스 내에서 어떤 행동을 했는지 로깅하고, 해당 로그를 활용하여 사용자가 어떤 정보에 흥미를 느끼는지 파악하는 파이프라인을 마련해야할 필요가 있었다.</p>
+<h2 id="그렇다면-어떤-정보를-수집하고-수집된-정보를-어떻게-취향의-근거로-활용할까"><a href="#그렇다면-어떤-정보를-수집하고-수집된-정보를-어떻게-취향의-근거로-활용할까" class="headerlink" title="그렇다면 어떤 정보를 수집하고, 수집된 정보를 어떻게 취향의 근거로 활용할까?"></a>그렇다면 어떤 정보를 수집하고, 수집된 정보를 어떻게 취향의 근거로 활용할까?</h2><p>인스타 추천알고리즘이나 유튭 추천알고리즘이 어떤 정보를 수집해간다더라 이것저것 들은 이야기는 있지만, 실제로 내부가 어찌 되어있는지 자세히 알 방도도 없을 뿐더러 내 시간과 비용으로 그 정도 구현은 어렵기 때문에 우선은 몇 가지 action에 대한 측정값을 수집하는 정도로만 먼저 데이터를 모아보기로 했다.</p>
+<p>의미가 있다고 판단한 action은 주로 조회나 화면과의 상호작용 정도이다. 한 가지 나름 신경썼다고 생각하는 특이점으로는 서비스 자체가 메인 추천화면 -&gt; 장소 상세화면 -&gt; 장소 상세화면의 세부 정보별 상호작용 (장소 내용 자세히보기, 주변관광지 추천, 지도연동 등등)과 같이 안쪽으로 타고 들어와야만 정보의 질이 높아지는 구조로, 유용한 정보를 얻고자 하는 사용자라면 장소상세 화면 안쪽까지 들어와야만 한다는 점에 착안하여 <strong>화면 depth에 대한 가중치를 부여</strong>하려고한다는 점이다.</p>
+<h2 id="취향에-맞는-컨텐츠를-제공하기-위해-선행되어야할-작업은-뭘까-컨텐츠-카테고리를-정확하고-자세하게-정하는-것"><a href="#취향에-맞는-컨텐츠를-제공하기-위해-선행되어야할-작업은-뭘까-컨텐츠-카테고리를-정확하고-자세하게-정하는-것" class="headerlink" title="취향에 맞는 컨텐츠를 제공하기 위해 선행되어야할 작업은 뭘까? 컨텐츠 카테고리를 정확하고 자세하게 정하는 것?"></a>취향에 맞는 컨텐츠를 제공하기 위해 선행되어야할 작업은 뭘까? 컨텐츠 카테고리를 정확하고 자세하게 정하는 것?</h2><p>작년 버전의 소스에서는 박물관, 미술관 등의 N가지 카테고리를 대분류로 장소 별 특색에 따라 하위의 분류를 얼추 정해놓았다. 관광공사에서 제공하는 api를 사용하는 것도 프로젝트의 큰 목적이었기때문에, 관광공사에서 제공하는 카테고리를 거의 그대로 가져다 썼다.</p>
+<p>이 다중 트리 구조의 카테고리가 내가 만들고자하는 추천 서비스에 적합한 데이터 구조일까? 제공되는 카테고리가 마음에 들지 않는데, 시간과 노력을 들여 좀 더 세밀하게 / 정확하게 트리의 리프 카테고리까지 검수해야할까? (실제로 작년에는 이 검수 작업을 하려고 했었다)<br>약간의 고민 만으로도 이 접근은 잘못되었다는 것을 알 수 있었다. 트리 구조의 자세한 분류 체계는 내가 구현하고자 하는 추천 시스템에서 상대적으로 덜 중요한 작업이다.</p>
+<p>대신 내가 장소의 feature로 고려할 수 있는 항목이 무엇이 있을지 고민하면 되겠다고 판단했다.</p>
+<p><strong>결론적으로</strong>, 나는 제목의 “취향에 맞는 컨텐츠를 제공하기 위해 선행되어야할 작업은 뭘까?”에 대한 답을 “장소에 대한 feature를 정하자”로 내린 것이다.</p>
+<p>내가 타겟이라고 생각했던 유저층의 마음으로 웹서핑을 하며 몇 가지 feature 를 뽑아보니, 원래부터도 카테고리로 사용하고 있던 <strong>현장학습 지식의 분야</strong>(역사/과학/미술 등등) 외에도 <strong>적정 연령대</strong>, <strong>대중교통 가능 여부</strong> 등등 꽤 여러가지 feature가 뽑혔다.</p>
+<h1 id="조사하기"><a href="#조사하기" class="headerlink" title="조사하기"></a>조사하기</h1><h2 id="사용자의-action-이력을-수집하는-방법은-뭐가-있을까"><a href="#사용자의-action-이력을-수집하는-방법은-뭐가-있을까" class="headerlink" title="사용자의 action 이력을 수집하는 방법은 뭐가 있을까?"></a>사용자의 action 이력을 수집하는 방법은 뭐가 있을까?</h2><p>어플리케이션에 Action 로깅을 심는 방법에 대해 이것저것 구글링해봤다. 웹에서는 이전부터 많이 쓰였어서 그런지, 구글링 결과가 아주 방대했고 기획 &amp; 마케팅 초짜인 나는 어떤 서비스를 사용해야할 지 찾기 어려웠다. 결국엔 그냥 여러 아티클과 블로그를 둘러보며 감이라도 잡는 수 밖에 없었다 😅</p>
+<ul>
+<li><a href="https://medium.com/daria-blog/mlops-%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C-7ba8d9aae221">MLOps란 무엇일까?</a>: 와! 요즘 블로그에서 많이 보이는 복붙된 지식이 준초콜릿 같은거라면 이런 고디바 같은 글도 있다 ㅠㅠ 감격</li>
+<li><a href="https://brunch.co.kr/@userhabit/52">행동 데이터 분석가를 위한 안내서 - 나(또는 우리 회사)에 맞는 애널리틱스 선택하기</a> : 결론은 광고글인 것 같긴한데, 어떤 솔루션이 유명한지조차 모르는 나에게는 도움이 되었다</li>
+<li><a href="https://www.itworld.co.kr/news/191844">Apple의 앱 추적 투명성 정책</a> : 어우 언제부턴가 추적을 허용하겠냐는 팝업이 떠서 당연히 매번 거부했는데 ㅎㅎ 정책이었다니! 너무 무지했던 것 같다;</li>
+<li><a href="https://www.adjust.com/ko/blog/opt-in-design-for-apple-app-tracking-transparency-att-ios14/">위에 언급된 ATT로인해 UX적으로 고려해야하는 것</a>: 관련은 없는데 재밌어서 기록한다. 역시 UX는 재밌다.</li>
+</ul>
+<h2 id="사용자의-action-이력과-가중치를-넘기면-이-사용자의-feature-별-관심도를-뽑아주는-서비스나-모델이-뭐가-있을까"><a href="#사용자의-action-이력과-가중치를-넘기면-이-사용자의-feature-별-관심도를-뽑아주는-서비스나-모델이-뭐가-있을까" class="headerlink" title="사용자의 action 이력과 가중치를 넘기면 이 사용자의 feature 별 관심도를 뽑아주는 서비스나 모델이 뭐가 있을까?"></a>사용자의 action 이력과 가중치를 넘기면 이 사용자의 feature 별 관심도를 뽑아주는 서비스나 모델이 뭐가 있을까?</h2><h2 id="특정-사용자의-feature-별-관심도를-넘기면-그-사용자에게-추천할만한-데이터를-뽑아주는-서비스나-모델이-뭐가-있을까"><a href="#특정-사용자의-feature-별-관심도를-넘기면-그-사용자에게-추천할만한-데이터를-뽑아주는-서비스나-모델이-뭐가-있을까" class="headerlink" title="특정 사용자의 feature 별 관심도를 넘기면 그 사용자에게 추천할만한 데이터를 뽑아주는 서비스나 모델이 뭐가 있을까?"></a>특정 사용자의 feature 별 관심도를 넘기면 그 사용자에게 추천할만한 데이터를 뽑아주는 서비스나 모델이 뭐가 있을까?</h2>]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>MLOps</category>
+      </categories>
+      <tags>
+        <tag>MLOps</tag>
+        <tag>AI</tag>
+        <tag>Cloud</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javscript OCR 라이브러리로 제품정보 인식하기</title>
+    <url>/2022/05/22/Tech/AI_MLOps/ocr/</url>
+    <content><![CDATA[<h1 id="AWS-Textract"><a href="#AWS-Textract" class="headerlink" title="AWS Textract"></a>AWS Textract</h1><p>처음에는 AWS Textract를 사용하려고 하였으나… 지원 언어에 한국어가 아직 없는 관계로 패스</p>
+<h1 id="Javascript-OCR-라이브러리들"><a href="#Javascript-OCR-라이브러리들" class="headerlink" title="Javascript OCR 라이브러리들"></a>Javascript OCR 라이브러리들</h1><p>직접 구현하기로 마음을 먹고 javascript OCR 라이브러리를 찾아보니 생각보다 굉장히 많았다.<br><a href="https://openbase.com/categories/js/best-nodejs-ocr-libraries">https://openbase.com/categories/js/best-nodejs-ocr-libraries</a><br>1위인 Tesseract를 선택했다.</p>
+<h1 id="input으로-어떤-이미지가-들어올까"><a href="#input으로-어떤-이미지가-들어올까" class="headerlink" title="input으로 어떤 이미지가 들어올까?"></a>input으로 어떤 이미지가 들어올까?</h1><p>일반 사용자에게 “제품 모델명을 촬영해달라”고 한다면 어느 부분을 찍을지 생각해봤다.<br>얼마 고민해보지 않아도 제품 어딘가에 모델명이 쓰여있는 경우를 모두 고려해야한다는 결론이 났다.</p>
+<ul>
+<li>단순 텍스트</li>
+<li>행과 열이 선으로 구분된 테이블 형태의 상세정보</li>
+<li>행과 열이 선으로 구분되지 않은 테이블 형태의 상세정보</li>
+</ul>
+<p>가이드 문서에서 제공되는 아래의 기본 코드로 위의 세가지 케이스를 각각 인식해본 결과…</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> worker = <span class="title function_">createWorker</span>(&#123;</span><br><span class="line">  <span class="attr">logger</span>: <span class="function">(<span class="params">m</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(m),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">recognize</span> = (<span class="params">file: File</span>) =&gt; &#123;</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> worker.<span class="title function_">load</span>();</span><br><span class="line">    <span class="keyword">await</span> worker.<span class="title function_">loadLanguage</span>(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> worker.<span class="title function_">initialize</span>(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      <span class="attr">data</span>: &#123; text &#125;,</span><br><span class="line">    &#125; = <span class="keyword">await</span> worker.<span class="title function_">recognize</span>(file);</span><br><span class="line">    <span class="title function_">setResult</span>(text);</span><br><span class="line">    <span class="keyword">await</span> worker.<span class="title function_">terminate</span>();</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/ocr_result_1.png" alt="인식결과_1"><br>나~~~~름 뭔가가 인식되는 것을 볼 수 있었다. 나름… 하지만 제품정보를 “인식”했다고 하기에는 정확도가 민망할 정도로 낮아서, 보완할 포인트를 정리해봤다.</p>
+<ul>
+<li>먼지가 글자로 인식되어, 먼지가 많은 사진을 인식하는 데에 수 분이 소요된다<ul>
+<li>의도한 것은 아니나, 단순 텍스트 인식을 위해 촬영한 이미지 (공유기)에 먼지가 많아서 이걸 다 글자로 인식하는 바람에 정확도 0% 처리 시간 N분이라는 결과가… 나왔다</li>
+</ul>
+</li>
+<li>input 사진의 size가 불필요하게 크다</li>
+<li>글자와 배경만 구분하면 될텐데… 이미지가 컬러일 필요가 없어보인다</li>
+<li>글자가 있는 영역 외의 Object는 인식에서 제외할 필요가 있어보인다</li>
+<li>테이블 형식의 input 데이터는 사실 행-열 조합 만으로 매우 큰 정보를 제공하는데, 인식 결과에서는 그 내용을 활용하지 못한다</li>
+</ul>
+<p>도출된 보완점 중 <strong>먼지</strong> 문제와 <strong>input size</strong> 문제, <strong>grayscale</strong> 문제는 쉽게 해결 가능해보이고,<br><strong>Object</strong> 문제와 <strong>Table</strong> 문제는 detection 관련해서 좀 더 찾아볼 필요가 있어보였다.</p>
+<p>아무튼. 쓸만하게 만들기 위해서는 전처리가 필요하다.</p>
+<p>구글링해보니 인식률을 높이는 방법으로 몇 가지 전처리가 추천되고 있다. 다들 비슷하게 생각하고 있다 ㅋㅋㅋ 재밌음<br><a href="https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy">https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy</a></p>
+<h1 id="전처리를-추가하자"><a href="#전처리를-추가하자" class="headerlink" title="전처리를 추가하자"></a>전처리를 추가하자</h1><h2 id="openCV-js를-붙여보자"><a href="#openCV-js를-붙여보자" class="headerlink" title="openCV.js를 붙여보자"></a>openCV.js를 붙여보자</h2><p>javascript에서 영상처리를 하는 방법에 대해 열심히 구글링했지만… 쉽지 않았다. cdn을 통해서나 js를 받아 직접 script를 붙여서 사용하도록 가이드하는 오픈소스는 종종 보였으나 npm 라이브러리는 쓸만한게 없었다. 아쉬운대로 openCV.js를 받아서 써보기로 했다.</p>
+<ol>
+<li><p><a href="https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html">https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html</a> 를 참고해서 4.5.5버전의 openCV.zip를 다운로드한다.</p>
+</li>
+<li><p>zip 폴더를 풀어 public 폴더에 넣고, 폴더명은 openCV_4.5.5로 변경했다. 그리고 index.html에 아래와 같이 js를 붙여준다. js가 로드된 이후 부터는 글로벌하게 선언된 <code>cv</code> 변수를 이용해서 openCV를 사용할 수 있다.</p>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;openCV_4.5.5/opencv.js&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onload</span>=<span class="string">&quot;onOpenCvReady();&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="이미지를-흑백으로-변환하자"><a href="#이미지를-흑백으로-변환하자" class="headerlink" title="이미지를 흑백으로 변환하자"></a>이미지를 흑백으로 변환하자</h2><p><a href="https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html">https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html</a></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> src = cv.<span class="title function_">imread</span>(<span class="string">&quot;canvasInput&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> dst = <span class="keyword">new</span> cv.<span class="title class_">Mat</span>();</span><br><span class="line">cv.<span class="title function_">cvtColor</span>(src, dst, cv.<span class="property">COLOR_RGBA2GRAY</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>OCR</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[React Native] iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</title>
+    <url>/2022/04/08/Tech/ReactNative/RN-ios-image-not-showing/</url>
+    <content><![CDATA[<h1 id="WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때"><a href="#WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때" class="headerlink" title="WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때"></a>WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</h1><p>현상은 다음과 같다. 예를 들어 특정 도메인이 <em><a href="https://some.url/">https://some.url</a></em> 이라고 하면</p>
+<ul>
+<li>AOS에서는 <em><a href="https://some.url/">https://some.url</a></em> 로 uri 지정한 Image 컴포넌트가 아주 잘 보인다.</li>
+<li>iOS에서는 완전히 동일한 React Native 소스인데 <em><a href="https://some.url/">https://some.url</a></em>를 바라보고 있는 Image 컴포넌트가 안그려진다.</li>
+<li>iOS에서 사파리로 <em><a href="https://some.url/">https://some.url</a></em> 접근시에는 잘보인다.</li>
+<li>iOS에서 다른 도메인 이미지로 Image 컴포넌트를 그려보면 잘 보인다.</li>
+</ul>
+<p>네트워크 적으로 뭔가 막힌거같은데… 아직 못찾았다 ㅠㅠ</p>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>React Native</category>
+      </categories>
+      <tags>
+        <tag>React Native</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[React Native] 여러 개의 자식 요소를 가운데 정렬하고 싶을 때</title>
+    <url>/2022/04/08/Tech/ReactNative/RN-publishing-align-center/</url>
+    <content><![CDATA[<h1 id="여러-개의-자식-요소를-가운데-정렬하고-싶을-때"><a href="#여러-개의-자식-요소를-가운데-정렬하고-싶을-때" class="headerlink" title="여러 개의 자식 요소를 가운데 정렬하고 싶을 때"></a>여러 개의 자식 요소를 가운데 정렬하고 싶을 때</h1><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = <span class="title class_">StyleSheet</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">vertical</span>: &#123;</span><br><span class="line">    <span class="attr">justifyContent</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 horizontally 가운데 정렬된다.</span></span><br><span class="line">    <span class="attr">alignItems</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 vertically 가운데 정렬된다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>React Native</category>
+      </categories>
+      <tags>
+        <tag>React Native</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[React Native] 플랫폼별로 디자인을 달리 하고 싶을 때</title>
+    <url>/2022/04/08/Tech/ReactNative/RN-publishing-branch-os/</url>
+    <content><![CDATA[<h1 id="플랫폼별로-디자인을-달리-하고-싶을-때"><a href="#플랫폼별로-디자인을-달리-하고-싶을-때" class="headerlink" title="플랫폼별로 디자인을 달리 하고 싶을 때"></a>플랫폼별로 디자인을 달리 하고 싶을 때</h1><p><code>react-native</code> 패키지의 <code>Platform</code> 모듈을 사용하자</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = <span class="title class_">StyleSheet</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">pagination_wrapper</span>: &#123;</span><br><span class="line">    <span class="attr">position</span>: <span class="string">&quot;absolute&quot;</span>,</span><br><span class="line">    <span class="attr">left</span>: width / <span class="number">2</span> - <span class="number">100</span>,</span><br><span class="line">    ...<span class="title class_">Platform</span>.<span class="title function_">select</span>(&#123;</span><br><span class="line">      <span class="attr">ios</span>: &#123;</span><br><span class="line">        <span class="attr">top</span>: height + <span class="number">70</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">android</span>: &#123;</span><br><span class="line">        <span class="attr">top</span>: height + <span class="number">75</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>React Native</category>
+      </categories>
+      <tags>
+        <tag>React Native</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[React Native] 스크롤 영역의 스크롤 바를 가리고 싶을 때</title>
+    <url>/2022/04/12/Tech/ReactNative/RN-publishing-hide-scrollbar/</url>
+    <content><![CDATA[<h1 id="스크롤-영역의-스크롤-바를-가리고-싶을-때"><a href="#스크롤-영역의-스크롤-바를-가리고-싶을-때" class="headerlink" title="스크롤 영역의 스크롤 바를 가리고 싶을 때"></a>스크롤 영역의 스크롤 바를 가리고 싶을 때</h1><p>ScrollView, FlatList에게 아래의 props를 내려주자.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">showsVerticalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">showsHorizontalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>React Native</category>
+      </categories>
+      <tags>
+        <tag>React Native</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[React Native] ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</title>
+    <url>/2022/04/10/Tech/ReactNative/RN-publishing-scrollview-sticky/</url>
+    <content><![CDATA[<h1 id="ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때"><a href="#ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때" class="headerlink" title="ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때"></a>ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</h1><p>스크롤 하다가 Stick 되었으면 하는 자식 요소의 index를 stickyHeaderIndices prop를 통해 명시해주자.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">ScrollView</span> stickyHeaderIndices=&#123;[<span class="number">0</span>]&#125;&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Header</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">FirstView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">SecondView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">ThirdView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">FourthView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Footer</span> /&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">ScrollView</span>&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>React Native</category>
+      </categories>
+      <tags>
+        <tag>React Native</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[React Native] 맥북 개발환경을 세팅하자</title>
+    <url>/2022/01/13/Tech/ReactNative/RN-setup/</url>
+    <content><![CDATA[<h1 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h1><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><ol>
+<li><p>Node 12 이상 설치<br><code>brew install node</code></p>
+</li>
+<li><p>Watchman 설치<br><code>brew install watchman</code></p>
+</li>
+<li><p>[iOS/필수] Xcode 설치</p>
+<p>appStore에서 설치하면 됩니다. (용량이 12기가라 매우 느립니다!)</p>
+</li>
+<li><p>[iOS/선택]<br>Xcode를 실행하여 Command Line Tools도 가장 최신으로 다운로드 하세요.</p>
+<p><img src="https://reactnative.dev/assets/images/GettingStartedXcodeCommandLineTools-8259be8d3ab8575bec2b71988163c850.png"></p>
+</li>
+<li><p>[iOS/선택] 시뮬레이터 추가 설치<br><strong>Xcode &gt; Preferences…</strong> 에서 <strong>Components</strong> 탭 선택 후<br>원하는 iOS 시뮬레이터를 선택하여 추가할 수 있습니다.<br>현 : 지금 최신 Xcode를 받으면 iPhone13 (iOS15.2) 가 default로 설치되는 것 같아요</p>
+</li>
+<li><p>[iOS/필수] CocoaPods 설치</p>
+<p><code>sudo gem install cocoapods</code></p>
+</li>
+<li><p>[AOS/필수] JDK 설치</p>
+<p>Jdk8 이상이 필요합니다.<br><code>brew install --cask adoptopenjdk/openjdk/adoptopenjdk8</code></p>
+</li>
+<li><p>[AOS/필수] 안드로이드 스튜디오 설치</p>
+<p><a href="https://developer.android.com/studio/index.html">https://developer.android.com/studio/index.html</a></p>
+</li>
+<li><p>[AOS/필수] 환경변수 설정</p>
+<p>~/.bash_profile 에 아래의 내용을 입력해주세요.<br>현 : 사용하시는 terminal에 따라 유동적으로 진행해주세요 :)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> ANDROID_HOME=<span class="variable">$HOME</span>/Library/Android/sdk</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/emulator</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/tools</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/tools/bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/platform-tools</span><br></pre></td></tr></table></figure></li>
+<li><p>[AOS/필수] SDK 설치</p>
+</li>
+</ol>
+<p>Android Studio &gt; SDK Manager 에서 원하는 SDK 를 선택하여 설치합니다.</p>
+<h2 id="Initialize-amp-Launch-Project"><a href="#Initialize-amp-Launch-Project" class="headerlink" title="Initialize &amp; Launch Project"></a>Initialize &amp; Launch Project</h2><h3 id="Initialize"><a href="#Initialize" class="headerlink" title="Initialize"></a>Initialize</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx react-native init moga --template react-native-template-typescript</span><br><span class="line">yarn add mobx</span><br><span class="line">yarn add mobx-react</span><br><span class="line">yarn add @babel/plugin-proposal-decorators -D</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>babel.config.js</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    [<span class="string">&#x27;@babel/plugin-proposal-decorators&#x27;</span>, &#123;<span class="attr">legacy</span>: <span class="literal">true</span>&#125;],</span><br><span class="line">    [<span class="string">&#x27;@babel/plugin-proposal-class-properties&#x27;</span>, &#123;<span class="attr">loose</span>: <span class="literal">true</span>&#125;],</span><br><span class="line">  ],</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>tsconfig.json</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">	<span class="attr">&quot;experimentalDecorators&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="Launch"><a href="#Launch" class="headerlink" title="Launch"></a>Launch</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yarn install</span><br><span class="line">npx pod-install ios</span><br><span class="line">npm run start</span><br><span class="line">npm run android</span><br><span class="line">npm run ios</span><br></pre></td></tr></table></figure>
+
+<h2 id="Trouble-Shooting"><a href="#Trouble-Shooting" class="headerlink" title="Trouble Shooting"></a>Trouble Shooting</h2><blockquote>
+<p>react-native init 실행 후</p>
+<p>Installing CocoaPods dependencies 에서 실패하는 케이스</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx pod-install ios</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>pod install 실행 시</p>
+<p>Installing Flipper-Glog (0.3.6).. 에서 실패하는 케이스</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo xcode-select --switch /Applications/Xcode.app</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>pod install 실행 시<br><code>git_version&#39;: Failed to extract git version from </code>git –version` (“\nYou have not agreed to the Xcode license agreements, please run ‘sudo xcodebuild -license’ from within a Terminal window to review and agree to the Xcode license agreements.\n”).. 에러 뜨는 케이스</p>
+</blockquote>
+<p><code>sudo xcodebuild -license</code> 또는 Xcode 실행하여 약관 동의</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo xcodebuild -license  <span class="comment">## 또는 Xcode 실행하여 약관 동의</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>React Native</category>
+      </categories>
+      <tags>
+        <tag>React Native</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[JavaScript] 비동기 프로그래밍</title>
+    <url>/2022/04/05/Tech/JavaScript/asynchronous-programming/</url>
+    <content><![CDATA[<h1 id="이-글을-쓰게된-이유"><a href="#이-글을-쓰게된-이유" class="headerlink" title="이 글을 쓰게된 이유"></a>이 글을 쓰게된 이유</h1><p>나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다.</p>
+<h1 id="비동기처리-패턴의-역사"><a href="#비동기처리-패턴의-역사" class="headerlink" title="비동기처리 패턴의 역사"></a>비동기처리 패턴의 역사</h1><p>웹을 경험한 기간이 짧아서 아쉬운 점은 실제로 내가 예전의 구린 웹을 써본 적이 없다는 것이다 ㅠㅠ 이건 비단 웹 뿐만 아니라 프로그래밍의 거의 모든 분야에서 그렇긴 하지만. 실제로 불편했던 기억이 있으면 예를 들어 설명하기 더 좋지 않았을까 생각한다.<br>아무튼 나는 경험한 바가 없기 때문에, 비동기처리 패턴이 예전엔 어떻게 구렸는 지 좀 찾아봤다.</p>
+<h2 id="Callback-패턴"><a href="#Callback-패턴" class="headerlink" title="Callback 패턴"></a>Callback 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">doSomethingAsynchronously</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title function_">asyncFuncWithCallback</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        <span class="title function_">doSomethng</span>();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이건 안써봐도 별로이게 생겼다. 순차적으로 비동기 처리를 원하는 경우, Callback 안에 Callback 안에 Callback.. 을 넣어줘야한다.</p>
+<h2 id="Promise-패턴-then-catch-finally"><a href="#Promise-패턴-then-catch-finally" class="headerlink" title="Promise 패턴 (then, catch, finally)"></a>Promise 패턴 (then, catch, finally)</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">asyncFunc</span>()</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is rejected</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">finally</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved or rejected</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>ES6에 등장했다는 이 패턴에서는, 순차적으로 비동기 처리를 원하는 경우 then then then.. 으로 Promise를 return하고 다음 then에서 처리하는 방식으로 엮을 수 있다.<br>위에 것 보다는 편해보인다. 하지만 뒤쪽의 then 절에서 res에 뭐가 들어있는 지 따라가는 것이 쉽지 않다.</p>
+<h2 id="async-await-패턴"><a href="#async-await-패턴" class="headerlink" title="async await 패턴"></a>async await 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> res1 = <span class="keyword">await</span> <span class="title function_">asyncFunc1</span>();</span><br><span class="line"><span class="keyword">const</span> res2 = <span class="keyword">await</span> <span class="title function_">asyncFunc2</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res1, res2);</span><br></pre></td></tr></table></figure>
+
+<p>ES8에 등장한 이 패턴은, 확실히 위의 두 패턴보다 가독성이 좋아 보인다.</p>
+<h1 id="동기함수에서-비동기-함수를-호출하고-싶은데…"><a href="#동기함수에서-비동기-함수를-호출하고-싶은데…" class="headerlink" title="동기함수에서 비동기 함수를 호출하고 싶은데…"></a>동기함수에서 비동기 함수를 호출하고 싶은데…</h1><p>예를 들어 화면 쪽 로직에 이런 기능이 있다.</p>
+<p>‘제출하기 버튼을 누르면 제출 api를 호출하게 해주세요’</p>
+<p>물론 제출하기 버튼에 제출 api 호출 함수를 넣으면 된다. 바로 동작하는 것을 볼 수 있다. 그런데 여기에 type checking 이 들어가면 버튼의 onClick 핸들러는 동기 함수를 받기를 원하므로, 비동기인 api 호출 함수를 넣으면 정적 소스 분석툴에서 type이 맞지 않다고 징징거린다.</p>
+<p>그래서 처음에는 이런식의 코드를 짰다.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">groupedAsyncFunc</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> <span class="title function_">asyncFunc1</span>();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> <span class="title function_">asyncFunc2</span>();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">    groupedAsyncFunc.then((res) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">      doSomething(res);</span></span><br><span class="line"><span class="language-xml">    &#125;);</span></span><br><span class="line"><span class="language-xml">  &#125;&#125;</span></span><br><span class="line"><span class="language-xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>다건의 연속된 비동기 처리는 async await로 보기 좋게 짜더라도, 마지막에 한번은 동기로 마무리하려면 then을 써주어야한다고 생각한 것이다. 여유를 갖고 검색해볼 시간이 없었던 것 같다.</p>
+<p>다행히 시간을 내어 이 내용을 구글링한 끝에, 두 가지의 대안을 찾았다.</p>
+<ol>
+<li>비동기 함수 호출 시 void 붙여주기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">groupedAsyncFunc</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> <span class="title function_">asyncFunc1</span>();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> <span class="title function_">asyncFunc2</span>();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> void groupedAsyncFunc()&#125; /&gt;</span>;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>IIFE (즉시실행함수) 패턴 사용하기</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">groupedAsyncFunc</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> <span class="title function_">asyncFunc1</span>();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> <span class="title function_">asyncFunc2</span>();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">    (async () =&gt; await groupedAsyncFunc())();</span></span><br><span class="line"><span class="language-xml">  &#125;&#125;</span></span><br><span class="line"><span class="language-xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function">2안을 사용하도록 가이드</a>하는 경우도 꽤 있었다. 나는 몰랐지만, IIFE는 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이며, 변수의 호이스팅 때문에 원하는 대로 동작하지 않는 케이스를 방지해준다는 큰 장점이 있다고 한다. 이 내용을 접했을 때, 내가 <em>동기함수에서 비동기 함수를 호출</em> 하고 싶다는 내 작은 요건에 너무 오버되는 패턴을 찾은 것 같다는 생각을 했다. ㅋㅋㅋ 굳이 이걸 쓸 필요가 없어보였다. Scope 처리가 너무나 당연한 환경에서 웹 개발을 하고있는 나에게는 별로 매력적이지 않아보였기 때문이다. 그래서 2안은 IIFE 개념에 대해 접할 수 있었던 것에만 의의를 두고, 사용하지는 않기로 했다.</p>
+<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>비동기 action의 결과를 명시적으로 기다리지 않는 경우 void 키워드를 붙여주자.</p>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Boot + MySQL + JPA + Flyway 셋업하고 REST api 만들기</title>
+    <url>/2022/11/15/Tech/SpringBoot/setting-JPA/</url>
+    <content><![CDATA[<h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>나는 JPA를 써본적이 없당</p>
+<p>JPA를 사용해본/하고있는 사람들에게 JPA를 설명해달라고 하면 “하… 너넨 이런거 하지마라 🚬” 느낌으로다가 말해주곤 하는데</p>
+<p>하지 말라고 하면 더 해보고 싶은 법이다. 왜 하지말라는건데~~~~</p>
+<p>그래서 사이드 프로젝트 BE를 JPA로 만들기로 결정<del>!</del>!</p>
+<h1 id="Spring-Initializer-로-프로젝트-뼈대-생성"><a href="#Spring-Initializer-로-프로젝트-뼈대-생성" class="headerlink" title="Spring Initializer 로 프로젝트 뼈대 생성"></a>Spring Initializer 로 프로젝트 뼈대 생성</h1><p><a href="https://start.spring.io/">Initializer</a>로 프로젝트 뼈대를 생성한다.</p>
+<p>언어 옵션 중 Kotlin이 아주 잠깐 궁금했으나 잘 참고 Java를 고른다 ㅎㅎ 왜냐면 아직 Java도 아직 잘모름 🤦‍♀️<br>Dependency는 각자 필요한 것을 선택하면 되는데 나는 Lombok, JPA, Flyway, Web 정도가 필요하다.</p>
+<p>+) 개발자인데 GUI가 좋다고 하면 왠지 주눅이 들어서 잘 말하고 다니지 않지만, Initializer를 처음 찾았을때 너무 기분이 좋았다 ㅋㅋㅋ ㅠㅠ</p>
+<h1 id="Application-yaml-설정"><a href="#Application-yaml-설정" class="headerlink" title="Application.yaml 설정"></a>Application.yaml 설정</h1><p>Initializer로 만든 폴더 안에는 application.properties가 기본으로 생성되어있으나 나는 가독성 때문에 yaml 포맷을 선호하므로 application.yaml 파일을 만든다.</p>
+<p>위에서 만들어준 프로젝트에 MySQL을 붙이고 JPA, flyway를 사용하기 위해 구글링 구글링..</p>
+<p><a href="https://www.baeldung.com/spring-data-jpa-run-app-without-db">baeldung 아티클</a> 에서 database 없이 JPA 를 붙이고, 에러가 나지 않도록 줘야하는 옵션값을 설명해준다.<br>( JPA에 대해 정말 지식이 없어서 단순히 메소드 명으로 쿼리 만들어주는 그런 친구인줄로 알았는데, DDL 자동 생성 기능도 있었다.<br>여기저기 포스트를 찾아보기도 하고 혼자서도 생각해보니 오히려 불편할 것 같다는 생각이 들어 이 기능은 끄기로 한다. )</p>
+<p>아래와 같이 application.yaml를 설정해주면 <code>MySQL - JPA - flyway</code> 는 잘 연동이 된다.</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">address:</span> <span class="string">localhost</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">flyway:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">locations:</span> <span class="string">classpath:db/migration</span></span><br><span class="line">    <span class="attr">schemas:</span> <span class="string">coworksaga</span></span><br><span class="line">    <span class="attr">baseline-on-migrate:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">&amp;db-url</span> <span class="string">jdbc:mysql://localhost:3306/coworksaga?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Seoul&amp;createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true</span></span><br><span class="line">    <span class="attr">user:</span> <span class="string">&amp;db-user</span> <span class="string">coworksaga</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">&amp;db-pwd</span> <span class="string">root1234</span></span><br><span class="line">    <span class="attr">create-schemas:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">hibernate:</span></span><br><span class="line">      <span class="attr">ddl-auto:</span> <span class="string">validate</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">format-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">use-sql-comments:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">properties:</span></span><br><span class="line">      <span class="attr">hibernate:</span></span><br><span class="line">        <span class="attr">temp:</span></span><br><span class="line">          <span class="attr">use_jdbc_metadata_defaults:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">*db-url</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">*db-user</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">*db-pwd</span></span><br><span class="line">      <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">org.hibernate.SQL:</span> <span class="string">DEBUG</span></span><br><span class="line">    <span class="attr">org.hibernate.type:</span> <span class="string">TRACE</span></span><br></pre></td></tr></table></figure>
+
+<p>+) yaml 쓰면서 깨달은점</p>
+<ul>
+<li>&amp;, * 페어로 변수를 선언하고 불러다 쓸 수 있다. 굿굿</li>
+<li>database가 없을때 자동으로 생성하도록 하는 옵션을 검색하는게 어려웠다. 어떤사람은 hibernate.ddl-auto 라고 하고 어떤 사람은 create-schemas라고 하고 ㅎㅎ 결론은 jdbc url에 <code>createDatabaseIfNotExist=true</code> 요 옵션을 주는걸로.</li>
+</ul>
+<p>+) yaml 쓰면서 궁금한점</p>
+<ul>
+<li>비슷한 카테고리 같은데 왜 depth가 왜 다른걸까? jpa.hibernate랑 jpa.properties.hibernate 처럼.</li>
+<li>url username passwork 이거 다 datasource, flyway에 두 번씩 쓰게 되어있는데 ㅠ 변수로 정리해두긴 했으나.. 두 옵션이 한 값을 바라보도록 바로 설정은 안되는걸까?</li>
+</ul>
+<h1 id="Layer-별-폴더-트리-생성"><a href="#Layer-별-폴더-트리-생성" class="headerlink" title="Layer 별 폴더 트리 생성"></a>Layer 별 폴더 트리 생성</h1><p>이제 로컬에 서버를 띄울 수 있는 상태가 되었으니 실제로 기능 개발을 할 수 있도록 폴더를 생성하자.</p>
+<p>매번 Layer (Controller, Service, Repository) 별로 폴더링을 했는데 문득 다른 사람들은 어쩌고 있나 싶어 찾아보니 Entity/Domain별로 묶는 방법도 쓰이고 있다. 음 폴더로 묶으면 한 패키지가 되는데.. 패키지랑 맥락이 비슷한 개념은 Layer보단 Entity/Domain인 것 같기도 하고 고민이 되었지만… 실제로 패키지별로 따로 묶어서 배포/공유하는 것도 아니니 생각보다 엄청나게 메리트가 있을 것 같지 않다. 이번에도 Layer로 쪼개도록 한다.</p>
+<h1 id="첫번째-flyway-스크립트와-REST-api-만들기"><a href="#첫번째-flyway-스크립트와-REST-api-만들기" class="headerlink" title="첫번째 flyway 스크립트와 REST api 만들기"></a>첫번째 flyway 스크립트와 REST api 만들기</h1><p>위에 yaml에 써있기는 한데 지금 만들고 있는 건 사이드프로젝트 중 하나였던 cowork-saga의 BE 이다. 만들 당시에는 node.js로 급하게 만들어서 썼는데 마음에 썩 들지 않았다… ㅎㅎ 그리고 그마저도 처음엔 장고였고 나의 pyhon 생산성이 심각히 떨어지는 것을 깨닫고 포기했던 것…  그래도 예전에 좀 써봤으니 할 수 있지 않을까 했는데 충격이었다 ^^</p>
+<p>암튼 요 BE는 signalling server의 기능을 수행하기 위해 socket 통신도 필요하고, 메타 정보를 조회하고 저장하기 위해 REST 통신도 필요하다. 우선은 익숙한 REST api 부터 만들도록 한다.</p>
+<p>uuid를 넘기면 workspace 이름을 조회하는 api를 만들어볼건데, 그러려면 우선 workspace 테이블을 생성해주어야겠다.</p>
+<ul>
+<li><p>V0_1_0__create_workspaces.sql</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> workspaces (</span><br><span class="line">	workspace_id <span class="type">INT</span> UNSIGNED auto_increment <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">	workspace_name <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	workspace_uuid <span class="type">varchar</span>(<span class="number">36</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	workspace_password <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">NULL</span>,</span><br><span class="line">	created_at DATETIME <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> NOW(),</span><br><span class="line">	updated_at DATETIME <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> NOW() <span class="keyword">ON</span> <span class="keyword">UPDATE</span> NOW()</span><br><span class="line">)</span><br><span class="line">ENGINE<span class="operator">=</span>InnoDB</span><br><span class="line"><span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8mb4</span><br><span class="line"><span class="keyword">COLLATE</span><span class="operator">=</span>utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure></li>
+<li><p>V0_1_1__insert_workspaces.sql</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> workspaces</span><br><span class="line">(workspace_id, workspace_name, workspace_uuid, workspace_password, created_at, updated_at)</span><br><span class="line"><span class="keyword">VALUES</span>(<span class="number">1</span>, &quot;HYEON&#x27;s workspace&quot;, <span class="string">&#x27;2a2ba386-1ca1-49c6-8573-076916ac6139&#x27;</span>, <span class="string">&#x27;Password&#x27;</span>, now(), now());</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>이제 Entity를 생성해준다.</p>
+<ul>
+<li><p>Workspace</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;workspaces&quot;)</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Workspace</span> &#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@Column(name = &quot;uuid&quot;, unique = true)</span></span><br><span class="line">    <span class="keyword">private</span> String uuid;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> String createdAt;</span><br><span class="line">    <span class="keyword">private</span> String updatedAt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>그리고 차례대로 Repository, Service, Controller를 만들어준다.</p>
+<ul>
+<li><p>WorkspaceRepository</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">WorkspaceRepository</span> <span class="keyword">extends</span> <span class="title class_">JpaRepository</span>&lt;Workspace, Integer&gt; &#123;</span><br><span class="line">    Workspace <span class="title function_">findByUuid</span><span class="params">(String uuid)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>WorkspaceService</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WorkspaceService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> WorkspaceRepository workspaceRepository;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Workspace <span class="title function_">getWorkspace</span><span class="params">(String uuid)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> workspaceRepository.findByUuid(uuid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>WorkspaceController</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WorkspaceController</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> WorkspaceService workspaceService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/workspaces/&#123;uuid&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Workspace <span class="title function_">workspaceDetail</span><span class="params">(<span class="meta">@PathVariable</span> <span class="meta">@Length(min=16, max=16)</span> String uuid)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> workspaceService.getWorkspace(uuid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>+) 쿼리 결과는 정상적이지만 api 응답이 그냥  <code>&#123;&#125;</code> 로 떨어질 때</p>
+<ul>
+<li>return 한 Entity에 public getter가 없어서 그럴 수 있다. <a href="https://stackoverflow.com/questions/49117622/spring-rest-controller-returns-empty-json-iterable-data-structure-why">참고</a></li>
+</ul>
+<p>이제 뼈대는 얼추 갖추게 된 것 같다. 다음 api 부터는 유용한 annotation 좀 찾고 aspect 붙이면서 보완해나가면 될 듯. 👩‍💻</p>
+<h1 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h1><ul>
+<li>처음부터 해보면 머리에 확실히 잘 들오는 것 같다. get api 하나 만드는데 생각보다 많은 것을 배웠다!</li>
+<li>JPA 아직은 왜 “하… 너넨 이런거 하지마라 🚬” 하는건 지 못느꼈다. 더 써봐야지.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+        <tag>MySQL</tag>
+        <tag>JPA</tag>
+        <tag>Flyway</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Spring] @Valid @Validated에 대해 알아보자</title>
+    <url>/2022/02/18/Tech/SpringBoot/spring-validation/</url>
+    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>사용자로부터 받아온 Input 값을 우리 시스템에 넣어 처리하기 전에 검증하는 것은 매우 흔한 작업임. 볼 필요도 없는 값을 시스템 자원을 써가면서 처리할 필요가 없음.<br>이러한 검증은 몇 개의 if문과 validation utility로 물론 쉽게 구현이 가능하지만, server framework로 spring을 사용하고 있다면 아래와 같이 더 간결한 코드로 검증을 마칠 수 있음.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserAcccount</span>&#123;</span><br><span class="line">    <span class="meta">@NotBlank</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="meta">@Size(min = 4, max = 15)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">login</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="meta">@Valid</span> UserAccount userAccount,</span></span><br><span class="line"><span class="params">)</span>&#123;</span><br><span class="line">    service.login(userAccount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>여기까지는 이해가 쉬운데, 실제로 application에 붙이려고 보니 좀 더 자세히 알아야할 내용들이 많았음. –<br>이 글에서는 그 내용을 모아서 정리해봄.</p>
+<h1 id="Valid-그리고-Validated-어노테이션에-관하여"><a href="#Valid-그리고-Validated-어노테이션에-관하여" class="headerlink" title="@Valid 그리고 @Validated 어노테이션에 관하여"></a>@Valid 그리고 @Validated 어노테이션에 관하여</h1><p>ide에서 @Valid를 입력할 때 자동완성 추천 결과에서 @Validated이 뜨던데, 처음에는 지나쳤었다.</p>
+<p>@Valid를 잘 써보고자 구글링을 하니 두 어노테이션에는 다음과 같은 차이점이 있다는 내용이 아주 많이 나왔다.</p>
+<p>👉 @Valid는 Java에서 제공됨<br>👉 @Validated는 Spring 프레임워크에서 제공되며, @Valid의 기능을 포함함<br>👉 @Valid는 method의 parameter 또는 class field에 사용된 complex object에 적용할 수 있음<br>👉 @Validated는 @Valid가 사용되는 상황 뿐만 아니라, primitive type parameter에 Validation을 추가하고 싶을 때도 사용할 수 있음 (하단에서 후술)<br>👉 @Valid와 달리 @Validated에는 Group을 지정할 수 있음. Validation Group에 대한 내용은 아래에 좀 더 자세히 정리함</p>
+<h1 id="Validation-Group에-대하여-그리고-이거-정말-꿀기능-맞을까"><a href="#Validation-Group에-대하여-그리고-이거-정말-꿀기능-맞을까" class="headerlink" title="Validation Group에 대하여. 그리고 이거 정말 꿀기능 맞을까?"></a>Validation Group에 대하여. 그리고 이거 정말 꿀기능 맞을까?</h1><p>한 개의 class 안에 여러 개의 제약조건 그룹을 지정하고자 하는 경우에 유용하게 사용할 수 있음.<br>제약조건마다, 즉 Request마다 VO를 모두 따로따로 만들어야 하는건가 절망에 빠져있을 때 찾은 내용이라 매우 꿀기능처럼 느껴졌음. (꿀인지 아닌지 아직 엄청 많이 써보지는 않아서 모름 ^_^)</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ValidationGroups</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">EmailChange</span> &#123;&#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PasswordChange</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ChangeUserAccountRequest</span> &#123;</span><br><span class="line">    <span class="meta">@Email(groups = &#123;ValidationGroups.EmailChange.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;ValidationGroups.PasswordChange.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">changeUserEmail</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="meta">@Validated(ValidationGroups.EmailChange)</span> ChangeUserAccountRequest request,</span></span><br><span class="line"><span class="params">)</span>&#123;</span><br><span class="line">    service.changeUserEmail(request);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">changeUserPassword</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="meta">@Validated(ValidationGroups.PasswordChange)</span> ChangeUserAccountRequest request,</span></span><br><span class="line"><span class="params">)</span>&#123;</span><br><span class="line">    service.changeUserPassword(request);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>+) 개인적인 의견<br>VO, DTO 객체 한 개만으로도 여러개의 constraint를 제어할 수 있어서 엄청난 꿀 기능처럼 보이기도 하지만, 지나치게 많아지면 가독성에는 문제가 조금 있는 것 같다… 🤣</p>
+<h1 id="Custom-Validator에-관하여"><a href="#Custom-Validator에-관하여" class="headerlink" title="Custom Validator에 관하여"></a>Custom Validator에 관하여</h1><p>제공되는 기본 validator도 충분히 다양하지만, 우리 서비스만의 validator를 만들고 싶을 때도 있음</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Constraint(validatedBy = NicknameValidator.class)</span></span><br><span class="line"><span class="meta">@Target( &#123; ElementType.METHOD, ElementType.FIELD &#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NickNameConstraint &#123;</span><br><span class="line">    String <span class="title function_">message</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;유효하지 않은 닉네임 형식입니다.&quot;</span>;</span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">Payload</span>&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NicknameValidator</span> <span class="keyword">implements</span></span><br><span class="line">  <span class="title class_">ConstraintValidator</span>&lt;NickNameConstraint, String&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> NickNameConstraint constraint;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">initialize</span><span class="params">(NickNameConstraint constraint)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.constraint = constraint;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String value,</span></span><br><span class="line"><span class="params">      ConstraintValidatorContext cxt)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> value != <span class="literal">null</span> &amp;&amp; value.matches(<span class="string">&quot;system&#x27;s nickname format&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>+) 개인적인 의견<br>신기하게도 custom validator는 아직 단점을 잘 모르겠다…! 지나치게 많이 선언하는거야 당연히 안좋은거고, 프로젝트 내에서 통용되는 몇 가지 validation 로직을 공통화 해놓으면 코드가 부드럽게 읽히는 magic이…<br>( 단점을 발견하게되면 충격받아서 흑역사 지우러 바로 위의 문장 수정하러 올 듯 …. ㅎㅎ )</p>
+<h1 id="Trouble-Shooting🔥"><a href="#Trouble-Shooting🔥" class="headerlink" title="Trouble Shooting🔥"></a>Trouble Shooting🔥</h1><h2 id="⚠-Valid가-primitive-type의-변수-대표적으로-Controller에서-PathVariable로-받아온-값들-에서-동작하지-않음"><a href="#⚠-Valid가-primitive-type의-변수-대표적으로-Controller에서-PathVariable로-받아온-값들-에서-동작하지-않음" class="headerlink" title="⚠ @Valid가 primitive type의 변수(대표적으로 Controller에서 PathVariable로 받아온 값들..)에서 동작하지 않음"></a>⚠ @Valid가 primitive type의 변수(대표적으로 Controller에서 PathVariable로 받아온 값들..)에서 동작하지 않음</h2><p>이 부분 때문에 많이 헤맸음 ㅠㅠㅠㅜㅜ<br>Controller에서 특정 api의 PathVariable에 Validator를 달아주고 싶었는데, 이때는 parameter 앞에 @Valid를 붙여주는 것 만으로는 원하는 대로 동작하지 않았음 😥 WHY?!?!!<br>객체로 받아오는 BodyParam에 붙여준 @Valid는 잘 동작했는디…</p>
+<p>.<br>.<br>.</p>
+<p>두구두구</p>
+<p>위에서 @Valid와 @Validated의 차이에 스포해둔 것 처럼, PathVariable에 Validator를 적용하기 위해서는 상위 Class에 @Validated 어노테이션을 달아줘야함</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Validated</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">YourController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> YourService yourService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;somethings/&#123;type_code&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;List&lt;SomeVO&gt;&gt; <span class="title function_">findSomethingByTypeCode</span><span class="params">(<span class="meta">@Size(min = 4, max = 6)</span></span></span><br><span class="line"><span class="params">                                                        <span class="meta">@PathVariable</span> String typeCode)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(yourService.findSomethingByTypeCode(typeCode));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="⚠-Exception-처리-시-주의"><a href="#⚠-Exception-처리-시-주의" class="headerlink" title="⚠ Exception 처리 시 주의"></a>⚠ Exception 처리 시 주의</h2><p>@Valid와 @Validated 어노테이션은 서로 다른 타입의 Error를 던지므로, 공통 처리 모듈에서 약간의 분기 처리가 필요함</p>
+<p>@Valid 어노테이션에서는 javax.validation.ConstraintViolationException 을,<br>@Validated 어노테이션에서는 org.springframework.web.bind.MethodArgumentNotValidException 을 발생시킴</p>
+<p>어떤 field에서 Error가 발생했는지, 어떤 Error가 발생했는지 두 개의 Exception이 제공하는 field가 달라서 공통화에 시간이 조금 들었음, 참고하면 좋을 듯 :)</p>
+<h2 id="⚠-달기-쉬운-만큼-중복하여-validate-하지-않도록-주의"><a href="#⚠-달기-쉬운-만큼-중복하여-validate-하지-않도록-주의" class="headerlink" title="⚠ 달기 쉬운 만큼, 중복하여 validate 하지 않도록 주의"></a>⚠ 달기 쉬운 만큼, 중복하여 validate 하지 않도록 주의</h2><p>이 부분은 지금도 계속 어떻게 하면 중복을 최소화할까 고민하며 코딩하고 있는 내용임.</p>
+<p>코드로 적혀있는 로직은 중복되어있으면 쉽게 눈에 밟히는데, annotation은 무심코 넘어가게 되는 경우가 많아서 valid도 무심코 여러번 태우게되는 경우가 있었음.<br>정석적인 답은 “가장 안쪽의 로직에만 적용하라” 겠지만 이 메소드 저 메소드 서로 공유하는 상황에서 그러기가 쉽지가 않다. 🤣<br>“이 값은 보장되어서 들어온 값이니까 믿어도 돼” 라는 flag를 함께 넘겨줄 수 있을까? 이것저것 고민해봐야지!</p>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>@Valid</tag>
+        <tag>Spring</tag>
+        <tag>Annotation</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[React] React CDN 버전으로 나를 표현하는 이력 페이지를 만들자</title>
     <url>/2022/01/22/ToyProjects/Blog/Resume/</url>
     <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.</p>
@@ -456,409 +856,6 @@
         <tag>토이프로젝트</tag>
         <tag>WebRTC</tag>
         <tag>Phaser</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javscript OCR 라이브러리로 제품정보 인식하기</title>
-    <url>/2022/05/22/Tech/AI_MLOps/ocr/</url>
-    <content><![CDATA[<h1 id="AWS-Textract"><a href="#AWS-Textract" class="headerlink" title="AWS Textract"></a>AWS Textract</h1><p>처음에는 AWS Textract를 사용하려고 하였으나… 지원 언어에 한국어가 아직 없는 관계로 패스</p>
-<h1 id="Javascript-OCR-라이브러리들"><a href="#Javascript-OCR-라이브러리들" class="headerlink" title="Javascript OCR 라이브러리들"></a>Javascript OCR 라이브러리들</h1><p>직접 구현하기로 마음을 먹고 javascript OCR 라이브러리를 찾아보니 생각보다 굉장히 많았다.<br><a href="https://openbase.com/categories/js/best-nodejs-ocr-libraries">https://openbase.com/categories/js/best-nodejs-ocr-libraries</a><br>1위인 Tesseract를 선택했다.</p>
-<h1 id="input으로-어떤-이미지가-들어올까"><a href="#input으로-어떤-이미지가-들어올까" class="headerlink" title="input으로 어떤 이미지가 들어올까?"></a>input으로 어떤 이미지가 들어올까?</h1><p>일반 사용자에게 “제품 모델명을 촬영해달라”고 한다면 어느 부분을 찍을지 생각해봤다.<br>얼마 고민해보지 않아도 제품 어딘가에 모델명이 쓰여있는 경우를 모두 고려해야한다는 결론이 났다.</p>
-<ul>
-<li>단순 텍스트</li>
-<li>행과 열이 선으로 구분된 테이블 형태의 상세정보</li>
-<li>행과 열이 선으로 구분되지 않은 테이블 형태의 상세정보</li>
-</ul>
-<p>가이드 문서에서 제공되는 아래의 기본 코드로 위의 세가지 케이스를 각각 인식해본 결과…</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> worker = <span class="title function_">createWorker</span>(&#123;</span><br><span class="line">  <span class="attr">logger</span>: <span class="function">(<span class="params">m</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(m),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">recognize</span> = (<span class="params">file: File</span>) =&gt; &#123;</span><br><span class="line">  (<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> worker.<span class="title function_">load</span>();</span><br><span class="line">    <span class="keyword">await</span> worker.<span class="title function_">loadLanguage</span>(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> worker.<span class="title function_">initialize</span>(<span class="string">&quot;kor+eng&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      <span class="attr">data</span>: &#123; text &#125;,</span><br><span class="line">    &#125; = <span class="keyword">await</span> worker.<span class="title function_">recognize</span>(file);</span><br><span class="line">    <span class="title function_">setResult</span>(text);</span><br><span class="line">    <span class="keyword">await</span> worker.<span class="title function_">terminate</span>();</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/ocr_result_1.png" alt="인식결과_1"><br>나~~~~름 뭔가가 인식되는 것을 볼 수 있었다. 나름… 하지만 제품정보를 “인식”했다고 하기에는 정확도가 민망할 정도로 낮아서, 보완할 포인트를 정리해봤다.</p>
-<ul>
-<li>먼지가 글자로 인식되어, 먼지가 많은 사진을 인식하는 데에 수 분이 소요된다<ul>
-<li>의도한 것은 아니나, 단순 텍스트 인식을 위해 촬영한 이미지 (공유기)에 먼지가 많아서 이걸 다 글자로 인식하는 바람에 정확도 0% 처리 시간 N분이라는 결과가… 나왔다</li>
-</ul>
-</li>
-<li>input 사진의 size가 불필요하게 크다</li>
-<li>글자와 배경만 구분하면 될텐데… 이미지가 컬러일 필요가 없어보인다</li>
-<li>글자가 있는 영역 외의 Object는 인식에서 제외할 필요가 있어보인다</li>
-<li>테이블 형식의 input 데이터는 사실 행-열 조합 만으로 매우 큰 정보를 제공하는데, 인식 결과에서는 그 내용을 활용하지 못한다</li>
-</ul>
-<p>도출된 보완점 중 <strong>먼지</strong> 문제와 <strong>input size</strong> 문제, <strong>grayscale</strong> 문제는 쉽게 해결 가능해보이고,<br><strong>Object</strong> 문제와 <strong>Table</strong> 문제는 detection 관련해서 좀 더 찾아볼 필요가 있어보였다.</p>
-<p>아무튼. 쓸만하게 만들기 위해서는 전처리가 필요하다.</p>
-<p>구글링해보니 인식률을 높이는 방법으로 몇 가지 전처리가 추천되고 있다. 다들 비슷하게 생각하고 있다 ㅋㅋㅋ 재밌음<br><a href="https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy">https://stackoverflow.com/questions/9480013/image-processing-to-improve-tesseract-ocr-accuracy</a></p>
-<h1 id="전처리를-추가하자"><a href="#전처리를-추가하자" class="headerlink" title="전처리를 추가하자"></a>전처리를 추가하자</h1><h2 id="openCV-js를-붙여보자"><a href="#openCV-js를-붙여보자" class="headerlink" title="openCV.js를 붙여보자"></a>openCV.js를 붙여보자</h2><p>javascript에서 영상처리를 하는 방법에 대해 열심히 구글링했지만… 쉽지 않았다. cdn을 통해서나 js를 받아 직접 script를 붙여서 사용하도록 가이드하는 오픈소스는 종종 보였으나 npm 라이브러리는 쓸만한게 없었다. 아쉬운대로 openCV.js를 받아서 써보기로 했다.</p>
-<ol>
-<li><p><a href="https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html">https://docs.opencv.org/3.4/d0/d84/tutorial_js_usage.html</a> 를 참고해서 4.5.5버전의 openCV.zip를 다운로드한다.</p>
-</li>
-<li><p>zip 폴더를 풀어 public 폴더에 넣고, 폴더명은 openCV_4.5.5로 변경했다. 그리고 index.html에 아래와 같이 js를 붙여준다. js가 로드된 이후 부터는 글로벌하게 선언된 <code>cv</code> 변수를 이용해서 openCV를 사용할 수 있다.</p>
-</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;openCV_4.5.5/opencv.js&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onload</span>=<span class="string">&quot;onOpenCvReady();&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="이미지를-흑백으로-변환하자"><a href="#이미지를-흑백으로-변환하자" class="headerlink" title="이미지를 흑백으로 변환하자"></a>이미지를 흑백으로 변환하자</h2><p><a href="https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html">https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html</a></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> src = cv.<span class="title function_">imread</span>(<span class="string">&quot;canvasInput&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> dst = <span class="keyword">new</span> cv.<span class="title class_">Mat</span>();</span><br><span class="line">cv.<span class="title function_">cvtColor</span>(src, dst, cv.<span class="property">COLOR_RGBA2GRAY</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>사이드 프로젝트</category>
-      </categories>
-      <tags>
-        <tag>AI</tag>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[주말엔 엄빠랑 놀자] 멍청한 내 사이드 프로젝트에 MLOps 적용하기</title>
-    <url>/2022/03/06/Tech/AI_MLOps/ai-csp/</url>
-    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>작년 상반기에 구상하여 하반기에 기획 &amp; 개발하고, 연말에 공모전에 냈던 나의 애증의 사이드 프로젝트 ‘주말엔 엄빠랑 놀자’…<br>퇴근하고 저녁, 주말에만 개발하느라 시간도 부족했는데 또 발등에 불 떨어질 때까지 미루는 바람에 실제로는 한 달안에 우다다 만들어서<br>코드도 못생기고 기능도 허접해서 다시 꺼내보고 싶지 않았는데… 요즘 문득 다시 만들어볼까 생각이 들어서 꺼내봤다.</p>
-<p>기억과 그대로 소스코드는 지저분했지만, 리소스가 아깝기도 하고 작년 하반기 대비 내 실력이 얼마나 늘었는지도 볼 겸 모바일앱으로 전환을 해보기로 마음먹었다.</p>
-<p>그리고 이 꼬질꼬질한 친구를 더 멋드러지게 만들기 위해, 작년에 기획만 하고 우선순위에 밀려 구현되지 못했던 장소 추천 기능을 넣어보려고한다.</p>
-<p>이 포스트에서는 어떻게 추천 서비스를 1.구상하고 2.조사하고 3.이해하고 4.구현했는지 정리할 것이다.</p>
-<h1 id="구상하기"><a href="#구상하기" class="headerlink" title="구상하기"></a>구상하기</h1><h2 id="당신과-유사한-사용자가-본-컨텐츠-vs-당신이-관심있었던-컨텐츠와-유사한-컨텐츠"><a href="#당신과-유사한-사용자가-본-컨텐츠-vs-당신이-관심있었던-컨텐츠와-유사한-컨텐츠" class="headerlink" title="당신과 유사한 사용자가 본 컨텐츠 vs 당신이 관심있었던 컨텐츠와 유사한 컨텐츠"></a>당신과 유사한 사용자가 본 컨텐츠 vs 당신이 관심있었던 컨텐츠와 유사한 컨텐츠</h2><p><strong>사용자 기반의 추천</strong> / <strong>컨텐츠 기반의 추천</strong> 둘 중 어느 방향으로 추천을 구현할까 고민이 있었는데<br>나와 유사한 사용자가 어떤 선택을 내렸는가에 기반하여 추천을 하려면 일단 일정 규모 이상의 사용자 풀이 확보되어야한다는 점이 마음에 걸렸고,</p>
-<ul>
-<li>사용자 풀을 방대하게 늘리고 싶은 욕심이 없고</li>
-<li>소수의 충성스러운 사용자를 확보하고 싶은</li>
-</ul>
-<p>나로서는 <strong>컨텐츠 기반의 추천</strong>을 선택하는 것이 유리하다고 판단했다.</p>
-<p>따라서 일차적으로는 내 컨텐츠의 카테고리를 분류하고, 사용자로부터 선호하는 카테고리를 수집한 것이 작년까지의 작업 내용이다.</p>
-<h2 id="그런데-어느-컨텐츠에-관심이-있으셨죠"><a href="#그런데-어느-컨텐츠에-관심이-있으셨죠" class="headerlink" title="그런데 어느 컨텐츠에 관심이 있으셨죠?"></a>그런데 어느 컨텐츠에 관심이 있으셨죠?</h2><p>위에서 언급했듯이 컨텐츠 기반으로 추천을 하겠다는 결정과 초기 작업은 작년에 이미 해둔 상태이지만, 이번에 좀 더 잘 다듬어보려고 고심하면서 심화 기능을 생각하자니 뭔가 문제가 좀 있었다.<br><img src="/images/playwith_preference_draft.png" alt="애증의 사이드 프로젝트"></p>
-<ul>
-<li>초기에 선택한 카테고리에 대한 흥미도가 시간이 지남에 따라 변함<br>그렇다고 사용자가 스스로 취향이 바뀌었다는 것을 인지하고 -&gt; 정보 설정 화면에 진입해서 -&gt; 카테고리를 다시 고르게 하는 것은 검색창의 필터 기능이랑 다른점이 무엇인지? “추천”이라고 쓰고 “검색”이라고 읽어야하나?</li>
-<li>제한된 카테고리 내에서 선택을 하다보니 세밀한 취향 선택이 어렵고, 당연히 추천에 대한 만족도도 떨어짐<br>그렇다고 카테고리 수를 늘리는 것은 UX 피로도를 높이고 심미성도 떨어지는데…</li>
-</ul>
-<p><strong>요약하자면</strong> 사용자에게 ‘너의 취향을 골라보라’고 카테고리 몇 가지를 제시하고 입력받는 것 만으로는 사용자의 취향을 자세히 알 수가 없다는 점이 걱정되기 시작했다.<br><strong>결론적으로</strong>, 사용자가 서비스 내에서 어떤 행동을 했는지 로깅하고, 해당 로그를 활용하여 사용자가 어떤 정보에 흥미를 느끼는지 파악하는 파이프라인을 마련해야할 필요가 있었다.</p>
-<h2 id="그렇다면-어떤-정보를-수집하고-수집된-정보를-어떻게-취향의-근거로-활용할까"><a href="#그렇다면-어떤-정보를-수집하고-수집된-정보를-어떻게-취향의-근거로-활용할까" class="headerlink" title="그렇다면 어떤 정보를 수집하고, 수집된 정보를 어떻게 취향의 근거로 활용할까?"></a>그렇다면 어떤 정보를 수집하고, 수집된 정보를 어떻게 취향의 근거로 활용할까?</h2><p>인스타 추천알고리즘이나 유튭 추천알고리즘이 어떤 정보를 수집해간다더라 이것저것 들은 이야기는 있지만, 실제로 내부가 어찌 되어있는지 자세히 알 방도도 없을 뿐더러 내 시간과 비용으로 그 정도 구현은 어렵기 때문에 우선은 몇 가지 action에 대한 측정값을 수집하는 정도로만 먼저 데이터를 모아보기로 했다.</p>
-<p>의미가 있다고 판단한 action은 주로 조회나 화면과의 상호작용 정도이다. 한 가지 나름 신경썼다고 생각하는 특이점으로는 서비스 자체가 메인 추천화면 -&gt; 장소 상세화면 -&gt; 장소 상세화면의 세부 정보별 상호작용 (장소 내용 자세히보기, 주변관광지 추천, 지도연동 등등)과 같이 안쪽으로 타고 들어와야만 정보의 질이 높아지는 구조로, 유용한 정보를 얻고자 하는 사용자라면 장소상세 화면 안쪽까지 들어와야만 한다는 점에 착안하여 <strong>화면 depth에 대한 가중치를 부여</strong>하려고한다는 점이다.</p>
-<h2 id="취향에-맞는-컨텐츠를-제공하기-위해-선행되어야할-작업은-뭘까-컨텐츠-카테고리를-정확하고-자세하게-정하는-것"><a href="#취향에-맞는-컨텐츠를-제공하기-위해-선행되어야할-작업은-뭘까-컨텐츠-카테고리를-정확하고-자세하게-정하는-것" class="headerlink" title="취향에 맞는 컨텐츠를 제공하기 위해 선행되어야할 작업은 뭘까? 컨텐츠 카테고리를 정확하고 자세하게 정하는 것?"></a>취향에 맞는 컨텐츠를 제공하기 위해 선행되어야할 작업은 뭘까? 컨텐츠 카테고리를 정확하고 자세하게 정하는 것?</h2><p>작년 버전의 소스에서는 박물관, 미술관 등의 N가지 카테고리를 대분류로 장소 별 특색에 따라 하위의 분류를 얼추 정해놓았다. 관광공사에서 제공하는 api를 사용하는 것도 프로젝트의 큰 목적이었기때문에, 관광공사에서 제공하는 카테고리를 거의 그대로 가져다 썼다.</p>
-<p>이 다중 트리 구조의 카테고리가 내가 만들고자하는 추천 서비스에 적합한 데이터 구조일까? 제공되는 카테고리가 마음에 들지 않는데, 시간과 노력을 들여 좀 더 세밀하게 / 정확하게 트리의 리프 카테고리까지 검수해야할까? (실제로 작년에는 이 검수 작업을 하려고 했었다)<br>약간의 고민 만으로도 이 접근은 잘못되었다는 것을 알 수 있었다. 트리 구조의 자세한 분류 체계는 내가 구현하고자 하는 추천 시스템에서 상대적으로 덜 중요한 작업이다.</p>
-<p>대신 내가 장소의 feature로 고려할 수 있는 항목이 무엇이 있을지 고민하면 되겠다고 판단했다.</p>
-<p><strong>결론적으로</strong>, 나는 제목의 “취향에 맞는 컨텐츠를 제공하기 위해 선행되어야할 작업은 뭘까?”에 대한 답을 “장소에 대한 feature를 정하자”로 내린 것이다.</p>
-<p>내가 타겟이라고 생각했던 유저층의 마음으로 웹서핑을 하며 몇 가지 feature 를 뽑아보니, 원래부터도 카테고리로 사용하고 있던 <strong>현장학습 지식의 분야</strong>(역사/과학/미술 등등) 외에도 <strong>적정 연령대</strong>, <strong>대중교통 가능 여부</strong> 등등 꽤 여러가지 feature가 뽑혔다.</p>
-<h1 id="조사하기"><a href="#조사하기" class="headerlink" title="조사하기"></a>조사하기</h1><h2 id="사용자의-action-이력을-수집하는-방법은-뭐가-있을까"><a href="#사용자의-action-이력을-수집하는-방법은-뭐가-있을까" class="headerlink" title="사용자의 action 이력을 수집하는 방법은 뭐가 있을까?"></a>사용자의 action 이력을 수집하는 방법은 뭐가 있을까?</h2><p>어플리케이션에 Action 로깅을 심는 방법에 대해 이것저것 구글링해봤다. 웹에서는 이전부터 많이 쓰였어서 그런지, 구글링 결과가 아주 방대했고 기획 &amp; 마케팅 초짜인 나는 어떤 서비스를 사용해야할 지 찾기 어려웠다. 결국엔 그냥 여러 아티클과 블로그를 둘러보며 감이라도 잡는 수 밖에 없었다 😅</p>
-<ul>
-<li><a href="https://medium.com/daria-blog/mlops-%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C-7ba8d9aae221">MLOps란 무엇일까?</a>: 와! 요즘 블로그에서 많이 보이는 복붙된 지식이 준초콜릿 같은거라면 이런 고디바 같은 글도 있다 ㅠㅠ 감격</li>
-<li><a href="https://brunch.co.kr/@userhabit/52">행동 데이터 분석가를 위한 안내서 - 나(또는 우리 회사)에 맞는 애널리틱스 선택하기</a> : 결론은 광고글인 것 같긴한데, 어떤 솔루션이 유명한지조차 모르는 나에게는 도움이 되었다</li>
-<li><a href="https://www.itworld.co.kr/news/191844">Apple의 앱 추적 투명성 정책</a> : 어우 언제부턴가 추적을 허용하겠냐는 팝업이 떠서 당연히 매번 거부했는데 ㅎㅎ 정책이었다니! 너무 무지했던 것 같다;</li>
-<li><a href="https://www.adjust.com/ko/blog/opt-in-design-for-apple-app-tracking-transparency-att-ios14/">위에 언급된 ATT로인해 UX적으로 고려해야하는 것</a>: 관련은 없는데 재밌어서 기록한다. 역시 UX는 재밌다.</li>
-</ul>
-<h2 id="사용자의-action-이력과-가중치를-넘기면-이-사용자의-feature-별-관심도를-뽑아주는-서비스나-모델이-뭐가-있을까"><a href="#사용자의-action-이력과-가중치를-넘기면-이-사용자의-feature-별-관심도를-뽑아주는-서비스나-모델이-뭐가-있을까" class="headerlink" title="사용자의 action 이력과 가중치를 넘기면 이 사용자의 feature 별 관심도를 뽑아주는 서비스나 모델이 뭐가 있을까?"></a>사용자의 action 이력과 가중치를 넘기면 이 사용자의 feature 별 관심도를 뽑아주는 서비스나 모델이 뭐가 있을까?</h2><h2 id="특정-사용자의-feature-별-관심도를-넘기면-그-사용자에게-추천할만한-데이터를-뽑아주는-서비스나-모델이-뭐가-있을까"><a href="#특정-사용자의-feature-별-관심도를-넘기면-그-사용자에게-추천할만한-데이터를-뽑아주는-서비스나-모델이-뭐가-있을까" class="headerlink" title="특정 사용자의 feature 별 관심도를 넘기면 그 사용자에게 추천할만한 데이터를 뽑아주는 서비스나 모델이 뭐가 있을까?"></a>특정 사용자의 feature 별 관심도를 넘기면 그 사용자에게 추천할만한 데이터를 뽑아주는 서비스나 모델이 뭐가 있을까?</h2>]]></content>
-      <categories>
-        <category>사이드 프로젝트</category>
-        <category>주말엔 엄빠랑 놀자</category>
-      </categories>
-      <tags>
-        <tag>AI</tag>
-        <tag>MLOps</tag>
-        <tag>Cloud</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>devops</title>
-    <url>/2022/09/11/Tech/DevOps/devops-1/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>devops</category>
-      </categories>
-      <tags>
-        <tag>devops</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[JavaScript] 비동기 프로그래밍</title>
-    <url>/2022/04/05/Tech/JavaScript/asynchronous-programming/</url>
-    <content><![CDATA[<h1 id="이-글을-쓰게된-이유"><a href="#이-글을-쓰게된-이유" class="headerlink" title="이 글을 쓰게된 이유"></a>이 글을 쓰게된 이유</h1><p>나는 웹을 경험한 기간이 짧다. 그래서 감으로만 익히고 넘어간 개념도 많다. 그 중 하나가 JavaScript에서의 비동기 처리이다. 우선은 비동기처리 패턴을 시간 순으로 나열해보고, 마지막으로는 전부터 궁금했던 (하지만 시간이 없다는 핑계로 그냥 넘어갔던 ㅋㅋㅋ) 동기함수에서 비동기 함수를 호출할 때의 코드 패턴에 대해 정리하려고 한다.</p>
-<h1 id="비동기처리-패턴의-역사"><a href="#비동기처리-패턴의-역사" class="headerlink" title="비동기처리 패턴의 역사"></a>비동기처리 패턴의 역사</h1><p>웹을 경험한 기간이 짧아서 아쉬운 점은 실제로 내가 예전의 구린 웹을 써본 적이 없다는 것이다 ㅠㅠ 이건 비단 웹 뿐만 아니라 프로그래밍의 거의 모든 분야에서 그렇긴 하지만. 실제로 불편했던 기억이 있으면 예를 들어 설명하기 더 좋지 않았을까 생각한다.<br>아무튼 나는 경험한 바가 없기 때문에, 비동기처리 패턴이 예전엔 어떻게 구렸는 지 좀 찾아봤다.</p>
-<h2 id="Callback-패턴"><a href="#Callback-패턴" class="headerlink" title="Callback 패턴"></a>Callback 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">doSomethingAsynchronously</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title function_">asyncFuncWithCallback</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        <span class="title function_">doSomethng</span>();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>이건 안써봐도 별로이게 생겼다. 순차적으로 비동기 처리를 원하는 경우, Callback 안에 Callback 안에 Callback.. 을 넣어줘야한다.</p>
-<h2 id="Promise-패턴-then-catch-finally"><a href="#Promise-패턴-then-catch-finally" class="headerlink" title="Promise 패턴 (then, catch, finally)"></a>Promise 패턴 (then, catch, finally)</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">asyncFunc</span>()</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is rejected</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">finally</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Promise is resolved or rejected</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>ES6에 등장했다는 이 패턴에서는, 순차적으로 비동기 처리를 원하는 경우 then then then.. 으로 Promise를 return하고 다음 then에서 처리하는 방식으로 엮을 수 있다.<br>위에 것 보다는 편해보인다. 하지만 뒤쪽의 then 절에서 res에 뭐가 들어있는 지 따라가는 것이 쉽지 않다.</p>
-<h2 id="async-await-패턴"><a href="#async-await-패턴" class="headerlink" title="async await 패턴"></a>async await 패턴</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> res1 = <span class="keyword">await</span> <span class="title function_">asyncFunc1</span>();</span><br><span class="line"><span class="keyword">const</span> res2 = <span class="keyword">await</span> <span class="title function_">asyncFunc2</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res1, res2);</span><br></pre></td></tr></table></figure>
-
-<p>ES8에 등장한 이 패턴은, 확실히 위의 두 패턴보다 가독성이 좋아 보인다.</p>
-<h1 id="동기함수에서-비동기-함수를-호출하고-싶은데…"><a href="#동기함수에서-비동기-함수를-호출하고-싶은데…" class="headerlink" title="동기함수에서 비동기 함수를 호출하고 싶은데…"></a>동기함수에서 비동기 함수를 호출하고 싶은데…</h1><p>예를 들어 화면 쪽 로직에 이런 기능이 있다.</p>
-<p>‘제출하기 버튼을 누르면 제출 api를 호출하게 해주세요’</p>
-<p>물론 제출하기 버튼에 제출 api 호출 함수를 넣으면 된다. 바로 동작하는 것을 볼 수 있다. 그런데 여기에 type checking 이 들어가면 버튼의 onClick 핸들러는 동기 함수를 받기를 원하므로, 비동기인 api 호출 함수를 넣으면 정적 소스 분석툴에서 type이 맞지 않다고 징징거린다.</p>
-<p>그래서 처음에는 이런식의 코드를 짰다.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">groupedAsyncFunc</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> <span class="title function_">asyncFunc1</span>();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> <span class="title function_">asyncFunc2</span>();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">    groupedAsyncFunc.then((res) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">      doSomething(res);</span></span><br><span class="line"><span class="language-xml">    &#125;);</span></span><br><span class="line"><span class="language-xml">  &#125;&#125;</span></span><br><span class="line"><span class="language-xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>다건의 연속된 비동기 처리는 async await로 보기 좋게 짜더라도, 마지막에 한번은 동기로 마무리하려면 then을 써주어야한다고 생각한 것이다. 여유를 갖고 검색해볼 시간이 없었던 것 같다.</p>
-<p>다행히 시간을 내어 이 내용을 구글링한 끝에, 두 가지의 대안을 찾았다.</p>
-<ol>
-<li>비동기 함수 호출 시 void 붙여주기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">groupedAsyncFunc</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> <span class="title function_">asyncFunc1</span>();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> <span class="title function_">asyncFunc2</span>();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> void groupedAsyncFunc()&#125; /&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>IIFE (즉시실행함수) 패턴 사용하기</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">groupedAsyncFunc</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res1 = <span class="keyword">await</span> <span class="title function_">asyncFunc1</span>();</span><br><span class="line">  <span class="keyword">const</span> res2 = <span class="keyword">await</span> <span class="title function_">asyncFunc2</span>();</span><br><span class="line">  <span class="keyword">return</span> res1 + res2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">  <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">    (async () =&gt; await groupedAsyncFunc())();</span></span><br><span class="line"><span class="language-xml">  &#125;&#125;</span></span><br><span class="line"><span class="language-xml">/&gt;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>개인적으로는 1안의 void 가 가독성이 좋아서 1안을 사용하기로 했으나, 찾아보니 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/async_function">2안을 사용하도록 가이드</a>하는 경우도 꽤 있었다. 나는 몰랐지만, IIFE는 이 케이스 뿐만 아니라 javascript 진영에서 원래 널리 쓰고 있는 패턴이며, 변수의 호이스팅 때문에 원하는 대로 동작하지 않는 케이스를 방지해준다는 큰 장점이 있다고 한다. 이 내용을 접했을 때, 내가 <em>동기함수에서 비동기 함수를 호출</em> 하고 싶다는 내 작은 요건에 너무 오버되는 패턴을 찾은 것 같다는 생각을 했다. ㅋㅋㅋ 굳이 이걸 쓸 필요가 없어보였다. Scope 처리가 너무나 당연한 환경에서 웹 개발을 하고있는 나에게는 별로 매력적이지 않아보였기 때문이다. 그래서 2안은 IIFE 개념에 대해 접할 수 있었던 것에만 의의를 두고, 사용하지는 않기로 했다.</p>
-<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>비동기 action의 결과를 명시적으로 기다리지 않는 경우 void 키워드를 붙여주자.</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>내 서버를 RESTful하게 설계하기</title>
-    <url>/2022/03/27/Tech/SpringBoot/rest-api/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Spring Boot + MySQL + JPA + Flyway 셋업하고 REST api 만들기</title>
-    <url>/2022/11/15/Tech/SpringBoot/setting-JPA/</url>
-    <content><![CDATA[<h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>나는 JPA를 써본적이 없당</p>
-<p>JPA를 사용해본/하고있는 사람들에게 JPA를 설명해달라고 하면 “하… 너넨 이런거 하지마라 🚬” 느낌으로다가 말해주곤 하는데</p>
-<p>하지 말라고 하면 더 해보고 싶은 법이다. 왜 하지말라는건데~~~~</p>
-<p>그래서 사이드 프로젝트 BE를 JPA로 만들기로 결정<del>!</del>!</p>
-<h1 id="Spring-Initializer-로-프로젝트-뼈대-생성"><a href="#Spring-Initializer-로-프로젝트-뼈대-생성" class="headerlink" title="Spring Initializer 로 프로젝트 뼈대 생성"></a>Spring Initializer 로 프로젝트 뼈대 생성</h1><p><a href="https://start.spring.io/">Initializer</a>로 프로젝트 뼈대를 생성한다.</p>
-<p>언어 옵션 중 Kotlin이 아주 잠깐 궁금했으나 잘 참고 Java를 고른다 ㅎㅎ 왜냐면 아직 Java도 아직 잘모름 🤦‍♀️<br>Dependency는 각자 필요한 것을 선택하면 되는데 나는 Lombok, JPA, Flyway, Web 정도가 필요하다.</p>
-<p>+) 개발자인데 GUI가 좋다고 하면 왠지 주눅이 들어서 잘 말하고 다니지 않지만, Initializer를 처음 찾았을때 너무 기분이 좋았다 ㅋㅋㅋ ㅠㅠ</p>
-<h1 id="Application-yaml-설정"><a href="#Application-yaml-설정" class="headerlink" title="Application.yaml 설정"></a>Application.yaml 설정</h1><p>Initializer로 만든 폴더 안에는 application.properties가 기본으로 생성되어있으나 나는 가독성 때문에 yaml 포맷을 선호하므로 application.yaml 파일을 만든다.</p>
-<p>위에서 만들어준 프로젝트에 MySQL을 붙이고 JPA, flyway를 사용하기 위해 구글링 구글링..</p>
-<p><a href="https://www.baeldung.com/spring-data-jpa-run-app-without-db">baeldung 아티클</a> 에서 database 없이 JPA 를 붙이고, 에러가 나지 않도록 줘야하는 옵션값을 설명해준다.<br>( JPA에 대해 정말 지식이 없어서 단순히 메소드 명으로 쿼리 만들어주는 그런 친구인줄로 알았는데, DDL 자동 생성 기능도 있었다.<br>여기저기 포스트를 찾아보기도 하고 혼자서도 생각해보니 오히려 불편할 것 같다는 생각이 들어 이 기능은 끄기로 한다. )</p>
-<p>아래와 같이 application.yaml를 설정해주면 <code>MySQL - JPA - flyway</code> 는 잘 연동이 된다.</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">address:</span> <span class="string">localhost</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">flyway:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">locations:</span> <span class="string">classpath:db/migration</span></span><br><span class="line">    <span class="attr">schemas:</span> <span class="string">coworksaga</span></span><br><span class="line">    <span class="attr">baseline-on-migrate:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">&amp;db-url</span> <span class="string">jdbc:mysql://localhost:3306/coworksaga?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Seoul&amp;createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true</span></span><br><span class="line">    <span class="attr">user:</span> <span class="string">&amp;db-user</span> <span class="string">coworksaga</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">&amp;db-pwd</span> <span class="string">root1234</span></span><br><span class="line">    <span class="attr">create-schemas:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">hibernate:</span></span><br><span class="line">      <span class="attr">ddl-auto:</span> <span class="string">validate</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">format-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">use-sql-comments:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">properties:</span></span><br><span class="line">      <span class="attr">hibernate:</span></span><br><span class="line">        <span class="attr">temp:</span></span><br><span class="line">          <span class="attr">use_jdbc_metadata_defaults:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">*db-url</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">*db-user</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">*db-pwd</span></span><br><span class="line">      <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">org.hibernate.SQL:</span> <span class="string">DEBUG</span></span><br><span class="line">    <span class="attr">org.hibernate.type:</span> <span class="string">TRACE</span></span><br></pre></td></tr></table></figure>
-
-<p>+) yaml 쓰면서 깨달은점</p>
-<ul>
-<li>&amp;, * 페어로 변수를 선언하고 불러다 쓸 수 있다. 굿굿</li>
-<li>database가 없을때 자동으로 생성하도록 하는 옵션을 검색하는게 어려웠다. 어떤사람은 hibernate.ddl-auto 라고 하고 어떤 사람은 create-schemas라고 하고 ㅎㅎ 결론은 jdbc url에 <code>createDatabaseIfNotExist=true</code> 요 옵션을 주는걸로.</li>
-</ul>
-<p>+) yaml 쓰면서 궁금한점</p>
-<ul>
-<li>비슷한 카테고리 같은데 왜 depth가 왜 다른걸까? jpa.hibernate랑 jpa.properties.hibernate 처럼.</li>
-<li>url username passwork 이거 다 datasource, flyway에 두 번씩 쓰게 되어있는데 ㅠ 변수로 정리해두긴 했으나.. 두 옵션이 한 값을 바라보도록 바로 설정은 안되는걸까?</li>
-</ul>
-<h1 id="Layer-별-폴더-트리-생성"><a href="#Layer-별-폴더-트리-생성" class="headerlink" title="Layer 별 폴더 트리 생성"></a>Layer 별 폴더 트리 생성</h1><p>이제 로컬에 서버를 띄울 수 있는 상태가 되었으니 실제로 기능 개발을 할 수 있도록 폴더를 생성하자.</p>
-<p>매번 Layer (Controller, Service, Repository) 별로 폴더링을 했는데 문득 다른 사람들은 어쩌고 있나 싶어 찾아보니 Entity/Domain별로 묶는 방법도 쓰이고 있다. 음 폴더로 묶으면 한 패키지가 되는데.. 패키지랑 맥락이 비슷한 개념은 Layer보단 Entity/Domain인 것 같기도 하고 고민이 되었지만… 실제로 패키지별로 따로 묶어서 배포/공유하는 것도 아니니 생각보다 엄청나게 메리트가 있을 것 같지 않다. 이번에도 Layer로 쪼개도록 한다.</p>
-<h1 id="첫번째-flyway-스크립트와-REST-api-만들기"><a href="#첫번째-flyway-스크립트와-REST-api-만들기" class="headerlink" title="첫번째 flyway 스크립트와 REST api 만들기"></a>첫번째 flyway 스크립트와 REST api 만들기</h1><p>위에 yaml에 써있기는 한데 지금 만들고 있는 건 사이드프로젝트 중 하나였던 cowork-saga의 BE 이다. 만들 당시에는 node.js로 급하게 만들어서 썼는데 마음에 썩 들지 않았다… ㅎㅎ 그리고 그마저도 처음엔 장고였고 나의 pyhon 생산성이 심각히 떨어지는 것을 깨닫고 포기했던 것…  그래도 예전에 좀 써봤으니 할 수 있지 않을까 했는데 충격이었다 ^^</p>
-<p>암튼 요 BE는 signalling server의 기능을 수행하기 위해 socket 통신도 필요하고, 메타 정보를 조회하고 저장하기 위해 REST 통신도 필요하다. 우선은 익숙한 REST api 부터 만들도록 한다.</p>
-<p>uuid를 넘기면 workspace 이름을 조회하는 api를 만들어볼건데, 그러려면 우선 workspace 테이블을 생성해주어야겠다.</p>
-<ul>
-<li><p>V0_1_0__create_workspaces.sql</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> workspaces (</span><br><span class="line">	workspace_id <span class="type">INT</span> UNSIGNED auto_increment <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">	workspace_name <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	workspace_uuid <span class="type">varchar</span>(<span class="number">36</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	workspace_password <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">NULL</span>,</span><br><span class="line">	created_at DATETIME <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> NOW(),</span><br><span class="line">	updated_at DATETIME <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> NOW() <span class="keyword">ON</span> <span class="keyword">UPDATE</span> NOW()</span><br><span class="line">)</span><br><span class="line">ENGINE<span class="operator">=</span>InnoDB</span><br><span class="line"><span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8mb4</span><br><span class="line"><span class="keyword">COLLATE</span><span class="operator">=</span>utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure></li>
-<li><p>V0_1_1__insert_workspaces.sql</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> workspaces</span><br><span class="line">(workspace_id, workspace_name, workspace_uuid, workspace_password, created_at, updated_at)</span><br><span class="line"><span class="keyword">VALUES</span>(<span class="number">1</span>, &quot;HYEON&#x27;s workspace&quot;, <span class="string">&#x27;2a2ba386-1ca1-49c6-8573-076916ac6139&#x27;</span>, <span class="string">&#x27;Password&#x27;</span>, now(), now());</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>이제 Entity를 생성해준다.</p>
-<ul>
-<li><p>Workspace</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;workspaces&quot;)</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Workspace</span> &#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@Column(name = &quot;uuid&quot;, unique = true)</span></span><br><span class="line">    <span class="keyword">private</span> String uuid;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> String createdAt;</span><br><span class="line">    <span class="keyword">private</span> String updatedAt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>그리고 차례대로 Repository, Service, Controller를 만들어준다.</p>
-<ul>
-<li><p>WorkspaceRepository</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">WorkspaceRepository</span> <span class="keyword">extends</span> <span class="title class_">JpaRepository</span>&lt;Workspace, Integer&gt; &#123;</span><br><span class="line">    Workspace <span class="title function_">findByUuid</span><span class="params">(String uuid)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>WorkspaceService</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WorkspaceService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> WorkspaceRepository workspaceRepository;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Workspace <span class="title function_">getWorkspace</span><span class="params">(String uuid)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> workspaceRepository.findByUuid(uuid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>WorkspaceController</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WorkspaceController</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> WorkspaceService workspaceService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/workspaces/&#123;uuid&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Workspace <span class="title function_">workspaceDetail</span><span class="params">(<span class="meta">@PathVariable</span> <span class="meta">@Length(min=16, max=16)</span> String uuid)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> workspaceService.getWorkspace(uuid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>+) 쿼리 결과는 정상적이지만 api 응답이 그냥  <code>&#123;&#125;</code> 로 떨어질 때</p>
-<ul>
-<li>return 한 Entity에 public getter가 없어서 그럴 수 있다. <a href="https://stackoverflow.com/questions/49117622/spring-rest-controller-returns-empty-json-iterable-data-structure-why">참고</a></li>
-</ul>
-<p>이제 뼈대는 얼추 갖추게 된 것 같다. 다음 api 부터는 유용한 annotation 좀 찾고 aspect 붙이면서 보완해나가면 될 듯. 👩‍💻</p>
-<h1 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h1><ul>
-<li>처음부터 해보면 머리에 확실히 잘 들오는 것 같다. get api 하나 만드는데 생각보다 많은 것을 배웠다!</li>
-<li>JPA 아직은 왜 “하… 너넨 이런거 하지마라 🚬” 하는건 지 못느꼈다. 더 써봐야지.</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Spring Boot</tag>
-        <tag>MySQL</tag>
-        <tag>JPA</tag>
-        <tag>Flyway</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Spring] @Valid @Validated에 대해 알아보자</title>
-    <url>/2022/02/18/Tech/SpringBoot/spring-validation/</url>
-    <content><![CDATA[<h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>사용자로부터 받아온 Input 값을 우리 시스템에 넣어 처리하기 전에 검증하는 것은 매우 흔한 작업임. 볼 필요도 없는 값을 시스템 자원을 써가면서 처리할 필요가 없음.<br>이러한 검증은 몇 개의 if문과 validation utility로 물론 쉽게 구현이 가능하지만, server framework로 spring을 사용하고 있다면 아래와 같이 더 간결한 코드로 검증을 마칠 수 있음.</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserAcccount</span>&#123;</span><br><span class="line">    <span class="meta">@NotBlank</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="meta">@Size(min = 4, max = 15)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">login</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="meta">@Valid</span> UserAccount userAccount,</span></span><br><span class="line"><span class="params">)</span>&#123;</span><br><span class="line">    service.login(userAccount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>여기까지는 이해가 쉬운데, 실제로 application에 붙이려고 보니 좀 더 자세히 알아야할 내용들이 많았음. –<br>이 글에서는 그 내용을 모아서 정리해봄.</p>
-<h1 id="Valid-그리고-Validated-어노테이션에-관하여"><a href="#Valid-그리고-Validated-어노테이션에-관하여" class="headerlink" title="@Valid 그리고 @Validated 어노테이션에 관하여"></a>@Valid 그리고 @Validated 어노테이션에 관하여</h1><p>ide에서 @Valid를 입력할 때 자동완성 추천 결과에서 @Validated이 뜨던데, 처음에는 지나쳤었다.</p>
-<p>@Valid를 잘 써보고자 구글링을 하니 두 어노테이션에는 다음과 같은 차이점이 있다는 내용이 아주 많이 나왔다.</p>
-<p>👉 @Valid는 Java에서 제공됨<br>👉 @Validated는 Spring 프레임워크에서 제공되며, @Valid의 기능을 포함함<br>👉 @Valid는 method의 parameter 또는 class field에 사용된 complex object에 적용할 수 있음<br>👉 @Validated는 @Valid가 사용되는 상황 뿐만 아니라, primitive type parameter에 Validation을 추가하고 싶을 때도 사용할 수 있음 (하단에서 후술)<br>👉 @Valid와 달리 @Validated에는 Group을 지정할 수 있음. Validation Group에 대한 내용은 아래에 좀 더 자세히 정리함</p>
-<h1 id="Validation-Group에-대하여-그리고-이거-정말-꿀기능-맞을까"><a href="#Validation-Group에-대하여-그리고-이거-정말-꿀기능-맞을까" class="headerlink" title="Validation Group에 대하여. 그리고 이거 정말 꿀기능 맞을까?"></a>Validation Group에 대하여. 그리고 이거 정말 꿀기능 맞을까?</h1><p>한 개의 class 안에 여러 개의 제약조건 그룹을 지정하고자 하는 경우에 유용하게 사용할 수 있음.<br>제약조건마다, 즉 Request마다 VO를 모두 따로따로 만들어야 하는건가 절망에 빠져있을 때 찾은 내용이라 매우 꿀기능처럼 느껴졌음. (꿀인지 아닌지 아직 엄청 많이 써보지는 않아서 모름 ^_^)</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ValidationGroups</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">EmailChange</span> &#123;&#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PasswordChange</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ChangeUserAccountRequest</span> &#123;</span><br><span class="line">    <span class="meta">@Email(groups = &#123;ValidationGroups.EmailChange.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;ValidationGroups.PasswordChange.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">changeUserEmail</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="meta">@Validated(ValidationGroups.EmailChange)</span> ChangeUserAccountRequest request,</span></span><br><span class="line"><span class="params">)</span>&#123;</span><br><span class="line">    service.changeUserEmail(request);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">changeUserPassword</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="meta">@Validated(ValidationGroups.PasswordChange)</span> ChangeUserAccountRequest request,</span></span><br><span class="line"><span class="params">)</span>&#123;</span><br><span class="line">    service.changeUserPassword(request);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>+) 개인적인 의견<br>VO, DTO 객체 한 개만으로도 여러개의 constraint를 제어할 수 있어서 엄청난 꿀 기능처럼 보이기도 하지만, 지나치게 많아지면 가독성에는 문제가 조금 있는 것 같다… 🤣</p>
-<h1 id="Custom-Validator에-관하여"><a href="#Custom-Validator에-관하여" class="headerlink" title="Custom Validator에 관하여"></a>Custom Validator에 관하여</h1><p>제공되는 기본 validator도 충분히 다양하지만, 우리 서비스만의 validator를 만들고 싶을 때도 있음</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Constraint(validatedBy = NicknameValidator.class)</span></span><br><span class="line"><span class="meta">@Target( &#123; ElementType.METHOD, ElementType.FIELD &#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NickNameConstraint &#123;</span><br><span class="line">    String <span class="title function_">message</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;유효하지 않은 닉네임 형식입니다.&quot;</span>;</span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">Payload</span>&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NicknameValidator</span> <span class="keyword">implements</span></span><br><span class="line">  <span class="title class_">ConstraintValidator</span>&lt;NickNameConstraint, String&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> NickNameConstraint constraint;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">initialize</span><span class="params">(NickNameConstraint constraint)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.constraint = constraint;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String value,</span></span><br><span class="line"><span class="params">      ConstraintValidatorContext cxt)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> value != <span class="literal">null</span> &amp;&amp; value.matches(<span class="string">&quot;system&#x27;s nickname format&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>+) 개인적인 의견<br>신기하게도 custom validator는 아직 단점을 잘 모르겠다…! 지나치게 많이 선언하는거야 당연히 안좋은거고, 프로젝트 내에서 통용되는 몇 가지 validation 로직을 공통화 해놓으면 코드가 부드럽게 읽히는 magic이…<br>( 단점을 발견하게되면 충격받아서 흑역사 지우러 바로 위의 문장 수정하러 올 듯 …. ㅎㅎ )</p>
-<h1 id="Trouble-Shooting🔥"><a href="#Trouble-Shooting🔥" class="headerlink" title="Trouble Shooting🔥"></a>Trouble Shooting🔥</h1><h2 id="⚠-Valid가-primitive-type의-변수-대표적으로-Controller에서-PathVariable로-받아온-값들-에서-동작하지-않음"><a href="#⚠-Valid가-primitive-type의-변수-대표적으로-Controller에서-PathVariable로-받아온-값들-에서-동작하지-않음" class="headerlink" title="⚠ @Valid가 primitive type의 변수(대표적으로 Controller에서 PathVariable로 받아온 값들..)에서 동작하지 않음"></a>⚠ @Valid가 primitive type의 변수(대표적으로 Controller에서 PathVariable로 받아온 값들..)에서 동작하지 않음</h2><p>이 부분 때문에 많이 헤맸음 ㅠㅠㅠㅜㅜ<br>Controller에서 특정 api의 PathVariable에 Validator를 달아주고 싶었는데, 이때는 parameter 앞에 @Valid를 붙여주는 것 만으로는 원하는 대로 동작하지 않았음 😥 WHY?!?!!<br>객체로 받아오는 BodyParam에 붙여준 @Valid는 잘 동작했는디…</p>
-<p>.<br>.<br>.</p>
-<p>두구두구</p>
-<p>위에서 @Valid와 @Validated의 차이에 스포해둔 것 처럼, PathVariable에 Validator를 적용하기 위해서는 상위 Class에 @Validated 어노테이션을 달아줘야함</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Validated</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">YourController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> YourService yourService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;somethings/&#123;type_code&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;List&lt;SomeVO&gt;&gt; <span class="title function_">findSomethingByTypeCode</span><span class="params">(<span class="meta">@Size(min = 4, max = 6)</span></span></span><br><span class="line"><span class="params">                                                        <span class="meta">@PathVariable</span> String typeCode)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(yourService.findSomethingByTypeCode(typeCode));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="⚠-Exception-처리-시-주의"><a href="#⚠-Exception-처리-시-주의" class="headerlink" title="⚠ Exception 처리 시 주의"></a>⚠ Exception 처리 시 주의</h2><p>@Valid와 @Validated 어노테이션은 서로 다른 타입의 Error를 던지므로, 공통 처리 모듈에서 약간의 분기 처리가 필요함</p>
-<p>@Valid 어노테이션에서는 javax.validation.ConstraintViolationException 을,<br>@Validated 어노테이션에서는 org.springframework.web.bind.MethodArgumentNotValidException 을 발생시킴</p>
-<p>어떤 field에서 Error가 발생했는지, 어떤 Error가 발생했는지 두 개의 Exception이 제공하는 field가 달라서 공통화에 시간이 조금 들었음, 참고하면 좋을 듯 :)</p>
-<h2 id="⚠-달기-쉬운-만큼-중복하여-validate-하지-않도록-주의"><a href="#⚠-달기-쉬운-만큼-중복하여-validate-하지-않도록-주의" class="headerlink" title="⚠ 달기 쉬운 만큼, 중복하여 validate 하지 않도록 주의"></a>⚠ 달기 쉬운 만큼, 중복하여 validate 하지 않도록 주의</h2><p>이 부분은 지금도 계속 어떻게 하면 중복을 최소화할까 고민하며 코딩하고 있는 내용임.</p>
-<p>코드로 적혀있는 로직은 중복되어있으면 쉽게 눈에 밟히는데, annotation은 무심코 넘어가게 되는 경우가 많아서 valid도 무심코 여러번 태우게되는 경우가 있었음.<br>정석적인 답은 “가장 안쪽의 로직에만 적용하라” 겠지만 이 메소드 저 메소드 서로 공유하는 상황에서 그러기가 쉽지가 않다. 🤣<br>“이 값은 보장되어서 들어온 값이니까 믿어도 돼” 라는 flag를 함께 넘겨줄 수 있을까? 이것저것 고민해봐야지!</p>
-]]></content>
-      <categories>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>@Valid</tag>
-        <tag>Spring</tag>
-        <tag>Annotation</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[React Native] iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</title>
-    <url>/2022/04/08/Tech/ReactNative/RN-ios-image-not-showing/</url>
-    <content><![CDATA[<h1 id="WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때"><a href="#WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때" class="headerlink" title="WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때"></a>WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</h1><p>현상은 다음과 같다. 예를 들어 특정 도메인이 <em><a href="https://some.url/">https://some.url</a></em> 이라고 하면</p>
-<ul>
-<li>AOS에서는 <em><a href="https://some.url/">https://some.url</a></em> 로 uri 지정한 Image 컴포넌트가 아주 잘 보인다.</li>
-<li>iOS에서는 완전히 동일한 React Native 소스인데 <em><a href="https://some.url/">https://some.url</a></em>를 바라보고 있는 Image 컴포넌트가 안그려진다.</li>
-<li>iOS에서 사파리로 <em><a href="https://some.url/">https://some.url</a></em> 접근시에는 잘보인다.</li>
-<li>iOS에서 다른 도메인 이미지로 Image 컴포넌트를 그려보면 잘 보인다.</li>
-</ul>
-<p>네트워크 적으로 뭔가 막힌거같은데… 아직 못찾았다 ㅠㅠ</p>
-]]></content>
-      <categories>
-        <category>React Native</category>
-      </categories>
-      <tags>
-        <tag>React Native</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[React Native] 여러 개의 자식 요소를 가운데 정렬하고 싶을 때</title>
-    <url>/2022/04/08/Tech/ReactNative/RN-publishing-align-center/</url>
-    <content><![CDATA[<h1 id="여러-개의-자식-요소를-가운데-정렬하고-싶을-때"><a href="#여러-개의-자식-요소를-가운데-정렬하고-싶을-때" class="headerlink" title="여러 개의 자식 요소를 가운데 정렬하고 싶을 때"></a>여러 개의 자식 요소를 가운데 정렬하고 싶을 때</h1><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = <span class="title class_">StyleSheet</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">vertical</span>: &#123;</span><br><span class="line">    <span class="attr">justifyContent</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 horizontally 가운데 정렬된다.</span></span><br><span class="line">    <span class="attr">alignItems</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 vertically 가운데 정렬된다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>React Native</category>
-      </categories>
-      <tags>
-        <tag>React Native</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[React Native] 플랫폼별로 디자인을 달리 하고 싶을 때</title>
-    <url>/2022/04/08/Tech/ReactNative/RN-publishing-branch-os/</url>
-    <content><![CDATA[<h1 id="플랫폼별로-디자인을-달리-하고-싶을-때"><a href="#플랫폼별로-디자인을-달리-하고-싶을-때" class="headerlink" title="플랫폼별로 디자인을 달리 하고 싶을 때"></a>플랫폼별로 디자인을 달리 하고 싶을 때</h1><p><code>react-native</code> 패키지의 <code>Platform</code> 모듈을 사용하자</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = <span class="title class_">StyleSheet</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">pagination_wrapper</span>: &#123;</span><br><span class="line">    <span class="attr">position</span>: <span class="string">&quot;absolute&quot;</span>,</span><br><span class="line">    <span class="attr">left</span>: width / <span class="number">2</span> - <span class="number">100</span>,</span><br><span class="line">    ...<span class="title class_">Platform</span>.<span class="title function_">select</span>(&#123;</span><br><span class="line">      <span class="attr">ios</span>: &#123;</span><br><span class="line">        <span class="attr">top</span>: height + <span class="number">70</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">android</span>: &#123;</span><br><span class="line">        <span class="attr">top</span>: height + <span class="number">75</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>React Native</category>
-      </categories>
-      <tags>
-        <tag>React Native</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[React Native] 스크롤 영역의 스크롤 바를 가리고 싶을 때</title>
-    <url>/2022/04/12/Tech/ReactNative/RN-publishing-hide-scrollbar/</url>
-    <content><![CDATA[<h1 id="스크롤-영역의-스크롤-바를-가리고-싶을-때"><a href="#스크롤-영역의-스크롤-바를-가리고-싶을-때" class="headerlink" title="스크롤 영역의 스크롤 바를 가리고 싶을 때"></a>스크롤 영역의 스크롤 바를 가리고 싶을 때</h1><p>ScrollView, FlatList에게 아래의 props를 내려주자.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">showsVerticalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">showsHorizontalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>React Native</category>
-      </categories>
-      <tags>
-        <tag>React Native</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[React Native] ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</title>
-    <url>/2022/04/10/Tech/ReactNative/RN-publishing-scrollview-sticky/</url>
-    <content><![CDATA[<h1 id="ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때"><a href="#ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때" class="headerlink" title="ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때"></a>ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</h1><p>스크롤 하다가 Stick 되었으면 하는 자식 요소의 index를 stickyHeaderIndices prop를 통해 명시해주자.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">ScrollView</span> stickyHeaderIndices=&#123;[<span class="number">0</span>]&#125;&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Header</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">FirstView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">SecondView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">ThirdView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">FourthView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Footer</span> /&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">ScrollView</span>&gt;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>React Native</category>
-      </categories>
-      <tags>
-        <tag>React Native</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[React Native] 맥북 개발환경을 세팅하자</title>
-    <url>/2022/01/13/Tech/ReactNative/RN-setup/</url>
-    <content><![CDATA[<h1 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h1><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><ol>
-<li><p>Node 12 이상 설치<br><code>brew install node</code></p>
-</li>
-<li><p>Watchman 설치<br><code>brew install watchman</code></p>
-</li>
-<li><p>[iOS/필수] Xcode 설치</p>
-<p>appStore에서 설치하면 됩니다. (용량이 12기가라 매우 느립니다!)</p>
-</li>
-<li><p>[iOS/선택]<br>Xcode를 실행하여 Command Line Tools도 가장 최신으로 다운로드 하세요.</p>
-<p><img src="https://reactnative.dev/assets/images/GettingStartedXcodeCommandLineTools-8259be8d3ab8575bec2b71988163c850.png"></p>
-</li>
-<li><p>[iOS/선택] 시뮬레이터 추가 설치<br><strong>Xcode &gt; Preferences…</strong> 에서 <strong>Components</strong> 탭 선택 후<br>원하는 iOS 시뮬레이터를 선택하여 추가할 수 있습니다.<br>현 : 지금 최신 Xcode를 받으면 iPhone13 (iOS15.2) 가 default로 설치되는 것 같아요</p>
-</li>
-<li><p>[iOS/필수] CocoaPods 설치</p>
-<p><code>sudo gem install cocoapods</code></p>
-</li>
-<li><p>[AOS/필수] JDK 설치</p>
-<p>Jdk8 이상이 필요합니다.<br><code>brew install --cask adoptopenjdk/openjdk/adoptopenjdk8</code></p>
-</li>
-<li><p>[AOS/필수] 안드로이드 스튜디오 설치</p>
-<p><a href="https://developer.android.com/studio/index.html">https://developer.android.com/studio/index.html</a></p>
-</li>
-<li><p>[AOS/필수] 환경변수 설정</p>
-<p>~/.bash_profile 에 아래의 내용을 입력해주세요.<br>현 : 사용하시는 terminal에 따라 유동적으로 진행해주세요 :)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> ANDROID_HOME=<span class="variable">$HOME</span>/Library/Android/sdk</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/emulator</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/tools</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/tools/bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/platform-tools</span><br></pre></td></tr></table></figure></li>
-<li><p>[AOS/필수] SDK 설치</p>
-</li>
-</ol>
-<p>Android Studio &gt; SDK Manager 에서 원하는 SDK 를 선택하여 설치합니다.</p>
-<h2 id="Initialize-amp-Launch-Project"><a href="#Initialize-amp-Launch-Project" class="headerlink" title="Initialize &amp; Launch Project"></a>Initialize &amp; Launch Project</h2><h3 id="Initialize"><a href="#Initialize" class="headerlink" title="Initialize"></a>Initialize</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx react-native init moga --template react-native-template-typescript</span><br><span class="line">yarn add mobx</span><br><span class="line">yarn add mobx-react</span><br><span class="line">yarn add @babel/plugin-proposal-decorators -D</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>babel.config.js</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    [<span class="string">&#x27;@babel/plugin-proposal-decorators&#x27;</span>, &#123;<span class="attr">legacy</span>: <span class="literal">true</span>&#125;],</span><br><span class="line">    [<span class="string">&#x27;@babel/plugin-proposal-class-properties&#x27;</span>, &#123;<span class="attr">loose</span>: <span class="literal">true</span>&#125;],</span><br><span class="line">  ],</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>tsconfig.json</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">	<span class="attr">&quot;experimentalDecorators&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<h3 id="Launch"><a href="#Launch" class="headerlink" title="Launch"></a>Launch</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yarn install</span><br><span class="line">npx pod-install ios</span><br><span class="line">npm run start</span><br><span class="line">npm run android</span><br><span class="line">npm run ios</span><br></pre></td></tr></table></figure>
-
-<h2 id="Trouble-Shooting"><a href="#Trouble-Shooting" class="headerlink" title="Trouble Shooting"></a>Trouble Shooting</h2><blockquote>
-<p>react-native init 실행 후</p>
-<p>Installing CocoaPods dependencies 에서 실패하는 케이스</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx pod-install ios</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>pod install 실행 시</p>
-<p>Installing Flipper-Glog (0.3.6).. 에서 실패하는 케이스</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo xcode-select --switch /Applications/Xcode.app</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>pod install 실행 시<br><code>git_version&#39;: Failed to extract git version from </code>git –version` (“\nYou have not agreed to the Xcode license agreements, please run ‘sudo xcodebuild -license’ from within a Terminal window to review and agree to the Xcode license agreements.\n”).. 에러 뜨는 케이스</p>
-</blockquote>
-<p><code>sudo xcodebuild -license</code> 또는 Xcode 실행하여 약관 동의</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo xcodebuild -license  <span class="comment">## 또는 Xcode 실행하여 약관 동의</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>React Native</category>
-      </categories>
-      <tags>
-        <tag>React Native</tag>
       </tags>
   </entry>
 </search>
