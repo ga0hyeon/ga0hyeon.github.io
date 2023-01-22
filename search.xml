@@ -238,16 +238,9 @@
       </tags>
   </entry>
   <entry>
-    <title>[React Native] iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</title>
-    <url>/2022/04/08/Tech/ReactNative/RN-ios-image-not-showing/</url>
-    <content><![CDATA[<h1 id="WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때"><a href="#WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때" class="headerlink" title="WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때"></a>WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</h1><p>현상은 다음과 같다. 예를 들어 특정 도메인이 <em><a href="https://some.url/">https://some.url</a></em> 이라고 하면</p>
-<ul>
-<li>AOS에서는 <em><a href="https://some.url/">https://some.url</a></em> 로 uri 지정한 Image 컴포넌트가 아주 잘 보인다.</li>
-<li>iOS에서는 완전히 동일한 React Native 소스인데 <em><a href="https://some.url/">https://some.url</a></em>를 바라보고 있는 Image 컴포넌트가 안그려진다.</li>
-<li>iOS에서 사파리로 <em><a href="https://some.url/">https://some.url</a></em> 접근시에는 잘보인다.</li>
-<li>iOS에서 다른 도메인 이미지로 Image 컴포넌트를 그려보면 잘 보인다.</li>
-</ul>
-<p>네트워크 적으로 뭔가 막힌거같은데… 아직 못찾았다 ㅠㅠ</p>
+    <title>[React Native] 여러 개의 자식 요소를 가운데 정렬하고 싶을 때</title>
+    <url>/2022/04/08/Tech/ReactNative/RN-publishing-align-center/</url>
+    <content><![CDATA[<h1 id="여러-개의-자식-요소를-가운데-정렬하고-싶을-때"><a href="#여러-개의-자식-요소를-가운데-정렬하고-싶을-때" class="headerlink" title="여러 개의 자식 요소를 가운데 정렬하고 싶을 때"></a>여러 개의 자식 요소를 가운데 정렬하고 싶을 때</h1><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = <span class="title class_">StyleSheet</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">vertical</span>: &#123;</span><br><span class="line">    <span class="attr">justifyContent</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 horizontally 가운데 정렬된다.</span></span><br><span class="line">    <span class="attr">alignItems</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 vertically 가운데 정렬된다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Tech</category>
@@ -258,9 +251,16 @@
       </tags>
   </entry>
   <entry>
-    <title>[React Native] 여러 개의 자식 요소를 가운데 정렬하고 싶을 때</title>
-    <url>/2022/04/08/Tech/ReactNative/RN-publishing-align-center/</url>
-    <content><![CDATA[<h1 id="여러-개의-자식-요소를-가운데-정렬하고-싶을-때"><a href="#여러-개의-자식-요소를-가운데-정렬하고-싶을-때" class="headerlink" title="여러 개의 자식 요소를 가운데 정렬하고 싶을 때"></a>여러 개의 자식 요소를 가운데 정렬하고 싶을 때</h1><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> styles = <span class="title class_">StyleSheet</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">vertical</span>: &#123;</span><br><span class="line">    <span class="attr">justifyContent</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 horizontally 가운데 정렬된다.</span></span><br><span class="line">    <span class="attr">alignItems</span>: <span class="string">&quot;center&quot;</span>, <span class="comment">//자식 요소가 vertically 가운데 정렬된다.</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+    <title>[React Native] iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</title>
+    <url>/2022/04/08/Tech/ReactNative/RN-ios-image-not-showing/</url>
+    <content><![CDATA[<h1 id="WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때"><a href="#WIP-iOS-에서만-특정-도메인의-이미지-uri가-보이지-않을-때" class="headerlink" title="WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때"></a>WIP: iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때</h1><p>현상은 다음과 같다. 예를 들어 특정 도메인이 <em><a href="https://some.url/">https://some.url</a></em> 이라고 하면</p>
+<ul>
+<li>AOS에서는 <em><a href="https://some.url/">https://some.url</a></em> 로 uri 지정한 Image 컴포넌트가 아주 잘 보인다.</li>
+<li>iOS에서는 완전히 동일한 React Native 소스인데 <em><a href="https://some.url/">https://some.url</a></em>를 바라보고 있는 Image 컴포넌트가 안그려진다.</li>
+<li>iOS에서 사파리로 <em><a href="https://some.url/">https://some.url</a></em> 접근시에는 잘보인다.</li>
+<li>iOS에서 다른 도메인 이미지로 Image 컴포넌트를 그려보면 잘 보인다.</li>
+</ul>
+<p>네트워크 적으로 뭔가 막힌거같은데… 아직 못찾았다 ㅠㅠ</p>
 ]]></content>
       <categories>
         <category>Tech</category>
@@ -289,20 +289,6 @@
     <url>/2022/04/12/Tech/ReactNative/RN-publishing-hide-scrollbar/</url>
     <content><![CDATA[<h1 id="스크롤-영역의-스크롤-바를-가리고-싶을-때"><a href="#스크롤-영역의-스크롤-바를-가리고-싶을-때" class="headerlink" title="스크롤 영역의 스크롤 바를 가리고 싶을 때"></a>스크롤 영역의 스크롤 바를 가리고 싶을 때</h1><p>ScrollView, FlatList에게 아래의 props를 내려주자.</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">showsVerticalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">showsHorizontalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Tech</category>
-        <category>React Native</category>
-      </categories>
-      <tags>
-        <tag>React Native</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[React Native] ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</title>
-    <url>/2022/04/10/Tech/ReactNative/RN-publishing-scrollview-sticky/</url>
-    <content><![CDATA[<h1 id="ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때"><a href="#ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때" class="headerlink" title="ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때"></a>ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</h1><p>스크롤 하다가 Stick 되었으면 하는 자식 요소의 index를 stickyHeaderIndices prop를 통해 명시해주자.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">ScrollView</span> stickyHeaderIndices=&#123;[<span class="number">0</span>]&#125;&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Header</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">FirstView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">SecondView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">ThirdView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">FourthView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Footer</span> /&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">ScrollView</span>&gt;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Tech</category>
@@ -371,6 +357,20 @@
 </blockquote>
 <p><code>sudo xcodebuild -license</code> 또는 Xcode 실행하여 약관 동의</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo xcodebuild -license  <span class="comment">## 또는 Xcode 실행하여 약관 동의</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tech</category>
+        <category>React Native</category>
+      </categories>
+      <tags>
+        <tag>React Native</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[React Native] ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</title>
+    <url>/2022/04/10/Tech/ReactNative/RN-publishing-scrollview-sticky/</url>
+    <content><![CDATA[<h1 id="ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때"><a href="#ScrollView의-특정-요소를-Sticky-하게-만들고-싶을-때" class="headerlink" title="ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때"></a>ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때</h1><p>스크롤 하다가 Stick 되었으면 하는 자식 요소의 index를 stickyHeaderIndices prop를 통해 명시해주자.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">ScrollView</span> stickyHeaderIndices=&#123;[<span class="number">0</span>]&#125;&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Header</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">FirstView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">SecondView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">ThirdView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">FourthView</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Footer</span> /&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">ScrollView</span>&gt;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Tech</category>
