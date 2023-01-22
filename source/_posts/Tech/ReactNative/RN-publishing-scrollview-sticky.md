@@ -1,7 +1,7 @@
 ---
 title: "[React Native] ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때"
 date: 2022-04-10 22:28:41
-categories: [React Native]
+categories: [Tech, React Native]
 tags: [React Native]
 ---
 

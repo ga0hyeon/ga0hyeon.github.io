@@ -1,7 +1,7 @@
 ---
 title: "javscript OCR 라이브러리로 제품정보 인식하기"
 date: 2022-05-22 20:28:59
-categories: [사이드 프로젝트]
+categories: [Tech, OCR]
 tags: [AI, javascript]
 ---
 

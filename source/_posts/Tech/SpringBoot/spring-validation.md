@@ -2,7 +2,7 @@
 title: "[Spring] @Valid @Validated에 대해 알아보자"
 date: 2022-02-18 23:00:19
 tags: ["@Valid", Spring, Annotation]
-categories: [Spring]
+categories: [Tech, Spring Boot]
 ---
 
 # MOTIVATION

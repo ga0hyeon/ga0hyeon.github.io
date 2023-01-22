@@ -1,7 +1,7 @@
 ---
 title: "[React Native] 플랫폼별로 디자인을 달리 하고 싶을 때"
 date: 2022-04-08 22:28:41
-categories: [React Native]
+categories: [Tech, React Native]
 tags: [React Native]
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "[주말엔 엄빠랑 놀자] 멍청한 내 사이드 프로젝트에 MLOps 적용하기"
 date: 2022-03-06 20:28:59
-categories: [사이드 프로젝트, 주말엔 엄빠랑 놀자]
+categories: [Tech, MLOps]
 tags: [MLOps, AI, Cloud]
 ---
 

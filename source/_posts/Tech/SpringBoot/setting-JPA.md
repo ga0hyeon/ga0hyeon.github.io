@@ -2,6 +2,7 @@
 title: Spring Boot + MySQL + JPA + Flyway 셋업하고 REST api 만들기
 date: 2022-11-15 23:49:08
 tags: [Spring Boot, MySQL, JPA, Flyway]
+categories: [Tech, Spring Boot]
 ---
 
 # Motivation

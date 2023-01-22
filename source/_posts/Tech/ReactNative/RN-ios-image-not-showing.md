@@ -1,7 +1,7 @@
 ---
 title: "[React Native] iOS 에서만 특정 도메인의 이미지 uri가 보이지 않을 때"
 date: 2022-04-08 22:28:41
-categories: [React Native]
+categories: [Tech, React Native]
 tags: [React Native]
 ---
 

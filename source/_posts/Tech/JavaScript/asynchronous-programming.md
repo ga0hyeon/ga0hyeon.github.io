@@ -2,6 +2,7 @@
 title: "[JavaScript] 비동기 프로그래밍"
 date: 2022-04-05 00:01:04
 tags: [JavaScript]
+categories: [Tech, JavaScript]
 ---
 
 # 이 글을 쓰게된 이유
