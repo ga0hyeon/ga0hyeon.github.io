@@ -1,5 +1,5 @@
 ---
-title: [Spring] Java Heap Memory Exception 
+title: "[Spring] Java Heap Memory Exception"
 date: 2023-01-22 23:37:40
 tags: [Spring Boot]
 categories: [Tech, Spring Boot]
