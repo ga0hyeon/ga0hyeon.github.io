@@ -1,11 +1,15 @@
 ---
-title: HYEON
+title: 
 date: 2022-01-12 12:46:34
 type: about
 ---
+## Gayoung Hyeon ✌️ ## 
 
 재미있어 보이는 것들을 공부합니다.
 일기처럼 개발일지를 씁니다. 그냥 일기도 씁니다.
+
+[📔 그냥 일기](/categories/Diary/)
+[👩‍🔬 일기같은 개발일지](/categories/Diary/).
 
 
 

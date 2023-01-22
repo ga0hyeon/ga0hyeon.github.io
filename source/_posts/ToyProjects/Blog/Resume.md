@@ -2,7 +2,7 @@
 title: "[React] React CDN 버전으로 나를 표현하는 이력 페이지를 만들자"
 date: 2022-01-22 04:08:15
 tags: [Hexo, React, UI/UX]
-categories: [Hexo]
+categories: [개발일지, 블로그]
 ---
 
 # MOTIVATION
