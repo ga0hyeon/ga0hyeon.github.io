@@ -18,15 +18,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content=".tech-icon-wrapper {         display: inline-flex;         flex-wrap: wrap;       }       .tech-icon {         padding: 4px;         margin-bottom: 0px !important;       }        .head">
+    <meta name="description" content="재미있어 보이는 것들을 공부합니다.일기처럼 개발일지를 씁니다. 그냥 일기도 씁니다.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hyeon&#39;s Dev Blog">
+<meta property="og:title" content="HYEON">
 <meta property="og:url" content="https://ga0hyeon.github.io/about/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
-<meta property="og:description" content=".tech-icon-wrapper {         display: inline-flex;         flex-wrap: wrap;       }       .tech-icon {         padding: 4px;         margin-bottom: 0px !important;       }        .head">
+<meta property="og:description" content="재미있어 보이는 것들을 공부합니다.일기처럼 개발일지를 씁니다. 그냥 일기도 씁니다.">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2023-01-12T21:38:10.602Z">
-<meta property="article:modified_time" content="2023-01-12T21:38:10.602Z">
+<meta property="article:published_time" content="2022-01-12T03:46:34.000Z">
+<meta property="article:modified_time" content="2023-01-22T13:29:04.449Z">
 <meta property="article:author" content="Gayoung Hyeon">
 <meta name="twitter:card" content="summary">
 
@@ -35,10 +35,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/about/index.html","path":"about/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/about/index.html","path":"about/index.html","title":"HYEON"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title> | Hyeon's Dev Blog
+<title>HYEON | Hyeon's Dev Blog
 </title>
   
 
@@ -176,18 +176,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">카테고리</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
@@ -219,7 +219,7 @@
     
     <div class="post-block" lang="ko"><header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">
+<h1 class="post-title" itemprop="name headline">HYEON
 </h1>
 
 <div class="post-meta-container">
@@ -230,220 +230,8 @@
       
       
       <div class="post-body">
-          <!DOCTYPE html>
-<html>
-  <body>
-    <style>
-      .tech-icon-wrapper {
-        display: inline-flex;
-        flex-wrap: wrap;
-      }
-      .tech-icon {
-        padding: 4px;
-        margin-bottom: 0px !important;
-      }
-
-      .header-wrapper > .title {
-        font-size: 32px;
-        font-weight: bold;
-      }
-      .header-wrapper > .desc {
-      }
-      .first-column {
-        width: 100px;
-        background-color: #ffd460;
-      }
-
-      tr,
-      td {
-        border-color: white;
-      }
-    </style>
-    <div id="resume_container"></div>
-    <script type="text/babel">
-      "use strict";
-      const { useState } = React;
-      const TECH_SET = {
-        typescript: {
-          title: "TypeScript",
-          color: "3178C6",
-          logo: "typescript",
-        },
-        react: {
-          title: "ReactJs",
-          color: "61DAFB",
-          logo: "react",
-        },
-        springboot: {
-          title: "Spring Boot",
-          color: "6DB33F",
-          logo: "springboot",
-        },
-        html5: {
-          title: "HTML5",
-          color: "E34F26",
-          logo: "html5",
-        },
-        sass: {
-          title: "sass",
-          color: "CC6699",
-          logo: "sass",
-        },
-        stylus: {
-          title: "Stylus",
-          color: "333333",
-          logo: "stylus",
-        },
-        git: {
-          title: "Git",
-          color: "F05032",
-          logo: "git",
-        },
-        figma: {
-          title: "Figma",
-          color: "F24E1E",
-          logo: "figma",
-        },
-      };
-
-      const Header = () => {
-        return (
-          <div className="header-wrapper">
-            <div className="title">About Me 👋</div>
-            <div className="desc">
-              주로 Frontend Developer, Backend Developer 이지만
-            </div>
-            <div className="desc">
-              종종 내가 만들고 싶은게 있을 때는 Designer가 됩니다 🤩
-            </div>
-          </div>
-        );
-      };
-      const Timeline = () => {
-        const items = [
-          {
-            date: "2018.01",
-            title: "입사",
-            desc: "C#.net",
-          },
-        ];
-        return (
-          <div>
-            {items.map((item) => {
-              return (
-                <>
-                  <div>{item.date}</div>
-                  <div>{item.date}</div>
-                  <div>{item.date}</div>
-                </>
-              );
-            })}
-          </div>
-        );
-      };
-
-      const InlineTechIcons = (techSet) => {
-        return (
-          <div className="tech-icon-wrapper">
-            {techSet.map(({ title, color, logo }) => {
-              return (
-                <img
-                  className="tech-icon"
-                  src={`https://img.shields.io/badge/-${title}-${color}?logo=${logo}&logoColor=white&style=flat`}
-                />
-              );
-            })}
-          </div>
-        );
-      };
-      const Tech = () => {
-        const techSet = Object.keys(TECH_SET).map((key) => TECH_SET[key]);
-        return (
-          <>
-            <h2>보유 기술</h2>
-            {InlineTechIcons(techSet)}
-          </>
-        );
-      };
-      const SideProjects = () => {
-        const [open, setOpen] = useState(0);
-        const projects = [
-          {
-            desc: "교육 목적의 현장학습 정보 제공 웹사이트",
-            tech: [
-              TECH_SET.react,
-              TECH_SET.typescript,
-              TECH_SET.sass,
-              TECH_SET.figma,
-            ],
-            role: "기획 / 디자인 / FE 개발",
-            date: "21.06~21.10",
-          },
-          {
-            desc: "점포별 알바생 관리 웹사이트",
-            tech: [TECH_SET.react, TECH_SET.typescript, TECH_SET.sass],
-            role: "FE 개발",
-            date: "21.01~21.10",
-          },
-          {
-            desc: "연구용 엑셀 데이터 처리 프로그램",
-            tech: [TECH_SET.react],
-            role: "개발",
-            date: "17.06~17.08",
-          },
-        ];
-        return (
-          <div className="project-wrapper">
-            <h2>사이드 프로젝트</h2>
-            {projects.map(({ tech, role, desc, date }, index) => {
-              return (
-                <div className="project">
-                  <table>
-                    <tbody>
-                      <tr
-                        onClick={() => {
-                          setOpen(index);
-                        }}
-                      >
-                        <td className="first-column">프로젝트 내용</td>
-                        <td className="desc">{desc}</td>
-                      </tr>
-                      {open == index && (
-                        <>
-                          <tr>
-                            <td className="first-column">진행기간</td>
-                            <td className="date">{date}</td>
-                          </tr>
-                          <tr>
-                            <td className="first-column">사용 기술</td>
-                            <td className="tech"> {InlineTechIcons(tech)}</td>
-                          </tr>
-                          <tr>
-                            <td className="first-column">역할</td>
-                            <td className="role">{role}</td>
-                          </tr>
-                        </>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              );
-            })}
-          </div>
-        );
-      };
-      const domContainer = document.querySelector("#resume_container");
-      ReactDOM.render(
-        <>
-          <Header />
-          <Tech />
-          <SideProjects />
-        </>,
-        domContainer
-      );
-    </script>
-  </body>
-</html>
+          <p>재미있어 보이는 것들을 공부합니다.<br>일기처럼 개발일지를 씁니다. 그냥 일기도 씁니다.</p>
+<hr>
 
       </div>
       
