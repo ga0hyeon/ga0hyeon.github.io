@@ -18,28 +18,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ga0hyeon.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="스크롤 영역의 스크롤 바를 가리고 싶을 때ScrollView, FlatList에게 아래의 props를 내려주자. 12showsVerticalScrollIndicator&#x3D;&amp;#123;false&amp;#125;showsHorizontalScrollIndicator&#x3D;&amp;#123;false&amp;#125;">
+    <meta name="description" content="이 글을 쓰게된 이유지난 연말에 시스템 운영업무를 하게 된 적이 있었는데 하필 그 즈음 시스템 처리 데이터의 크기가 갑자기 커지면서 Heap Memory Exception이 났다.원래였다면 나에게까지 해결 순번이 내려오지 않았을 수도 있었을 텐데 다들 휴가기간이고 해서 눈물을 머금고 파볼 수 밖에 없었다 ㅎㅎ 이행 조직에서 얻기 어려운 귀한 경험이라 그때">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[React Native] 스크롤 영역의 스크롤 바를 가리고 싶을 때">
-<meta property="og:url" content="https://ga0hyeon.github.io/2022/04/12/Tech/ReactNative/RN-publishing-hide-scrollbar/index.html">
+<meta property="og:title" content="[Spring] Java Heap Memory Exception">
+<meta property="og:url" content="https://ga0hyeon.github.io/2023/01/22/Tech/SpringBoot/java-heap-memory-exception/index.html">
 <meta property="og:site_name" content="Hyeon&#39;s Dev Blog">
-<meta property="og:description" content="스크롤 영역의 스크롤 바를 가리고 싶을 때ScrollView, FlatList에게 아래의 props를 내려주자. 12showsVerticalScrollIndicator&#x3D;&amp;#123;false&amp;#125;showsHorizontalScrollIndicator&#x3D;&amp;#123;false&amp;#125;">
+<meta property="og:description" content="이 글을 쓰게된 이유지난 연말에 시스템 운영업무를 하게 된 적이 있었는데 하필 그 즈음 시스템 처리 데이터의 크기가 갑자기 커지면서 Heap Memory Exception이 났다.원래였다면 나에게까지 해결 순번이 내려오지 않았을 수도 있었을 텐데 다들 휴가기간이고 해서 눈물을 머금고 파볼 수 밖에 없었다 ㅎㅎ 이행 조직에서 얻기 어려운 귀한 경험이라 그때">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2022-04-12T13:28:41.000Z">
-<meta property="article:modified_time" content="2023-01-22T14:05:11.668Z">
+<meta property="article:published_time" content="2023-01-22T14:37:40.000Z">
+<meta property="article:modified_time" content="2023-01-22T15:10:49.379Z">
 <meta property="article:author" content="Gayoung Hyeon">
-<meta property="article:tag" content="React Native">
+<meta property="article:tag" content="Spring Boot">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://ga0hyeon.github.io/2022/04/12/Tech/ReactNative/RN-publishing-hide-scrollbar/">
+<link rel="canonical" href="https://ga0hyeon.github.io/2023/01/22/Tech/SpringBoot/java-heap-memory-exception/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2022/04/12/Tech/ReactNative/RN-publishing-hide-scrollbar/","path":"2022/04/12/Tech/ReactNative/RN-publishing-hide-scrollbar/","title":"[React Native] 스크롤 영역의 스크롤 바를 가리고 싶을 때"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://ga0hyeon.github.io/2023/01/22/Tech/SpringBoot/java-heap-memory-exception/","path":"2023/01/22/Tech/SpringBoot/java-heap-memory-exception/","title":"[Spring] Java Heap Memory Exception"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>[React Native] 스크롤 영역의 스크롤 바를 가리고 싶을 때 | Hyeon's Dev Blog</title>
+<title>[Spring] Java Heap Memory Exception | Hyeon's Dev Blog</title>
   
 
 
@@ -161,7 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%8A%A4%ED%81%AC%EB%A1%A4-%EC%98%81%EC%97%AD%EC%9D%98-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EB%B0%94%EB%A5%BC-%EA%B0%80%EB%A6%AC%EA%B3%A0-%EC%8B%B6%EC%9D%84-%EB%95%8C"><span class="nav-number">1.</span> <span class="nav-text">스크롤 영역의 스크롤 바를 가리고 싶을 때</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%9D%B4-%EA%B8%80%EC%9D%84-%EC%93%B0%EA%B2%8C%EB%90%9C-%EC%9D%B4%EC%9C%A0"><span class="nav-number">1.</span> <span class="nav-text">이 글을 쓰게된 이유</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%ED%98%84%EC%83%81"><span class="nav-number">2.</span> <span class="nav-text">현상</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%9B%90%EC%9D%B8%ED%8C%8C%EC%95%85-1%EC%B0%A8"><span class="nav-number">3.</span> <span class="nav-text">원인파악 1차</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%9B%90%EC%9D%B8%ED%8C%8C%EC%95%85-2%EC%B0%A8"><span class="nav-number">4.</span> <span class="nav-text">원인파악 2차</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%B5%9C%EC%A2%85-%EA%B0%9C%EC%84%A0-%EC%BD%94%EB%93%9C"><span class="nav-number">5.</span> <span class="nav-text">최종 개선 코드</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%ED%95%B4%EA%B2%B0%EC%9D%80-%EB%90%90%EB%8A%94%EB%8D%B0-%EC%95%84%EC%A7%81-%EC%B0%9D%EC%B0%9D%ED%95%9C%EC%A0%90"><span class="nav-number">6.</span> <span class="nav-text">해결은 됐는데.. 아직 찝찝한점</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -223,7 +223,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
-    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/04/12/Tech/ReactNative/RN-publishing-hide-scrollbar/">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2023/01/22/Tech/SpringBoot/java-heap-memory-exception/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.png">
@@ -237,12 +237,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="[React Native] 스크롤 영역의 스크롤 바를 가리고 싶을 때 | Hyeon's Dev Blog">
+      <meta itemprop="name" content="[Spring] Java Heap Memory Exception | Hyeon's Dev Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [React Native] 스크롤 영역의 스크롤 바를 가리고 싶을 때
+          [Spring] Java Heap Memory Exception
         </h1>
 
         <div class="post-meta-container">
@@ -253,14 +253,14 @@
       </span>
       <span class="post-meta-item-text">작성일</span>
 
-      <time title="Post created: 2022-04-12 22:28:41" itemprop="dateCreated datePublished" datetime="2022-04-12T22:28:41+09:00">2022-04-12</time>
+      <time title="Post created: 2023-01-22 23:37:40" itemprop="dateCreated datePublished" datetime="2023-01-22T23:37:40+09:00">2023-01-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2023-01-22 23:05:11" itemprop="dateModified" datetime="2023-01-22T23:05:11+09:00">2023-01-22</time>
+      <time title="Updated at: 2023-01-23 00:10:49" itemprop="dateModified" datetime="2023-01-23T00:10:49+09:00">2023-01-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -272,7 +272,7 @@
         </span>
           , 
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Tech/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a>
+          <a href="/categories/Tech/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
         </span>
     </span>
 
@@ -286,8 +286,35 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="스크롤-영역의-스크롤-바를-가리고-싶을-때"><a href="#스크롤-영역의-스크롤-바를-가리고-싶을-때" class="headerlink" title="스크롤 영역의 스크롤 바를 가리고 싶을 때"></a>스크롤 영역의 스크롤 바를 가리고 싶을 때</h1><p>ScrollView, FlatList에게 아래의 props를 내려주자.</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">showsVerticalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">showsHorizontalScrollIndicator=&#123;<span class="literal">false</span>&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="이-글을-쓰게된-이유"><a href="#이-글을-쓰게된-이유" class="headerlink" title="이 글을 쓰게된 이유"></a>이 글을 쓰게된 이유</h1><p>지난 연말에 시스템 운영업무를 하게 된 적이 있었는데 하필 그 즈음 시스템 처리 데이터의 크기가 갑자기 커지면서 Heap Memory Exception이 났다.<br>원래였다면 나에게까지 해결 순번이 내려오지 않았을 수도 있었을 텐데 다들 휴가기간이고 해서 눈물을 머금고 파볼 수 밖에 없었다 ㅎㅎ 이행 조직에서 얻기 어려운 귀한 경험이라 그때 작업 이력을 복기해보려고 한다.</p>
+<h1 id="현상"><a href="#현상" class="headerlink" title="현상"></a>현상</h1><p>기존 코드는 </p>
+<ol>
+<li>Rest api 호출을 통해 받아온 tsv 결과를 stream으로 변환</li>
+<li>1의 stream을 byte array로 변환, stream close</li>
+<li>2의 byte array를 stream으로 변환해서 S3 업로드 </li>
+<li>2의 byte array를 String으로 변환</li>
+<li>4의 String을 String tokenizer로 변환 </li>
+<li>tokenizer로 읽어들인 row를 10000줄씩 모아 insert (이때 connection은 이전 로직에서 사용하던 것을 그대로 사용)</li>
+</ol>
+<p>이 순서로 흘러가고 있었고, 1의 tsv 결과 사이즈가 커지면서 Heap Memory Exception이 발생했다.</p>
+<h1 id="원인파악-1차"><a href="#원인파악-1차" class="headerlink" title="원인파악 1차"></a>원인파악 1차</h1><p>우선 1차로 나는 1~5번 로직에서 동일한 테이터를 stream, byte array, String 등등으로 형변환하여 사용하는게 문제라고 생각했다.<br>그래서 최초로 가져온 1번의 stream을 뒤의 로직에서 재사용 하도록 코드를 수정했다. S3업로드는 stream 업로드가 바로 지원되어 별 수정이 필요하지 않았고<br>String tokenizer는 동일 기능을 하는 Stream tokenizer로 대체했다. 하지만 웬걸 ㅠㅠ 이렇게 바꾸고 나니 오히려 안정권에 들던 데이터도 에러가 나기시작…</p>
+<h1 id="원인파악-2차"><a href="#원인파악-2차" class="headerlink" title="원인파악 2차"></a>원인파악 2차</h1><p>1차 개선안으로 해결이 되지 않아 마음이 초초해질 무렵 함께 남아계시던 책임님께서 더 근본적인 원인을 찾아주셨다.<br>6번 로직에서 row를 insert 한 후 바로 commit은 되는데 그 데이터가 캐싱되고 있어 메모리를 차지하는 것 같다는 말씀을 해주셨고</p>
+<ul>
+<li>10000줄 insert에서 1000줄 insert로 변경</li>
+<li>db connection 은 항상 새것을 맽도록 변경</li>
+<li>mybatis cashing은 사용하지 않도록 설정<br>하신 뒤 개선됨을 직접 확인하고 수정하셨다. ㅠㅠ 감사함 반 자괴감 반 🙏<br>실제로 돌려보니 간헐적으로 실패하기는 해서, 원인파악 2차 코드를 적용하면서 일부 원복했던 원인파악 1차의 코드를 다시 적용하여 개선 성공!</li>
+</ul>
+<h1 id="최종-개선-코드"><a href="#최종-개선-코드" class="headerlink" title="최종 개선 코드"></a>최종 개선 코드</h1><ol>
+<li>Rest api 호출을 통해 받아온 tsv 결과를 stream으로 변환</li>
+<li>1의 stream을 바로 S3 업로드 </li>
+<li>1의 stream을 reset, Stream tokenizer로 변환 </li>
+<li>tokenizer로 읽어들인 row를 1000줄 모아 insert (이때 connection은 매번 새로 맽고, mybatis 캐싱도 하지 않음)</li>
+</ol>
+<h1 id="해결은-됐는데-아직-찝찝한점"><a href="#해결은-됐는데-아직-찝찝한점" class="headerlink" title="해결은 됐는데.. 아직 찝찝한점"></a>해결은 됐는데.. 아직 찝찝한점</h1><ul>
+<li>jvm 메모리 옵션을 올리는 방향은 고려하지 않았다. 무작정 올리는 것도 문제가 있다는 것은 알지만, 로직으로 해결이 될 때와 아닐 때를 어떻게 구분할 수 있을까?</li>
+<li>메모리 사용량의 분석을 위해 로컬에서 heap dump를 떴다. 사용량의 대부분은 stream과 byte array가 차지하고 있었고, 1차 개선으로 해결이 되었어야할 것 같은데… 아니었다. mybatis 캐시 사용량은 heap dump에 기록되지 않는걸까?</li>
+<li>정답은 뭐였을까..?</li>
+</ul>
 
     </div>
 
@@ -297,21 +324,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/React-Native/" rel="tag"><i class="fa fa-tag"></i> React Native</a>
+              <a href="/tags/Spring-Boot/" rel="tag"><i class="fa fa-tag"></i> Spring Boot</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/04/10/Tech/ReactNative/RN-publishing-scrollview-sticky/" rel="prev" title="[React Native] ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때">
-                  <i class="fa fa-chevron-left"></i> [React Native] ScrollView의 특정 요소를 Sticky 하게 만들고 싶을 때
+                <a href="/2023/01/22/Diary/230122/" rel="prev" title="230122">
+                  <i class="fa fa-chevron-left"></i> 230122
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/05/22/Tech/AI_MLOps/ocr/" rel="next" title="javscript OCR 라이브러리로 제품정보 인식하기">
-                  javscript OCR 라이브러리로 제품정보 인식하기 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

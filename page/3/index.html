@@ -173,7 +173,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -209,6 +209,138 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://ga0hyeon.github.io/2022/01/22/ToyProjects/Blog/Resume/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.png">
+      <meta itemprop="name" content="Gayoung Hyeon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyeon's Dev Blog">
+      <meta itemprop="description" content="재미있어 보이는 것들을 공부합니다.
+일기처럼 개발일지를 씁니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hyeon's Dev Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/22/ToyProjects/Blog/Resume/" class="post-title-link" itemprop="url">[React] React CDN 버전으로 나를 표현하는 이력 페이지를 만들자</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2022-01-22 04:08:15" itemprop="dateCreated datePublished" datetime="2022-01-22T04:08:15+09:00">2022-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Updated at: 2023-01-22 23:02:09" itemprop="dateModified" datetime="2023-01-22T23:02:09+09:00">2023-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80/" itemprop="url" rel="index"><span itemprop="name">개발일지</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80/%EB%B8%94%EB%A1%9C%EA%B7%B8/" itemprop="url" rel="index"><span itemprop="name">블로그</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="MOTIVATION"><a href="#MOTIVATION" class="headerlink" title="MOTIVATION"></a>MOTIVATION</h1><p>처음 블로그를 deploy할 때, About Me 페이지는 다음에 더 손봐야지~ 하고 대충 만들었었는데요.</p>
+<p>한 페이지에 내가 잘하는 것, 하고싶은 것, 했던 것에 대한 정보를 짜임새 있게 보여주기가 어렵더라구요… 감히 html 쪼가리가 나를 표현한다니! 라는 생각도 들고요 ㅋㅋㅋ<br>다른 한 편으로는 나에 대해서 정리하고 돌아보는 시간을 계속 미루고 싶었던 것 같기도 합니다.</p>
+<p>어떻게 하면 짜임새 있게 나를 표현할 수 있을까 고민했던 내용을 기록해볼게요.</p>
+<h1 id="계획"><a href="#계획" class="headerlink" title="계획"></a>계획</h1><p>우선 보여주고 싶은 정보의 특성에 따라 보여주는 방식도 달랐으면 했습니다.</p>
+<ul>
+<li>이력은 타임라인</li>
+<li>기술스택은 관련 직군이라면 알아볼 수 있을 만큼만 간결하게 뱃지로</li>
+<li>사이드 플젝 진행이력은 신뢰가 가도록 다양한 정보를 담아서</li>
+<li>성격이 드러나는 짧은 소개글</li>
+</ul>
+<p>또, 화면과 인터랙션해서 보여줘야하는 추가정보인지 / 처음부터 보여져야하는 필수정보인지에 따라서도 구현 방식이 달라져야 했구요.</p>
+<ul>
+<li>추가정보라면 툴팁과 아코디언을 적절히 사용해서 화면이 복잡해 보이지 얺도록</li>
+<li>필수정보라면 font style과 margin, padding 을 조절하여 화면이 복잡해 보이지 않도록</li>
+</ul>
+<p>🤔 뜬금없지만, 역시 내 product를 만든다고 생각하고 UX를 고민하는 작업은 항상 재미있는 것 같아요. 잘하고 싶어져서 더 알아보고, 더 알아보면 더 잘하게 되고…</p>
+<h1 id="구현"><a href="#구현" class="headerlink" title="구현"></a>구현</h1><p>이전 글에서 언급했듯 이 블로그는 Hexo와 Next theme 그리고 약간의 customizing으로 구현되어있는데요. 기존의 틀을 그대로 활용하여 마크다운 추가만으로도 이력 페이지를 꾸밀 수는 있겠지만 그걸로는 원하는 기능을 모두 구현할 수 없었고, 고민하지 않고 React의 도움을 받기로 했습니다.</p>
+<p>전체가 React로 구성되는 프로젝트는 아주 많이 만들어봤지만, html로 이미 구현된 페이지에 React Element를 삽입하는 형태로는 작업해본 적이 없었네요. 물론 공식 가이드 첫 부분에 나올 정도로 흔한 상식이긴하지만요… =)</p>
+<h2 id="React-ReactDOM-CDN-추가"><a href="#React-ReactDOM-CDN-추가" class="headerlink" title="React, ReactDOM CDN 추가"></a>React, ReactDOM CDN 추가</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;like_button_container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- global 변수로 React를 가져다 사용하기 위해 아래와 같이 CDN을 통해 js를 불러오도록 합니다. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//아래의 예제는 React 공식 docs에서 제공하는 예제입니다.</span></span></span><br><span class="line"><span class="language-javascript"><span class="meta">      &quot;use strict&quot;</span>; <span class="comment">//올바르지 않은 문법을 사전에 검출할 수 있도록 strict 모드를 쓴다는 의미라네요.</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> e = <span class="title class_">React</span>.<span class="property">createElement</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">class</span> <span class="title class_">LikeButton</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">super</span>(props);</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">this</span>.<span class="property">state</span> = &#123; <span class="attr">liked</span>: <span class="literal">false</span> &#125;;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">render</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">liked</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="string">&quot;You liked this.&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">          &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">          <span class="keyword">return</span> <span class="title function_">e</span>(</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&quot;button&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">            &#123; <span class="attr">onClick</span>: <span class="function">() =&gt;</span> <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123; <span class="attr">liked</span>: <span class="literal">true</span> &#125;) &#125;,</span></span><br><span class="line"><span class="language-javascript">            <span class="string">&quot;Like&quot;</span></span></span><br><span class="line"><span class="language-javascript">          );</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> domContainer = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#like_button_container&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(<span class="title function_">e</span>(<span class="title class_">LikeButton</span>), domContainer);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>이제 root/about/ 경로에 index.md 대신 index.html을 생성하고, 위의 코드를 넣어주면 끝입니다.</p>
+<h2 id="babel-CDN-추가"><a href="#babel-CDN-추가" class="headerlink" title="babel CDN 추가"></a>babel CDN 추가</h2><p>이제 React를 CDN으로 바로 가져다 쓸 수 있다는 것이 확인되었으니, 제가 쓰기 편한 코드로 바꾸고 싶어졌습니다.<br>위의 예제에서 저는 크게 두 가지가 불편해보였어요.</p>
+<ul>
+<li>createElement</li>
+<li>Class Component</li>
+</ul>
+<p>혹시 위의 예제에서 createElement 함수의 사용법을 보셨나요? 아래의 두 코드는 같은 동작을 위한 코드입니다.</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onClick=&#123;doSomething&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">createElement</span>(<span class="string">&quot;button&quot;</span>, &#123; <span class="attr">onClick</span>: doSomething &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>차이점은, jsx가 훨씬 더 html스럽게 생겨서 개발자 친화적인 것 같네요. 저도 jsx를 사용하는게 더 편하기 때문에 CDN으로부터 불러온 babel 스크립트가 jsx 형식을 알아먹을 수 있도록 수정해볼게요.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;like_button_container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@17/umd/react.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">      <span class="attr">crossorigin</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@17/umd/react-dom.production.min.js&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/@babel/standalone/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- type을 주는 것을 잊지 마세요. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span>&gt;</span><span class="language-javascript"><span class="meta"></span></span></span><br><span class="line"><span class="meta"><span class="language-javascript">      &quot;use strict&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> &#123; useState &#125; = <span class="title class_">React</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> <span class="title function_">LikeButton</span> = (<span class="params"></span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> [liked, setLiked] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> liked ? (</span></span><br><span class="line"><span class="language-javascript">          <span class="string">&quot;You liked this.&quot;</span></span></span><br><span class="line"><span class="language-javascript">        ) : (</span></span><br><span class="line"><span class="language-javascript">          <span class="language-xml"><span class="tag">&lt;<span class="name">button</span></span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"><span class="language-javascript">            <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">              setLiked(true);</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            &#125;&#125;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">          &gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">            Like</span></span></span><br><span class="line"><span class="language-xml"><span class="language-javascript">          <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span></span><br><span class="line"><span class="language-javascript">        );</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">LikeButton</span> /&gt;</span></span>, domContainer);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>짠! 이제 제가 쓰기 편한 형태로 어느정도 정리가 된 것 같습니다.</p>
+<h2 id="개발"><a href="#개발" class="headerlink" title="개발!"></a>개발!</h2><p>개발환경이 갖추어졌으니 아래의 주요 기능을 중심으로 개발하면 되겠습니다.</p>
+<ul>
+<li>이력 타임라인</li>
+<li>기술스택 뱃지목록</li>
+<li>사이드 플젝 진행이력</li>
+<li>성격이 드러나는 짧은 소개글</li>
+</ul>
+<p>(WIP) 생각날 때마다 추가 중입니다 =)</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
