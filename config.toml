@@ -1,0 +1,4 @@
+baseURL = 'http://ga0hyeon.github.io/'
+languageCode = 'en-us'
+title = "Hyeon's Dev Blog 🐷"
+theme = "hugo-book"

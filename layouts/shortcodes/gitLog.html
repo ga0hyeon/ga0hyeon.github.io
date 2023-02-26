@@ -1,0 +1,44 @@
+<style>
+    .log{
+        display: flex;
+        margin: 10px;
+    }
+    .log .title{
+        height: 100%;
+        color: black;
+    }
+    .log .tag{
+        position: relative;
+        padding: 0px 10px;
+        margin-right: 20px;
+        width: 83px;
+        text-align: center;
+        background-color: #004373;
+        color: white;
+        border-radius: 4px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    .log .tag::before{
+        content:"";
+        position: absolute;
+        top:calc(50% - 2.5px);
+        right: -10px;
+        height: 5px;
+        width: 5px;
+        border-radius: 50%;
+        background-color: #8C8C8C;
+    }
+    .log .tag::after{
+        content:"";
+        position: absolute;
+        top:0px;
+        right: -8.5px;
+        height: calc(100% + 10px);
+        width: 1px;
+        border-left: 1px solid #8C8C8C;
+    }
+</style>
+<div class="log">
+    <div class="tag">{{ .Get "tag" }}</div>
+    <a class="title" href='{{ .Get "link" }}'>{{ .Get "title" }}</a>
+</div>
