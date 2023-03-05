@@ -1,5 +1,5 @@
 ---
-title: "Cowork Saga"
+title: "Javascript"
+weight: 2
 bookCollapseSection: true
-weight: 1
 ---
