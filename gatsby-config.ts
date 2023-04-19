@@ -20,6 +20,14 @@ const config: GatsbyConfig = {
   trailingSlash: `never`,
   plugins: [
     {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: [
+          'G-6581BQZTGP',
+        ]
+      }
+    },
+    {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options
       options: {
