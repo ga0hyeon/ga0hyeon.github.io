@@ -1,0 +1,188 @@
+---
+title: JPA 세팅하기 🛠️
+date: 2022-11-15
+description: Spring Boot + MySQL + JPA + Flyway 세팅 과정을 정리해봅니다.
+tags:
+  - 개발
+banner: ./hexo_blog.png
+---
+# Motivation
+
+저는 JPA를 써본적이 없는데요. JPA를 사용해본/하고있는 사람들에게 JPA를 설명해달라고 하면 "하... 너넨 이런거 하지마라 🚬" 느낌으로다가 별로라고 말해주곤 하더라구요.
+하지 말라고 하면 더 해보고 싶어서 한 번 간단한 샘플을 띄워보기로 했습니다.
+***
+# Spring Initializer 로 프로젝트 뼈대 생성
+
+[Initializer](https://start.spring.io/)로 프로젝트 뼈대를 생성합니다.
+
+언어 옵션 중 Kotlin이 아주 잠깐 궁금했으나 잘 참고 Java를 고릅니다 ㅎㅎ 왜냐면 아직 Java도 아직 잘모르기 때문이죠 🤦‍♀️
+Dependency는 각자 필요한 것을 선택하면 되는데, 저는 Lombok, JPA, Flyway, Web 을 골랐습니다.
+
+# Application.yaml 설정
+
+Initializer로 만든 폴더 안에는 application.properties가 기본으로 생성되어있으나 저는 가독성 때문에 yaml 포맷을 선호하므로 application.yaml 파일을 만들어줍니다.
+아래와 같이 application.yaml를 설정해주면 `MySQL - JPA - flyway` 는 잘 연동이 됩니다.
+
+```yaml
+server:
+  address: localhost
+  port: 8080
+
+spring:
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    schemas: coworksaga
+    baseline-on-migrate: true
+    url: &db-url jdbc:mysql://localhost:3306/coworksaga?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    user: &db-user coworksaga
+    password: &db-pwd root1234
+    create-schemas: true
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    format-sql: true
+    use-sql-comments: true
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+  datasource:
+      url: *db-url
+      username: *db-user
+      password: *db-pwd
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
+```
++) 깨달은점
+
+- &, * 페어로 변수를 선언하고 불러다 쓸 수 있습니다. 굿굿
+- DB 스키마가 없을때 자동으로 생성하도록 하기 위해서는 jdbc url에 `createDatabaseIfNotExist=true` 옵션을 주면 됩니다.
+- JPA를 사용하면 기본 옵션으로 서버가 뜰때 자동으로 DB Connection을 맺어주는데요. 위에서 말한대로 저는 서버 기동 시점에 DB 스키마가 없는 상황을 가정하고 jdbc url에 옵션을 줬으므로 이 기본 동작을 꺼줘야합니다. [baeldung 아티클](https://www.baeldung.com/spring-data-jpa-run-app-without-db) 에 내용 밎 설정 방법이 잘 설명되어 있습니다.
+- JPA에 대해 정말 지식이 없어서... 단순히 특정 규칙을 가진 메소드 명으로 쿼리 만들어주는 기능만 하는 줄 알았는데, DDL 자동 생성 기능도 있어서 신기했습니다. 오히려 불편할 것 같다는 생각이 들어 꺼두었지만요 ㅎㅎ
+
+
++) 궁금한점
+
+- 비슷한 카테고리 같은데 왜 depth가 왜 다른걸까요? jpa.hibernate랑 jpa.properties.hibernate 처럼.
+- url username passwork 이거 다 datasource, flyway에 두 번씩 쓰게 되어있는데.. 변수로 정리해두긴 했으나, 두 옵션이 한 값을 바라보도록 바로 설정은 안되는걸까요?
+
+
+
+# Layer 별 폴더 트리 생성
+
+이제 로컬에 서버를 띄울 수 있는 상태가 되었으니 실제로 기능 개발을 할 수 있도록 폴더를 생성합니다.
+매번 Layer (Controller, Service, Repository) 별로 폴더링을 했는데 문득 다른 사람들은 어쩌고 있나 싶어 찾아보니 Entity/Domain별로 묶는 방법도 쓰이고 있네요. 사실 폴더로 묶으면 한 패키지가 되니, 패키지랑 맥락이 비슷한 개념은 Layer보단 Entity/Domain인 것 같기도 하고 고민이 되긴 합니다. 그렇다고 실제로 패키지별로 따로 묶어서 배포/공유하는 것도 아니니 생각보다 엄청나게 메리트가 있을 것 같지 않기는 하지만요. 우선 이번에도 Layer로 폴더를 나누도록 합니다.
+
+
+
+# 첫번째 flyway 스크립트와 REST api 만들기
+
+이제 첫번째 REST API를 만들어봅니다.
+uuid를 넘기면 workspace 이름을 조회하는 API이며, 그러려면 우선 workspace 테이블을 생성해주어야하겠습니다.
+
+- V0_1_0__create_workspaces.sql
+
+  ```sql
+  CREATE TABLE workspaces (
+  	workspace_id INT UNSIGNED auto_increment NOT NULL PRIMARY KEY,
+  	workspace_name varchar(100) NOT NULL,
+  	workspace_uuid varchar(36) NOT NULL,
+  	workspace_password varchar(10) NULL,
+  	created_at DATETIME NOT NULL DEFAULT NOW(),
+  	updated_at DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW()
+  )
+  ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci
+  ```
+
+- V0_1_1__insert_workspaces.sql
+
+  ```sql
+  INSERT INTO workspaces
+  (workspace_id, workspace_name, workspace_uuid, workspace_password, created_at, updated_at)
+  VALUES(1, "HYEON's workspace", '2a2ba386-1ca1-49c6-8573-076916ac6139', 'Password', now(), now());
+  ```
+
+
+
+이제 Entity를 생성합니다.
+
+- Workspace
+
+  ```java
+  @Entity
+  @Table(name = "workspaces")
+  @Builder
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Getter
+  public class Workspace {
+      @Id
+      private Integer id;
+      private String name;
+      @Column(name = "uuid", unique = true)
+      private String uuid;
+      private String password;
+      private String createdAt;
+      private String updatedAt;
+  }
+  ```
+
+그리고 차례대로 Repository, Service, Controller를 만들어줍니다.
+
+- WorkspaceRepository
+
+  ```java
+  @Repository
+  public interface WorkspaceRepository extends JpaRepository<Workspace, Integer> {
+      Workspace findByUuid(String uuid);
+  }
+  ```
+
+- WorkspaceService
+
+  ```java
+  @Service
+  @RequiredArgsConstructor
+  public class WorkspaceService {
+      private final WorkspaceRepository workspaceRepository;
+  
+      public Workspace getWorkspace(String uuid) {
+          return workspaceRepository.findByUuid(uuid);
+      }
+  }
+  ```
+
+- WorkspaceController
+
+  ```java
+  @RestController
+  @RequiredArgsConstructor
+  public class WorkspaceController {
+      private final WorkspaceService workspaceService;
+  
+      @GetMapping("/workspaces/{uuid}")
+      public Workspace workspaceDetail(@PathVariable @Length(min=16, max=16) String uuid) {
+          return workspaceService.getWorkspace(uuid);
+      }
+  }
+  ```
+
+
+
++) 쿼리 결과는 정상적이지만 API 응답이 그냥  `{}` 로 떨어지는 경우
+- return 한 Entity에 public getter가 없어서 그럴 수 있습니다. [참고](https://stackoverflow.com/questions/49117622/spring-rest-controller-returns-empty-json-iterable-data-structure-why)
+
+# 마치며
+
+- 처음부터 해보면 머리에 확실히 잘 들오는 것 같습니다 👍 get api 하나 만드는데 생각보다 많은 것을 배웠네요.
+- 너무 간단한 예제만 만들어서 아직은 왜 "하... 너넨 이런거(JPA) 하지마라 🚬" 하는건 지 못 느꼈어요. 더 써봐야되겠습니다.
