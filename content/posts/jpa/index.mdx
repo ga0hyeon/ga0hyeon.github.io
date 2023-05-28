@@ -1,10 +1,9 @@
 ---
-title: JPA 세팅하기 🛠️
+title: JPA 세팅하기 🔨
 date: 2022-11-15
 description: Spring Boot + MySQL + JPA + Flyway 세팅 과정을 정리해봅니다.
 tags:
   - 개발
-banner: ./hexo_blog.png
 ---
 # Motivation
 
@@ -17,7 +16,7 @@ banner: ./hexo_blog.png
 
 언어 옵션 중 Kotlin이 아주 잠깐 궁금했으나 잘 참고 Java를 고릅니다 ㅎㅎ 왜냐면 아직 Java도 아직 잘모르기 때문이죠 🤦‍♀️
 Dependency는 각자 필요한 것을 선택하면 되는데, 저는 Lombok, JPA, Flyway, Web 을 골랐습니다.
-
+***
 # Application.yaml 설정
 
 Initializer로 만든 폴더 안에는 application.properties가 기본으로 생성되어있으나 저는 가독성 때문에 yaml 포맷을 선호하므로 application.yaml 파일을 만들어줍니다.
@@ -71,21 +70,24 @@ logging:
 
 +) 궁금한점
 
-- 비슷한 카테고리 같은데 왜 depth가 왜 다른걸까요? jpa.hibernate랑 jpa.properties.hibernate 처럼.
+- 비슷한 카테고리 같은데 왜 depth가 왜 다른걸까요? jpa.hibernate랑 jpa.properties.hibernate 처럼.  
 - url username passwork 이거 다 datasource, flyway에 두 번씩 쓰게 되어있는데.. 변수로 정리해두긴 했으나, 두 옵션이 한 값을 바라보도록 바로 설정은 안되는걸까요?
 
 
-
+***
 # Layer 별 폴더 트리 생성
 
-이제 로컬에 서버를 띄울 수 있는 상태가 되었으니 실제로 기능 개발을 할 수 있도록 폴더를 생성합니다.
-매번 Layer (Controller, Service, Repository) 별로 폴더링을 했는데 문득 다른 사람들은 어쩌고 있나 싶어 찾아보니 Entity/Domain별로 묶는 방법도 쓰이고 있네요. 사실 폴더로 묶으면 한 패키지가 되니, 패키지랑 맥락이 비슷한 개념은 Layer보단 Entity/Domain인 것 같기도 하고 고민이 되긴 합니다. 그렇다고 실제로 패키지별로 따로 묶어서 배포/공유하는 것도 아니니 생각보다 엄청나게 메리트가 있을 것 같지 않기는 하지만요. 우선 이번에도 Layer로 폴더를 나누도록 합니다.
+이제 로컬에 서버를 띄울 수 있는 상태가 되었으니 실제로 기능 개발을 할 수 있도록 폴더를 생성합니다.  
+
+매번 Layer (Controller, Service, Repository) 별로 폴더링을 했는데 문득 다른 사람들은 어쩌고 있나 싶어 찾아보니 Entity/Domain별로 묶는 방법도 쓰이고 있네요. 사실 폴더로 묶으면 한 패키지가 되니, 패키지랑 맥락이 비슷한 개념은 Layer보단 Entity/Domain인 것 같기도 하고 고민이 되긴 합니다. 그렇다고 실제로 패키지별로 따로 묶어서 배포/공유하는 것도 아니니 생각보다 엄청나게 메리트가 있을 것 같지 않기는 하지만요.   
+
+우선 이번에도 Layer로 폴더를 나누도록 합니다.
 
 
-
+***
 # 첫번째 flyway 스크립트와 REST api 만들기
 
-이제 첫번째 REST API를 만들어봅니다.
+이제 첫번째 REST API를 만들어봅니다.  
 uuid를 넘기면 workspace 이름을 조회하는 API이며, 그러려면 우선 workspace 테이블을 생성해주어야하겠습니다.
 
 - V0_1_0__create_workspaces.sql
@@ -179,9 +181,9 @@ uuid를 넘기면 workspace 이름을 조회하는 API이며, 그러려면 우�
 
 
 
-+) 쿼리 결과는 정상적이지만 API 응답이 그냥  `{}` 로 떨어지는 경우
++) 쿼리 결과는 정상적이지만 API 응답이 그냥  `{}` 로 떨어지는 경우
 - return 한 Entity에 public getter가 없어서 그럴 수 있습니다. [참고](https://stackoverflow.com/questions/49117622/spring-rest-controller-returns-empty-json-iterable-data-structure-why)
-
+***
 # 마치며
 
 - 처음부터 해보면 머리에 확실히 잘 들오는 것 같습니다 👍 get api 하나 만드는데 생각보다 많은 것을 배웠네요.
